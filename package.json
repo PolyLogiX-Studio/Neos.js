@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bombitmanbomb/Neos.js/issues"
   },
-  "homepage": "https://github.com/bombitmanbomb/Neos.js#readme"
+  "homepage": "https://github.com/bombitmanbomb/Neos.js#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
 }
