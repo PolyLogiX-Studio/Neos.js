@@ -1,2 +1,2 @@
 
-module.exports.CloudXInterface = CloudXInterface
+module.exports.CloudXInterface = function(){return true}
