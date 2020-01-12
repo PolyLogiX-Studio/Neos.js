@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/bombitmanbomb/Neos.js#readme",
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "uuid": "^3.3.3"
   }
 }
