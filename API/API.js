@@ -1,13 +1,14 @@
 const uuidv4 = require('uuid/v4')
+const fetch = require('node-fetch')
 class AssetEntry {
-    constructor(){
+    constructor() {
         this.id = new String()
         this.OwnerId = new String()
         this.Entry
         this.ComputeLock
     }
-    get AssetHash(){
-        if (this.OwnerId==null|| !this.OwnerId.startsWith("A-")){
+    get AssetHash() {
+        if (this.OwnerId == null || !this.OwnerId.startsWith("A-")) {
             console.error("OwnerId is invalid, cannot extract asset hash from it");
         }
         return this.OwnerId.substring("A-".length);
@@ -17,7 +18,7 @@ class AssetEntry {
     }
 }
 class AssetInfo {
-    constructor(){
+    constructor() {
         this.ownerId = new String()
         this.assetHash = new String()
         this.Bytes = new BigInt()
@@ -28,30 +29,30 @@ class AssetInfo {
     }
 }
 class CloudMessage {
-    constructor(){
+    constructor() {
         this.Message = new String()
     }
-    static ExtractMessage(content){
+    static ExtractMessage(content) {
         try {
             return content.Message || content
-        } catch(err) {
+        } catch (err) {
             return content;
         }
     }
 }
 class CloudVariable {
-    constructor(){
+    constructor() {
         this.VariableOwnerId = new String()
         this.Path = new String()
         this.Value = new String()
     }
-    static GetDefinitionPath(path,ownerId,subpath){
+    static GetDefinitionPath(path, ownerId, subpath) {
         let length = path.indexOf('.')
-        ownerId.value = path.substring(0,length)
+        ownerId.value = path.substring(0, length)
         subpath.value = path.substring(length + 1)
     }
-    GetDefinitionPath(ownerId,subpath){
-        CloudVariable.GetDefinitionPath(this.Path,ownerId,subpath)
+    GetDefinitionPath(ownerId, subpath) {
+        CloudVariable.GetDefinitionPath(this.Path, ownerId, subpath)
     }
 }
 class CloudVariableDefinition {
@@ -84,7 +85,7 @@ class Friend {
     }
 }
 class Group {
-    constructor(){
+    constructor() {
         this.GroupId = new String()
         this.AdminUserId = new String()
         this.Name = new String()
@@ -94,7 +95,7 @@ class Group {
 }
 //IRecord
 class Member {
-    constructor(){
+    constructor() {
         this.UserId = new String()
         this.GroupId = new String()
         this.QuotaBytes = new BigInt()
@@ -102,14 +103,14 @@ class Member {
     }
 }
 class Membership {
-    constructor(){
+    constructor() {
         this.UserId = new String()
         this.GroupId = new String()
         this.GroupName = new String()
     }
 }
 class Message {
-    constructor(){
+    constructor() {
         this.Id = new String()
         this.OwnerId = new String()
         this.RecipientId = new String()
@@ -120,13 +121,13 @@ class Message {
         this.LastUpdateTime = new Date()
         this.ReadTime
     }
-    static GenerateId(){
+    static GenerateId() {
         return "MSG-" + new uuidv4()
     }
-    ExtractContent(){
+    ExtractContent() {
         return JSON.parse(this.Content)
     }
-    SetContent(obj){
+    SetContent(obj) {
         this.Content = JSON.stringify(obj)
     }
     get IsSent() {
@@ -136,14 +137,14 @@ class Message {
         return this.RecipientId == this.OwnerId
     }
     get IsRead() {
-        return (this.ReadTime!==undefined)
+        return (this.ReadTime !== undefined)
     }
 }
-class RecordHelper{
+class RecordHelper {
 
 }
 class IRecord {
-    constructor(){
+    constructor() {
         this.RecordId = new String()
         this.OwnerId = new String()
         this.URL = new URL()
@@ -170,13 +171,13 @@ class IRecord {
     }
 }
 class Record extends IRecord {
-    constructor(){
-        
+    constructor() {
+
     }
 
 }
 class User {
-    constructor(){
+    constructor() {
         this.Id = new String()
         this.Username = new String()
         this.Email = new String()
@@ -198,48 +199,54 @@ class User {
         this.ReferrerUserId = new String()
         this.Profile = new Object()
     }
-    get IsAccountBanned(){
+    get IsAccountBanned() {
         return new Date() < this.AccountBanExpiration
     }
-    get IsPublicBanned(){
+    get IsPublicBanned() {
         return new Date() < this.PublicBanExpiration
     }
-    get IsSpectatorBanned(){
+    get IsSpectatorBanned() {
         return new Date() < this.SpectatorBanExpiration
     }
-    get IsMuteBanned(){
+    get IsMuteBanned() {
         return new Date() < this.MuteBanExpiration
     }
-    get CurrentAccountType(){
+    get CurrentAccountType() {
         if (this.PatreonData == null) return AccountType.Normal;
         return this.PatreonData.CurrentAccountType
     }
-    get AccountName(){
+    get AccountName() {
         return this.PatreonData?.AccountName || NeosAccount.AccountName(AccountType.Normal)
     }
 }
 AccountType = {
-    'Normal':0,
-    'AgentSmith':1,
-    'BladeRunner':2,
-    'Gunter':3,
-    "Neuromancer":4,
-    'Architect':5,
-    'Curator':6,
-    "Level144":7,
-    'Level250':8,
-    'Anorak':9,
-    'END':10
+    'Normal': 0,
+    'AgentSmith': 1,
+    'BladeRunner': 2,
+    'Gunter': 3,
+    "Neuromancer": 4,
+    'Architect': 5,
+    'Curator': 6,
+    "Level144": 7,
+    'Level250': 8,
+    'Anorak': 9,
+    'END': 10
+}
+ServerStatus = {
+    "Good": 0,
+    "Slow": 1,
+    "Down": 2,
+    "NoInternet": 3
 }
 class CloudResult {
-    constructor(){
+    constructor() {
         this.State
         this.Content
     }
-    ToString(){
-        return ("CloudResult - State: "+this.State+" Content: "+this.Content)
+    ToString() {
+        return ("CloudResult - State: " + this.State + " Content: " + this.Content)
     }
-    CloudResult(state,content){
+    CloudResult(state, content) {
         this.State = state
         this.Content = content
         if (!this.IsError) return;
@@ -248,21 +255,21 @@ class CloudResult {
             this.Content = JSON.parse(content).Message
         } catch (error) {
             this.Content = content
-        } 
+        }
     }
-    get IsOK(){
+    get IsOK() {
         if (this.State != 200) return (this.State == 204);
-            return true
+        return true
     }
-    get IsError(){
+    get IsError() {
         return !this.IsOK;
     }
 }
-class CloudResultGeneric extends CloudResult{
+class CloudResultGeneric extends CloudResult {
 
 }
 class CloudXInterface {
-    constructor(){
+    constructor() {
         this.lockobj = new Object();
         this._groupMemberships = new Membership();
         this._groupMemberInfos = new Member();
@@ -274,46 +281,145 @@ class CloudXInterface {
         this._currentAuthenticationHeader;
         this._lastSessionUpdate;
         this.lastServerStatsUpdate;
+        this.HttpClient
+        this.PublicKey
+        this.ServerResponseTime
+        this.LastServerUpdate
+        this.lastServerStateFetch
+        this.Friends
+        this.Messages
+        this.Transactions
     }
     static CloudEndpoint = {
-        "Production":0,
-        "Staging":1,
-        "Local":2
+        "Production": 0,
+        "Staging": 1,
+        "Local": 2
     }
     static DEFAULT_RETRIES = 5;
     static UPLOAD_DEGREE_OF_PARALLELISM = 16;
     static DEBUG_UPLOAD = false;
-    static storageUpdateDelays = [1,5,15,30];
-    static get JSON_MEDIA_TYPE(){return {'content-type':'application/json'}}
+    static storageUpdateDelays = [1, 5, 15, 30];
+    static get JSON_MEDIA_TYPE() { return { 'content-type': 'application/json' } }
     static SESSION_EXTEND_INTERVAL = 3600;
     static ProfilerBeginSampleCallback;
     static ProfilerEndSampleCallback;
     static MemoryStreamAllocator;
     static USE_CDN = new Boolean();
-    static CLOUDX_PRODUCTION_NEOS_API = "https://cloudx.azurewebsites.net";
-    static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net";
+    static CLOUDX_PRODUCTION_NEOS_API = "https://cloudx.azurewebsites.net/";
+    static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net/";
     static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
     static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
-    static LOCAL_NEOS_API = "http://localhost:60612";
+    static LOCAL_NEOS_API = "http://localhost:60612/";
     static LOCAL_NEOS_BLOB = "http://127.0.0.1:10000/devstoreaccount1/";
-    ProfilerBeginSample(name){}
-    ProfilerEndSample(){}
+    ProfilerBeginSample(name) { }
+    ProfilerEndSample() { }
     static CLOUD_ENDPOINT = CloudXInterface.CloudEndpoint.Production;
-    static get NEOS_API(){
-        switch(CloudXInterface.CLOUD_ENDPOINT){
+    static get NEOS_API() {
+        switch (CloudXInterface.CLOUD_ENDPOINT) {
             case CloudXInterface.CloudEndpoint.Production:
-                return "https://cloudx.azurewebsites.net";
+                return "https://cloudx.azurewebsites.net/";
             case CloudXInterface.CloudEndpoint.Staging:
-                return "https://cloudx-staging.azurewebsites.net";
+                return "https://cloudx-staging.azurewebsites.net/";
             case CloudXInterface.CloudEndpoint.Local:
-                return "https://localhost:60612";
+                return "https://localhost:60612/";
             default:
-                throw ("Invalid Endpoint: "+ CloudXInterface.CLOUD_ENDPOINT.toString())
+                throw ("Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString())
         }
     }
-    static get NEOS_BLOB(){
-        
+    static get NEOS_BLOB() {
+        switch (CloudXInterface.CLOUD_ENDPOINT) {
+            case CloudXInterface.CloudEndpoint.Production:
+            case CloudXInterface.CloudEndpoint.Staging:
+                return CloudXInterface.NEOS_CLOUD_BLOB
+            case CloudXInterface.CloudEndpoint.Local:
+                return CloudXInterface.NEOS_CLOUD_BLOB;
+            default:
+                throw ("Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString())
+        }
     }
+    static get NEOS_ASSETS() {
+        return CloudXInterface.NEOS_BLOB + "assets/";
+    }
+    static get NEOS_ASSETS_CDN() {
+        return "https://cloudx.azureedge.net/assets/";
+    }
+    static get NEOS_ASSETS_BLOB() {
+        return "https://cloudxstorage.blob.core.windows.net/assets/";
+    }
+    static get NEOS_THUMBNAILS() {
+        return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
+    }
+    static get NEOS_INSTALL() {
+        return "https://cloudx.azureedge.net/install/";
+    }
+    static get NEOS_CLOUD_BLOB() {
+        return !CloudXInterface.USE_CDN ? "https://cloudxstorage.blob.core.windows.net/" : "https://cloudx.azureedge.net/";
+    }
+    get ServerStatus() {
+        if ((new Date() - this.lastServerStateFetch).getSeconds >= 60.0) return ServerStatus.NoInternet
+        if ((new Date() - this.LastServerUpdate).getSeconds >= 60.0) return ServerStatus.Down
+        return this.ServerResponseTime > 250 ? this.ServerStatus.Slow : this.ServerStatus.Good
+    }
+    get CurrentUser() {
+        return this._currentUser;
+    }
+    set CurrentUser(value) {
+        if (value == this._currentUser) return;
+        this._currentUser = value;
+        userUpdated = this.UserUpdated
+        if (userUpdated == null) return;
+        userUpdated(this._currentUser)
+    }
+    get CurrentSession() {
+        return this._currentSession
+    }
+    set CurrentSession(value) {
+        if (value == this._currentSession) return;
+        //LOCK OBJECT
+        if (this._currentSession.SessionToken != value.SessionToken) this._lastSessionUpdate = new Date();
+        this._currentSession = value;
+        this._currentAuthenticationHeader = value != null ? new AuthenticationHeaderValue('neos', value.userId + ":" + value.SessionToken) : (AuthenticationHeaderValue);
+        this.OnSessionUpdated()
+        try {
+            sessionChanged = this.sessionChanged;
+            if (sessionChanged == null) return;
+            sessionChanged(this._currentSession);
+        } catch (error) {
+            Error("Exception in SessionChanged: " + (this.CurrentSession.toString() + error.toString()), true);
+        }
+    }
+    get CurrentUserMemberships(){
+        return this._groupMemberships;
+    }
+    get CurrentUserGroupInfos(){
+        return this._groups.map(function(p){return p.Value})
+    }
+    get CurrentUserMemberInfos(){
+        return this._groupMemberInfos.map(function(p){return p.Value})
+    }
+    TryGetCurrentUserGroupInfo(groupId){
+        return this._groups.filter(function(item){
+            return (item['groupId']=== groupId)
+        })
+    }
+    TryGetCurrentUserGroupMemberInfo(groupId){
+        return this._groupMemberInfos.filter(function(item){
+            return (item['groupId']=== groupId)
+        })
+    }
+    IsCurrentUserMemberOfGroup(groupId){
+        return this.TryGetCurrentUserGroupMemberInfo != null
+    }
+    TryGetCurrentUserGroupMembership(groupId){
+        //DO LATER
+    }
+    CloudXInterface(){
+        this.HttpClient = fetch
+        this.Friends = new FriendManager(this);
+        this.Messages = new MessageManager(this);
+        this.Transactions = new TransactionManager(this);''
+    }
+    
 }
 
 
