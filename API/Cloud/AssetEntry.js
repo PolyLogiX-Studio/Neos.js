@@ -1,7 +1,7 @@
 class AssetEntry {
     constructor(){
-        this.id
-        this.OwnerId
+        this.id = new String()
+        this.OwnerId = new String()
         this.Entry
         this.ComputeLock
     }
