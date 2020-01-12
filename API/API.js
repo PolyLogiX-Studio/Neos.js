@@ -259,22 +259,61 @@ class CloudResult {
     }
 }
 class CloudResultGeneric extends CloudResult{
-    
+
 }
 class CloudXInterface {
     constructor(){
-        this.lockobj = new Object()
-        this._groupMemberships = new Membership()
-        this._groupMemberInfos = new Member()
-        this._groups = new Group()
-        this.cachedRecords = new CloudResult()
+        this.lockobj = new Object();
+        this._groupMemberships = new Membership();
+        this._groupMemberInfos = new Member();
+        this._groups = new Group();
+        this.cachedRecords = new CloudResult();
+        this._currentSession;
+        this._currentUser;
+        this._cryptoProvider;
+        this._currentAuthenticationHeader;
+        this._lastSessionUpdate;
+        this.lastServerStatsUpdate;
     }
-    static DEFAULT_RETRIES = 5
-    static UPLOAD_DEGREE_OF_PARALLELISM = 16
-    static DEBUG_UPLOAD = false
-    static storageUpdateDelays = [1,5,15,30]
+    static CloudEndpoint = {
+        "Production":0,
+        "Staging":1,
+        "Local":2
+    }
+    static DEFAULT_RETRIES = 5;
+    static UPLOAD_DEGREE_OF_PARALLELISM = 16;
+    static DEBUG_UPLOAD = false;
+    static storageUpdateDelays = [1,5,15,30];
     static get JSON_MEDIA_TYPE(){return {'content-type':'application/json'}}
-
+    static SESSION_EXTEND_INTERVAL = 3600;
+    static ProfilerBeginSampleCallback;
+    static ProfilerEndSampleCallback;
+    static MemoryStreamAllocator;
+    static USE_CDN = new Boolean();
+    static CLOUDX_PRODUCTION_NEOS_API = "https://cloudx.azurewebsites.net";
+    static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net";
+    static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
+    static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
+    static LOCAL_NEOS_API = "http://localhost:60612";
+    static LOCAL_NEOS_BLOB = "http://127.0.0.1:10000/devstoreaccount1/";
+    ProfilerBeginSample(name){}
+    ProfilerEndSample(){}
+    static CLOUD_ENDPOINT = CloudXInterface.CloudEndpoint.Production;
+    static get NEOS_API(){
+        switch(CloudXInterface.CLOUD_ENDPOINT){
+            case CloudXInterface.CloudEndpoint.Production:
+                return "https://cloudx.azurewebsites.net";
+            case CloudXInterface.CloudEndpoint.Staging:
+                return "https://cloudx-staging.azurewebsites.net";
+            case CloudXInterface.CloudEndpoint.Local:
+                return "https://localhost:60612";
+            default:
+                throw ("Invalid Endpoint: "+ CloudXInterface.CLOUD_ENDPOINT.toString())
+        }
+    }
+    static get NEOS_BLOB(){
+        
+    }
 }
 
 
