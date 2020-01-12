@@ -1,10 +1,10 @@
 class Friend {
     constructor() {
-        this.FriendUserId
-        this.OwnerId
-        this.FriendUsername
+        this.FriendUserId = new String()
+        this.OwnerId = new String()
+        this.FriendUsername = new String()
         this.FriendStatus
-        this.IsAccepted
+        this.IsAccepted = new Boolean()
         this.UserStatus
         this.LatestMessageTime
         this.Profile
