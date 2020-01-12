@@ -1,11 +1,12 @@
 class CloudVariableDefinition {
     constructor() {
-        this.DefinitionOwnerId
-        this.Subpath
-        this.TypeHint
-        this.VariableOwnerCanRead
-        this.AnyoneCanRead
-        this.AnyoneCanWrite
+        this.DefinitionOwnerId = new String()
+        this.Subpath = new String()
+        this.TypeHint = new String()
+        this.VariableOwnerCanRead = new Boolean()
+        this.VariableOwnerCanWrite = new Boolean()
+        this.AnyoneCanRead = new Boolean()
+        this.AnyoneCanWrite = new Boolean()
     }
     CanRead(variableOwnerId, readerId) {
         return this.AnyoneCanRead || this.VariableOwnerCanRead && variableOwnerId == readerId || readerId == this.DefinitionOwnerId
