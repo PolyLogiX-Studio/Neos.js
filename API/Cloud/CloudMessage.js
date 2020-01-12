@@ -4,8 +4,8 @@ class CloudMessage {
     }
     static ExtractMessage(content){
         try {
-            return (content?.Message??content) 
-        } catch {
+            return content.Message || content
+        } catch(err) {
             return content;
         }
     }
