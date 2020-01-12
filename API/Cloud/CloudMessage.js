@@ -1,6 +1,6 @@
 class CloudMessage {
     constructor(){
-        this.Message
+        this.Message = new String()
     }
     static ExtractMessage(content){
         try {
