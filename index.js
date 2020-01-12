@@ -1,2 +1,6 @@
+class test {
+    constructor(){
 
-module.exports.CloudXInterface = function(){return true}
+    }
+}
+module.exports.CloudXInterface = test
