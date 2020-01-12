@@ -10,7 +10,7 @@ class CloudVariable {
     set Path(value) {this.path = value}
     get Value(){return this.value}
     set Value(value){this.value = value}
-    GetDefinitionPath(){}
+    //GetDefinitionPath(){}
     static GetDefinitionPath(path,ownerId,subpath){
         let length = path.indexOf('.')
         ownerId.value = path.substring(0,length)
