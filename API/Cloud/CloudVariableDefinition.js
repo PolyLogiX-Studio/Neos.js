@@ -1,5 +1,5 @@
 class CloudVariableDefinition {
-    constructor(){
+    constructor() {
         this.DefinitionOwnerId
         this.Subpath
         this.TypeHint
@@ -7,11 +7,11 @@ class CloudVariableDefinition {
         this.AnyoneCanRead
         this.AnyoneCanWrite
     }
-    CanRead(variableOwnerId,readerId){
-        return this.AnyoneCanRead||this.VariableOwnerCanRead&&variableOwnerId==readerId||readerId== this.DefinitionOwnerId
+    CanRead(variableOwnerId, readerId) {
+        return this.AnyoneCanRead || this.VariableOwnerCanRead && variableOwnerId == readerId || readerId == this.DefinitionOwnerId
     }
-    CanWrite(variableOwnerId,writerId){
-        return this.AnyoneCanWrite||this.VariableOwnerCanWrite&&variableOwnerId==writerId||writerId== this.DefinitionOwnerId
+    CanWrite(variableOwnerId, writerId) {
+        return this.AnyoneCanWrite || this.VariableOwnerCanWrite && variableOwnerId == writerId || writerId == this.DefinitionOwnerId
     }
 }
-module.exports = {CloudVariableDefinition}
+module.exports = { CloudVariableDefinition }
