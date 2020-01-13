@@ -417,12 +417,15 @@ class CloudXInterface {
         this.HttpClient = fetch
         this.Friends = new FriendManager(this);
         this.Messages = new MessageManager(this);
-        this.Transactions = new TransactionManager(this);''
+        this.Transactions = new TransactionManager(this);
     }
-    
+
 }
+class MessageManager {
+    constructor(){
 
+    }
+    static UPDATE_PERIOD_SECONDS = 1;
+    static UPDATE_TIMEOUT_SECONDS = 10
 
-
-
-//module.exports = {AssetInfo,AssetInfo,CloudMessage,CloudVariable,CloudVariableDefinition,Friend,Group,RecordHelper,IRecord,Member,Membership,Message,Record,User}
+}
