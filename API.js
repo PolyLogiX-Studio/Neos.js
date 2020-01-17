@@ -1,12 +1,26 @@
 const uuidv4 = require('uuid/v4')
 const fetch = require('node-fetch')
+/**
+ *
+ * @public
+ * @class AssetEntry
+ */
 class AssetEntry {
+    /**
+     *Creates an instance of AssetEntry.
+     * @memberof AssetEntry
+     */
     constructor() {
         this.id = new String()
         this.OwnerId = new String()
         this.Entry
         this.ComputeLock
     }
+    /**
+     *
+     * @public
+     * @memberof AssetEntry
+     */
     get AssetHash() {
         if (this.OwnerId == null || !this.OwnerId.startsWith("A-")) {
             console.error("OwnerId is invalid, cannot extract asset hash from it");
@@ -419,8 +433,58 @@ class CloudXInterface {
         this.Messages = new MessageManager(this);
         this.Transactions = new TransactionManager(this);
     }
-
 }
+class Endpoints
+  {
+    static CLOUDX_NEOS_API = "https://cloudx.azurewebsites.net";
+    static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/assets/";
+    static CLOUDX_NEOS_THUMBNAILS = "https://cloudxstorage.blob.core.windows.net/thumbnails/";
+  }
+class FriendManager {
+    static UPDATE_PERIOD_SECONDS = 5
+    constructor(){
+        this.friends = new Array()
+        this._friendSessions = new Array()
+        this._lock = new Object()
+        this.lastStatusUpdate = null
+        this.lastRequest = null
+        this._friendsChanged = new Boolean()
+        this.Cloud
+        this.FriendRequestCount
+    }
+    FriendManager(cloud){
+        this.Cloud = cloud
+    }
+    get FriendCount(){
+        return this.friends.length
+    }
+    GetFriends(list){
+        for (let friend of this.friends){
+            list.push(friend.Value)
+        }
+    }
+    ForeachFriend(action){
+        for (let friend of this.friends){
+            action(friend.Value)
+        }
+    }
+    GetFriendSessions(sessions){
+        for (let friendSession of this._friendSessions){
+            sessions.push(friendSession.Value)
+        }
+        return this._friendSessions.length
+    }
+    ForeachFriendSession(action){
+        for (let friendSession of this._friendSessions){
+            action(friendSession.Value)
+        }  
+    }
+    GetFriend(friendId){
+
+    }
+}
+
+
 class MessageManager {
     constructor(){
 
@@ -428,4 +492,7 @@ class MessageManager {
     static UPDATE_PERIOD_SECONDS = 1;
     static UPDATE_TIMEOUT_SECONDS = 10
 
+}
+class TransactionManager{
+    constructor(){}
 }
