@@ -3,6 +3,7 @@ const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
 const Lock = new AsyncLock()
 const URI = require('uri-js')
+const {TimeSpan,parse,parseDate,fromSeconds} = require('timespan')
 class HTTP_CLIENT {
     async static SendAsync(request, token){
 
@@ -20,6 +21,9 @@ class Uri {
     }
     get Scheme(){
         return this._raw.schema
+    }
+    static EscapeDataString(dat){
+        return encodeURI(dat)
     }
 }
 String.prototype.noExtension = function(){
@@ -354,7 +358,7 @@ class CloudResultGeneric extends CloudResult {
 }
 class CloudXInterface {
     constructor() {
-        this.lockobj = "CloudXInterface.lockobj"
+        this.lockobj = new Object()
         this._groupMemberships = new Membership();
         this._groupMemberInfos = new Member();
         this._groups = new Group();
@@ -685,7 +689,7 @@ class CloudXInterface {
        do {
         try {
             request = requestSource();
-            cancellationTokenSource = new CancellationTokenSource(timeout ?? TimeSpan.FromSeconds(30.0));
+            cancellationTokenSource = new CancellationTokenSource(timeout ?? fromSeconds(30.0));
             result = await this.HttpClient.SendAsync(request, cancellationTokenSource.Token)
         } catch (error) {
         exception = error    
@@ -720,7 +724,7 @@ class CloudXInterface {
         credentials.Email = credential
         else
         credentials.Email = credential
-        result = await cloudXinterface.POST("api/userSessions", credentials)
+        result = await cloudXinterface.POST("api/userSessions", credentials, new TimeSpan())
         if (result.IsOK){
             cloudXinterface.CurrentSession = result.Entity
             cloudXinterface.CurrentUser = new User()
@@ -733,6 +737,88 @@ class CloudXInterface {
         }
         else error("Error loging in: " + result.State.toString() + "\n" + result.Content)
         return result
+    }
+    async ExtendSession(){
+        return await this.PATCH("api/userSessions", null, new TimeSpan())
+    }
+    async Register(username, email, password){
+        this.Logout(false)
+        let u = new User()
+        u.Username = username
+        u.Email = email
+        u.Password = password
+        return await this.POST("/api/users", u, new TimeSpan())
+    }
+    async RequestRecoveryCode(email){
+        let u = new User()
+        u.Email = email
+        return await this.POST("/api/users/requestlostpassword", u, new TimeSpan())
+    }
+    async UpdateCurrentUserinfo(){
+        switch (this.CurrentUser.Id) {
+            case null:
+                throw "No current user!"
+            default:
+                user = await this.GetUser(this.CurrentUser.Id);
+                entity = user.Entity
+                if (user.IsOK && this.CurrentUser != null && this.CurrentUser.Id == entity.Id){
+                    this.CurrentUser = entity
+                    patreonData = this.CurrentUser.PatreonData;
+                    let num = new Number()
+                    if ((patreonData != null ? (patreonData.IsPatreonSupporter ? 1 : 0) : 0) == 0)
+                    {
+                        tags = this.CurrentUser.Tags
+                        num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
+                    } 
+                    else
+                    num = 1
+                    CloudXInterface.USE_CDN = num != 0
+                }
+                return user
+        }
+    }
+    async GetUser(userId){
+        return await this.GET("api/users/" + userId, new TimeSpan())
+    }
+    async GetUserByName(username){
+        return await this.GET("api/users/" + username + "?byUsername=true", new TimeSpan())
+    }
+    async GetUsers(searchName){ 
+        return await this.GET("api/users?name=" + Uri.ExcapeDataString(searchName), new TimeSpan())
+    }
+    async GetUserCached(userId){
+        return await this.GetUser(userId)
+    }
+    Logout(manualLogOut){
+        this.OnLogout()
+        if (this.CurrentSession != null && !this.CurrentSession.RememberMe | manualLogOut){
+            _userId = this.CurrentSession.UserId
+            _sessionToken = this.CurrentSession.SessionToken
+            (async ()=> await this.DELETE("api/userSessions/" + _userId + "/" + _sessionToken, new TimeSpan()))
+        }
+        this._cryptoProvider = null
+        this.PublicKey // TODO RSAParameters
+        this.CurrentSession = null
+        this.CurrentUser = null
+        this.ClearMemberships()
+        this.Friends = []
+        CloudXInterface.USE_CDN = false
+    }
+    SignHash(hash){
+        return this._cryptoProvider //TODO Cryptography
+    }
+    async FetchRecordCached(recordUri){
+        Lock.acquire(this.cachedRecords, ()=>{
+            dictionary = []
+            //TODO Wtf is this lol
+        })
+    }
+    FetchRecordIRecord(recordUri){
+        
+    }
+    FetchRecord(ownerId, recordId){
+        if (!recordId) return this.FetchRecordIRecord(ownerId); // iRecord fetch
+        return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/" + recordId, new TimeSpan())
     }
 }
 class CancellationTokenSource{
