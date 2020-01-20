@@ -29,6 +29,9 @@ class Uri {
         return encodeURI(dat)
     }
 }
+class Path{
+
+}
 String.prototype.noExtension = function(){
     return this.replace(/\.[^/.]+$/, "")
 }
@@ -423,7 +426,7 @@ class CloudXInterface {
             case CloudXInterface.CloudEndpoint.Local:
                 return "https://localhost:60612/";
             default:
-                throw ("Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString())
+                throw new Error("Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString())
         }
     }
     static get NEOS_BLOB() {
@@ -434,7 +437,7 @@ class CloudXInterface {
             case CloudXInterface.CloudEndpoint.Local:
                 return CloudXInterface.NEOS_CLOUD_BLOB;
             default:
-                throw ("Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString())
+                throw new Error("Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString())
         }
     }
     static get NEOS_ASSETS() {
@@ -707,8 +710,8 @@ class CloudXInterface {
        while (result == null && remainingRetries-- > 0)
        if (result == null){
            if (exception == null)
-               throw "Failed to get response. Exception is null"
-            throw exception
+               throw new Error("Failed to get response. Exception is null")
+            throw new Error(exception)
        }
        
     }
@@ -760,7 +763,7 @@ class CloudXInterface {
     async UpdateCurrentUserinfo(){
         switch (this.CurrentUser.Id) {
             case null:
-                throw "No current user!"
+                throw new Error("No current user!")
             default:
                 user = await this.GetUser(this.CurrentUser.Id);
                 entity = user.Entity
@@ -824,7 +827,7 @@ class CloudXInterface {
         var recordPath = []
         if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
             return this.FetchRecordAtPath(ownerId.Value, recordPath.Value)
-        throw "Uri is not a record URI"
+        throw new Error("Uri is not a record URI")
     }
     FetchRecord(ownerId, recordId){
         if (!recordId) return this.FetchRecordIRecord(ownerId); // iRecord fetch
@@ -855,7 +858,7 @@ class CloudXInterface {
                 resource = "api/groups/" + record.OwnerId + "/records/" + record.RecordId;
                 break
             default:
-                throw "Invalid record owner";
+                throw new Error("Invalid record owner")
         }
         return this.PUT(resource, record, new TimeSpan())
     }
@@ -869,7 +872,7 @@ class CloudXInterface {
                 resource = "api/groups/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess";
                 break
             default:
-                throw "Invalid record owner";
+                throw new Error("Invalid record owner")
         }
         return this.POST(resource, record, new TimeSpan())
     }
@@ -888,7 +891,7 @@ class CloudXInterface {
                 resource = "api/groups/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess/" + id;
                 break
             default:
-                throw "Invalid record owner";
+                throw new Error("Invalid record owner")
         }
         return this.GET(resource, record, new TimeSpan())
     }
@@ -908,7 +911,7 @@ class CloudXInterface {
             case OwnerType.Group:
                 return this.PUT("api/groups/" + ownerId + "/records/" + recordId + "/tags");
             default:
-                throw "Invalid record owner";
+                throw new Error("Invalid record owner")
         }
     }
     async UpdateStorage(ownerId){
@@ -943,9 +946,117 @@ class CloudXInterface {
             case OwnerType.Group:
                 return await this.GET("api/groups/" + ownerId + "/assets/" + hash, new TimeSpan())
             default:
-                throw "Invalid ownerId"
+                throw new Error("Invalid ownerId")
         }
-        
+    }
+    async RegisterAssetInfo(assetInfo){
+        switch (IdUtil.GetOwnerType(assetInfo.OwnerId)){
+            case OwnerType.User:
+                return await this.PUT("api/users/" + assetInfo.OwnerId + "/assets/" + assetInfo.AssetHash, assetInfo, new TimeSpan())
+            case OwnerType.Group:
+                return await this.PUT("api/groups/" + assetInfo.OwnerId + "/assets/" + assetInfo.AssetHash, assetInfo, new TimeSpan())
+            default:
+                throw new Error("Invalid ownerId")
+        }
+    }
+    GetAssetBaseURL(ownerId, hash, variant){
+        hash = hash.toLowerCase()
+        str = hash
+        if (variant != null)
+            str += ("&" + variant)
+        switch(IdUtil.GetOwnerType(ownerId)){
+            case OwnerType.User:
+                return "api/users/" + ownerId + "/assets/" + str
+            case OwnerType.Group:
+                return "api/groups/" + ownerId + "/assets/" + str
+            default:
+                throw new Error("Invalid ownerId")
+        }
+    }
+    async UploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null){
+        cloudResult = await this.BeginUploadAsset(ownerId, signature, variant, assetPath, retries, progressIndicator, new Number())
+        if (!cloudResult.isOK) return cloudResult
+        return await this.WaitForAssetFinishProcessing(cloudResult.Entity)
+    }
+    EnqueueChunk(baseUrl, fileName, buffer, processingBuffers){
+        buffer.task = this.RunRequest((()=>{})) //TODO Wtf is this
+    }
+    async TakeFinishedBuffer(buffers){
+        //TODO TakeFinishedBuffer
+    }
+    async BeginUploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null, bytes = null){
+        fileName = Path.GetFileName(assetPath)
+        //TODO finish
+    }
+    async WaitForAssetFinishProcessing(assetUpload){
+        baseUrl = this.GetAssetBaseURL(assetUpload.OwnerId, assetUpload.Signature, assetUpload.Variant) + "/chunks"
+        cloudResult
+        while (true)
+        {
+            cloudResult = await this.GET(baseUrl, new TimeSpan())
+            if (!cloudResult.IsError && (cloudResult.Entity.UploadState != UploadState.Uploaded && cloudResult.Entity.UploadState != UploadState.Failed))
+                await Delay(new TimeSpan(250))
+            else
+                break;
+        }
+        return cloudResult
+    }
+    UploadThumbnail(path){
+        return this.POST_File("api/thumbnails", path, "image/webp", null)
+    }
+    ExtendThumbnailLifetime(thumbnail){
+        return this.PATCH("api/thumbnails", thumbnail, new TimeSpan())
+    }
+    DeleteThumbnail(thumbnail){
+        return this.DELETE("api/thumbnails/" + thumbnail.Id + "/" + thumbnail.Key, new TimeSpan())
+    }
+    async GetGroup(groupId){
+        return await this.GET("api/groups/" + groupId, new TimeSpan())
+    }
+    async GetGroupCaches(groupId){
+        return await this.GetGroup(groupId)
+    }
+    async CreateGroup(group){
+        return await this.POST("api/groups", group, new TimeSpan())
+    }
+    async AddGroupMember(member){
+        return await this.POST("api/groups/" + member.GroupId + "/members", member, new TimeSpan())
+    }
+    async DeleteGroupMember(member){
+        return await this.DELETE("api/groups/" + member.GroupId + "/members/" + member.UserId, new TimeSpan())
+    }
+    async GetGroupMember(groupId, userId){
+        return await this.GET("api/groups/" + groupId + "/members/" + userId, new TimeSpan())
+    }
+    async GetGroupMembers(groupId){
+        return await this.GET("api/groups/" + groupId + "/members", new TimeSpan())
+    }
+    async UpdateCurrentUserMemberships(){
+        groupMemberships = await this.GetUserMemberships();
+        if (groupMemberships.isOK)
+            this.SetMemberships(groupMemberships.Entity)
+        return groupMemberships
+    }
+    async GetUserGroupMemberships(userId){
+        if (!userId)
+            return await this.GetUserGroupMemberships(this.CurrentUser.Id);
+        return await this.GET("api/users/" + userId + "/memberships", new TimeSpan()) 
+    }
+    async UpdateGroupInfo(groupId){
+        group = this.GetGroup(groupId)
+        memberTask = this.GetGroupMember(groupId, this.CurrentUser.Id)
+        groupResult = await group
+        cloudResult = await memberTask
+        Lock.acquire(this.lockobj, ()=>{
+            if (groupResult.IsOK)
+            {
+                this._groups.Remove(groupId)
+                this._groups.Add(groupId, groupResult.Entity)
+                groupUpdated = this.GroupUpdated
+                if (groupUpdated != null)
+                    groupUpdated(groupResult.Entity)
+            }
+        })
     }
 }
 class CancellationTokenSource{
