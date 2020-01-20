@@ -32,23 +32,75 @@ class Uri {
 class Path{
 
 }
+class List extends Array{
+    constructor(props){
+        if (!props) return super()
+        super(props)
+    }
+    RemoveAt(iIndex){
+        var vItem = this[iIndex];
+        if (vItem) {
+            this.splice(iIndex, 1);
+        }
+        return vItem;
+    }
+    Remove(iValue){
+        var iIndex = this.indexOf(iValue)
+        if (iIndex > -1){
+            this.RemoveAt(iIndex)
+        }
+        return iIndex
+    }
+    Add(value){
+        this.push(value)
+    }
+    Clear(){
+        this.splice(0,this.length)
+    }
+}
+class Dictionary extends Array {
+    constructor(props){
+        if (!props) return super()
+        super(props)
+    }
+    Add(Key, Value){
+        if (this.ContainsKey(Key)) throw new Error("ArgumentException: An element with the same key already exists")
+        this.push({Key, Value})
+    }
+    Clear(){
+        this.splice(0,this.length)
+    }
+    ContainsKey(key){
+        for (let object of this){
+            if (object.Key==key) return true
+        }
+        return false
+    }
+    ContainsValue(value){
+        for (let object of this){
+            if (object.Value==value) return true
+        }
+        return false
+    }
+    EnsureCapacity(capacity){
+        return this.length
+    }
+    RemoveAt(iIndex){
+        var vItem = this[iIndex];
+        if (vItem) {
+            this.splice(iIndex, 1);
+        }
+        return vItem;
+    }
+    Remove(key){
+        if (!this.ContainsKey(key)) return false
+        
+    }
+}
 String.prototype.noExtension = function(){
     return this.replace(/\.[^/.]+$/, "")
 }
-Array.prototype.RemoveAt = function (iIndex){
-    var vItem = this[iIndex];
-    if (vItem) {
-        this.splice(iIndex, 1);
-    }
-    return vItem;
-};
-Array.prototype.Remove = function(iValue){
-    var iIndex = this.indexOf(iValue)
-    if (iIndex > -1){
-        this.RemoveAt(iIndex)
-    }
-    return iIndex
-}
+
 /**
  *
  * @public
@@ -367,7 +419,7 @@ class CloudXInterface {
         this.lockobj = new Object()
         this._groupMemberships = new Membership();
         this._groupMemberInfos = new Member();
-        this._groups = new Group();
+        this._groups = new List();
         this.cachedRecords = new CloudResult();
         this._currentSession;
         this._currentUser;
@@ -1126,7 +1178,7 @@ class FriendManager {
 class MessageManager {
     constructor() {
         this._messagesLock = "MessageManager._messagesLock"
-        this._messages = new Array()
+        this._messages = new List()
         this.lastRequest
         this.lastUnreadMessage
         this._unreadCountDirty = new Boolean()
@@ -1237,7 +1289,7 @@ class MessageManager {
     //event UnreadMessageCounrChange
     static UserMessages = class {
         constructor(){
-            this._messageIds = new Array()
+            this._messageIds = new List()
             this._lock = "MessageManager.UserMessages._lock"
             this._historyLoadTask;
             this._historyLoaded = new Boolean()
@@ -1347,8 +1399,8 @@ class MessageManager {
         AddMessage(message){
             Lock.acquire(this._lock,()=>{
                 if (this._messageIds.includes(message.Id)) return false;
-                this.Messages.push(message)
-                this._messageIds.push(message.Id)
+                this.Messages.Add(message)
+                this._messageIds.Add(message.Id)
                 if (message.IsReceived && !message.ReadTime!=undefined) ++ this.UnreadCount
                 while (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY || this.Messages.length > MessageManager.MAX_UNREAD_HISTORY && (this.Messages[0].IsSent || this.Messages[0].ReadTime!=undefined))
                 {
