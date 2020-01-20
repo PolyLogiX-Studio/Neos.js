@@ -9,6 +9,9 @@ class HTTP_CLIENT {
 
     }
 }
+function Delay(timespan) {
+    return new Promise(resolve => setTimeout(resolve, timespan.msecs));
+  }
 class Uri {
     constructor(url){
         this._rawUrl = url
@@ -814,11 +817,135 @@ class CloudXInterface {
         })
     }
     FetchRecordIRecord(recordUri){
-        
+        var ownerId = []
+        var recordId = []
+        if (RecordUtil.ExtractRecordID(recordUri, ownerId, recordId))
+            return this.FetchRecord(ownerId.Value, recordId.Value)
+        var recordPath = []
+        if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
+            return this.FetchRecordAtPath(ownerId.Value, recordPath.Value)
+        throw "Uri is not a record URI"
     }
     FetchRecord(ownerId, recordId){
         if (!recordId) return this.FetchRecordIRecord(ownerId); // iRecord fetch
         return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/" + recordId, new TimeSpan())
+    }
+    FetchRecordAtPath(ownerId, path){
+        return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/root/" + path, new TimeSpan())
+    }
+    GetRecords(ownerId, tag = null, path = null){
+        ownerPath = CloudXInterface.GetOwnerPath(ownerId);
+        str = ""
+        if (tag != null)
+            str = "?tag=" + Uri.EscapeDataString(tag);
+        if (path != null)
+            str = "?path=" + Uri.EscapeDataString(path)
+        return this.GET("api/" + ownerPath + "/" + ownerId + "/records" + str)
+    }
+    FindRecords(search){
+        return this.POST("/api/records/search", search, new TimeSpan())
+    }
+    UpsertRecord(record){
+        resource;
+        switch (IdUtil.GetOwnerType(record.OwnerId)) {
+            case OwnerType.User:
+                resource = "api/users/" + record.OwnerId + "/records/" + record.RecordId;
+                break
+            case OwnerType.Group:
+                resource = "api/groups/" + record.OwnerId + "/records/" + record.RecordId;
+                break
+            default:
+                throw "Invalid record owner";
+        }
+        return this.PUT(resource, record, new TimeSpan())
+    }
+    PreprocessRecord(record){
+        resource;
+        switch (IdUtil.GetOwnerType(record.OwnerId)) {
+            case OwnerType.User:
+                resource = "api/users/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess";
+                break
+            case OwnerType.Group:
+                resource = "api/groups/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess";
+                break
+            default:
+                throw "Invalid record owner";
+        }
+        return this.POST(resource, record, new TimeSpan())
+    }
+    GetPreprocessStatus(ownerId, recordId, id){
+        if (!recordId){
+            recordId = ownerId.RecordId
+            id = ownerId.PreprocessId
+            ownerId = ownerId.OwnerId
+        }
+        resource;
+        switch (IdUtil.GetOwnerType(record.OwnerId)) {
+            case OwnerType.User:
+                resource = "api/users/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess/" + id;
+                break
+            case OwnerType.Group:
+                resource = "api/groups/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess/" + id;
+                break
+            default:
+                throw "Invalid record owner";
+        }
+        return this.GET(resource, record, new TimeSpan())
+    }
+    async DeleteRecord(ownerId, recordId){
+        if (!recordId){
+            recordid = ownerId.RecordId
+            ownerId = ownerId.OwnerId
+        }
+        result = await this.DELETE("api/users/" + ownerId + "/records/" + recordId, new TimeSpan())
+        await this.UpdateStorage(ownerId)
+        return result
+    }
+    AddTag(ownerid, recordId, tag){
+        switch(IdUtil.GetOwnerType(ownerId)){
+            case OwnerType.User:
+                return this.PUT("api/users/" + ownerId + "/records/" + recordId + "/tags");
+            case OwnerType.Group:
+                return this.PUT("api/groups/" + ownerId + "/records/" + recordId + "/tags");
+            default:
+                throw "Invalid record owner";
+        }
+    }
+    async UpdateStorage(ownerId){
+        if (this.CurrentUser == null) return
+        ownerType = IdUtil.GetOwnerType(ownerId);
+        _signedUserId = this.CurrentUser.Id;
+        numArray = CloudXInterface.storageUpdateDelays;
+        for (index = 0; index < numArray.length; index++){
+            await Delay(fromSeconds(numArray[index]))
+            if (this.CurrentUser.Id != _signedUserId) return;
+            if (ownerType == OwnerType.User)
+            {
+                cloudResult = await this.UpdateCurrentUserInfo()
+            }
+            else
+            {
+                await this.UpdateGroupInfo(ownerId)
+            }
+        }
+        numArray = null
+    }
+    async FetchGlobalAssetInfo(hash){
+        return await this.GET("api/assets/" + hash.toLowerCase(), new TimeSpan())
+    }
+    async FetchUserAssetInfo(hash){
+        return await this.FetchUserAssetInfo(this.CurrentUser.Id, hash)
+    }
+    async FetchAssetInfo(ownerId, hash){
+        switch(IdUtil.GetOwnerType(ownerId)){
+            case OwnerType.User:
+                return await this.GET("api/users/" + ownerId + "/assets/" + hash, new TimeSpan())
+            case OwnerType.Group:
+                return await this.GET("api/groups/" + ownerId + "/assets/" + hash, new TimeSpan())
+            default:
+                throw "Invalid ownerId"
+        }
+        
     }
 }
 class CancellationTokenSource{
