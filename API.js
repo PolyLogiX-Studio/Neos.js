@@ -94,7 +94,10 @@ class Dictionary extends Array {
     }
     Remove(key){
         if (!this.ContainsKey(key)) return false
-        
+        for (let object of this){
+            if (object.Key==key) {this.RemoveAt(this.indexOf(object)); return true}
+        }
+        return false
     }
 }
 String.prototype.noExtension = function(){
