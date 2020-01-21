@@ -5,7 +5,7 @@ const Lock = new AsyncLock()
 const URI = require('uri-js')
 const {TimeSpan,parse,parseDate,fromSeconds} = require('timespan')
 class HTTP_CLIENT {
-    async static SendAsync(request, token){
+    static async SendAsync(request, token){
 
     }
 }
@@ -184,8 +184,8 @@ class CloudVariable {
     }
     static GetDefinitionPath(path, ownerId, subpath) {
         let length = path.indexOf('.')
-        ownerId.value = path.substring(0, length)
-        subpath.value = path.substring(length + 1)
+        ownerId.Out = path.substring(0, length)
+        subpath.Out = path.substring(length + 1)
     }
     GetDefinitionPath(ownerId, subpath) {
         CloudVariable.GetDefinitionPath(this.Path, ownerId, subpath)
@@ -524,7 +524,7 @@ class CloudXInterface {
     set CurrentUser(value) {
         if (value == this._currentUser) return;
         this._currentUser = value;
-        userUpdated = this.UserUpdated
+        let userUpdated = this.UserUpdated
         if (userUpdated == null) return;
         userUpdated(this._currentUser)
     }
@@ -539,7 +539,7 @@ class CloudXInterface {
         this._currentAuthenticationHeader = value != null ? new AuthenticationHeaderValue('neos', value.userId + ":" + value.SessionToken) : (AuthenticationHeaderValue);
         this.OnSessionUpdated()
         try {
-            sessionChanged = this.sessionChanged;
+            let sessionChanged = this.sessionChanged;
             if (sessionChanged == null) return;
             sessionChanged(this._currentSession);
         } catch (error) {
@@ -640,14 +640,14 @@ class CloudXInterface {
         for (groupMembership of this._groupMemberships){
             await this.UpdateGroupInfo(groupMembership.GroupId)
         }
-        membershipsUpdated = this.MembershipsUpdated
+        let membershipsUpdated = this.MembershipsUpdated
         if (membershipsUpdated == null) return;
         membershipsUpdated(this._groupMemberships)
     }
     static NeosDBToHttp(neosdb, forceCDN = false, forceCloudBlob = false){
-        str1 = CloudXInterface.NeosDBSignature(neosdb);
-        str2 = CloudXInterface.NeosDBQuery(neosdb)
-        str3 = str1
+        let str1 = CloudXInterface.NeosDBSignature(neosdb);
+        let str2 = CloudXInterface.NeosDBQuery(neosdb)
+        let str3 = str1
         if (str2!=null) str3 = str3 + "/" + str2
         if (CloudXInterface.IsLegacyNeosDB(neosdb)) return new Uri("https://neoscloud.blob.core.windows.net/assets/" + str3);
         return new Uri((forceCDN ? CloudXInterface.NEOS_ASSETS_CDN : (forceCloudBlob ? "https://cloudxstorage.blob.core.windows.net/" : CloudXInterface.NEOS_ASSETS)) + str3)
@@ -733,7 +733,7 @@ class CloudXInterface {
         */
     }
     CreateRequest(resource, method){
-        httpRequestMessage = new httpRequestMessage(method, CloudXInterface.NEOS_API + "/" + resource)
+        let httpRequestMessage = new httpRequestMessage(method, CloudXInterface.NEOS_API + "/" + resource)
         if (this.CurrentSession != null)
             httpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
         return httpRequestMessage
@@ -742,18 +742,18 @@ class CloudXInterface {
         //TODO
     }
     async RunRequest(requestSource, timeout){
-       request = null
-       result = null
-       exception = null
-       remainingRetries = CloudXInterface.DEFAULT_RETRIES
-       delay = 0
+       let request = null
+       let result = null
+       let exception = null
+       let remainingRetries = CloudXInterface.DEFAULT_RETRIES
+       let delay = 0
        do {
         try {
             request = requestSource();
-            cancellationTokenSource = new CancellationTokenSource(timeout ?? fromSeconds(30.0));
+            let cancellationTokenSource = new CancellationTokenSource(timeout ? timeout : fromSeconds(30.0));
             result = await this.HttpClient.SendAsync(request, cancellationTokenSource.Token)
         } catch (error) {
-        exception = error    
+            let exception = error    
         }
         if (result == null) {
             console.error(`Exception running `)
@@ -771,9 +771,9 @@ class CloudXInterface {
        
     }
     async Login(credential, password, sessionToken, secretMachineId, rememberMe, reciverCode){
-        cloudXinterface = this
+        let cloudXinterface = this
         cloudXinterface.Logout(false);
-        credentials = new LoginCredentials()
+        let credentials = new LoginCredentials()
         credentials.Password = password
         credentials.RecoverCode = reciverCode
         credentials.SessionToken = sessionToken
@@ -820,8 +820,8 @@ class CloudXInterface {
             case null:
                 throw new Error("No current user!")
             default:
-                user = await this.GetUser(this.CurrentUser.Id);
-                entity = user.Entity
+                let user = await this.GetUser(this.CurrentUser.Id);
+                let entity = user.Entity
                 if (user.IsOK && this.CurrentUser != null && this.CurrentUser.Id == entity.Id){
                     this.CurrentUser = entity
                     patreonData = this.CurrentUser.PatreonData;
@@ -853,8 +853,8 @@ class CloudXInterface {
     Logout(manualLogOut){
         this.OnLogout()
         if (this.CurrentSession != null && !this.CurrentSession.RememberMe | manualLogOut){
-            _userId = this.CurrentSession.UserId
-            _sessionToken = this.CurrentSession.SessionToken
+            let _userId = this.CurrentSession.UserId
+            let _sessionToken = this.CurrentSession.SessionToken
             (async ()=> await this.DELETE("api/userSessions/" + _userId + "/" + _sessionToken, new TimeSpan()))
         }
         this._cryptoProvider = null
@@ -870,7 +870,7 @@ class CloudXInterface {
     }
     async FetchRecordCached(recordUri){
         Lock.acquire(this.cachedRecords, ()=>{
-            dictionary = []
+            let dictionary = []
             //TODO Wtf is this lol
         })
     }
@@ -892,8 +892,8 @@ class CloudXInterface {
         return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/root/" + path, new TimeSpan())
     }
     GetRecords(ownerId, tag = null, path = null){
-        ownerPath = CloudXInterface.GetOwnerPath(ownerId);
-        str = ""
+        let ownerPath = CloudXInterface.GetOwnerPath(ownerId);
+        let str = ""
         if (tag != null)
             str = "?tag=" + Uri.EscapeDataString(tag);
         if (path != null)
@@ -904,7 +904,7 @@ class CloudXInterface {
         return this.POST("/api/records/search", search, new TimeSpan())
     }
     UpsertRecord(record){
-        resource;
+        let resource;
         switch (IdUtil.GetOwnerType(record.OwnerId)) {
             case OwnerType.User:
                 resource = "api/users/" + record.OwnerId + "/records/" + record.RecordId;
@@ -918,7 +918,7 @@ class CloudXInterface {
         return this.PUT(resource, record, new TimeSpan())
     }
     PreprocessRecord(record){
-        resource;
+        let resource;
         switch (IdUtil.GetOwnerType(record.OwnerId)) {
             case OwnerType.User:
                 resource = "api/users/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess";
@@ -937,7 +937,7 @@ class CloudXInterface {
             id = ownerId.PreprocessId
             ownerId = ownerId.OwnerId
         }
-        resource;
+        let resource;
         switch (IdUtil.GetOwnerType(record.OwnerId)) {
             case OwnerType.User:
                 resource = "api/users/" + record.OwnerId + "/records/" + record.RecordId + "/preprocess/" + id;
@@ -955,7 +955,7 @@ class CloudXInterface {
             recordid = ownerId.RecordId
             ownerId = ownerId.OwnerId
         }
-        result = await this.DELETE("api/users/" + ownerId + "/records/" + recordId, new TimeSpan())
+        let result = await this.DELETE("api/users/" + ownerId + "/records/" + recordId, new TimeSpan())
         await this.UpdateStorage(ownerId)
         return result
     }
@@ -971,9 +971,9 @@ class CloudXInterface {
     }
     async UpdateStorage(ownerId){
         if (this.CurrentUser == null) return
-        ownerType = IdUtil.GetOwnerType(ownerId);
-        _signedUserId = this.CurrentUser.Id;
-        numArray = CloudXInterface.storageUpdateDelays;
+        let ownerType = IdUtil.GetOwnerType(ownerId);
+        let _signedUserId = this.CurrentUser.Id;
+        let numArray = CloudXInterface.storageUpdateDelays;
         for (index = 0; index < numArray.length; index++){
             await Delay(fromSeconds(numArray[index]))
             if (this.CurrentUser.Id != _signedUserId) return;
@@ -1016,7 +1016,7 @@ class CloudXInterface {
     }
     GetAssetBaseURL(ownerId, hash, variant){
         hash = hash.toLowerCase()
-        str = hash
+        let str = hash
         if (variant != null)
             str += ("&" + variant)
         switch(IdUtil.GetOwnerType(ownerId)){
@@ -1029,7 +1029,7 @@ class CloudXInterface {
         }
     }
     async UploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null){
-        cloudResult = await this.BeginUploadAsset(ownerId, signature, variant, assetPath, retries, progressIndicator, new Number())
+        let cloudResult = await this.BeginUploadAsset(ownerId, signature, variant, assetPath, retries, progressIndicator, new Number())
         if (!cloudResult.isOK) return cloudResult
         return await this.WaitForAssetFinishProcessing(cloudResult.Entity)
     }
@@ -1040,12 +1040,12 @@ class CloudXInterface {
         //TODO TakeFinishedBuffer
     }
     async BeginUploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null, bytes = null){
-        fileName = Path.GetFileName(assetPath)
+        let fileName = Path.GetFileName(assetPath)
         //TODO finish
     }
     async WaitForAssetFinishProcessing(assetUpload){
-        baseUrl = this.GetAssetBaseURL(assetUpload.OwnerId, assetUpload.Signature, assetUpload.Variant) + "/chunks"
-        cloudResult
+        let baseUrl = this.GetAssetBaseURL(assetUpload.OwnerId, assetUpload.Signature, assetUpload.Variant) + "/chunks"
+        let cloudResult
         while (true)
         {
             cloudResult = await this.GET(baseUrl, new TimeSpan())
@@ -1087,7 +1087,7 @@ class CloudXInterface {
         return await this.GET("api/groups/" + groupId + "/members", new TimeSpan())
     }
     async UpdateCurrentUserMemberships(){
-        groupMemberships = await this.GetUserMemberships();
+        let groupMemberships = await this.GetUserMemberships();
         if (groupMemberships.isOK)
             this.SetMemberships(groupMemberships.Entity)
         return groupMemberships
@@ -1098,10 +1098,10 @@ class CloudXInterface {
         return await this.GET("api/users/" + userId + "/memberships", new TimeSpan()) 
     }
     async UpdateGroupInfo(groupId){
-        group = this.GetGroup(groupId)
-        memberTask = this.GetGroupMember(groupId, this.CurrentUser.Id)
-        groupResult = await group
-        cloudResult = await memberTask
+        let group = this.GetGroup(groupId)
+        let memberTask = this.GetGroupMember(groupId, this.CurrentUser.Id)
+        let groupResult = await group
+        let cloudResult = await memberTask
         Lock.acquire(this.lockobj, ()=>{
             if (groupResult.IsOK)
             {
@@ -1368,7 +1368,7 @@ class MessageManager {
             Lock.acquire(this._lock,()=>{
                 this.Messages.push(message)
             })
-            friend = this.Cloud.Friends.GetFriend(message.RecipientId)
+            let friend = this.Cloud.Friends.GetFriend(message.RecipientId)
             if (friend!= null) friend.LatestMessageTime = new Date()
             return await this.Cloud.SendMessage(message)
         }
@@ -1377,7 +1377,7 @@ class MessageManager {
         }
         async EnsureHistory(){
             if (this._historyLoaded) return;
-            isFirstRequest = false
+            let isFirstRequest = false
             Lock.acquire(this._lock,()=>{
                 if (this._historyLoaded) return;
                 if (this._historyLoadTask == null){
@@ -1456,7 +1456,7 @@ class TransactionManager {
     //TODO Rest of Thing, Will Break
 }
 
-const Shared = {}
+const Shared = {CloudXInterface}
 module.exports = {
     Shared
 }
