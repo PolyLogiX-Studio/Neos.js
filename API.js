@@ -959,12 +959,12 @@ class CloudXInterface {
         await this.UpdateStorage(ownerId)
         return result
     }
-    AddTag(ownerid, recordId, tag){
+    AddTag(ownerId, recordId, tag){
         switch(IdUtil.GetOwnerType(ownerId)){
             case OwnerType.User:
-                return this.PUT("api/users/" + ownerId + "/records/" + recordId + "/tags");
+                return this.PUT("api/users/" + ownerId + "/records/" + recordId + "/tags", tag, new TimeSpan());
             case OwnerType.Group:
-                return this.PUT("api/groups/" + ownerId + "/records/" + recordId + "/tags");
+                return this.PUT("api/groups/" + ownerId + "/records/" + recordId + "/tags", tag, new TimeSpan());
             default:
                 throw new Error("Invalid record owner")
         }
@@ -1222,7 +1222,7 @@ class MessageManager {
         }
         this.lastRequest = new Date()
         this._waitingForRequest = true(async () => {
-            cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
+            let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
             this._waitingForRequest = false
             if (!cloudResult1.IsOK) {
                 return
@@ -1234,21 +1234,21 @@ class MessageManager {
                         hashSet.push(message);
                 }
             })
-            flag1 = false
+            let flag1 = false
             for (message of cloudResult1.Entity) {
                 if (!hashSet.includes(message)) {
                     if (this.InitialmessagesFetched && message.MessageType == MessageType.CreditTransfer) {
-                        content = message.ExtractContent()
-                        flag2 = content.RecipientId == this.Cloud.CurrentUser.Id
-                        currentUser = this.Cloud.CurrentUser
+                        let content = message.ExtractContent()
+                        let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id
+                        let currentUser = this.Cloud.CurrentUser
                         if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
                             currentUser.Credits[content.Token] += flag2 ? content.Amount : -content.Amount;
                         }
                         flag1 = true;
                     }
-                    onMessageReceived = this.onMessageReceived
+                    let onMessageReceived = this.onMessageReceived
                     if (onMessageReceived != null) onMessageReceived(message);
-                    friend = this.Cloud.Friends.GetFriend(message.SenderId);
+                    let friend = this.Cloud.Friends.GetFriend(message.SenderId);
                     if (friend != null) friend.LatestMessageTime = Math.max(new Date(), message.SendTime);
                 }
             }
@@ -1276,7 +1276,7 @@ class MessageManager {
         Lock.acquire(this._messagesLock,()=>{
             if (this._messages.indexOf(userId))
             return this._messages[userId]
-            usermessages2 = new MessageManager.UserMessages(userId, this)
+            let usermessages2 = new MessageManager.UserMessages(userId, this)
             this._messages.push({userId:usermessages2})
             return usermessages2
         })
@@ -1308,7 +1308,7 @@ class MessageManager {
             this.Manager = manager
         }
         MarkAllRead(){
-            ids = null
+            let ids = null
             Lock.acquire(this._lock,()=>{
                 if (this.UnreadCount == 0) return;
                 ids = new Array()
@@ -1386,7 +1386,7 @@ class MessageManager {
 
                 }
             })
-            cloudResult = await this._historyLoadTask
+            let cloudResult = await this._historyLoadTask
             if (!isFirstRequest) return;
             if (!cloudResult.IsOK){
                 this._historyLoadTask = null
@@ -1436,7 +1436,7 @@ class TransactionManager {
         (async ()=> {await this.LoadConversionData()})
     }
     async LoadConversionData(){
-        cloudResult = await this.Cloud.ReadGlobalVariable(TransactionUtil.NCR_CONVERSION_VARIABLE)
+        let cloudResult = await this.Cloud.ReadGlobalVariable(TransactionUtil.NCR_CONVERSION_VARIABLE)
         if (cloudResult.IsOK){
             this.NCRConversionRatio = BigInt(StringNumberConversion.DecimalToBigInt(cloudResult.Entity));
         } else {
@@ -1446,8 +1446,8 @@ class TransactionManager {
     TryConvert(sourceToken, sourceAmount, targetToken){
         if (sourceToken == "USD"){
             if (targetToken == null || !(targetToken == "NCR")) return new Number()
-            num = sourceAmount;
-            ncrConversionRatio = this.NCRConversionRatio
+            let num = sourceAmount;
+            let ncrConversionRatio = this.NCRConversionRatio
             if (!ncrConversionRatio != undefined) return new Number()
             return new BigInt(num /ncrConversionRatio)
         }
