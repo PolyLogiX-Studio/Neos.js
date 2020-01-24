@@ -3,107 +3,150 @@ const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
 const Lock = new AsyncLock()
 const URI = require('uri-js')
-const {TimeSpan,parse,parseDate,fromSeconds} = require('timespan')
+const { TimeSpan, parse, parseDate, fromSeconds } = require('timespan')
 class HTTP_CLIENT {
-    static async SendAsync(request, token){
-
+    static async SendAsync(request, token) {
+        let state
+        let response = await fetch(request.RequestUri, { method: request.Method }).then(res => {
+            state = res.status
+            return res.json()
+        })
+        let cloudResult = new CloudResult()
+        cloudResult.CloudResult(state,response)
+        return cloudResult
     }
+}
+const HttpMethod = {
+    "Get": "GET",
+    "Put": "PUT",
+    "Delete": "DELETE",
+    "Post": "POST",
+    "Patch": "PATCH"
 }
 function Delay(timespan) {
     return new Promise(resolve => setTimeout(resolve, timespan.msecs));
-  }
+}
 class Uri {
-    constructor(url){
+    constructor(url) {
         this._rawUrl = url
         this._raw = URI.parse(url)
         let path = (this._raw.path.split('/'))
         this.Segments = new Array()
-        path.forEach((value,index)=>{
-            this.Segments.push((index<path.length-1)?value+"/":value)
+        path.forEach((value, index) => {
+            this.Segments.push((index < path.length - 1) ? value + "/" : value)
         })
     }
-    get Scheme(){
+    get Scheme() {
         return this._raw.schema
     }
-    static EscapeDataString(dat){
+    static EscapeDataString(dat) {
         return encodeURI(dat)
     }
 }
-class Path{
+class Path {
 
 }
-class List extends Array{
-    constructor(props){
+class List extends Array {
+    constructor(props) {
         if (!props) return super()
         super(props)
     }
-    RemoveAt(iIndex){
-        var vItem = this[iIndex];
-        if (vItem) {
-            this.splice(iIndex, 1);
-        }
-        return vItem;
+    Add(value) {
+        this.push(value)
     }
-    Remove(iValue){
+    AddRange(list) {
+        if (list == null) throw new Error("ArgumentNullException")
+        if (!typeof list == "object") throw new Error("AddRange: Expected type List")
+        for (item of list) {
+            this.Add(item)
+        }
+    }
+    Clear() {
+        this.splice(0, this.length)
+    }
+    Contains(item) {
+        return this.includes(item)
+    }
+    Exists(match) {
+        //TODO
+    }
+    Find(match) {
+        return this.find(match)
+    }
+    ForEach(action) {
+        this.forEach(action)
+    }
+    Remove(iValue) {
         var iIndex = this.indexOf(iValue)
-        if (iIndex > -1){
+        if (iIndex > -1) {
             this.RemoveAt(iIndex)
         }
         return iIndex
     }
-    Add(value){
-        this.push(value)
-    }
-    Clear(){
-        this.splice(0,this.length)
-    }
-}
-class Dictionary extends Array {
-    constructor(props){
-        if (!props) return super()
-        super(props)
-    }
-    Add(Key, Value){
-        if (this.ContainsKey(Key)) throw new Error("ArgumentException: An element with the same key already exists")
-        this.push({Key, Value})
-    }
-    Clear(){
-        this.splice(0,this.length)
-    }
-    ContainsKey(key){
-        for (let object of this){
-            if (object.Key==key) return true
-        }
-        return false
-    }
-    ContainsValue(value){
-        for (let object of this){
-            if (object.Value==value) return true
-        }
-        return false
-    }
-    EnsureCapacity(capacity){
-        return this.length
-    }
-    RemoveAt(iIndex){
+    RemoveAt(iIndex) {
         var vItem = this[iIndex];
         if (vItem) {
             this.splice(iIndex, 1);
         }
         return vItem;
     }
-    Remove(key){
+    ToArray() {
+        return //TODO
+    }
+}
+class Dictionary extends Array {
+    constructor(props) {
+        if (!props) return super()
+        super(props)
+    }
+    Add(Key, Value) {
+        if (this.ContainsKey(Key)) throw new Error("ArgumentException: An element with the same key already exists")
+        this.push({ Key, Value })
+    }
+    Clear() {
+        this.splice(0, this.length)
+    }
+    ContainsKey(key) {
+        for (let object of this) {
+            if (object.Key == key) return true
+        }
+        return false
+    }
+    ContainsValue(value) {
+        for (let object of this) {
+            if (object.Value == value) return true
+        }
+        return false
+    }
+    EnsureCapacity(capacity) {
+        return this.length
+    }
+    RemoveAt(iIndex) {
+        var vItem = this[iIndex];
+        if (vItem) {
+            this.splice(iIndex, 1);
+        }
+        return vItem;
+    }
+    Remove(key) {
         if (!this.ContainsKey(key)) return false
-        for (let object of this){
-            if (object.Key==key) {this.RemoveAt(this.indexOf(object)); return true}
+        for (let object of this) {
+            if (object.Key == key) { this.RemoveAt(this.indexOf(object)); return true }
         }
         return false
     }
 }
-String.prototype.noExtension = function(){
+String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
 }
-
+class httpRequestMessage {
+    constructor(method, uri) {
+        this.Headers = {}
+        this.Content = {}
+        this.Method = method
+        this.RequestUri = uri
+    }
+}
 /**
  *
  * @public
@@ -283,7 +326,7 @@ class IRecord {
     constructor() {
         this.RecordId = new String()
         this.OwnerId = new String()
-        this.URL = new URL()
+        this.URL = new String()
         this.GlobalVersion = new Number()
         this.Localversion = new Number()
         this.LastModifyingUserId = new String()
@@ -375,17 +418,17 @@ ServerStatus = {
     "NoInternet": 3
 }
 MessageType = {
-    "Text":0,
-    "Object":1,
-    "SessionInvite":2,
-    "CreditTransfer":3,
-    "SugarCubes":4 //Not Implimented
+    "Text": 0,
+    "Object": 1,
+    "SessionInvite": 2,
+    "CreditTransfer": 3,
+    "SugarCubes": 4 //Not Implimented
 }
 TransactionType = {
-    "User2User":0,
-    "Withdrawal":1,
-    "Deposit":2,
-    "Tip":3
+    "User2User": 0,
+    "Withdrawal": 1,
+    "Deposit": 2,
+    "Tip": 3
 }
 class CloudResult {
     constructor() {
@@ -405,6 +448,9 @@ class CloudResult {
         } catch (error) {
             this.Content = content
         }
+    }
+    get Entity() {
+        return this.Content
     }
     get IsOK() {
         if (this.State != 200) return (this.State == 204);
@@ -469,8 +515,8 @@ class CloudXInterface {
     static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
     static LOCAL_NEOS_API = "http://localhost:60612/";
     static LOCAL_NEOS_BLOB = "http://127.0.0.1:10000/devstoreaccount1/";
-    ProfilerBeginSample(name) {}
-    ProfilerEndSample() {}
+    ProfilerBeginSample(name) { }
+    ProfilerEndSample() { }
     static CLOUD_ENDPOINT = CloudXInterface.CloudEndpoint.Production;
     static get NEOS_API() {
         switch (CloudXInterface.CLOUD_ENDPOINT) {
@@ -574,30 +620,30 @@ class CloudXInterface {
     }
     TryGetCurrentUserGroupMembership(groupId) {
         let a = this._groupMemberInfos.indexOf(groupId)
-        if (a) {return this._groupMemberInfos[a]}
+        if (a) { return this._groupMemberInfos[a] }
     }
-    OnLogin(){}
-    OnLogout(){}
-    OnSessionUpdated(){}
+    OnLogin() { }
+    OnLogout() { }
+    OnSessionUpdated() { }
     CloudXInterface() {
         this.HttpClient = HTTP_CLIENT
         this.Friends = new FriendManager(this);
         this.Messages = new MessageManager(this);
         this.Transactions = new TransactionManager(this);
     }
-    update(){
-        Lock.acquire(this.lockobj,()=>{
-            if (this.CurrentSession!=null){
-                if ((new Date() - this._lastSessionUpdate).getSeconds() >=3600.0){
+    update() {
+        Lock.acquire(this.lockobj, () => {
+            if (this.CurrentSession != null) {
+                if ((new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0) {
                     //Task.Run<CloudResult>(new Func<Task<CloudResult>>(this.ExtendSession)); TODO
                     this._lastSessionUpdate = new Date()
                 }
             }
         })
-        if ((new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0){
-            (async ()=>{
+        if ((new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0) {
+            (async () => {
                 cloudResult = await this.GetServerStatistics()
-                if (cloudResult.IsOK){
+                if (cloudResult.IsOK) {
                     this.ServerResponseTime = cloudResult.Entity.ResponseTimeMilliseconds
                     this.LastServerUpdate = cloudResult.Entity.LastUpdate;
                 }
@@ -608,7 +654,7 @@ class CloudXInterface {
         this.Friends.Update()
         this.Messages.Update()
     }
-    HasPotentialAccess(ownerId){
+    HasPotentialAccess(ownerId) {
         switch (IdUtil.GetOwnerType(ownerId)) {
             case OwnerType.Machine:
                 return true
@@ -617,108 +663,108 @@ class CloudXInterface {
             case OwnerType.Group:
                 let ogreturn
                 //TODO Create Object.Any
-            Lock.acquire(this.lockobj,()=>{ogreturn = this.CurrentUserMemberships.Any(m => m.GroupId == ownerId)})
-            return ogreturn
+                Lock.acquire(this.lockobj, () => { ogreturn = this.CurrentUserMemberships.Any(m => m.GroupId == ownerId) })
+                return ogreturn
             default:
-               return false
+                return false
         }
     }
-    SetMemberships(memberships){
-        Lock.acquire(this.lockobj,()=>{
+    SetMemberships(memberships) {
+        Lock.acquire(this.lockobj, () => {
             this._groupMemberships = memberships
             this.RunMembershipsUpdated()
         })
     }
-    ClearMemberships(){
-        Lock.acquire(this.lockobj,()=>{
+    ClearMemberships() {
+        Lock.acquire(this.lockobj, () => {
             if (this._groupMemberships.length == 0) return;
             this._groupMemberships = []
             this.RunMembershipsUpdated()
         })
     }
-    async RunMembershipsUpdated(){
-        for (groupMembership of this._groupMemberships){
+    async RunMembershipsUpdated() {
+        for (groupMembership of this._groupMemberships) {
             await this.UpdateGroupInfo(groupMembership.GroupId)
         }
         let membershipsUpdated = this.MembershipsUpdated
         if (membershipsUpdated == null) return;
         membershipsUpdated(this._groupMemberships)
     }
-    static NeosDBToHttp(neosdb, forceCDN = false, forceCloudBlob = false){
+    static NeosDBToHttp(neosdb, forceCDN = false, forceCloudBlob = false) {
         let str1 = CloudXInterface.NeosDBSignature(neosdb);
         let str2 = CloudXInterface.NeosDBQuery(neosdb)
         let str3 = str1
-        if (str2!=null) str3 = str3 + "/" + str2
+        if (str2 != null) str3 = str3 + "/" + str2
         if (CloudXInterface.IsLegacyNeosDB(neosdb)) return new Uri("https://neoscloud.blob.core.windows.net/assets/" + str3);
         return new Uri((forceCDN ? CloudXInterface.NEOS_ASSETS_CDN : (forceCloudBlob ? "https://cloudxstorage.blob.core.windows.net/" : CloudXInterface.NEOS_ASSETS)) + str3)
     }
-    static FilterNeosURL(assetURL){
+    static FilterNeosURL(assetURL) {
         if (assetURL.Scheme == "neosdb" && assetURL.Segments.length >= 2 && assetURL.Segments.includes('.'))
             return assetURL = new Uri("neosdb:///" + (assetURL.Segments[1].noExtension()) + assetURL.Query);
         return assetURL
     }
-    static NeosDBFilename(neosdb){
+    static NeosDBFilename(neosdb) {
         return neosdb.Segments[1] + neosdb.Query
     }
-    static NeosDBSignature(neosdb){
+    static NeosDBSignature(neosdb) {
         return neosdb.Segments[1].noExtension()
     }
-    static NeosDBQuery(neosdb){
-        if(neosdb.Query==null || neosdb.Query=="")
-            return null 
+    static NeosDBQuery(neosdb) {
+        if (neosdb.Query == null || neosdb.Query == "")
+            return null
         return neosdb.Query.substring(1)
     }
-    static NeosThumbnailIdToHttp(id){
+    static NeosThumbnailIdToHttp(id) {
         return new Uri(CloudXInterface.NEOS_THUMBNAILS + id)
     }
-    static TryFromString(url){
+    static TryFromString(url) {
         if (url == null) return null;
         //TODO URI VALIDATION, FOR NOT IS RAW
         if (true) return new Uri(url)
         return null
     }
-    static IsLegacyNeosDB(uri){
-        if(uri.Scheme != "neosdb")
+    static IsLegacyNeosDB(uri) {
+        if (uri.Scheme != "neosdb")
             return false
         return uri.Segments[1].noExtension().length < 30;
     }
     //473
-    GET(resource, timeout=null){
-        return this.RunRequest((()=>{this.CreateRequest(resource, HttpMethod.Get)}),timeout)
+    GET(resource, timeout = null) {
+        return this.RunRequest((() => { return this.CreateRequest(resource, HttpMethod.Get) }), timeout)
     }
-    POST(resource,entity,timeout=null){
-        return this.RunRequest((()=>{
+    POST(resource, entity, timeout = null) {
+        return this.RunRequest((() => {
             request = this.CreateRequest(resource, HttpMethod.Post);
             this.AddBody(request, entity)
             return request;
         }), timeout)
     }
-    POST_File(resource,filePath,FileMIME=null,progressIndicator=null){
-        return this.RunRequest((()=>{
-            request = this.CreateRequest(resource,HttpMethod.Post);
+    POST_File(resource, filePath, FileMIME = null, progressIndicator = null) {
+        return this.RunRequest((() => {
+            request = this.CreateRequest(resource, HttpMethod.Post);
             this.AddFileToRequest(request, filePath, FileMIME, progressIndicator);
             return request
         }), 60.0)//TODO TIMESPAN FROM MINUTES NOT 60
     }
-    PUT(resource,entity,timeout=null){
-        return this.RunRequest((()=>{
+    PUT(resource, entity, timeout = null) {
+        return this.RunRequest((() => {
             request = this.CreateRequest(resource, HttpMethod.Put)
             this.AddBody(request, entity)
             return request
-        }), timeout)   
+        }), timeout)
     }
-    PATCH(resource, entity, timeout = null){
-        return this.RunRequest((()=>{
+    PATCH(resource, entity, timeout = null) {
+        return this.RunRequest((() => {
             request = this.CreateRequest(resource, CloudXInterface.PATCH_METHOD)
             this.AddBody(request, entity)
             return request
         }), timeout)
     }
-    DELETE(resource, timeout = null){
-        return this.RunRequest((()=> this.CreateRequest(resource, HttpMethod.Delete)), timeout);
+    DELETE(resource, timeout = null) {
+        return this.RunRequest((() => { return this.CreateRequest(resource, HttpMethod.Delete) }), timeout);
 
     }
-    AddFileToRequest(request, filePath,  mime = null, progressIndicator = null){
+    AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
         //FILESTREAM
         /*
         FileStream fileStream = System.IO.File.OpenRead(filePath);
@@ -732,45 +778,43 @@ class CloudXInterface {
         request.Content = (HttpContent) multipartFormDataContent;
         */
     }
-    CreateRequest(resource, method){
-        let httpRequestMessage = new httpRequestMessage(method, CloudXInterface.NEOS_API + "/" + resource)
+    CreateRequest(resource, method) {
+        let request = new httpRequestMessage(method, CloudXInterface.NEOS_API + resource)
         if (this.CurrentSession != null)
-            httpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
-        return httpRequestMessage
+            request.Headers.Authorization = this._currentAuthenticationHeader;
+        return request
     }
-    AddBody(message, entity){
+    AddBody(message, entity) {
         //TODO
     }
-    async RunRequest(requestSource, timeout){
-       let request = null
-       let result = null
-       let exception = null
-       let remainingRetries = CloudXInterface.DEFAULT_RETRIES
-       let delay = 0
-       do {
-        try {
+    async RunRequest(requestSource, timeout) {
+        let request = null
+        let result = null
+        let exception = null
+        let remainingRetries = CloudXInterface.DEFAULT_RETRIES
+        let delay = 0
+        do {
             request = requestSource();
-            let cancellationTokenSource = new CancellationTokenSource(timeout ? timeout : fromSeconds(30.0));
-            result = await this.HttpClient.SendAsync(request, cancellationTokenSource.Token)
-        } catch (error) {
-            let exception = error    
+            let cancellationToken = new CancellationTokenSource(timeout ? timeout : fromSeconds(30.0));
+            result = await HTTP_CLIENT.SendAsync(request, cancellationToken.Token)
+            result = result.Entity
+            if (result == null) {
+                console.error(`Exception running `)
+                request = null
+                await Delay(new TimeSpan(delay))
+                delay += 250
+            } else {
+                return result
+            }
         }
+        while (result == null && remainingRetries-- > 0)
         if (result == null) {
-            console.error(`Exception running `)
-            request = null
-            await setTimeout(()=>{},delay)
-            delay += 250
-        }
-       }
-       while (result == null && remainingRetries-- > 0)
-       if (result == null){
-           if (exception == null)
-               throw new Error("Failed to get response. Exception is null")
+            if (exception == null)
+                throw new Error("Failed to get response. Exception is null")
             throw new Error(exception)
-       }
-       
+        }
     }
-    async Login(credential, password, sessionToken, secretMachineId, rememberMe, reciverCode){
+    async Login(credential, password, sessionToken, secretMachineId, rememberMe, reciverCode) {
         let cloudXinterface = this
         cloudXinterface.Logout(false);
         let credentials = new LoginCredentials()
@@ -782,11 +826,11 @@ class CloudXInterface {
         if (credential.startsWith('U-'))
             credentials.OwnerId = credential
         else if (credential.includes('@'))
-        credentials.Email = credential
+            credentials.Email = credential
         else
-        credentials.Email = credential
+            credentials.Email = credential
         result = await cloudXinterface.POST("api/userSessions", credentials, new TimeSpan())
-        if (result.IsOK){
+        if (result.IsOK) {
             cloudXinterface.CurrentSession = result.Entity
             cloudXinterface.CurrentUser = new User()
             cloudXinterface.CurrentUser.Id = cloudXinterface.CurrentSession.UserId
@@ -799,10 +843,10 @@ class CloudXInterface {
         else error("Error loging in: " + result.State.toString() + "\n" + result.Content)
         return result
     }
-    async ExtendSession(){
+    async ExtendSession() {
         return await this.PATCH("api/userSessions", null, new TimeSpan())
     }
-    async Register(username, email, password){
+    async Register(username, email, password) {
         this.Logout(false)
         let u = new User()
         u.Username = username
@@ -810,52 +854,51 @@ class CloudXInterface {
         u.Password = password
         return await this.POST("/api/users", u, new TimeSpan())
     }
-    async RequestRecoveryCode(email){
+    async RequestRecoveryCode(email) {
         let u = new User()
         u.Email = email
         return await this.POST("/api/users/requestlostpassword", u, new TimeSpan())
     }
-    async UpdateCurrentUserinfo(){
+    async UpdateCurrentUserinfo() {
         switch (this.CurrentUser.Id) {
             case null:
                 throw new Error("No current user!")
             default:
                 let user = await this.GetUser(this.CurrentUser.Id);
                 let entity = user.Entity
-                if (user.IsOK && this.CurrentUser != null && this.CurrentUser.Id == entity.Id){
+                if (user.IsOK && this.CurrentUser != null && this.CurrentUser.Id == entity.Id) {
                     this.CurrentUser = entity
                     patreonData = this.CurrentUser.PatreonData;
                     let num = new Number()
-                    if ((patreonData != null ? (patreonData.IsPatreonSupporter ? 1 : 0) : 0) == 0)
-                    {
+                    if ((patreonData != null ? (patreonData.IsPatreonSupporter ? 1 : 0) : 0) == 0) {
                         tags = this.CurrentUser.Tags
                         num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
-                    } 
+                    }
                     else
-                    num = 1
+                        num = 1
                     CloudXInterface.USE_CDN = num != 0
                 }
                 return user
         }
     }
-    async GetUser(userId){
+    async GetUser(userId) {
         return await this.GET("api/users/" + userId, new TimeSpan())
     }
-    async GetUserByName(username){
+    async GetUserByName(username) {
         return await this.GET("api/users/" + username + "?byUsername=true", new TimeSpan())
     }
-    async GetUsers(searchName){ 
+    async GetUsers(searchName) {
         return await this.GET("api/users?name=" + Uri.ExcapeDataString(searchName), new TimeSpan())
     }
-    async GetUserCached(userId){
+    async GetUserCached(userId) {
         return await this.GetUser(userId)
     }
-    Logout(manualLogOut){
+    Logout(manualLogOut) {
         this.OnLogout()
-        if (this.CurrentSession != null && !this.CurrentSession.RememberMe | manualLogOut){
+        if (this.CurrentSession != null && !this.CurrentSession.RememberMe | manualLogOut) {
             let _userId = this.CurrentSession.UserId
             let _sessionToken = this.CurrentSession.SessionToken
-            (async ()=> await this.DELETE("api/userSessions/" + _userId + "/" + _sessionToken, new TimeSpan()))
+                (async () => await this.DELETE("api/userSessions/" + _userId + "/" + _sessionToken, new TimeSpan()))
         }
         this._cryptoProvider = null
         this.PublicKey // TODO RSAParameters
@@ -865,16 +908,16 @@ class CloudXInterface {
         this.Friends = []
         CloudXInterface.USE_CDN = false
     }
-    SignHash(hash){
+    SignHash(hash) {
         return this._cryptoProvider //TODO Cryptography
     }
-    async FetchRecordCached(recordUri){
-        Lock.acquire(this.cachedRecords, ()=>{
+    async FetchRecordCached(recordUri) {
+        Lock.acquire(this.cachedRecords, () => {
             let dictionary = []
             //TODO Wtf is this lol
         })
     }
-    FetchRecordIRecord(recordUri){
+    FetchRecordIRecord(recordUri) {
         var ownerId = []
         var recordId = []
         if (RecordUtil.ExtractRecordID(recordUri, ownerId, recordId))
@@ -884,14 +927,14 @@ class CloudXInterface {
             return this.FetchRecordAtPath(ownerId.Value, recordPath.Value)
         throw new Error("Uri is not a record URI")
     }
-    FetchRecord(ownerId, recordId){
+    FetchRecord(ownerId, recordId) {
         if (!recordId) return this.FetchRecordIRecord(ownerId); // iRecord fetch
         return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/" + recordId, new TimeSpan())
     }
-    FetchRecordAtPath(ownerId, path){
+    FetchRecordAtPath(ownerId, path) {
         return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/root/" + path, new TimeSpan())
     }
-    GetRecords(ownerId, tag = null, path = null){
+    GetRecords(ownerId, tag = null, path = null) {
         let ownerPath = CloudXInterface.GetOwnerPath(ownerId);
         let str = ""
         if (tag != null)
@@ -900,10 +943,10 @@ class CloudXInterface {
             str = "?path=" + Uri.EscapeDataString(path)
         return this.GET("api/" + ownerPath + "/" + ownerId + "/records" + str)
     }
-    FindRecords(search){
+    FindRecords(search) {
         return this.POST("/api/records/search", search, new TimeSpan())
     }
-    UpsertRecord(record){
+    UpsertRecord(record) {
         let resource;
         switch (IdUtil.GetOwnerType(record.OwnerId)) {
             case OwnerType.User:
@@ -917,7 +960,7 @@ class CloudXInterface {
         }
         return this.PUT(resource, record, new TimeSpan())
     }
-    PreprocessRecord(record){
+    PreprocessRecord(record) {
         let resource;
         switch (IdUtil.GetOwnerType(record.OwnerId)) {
             case OwnerType.User:
@@ -931,8 +974,8 @@ class CloudXInterface {
         }
         return this.POST(resource, record, new TimeSpan())
     }
-    GetPreprocessStatus(ownerId, recordId, id){
-        if (!recordId){
+    GetPreprocessStatus(ownerId, recordId, id) {
+        if (!recordId) {
             recordId = ownerId.RecordId
             id = ownerId.PreprocessId
             ownerId = ownerId.OwnerId
@@ -950,8 +993,8 @@ class CloudXInterface {
         }
         return this.GET(resource, record, new TimeSpan())
     }
-    async DeleteRecord(ownerId, recordId){
-        if (!recordId){
+    async DeleteRecord(ownerId, recordId) {
+        if (!recordId) {
             recordid = ownerId.RecordId
             ownerId = ownerId.OwnerId
         }
@@ -959,8 +1002,8 @@ class CloudXInterface {
         await this.UpdateStorage(ownerId)
         return result
     }
-    AddTag(ownerId, recordId, tag){
-        switch(IdUtil.GetOwnerType(ownerId)){
+    AddTag(ownerId, recordId, tag) {
+        switch (IdUtil.GetOwnerType(ownerId)) {
             case OwnerType.User:
                 return this.PUT("api/users/" + ownerId + "/records/" + recordId + "/tags", tag, new TimeSpan());
             case OwnerType.Group:
@@ -969,33 +1012,31 @@ class CloudXInterface {
                 throw new Error("Invalid record owner")
         }
     }
-    async UpdateStorage(ownerId){
+    async UpdateStorage(ownerId) {
         if (this.CurrentUser == null) return
         let ownerType = IdUtil.GetOwnerType(ownerId);
         let _signedUserId = this.CurrentUser.Id;
         let numArray = CloudXInterface.storageUpdateDelays;
-        for (index = 0; index < numArray.length; index++){
+        for (index = 0; index < numArray.length; index++) {
             await Delay(fromSeconds(numArray[index]))
             if (this.CurrentUser.Id != _signedUserId) return;
-            if (ownerType == OwnerType.User)
-            {
+            if (ownerType == OwnerType.User) {
                 cloudResult = await this.UpdateCurrentUserInfo()
             }
-            else
-            {
+            else {
                 await this.UpdateGroupInfo(ownerId)
             }
         }
         numArray = null
     }
-    async FetchGlobalAssetInfo(hash){
+    async FetchGlobalAssetInfo(hash) {
         return await this.GET("api/assets/" + hash.toLowerCase(), new TimeSpan())
     }
-    async FetchUserAssetInfo(hash){
+    async FetchUserAssetInfo(hash) {
         return await this.FetchUserAssetInfo(this.CurrentUser.Id, hash)
     }
-    async FetchAssetInfo(ownerId, hash){
-        switch(IdUtil.GetOwnerType(ownerId)){
+    async FetchAssetInfo(ownerId, hash) {
+        switch (IdUtil.GetOwnerType(ownerId)) {
             case OwnerType.User:
                 return await this.GET("api/users/" + ownerId + "/assets/" + hash, new TimeSpan())
             case OwnerType.Group:
@@ -1004,8 +1045,8 @@ class CloudXInterface {
                 throw new Error("Invalid ownerId")
         }
     }
-    async RegisterAssetInfo(assetInfo){
-        switch (IdUtil.GetOwnerType(assetInfo.OwnerId)){
+    async RegisterAssetInfo(assetInfo) {
+        switch (IdUtil.GetOwnerType(assetInfo.OwnerId)) {
             case OwnerType.User:
                 return await this.PUT("api/users/" + assetInfo.OwnerId + "/assets/" + assetInfo.AssetHash, assetInfo, new TimeSpan())
             case OwnerType.Group:
@@ -1014,12 +1055,12 @@ class CloudXInterface {
                 throw new Error("Invalid ownerId")
         }
     }
-    GetAssetBaseURL(ownerId, hash, variant){
+    GetAssetBaseURL(ownerId, hash, variant) {
         hash = hash.toLowerCase()
         let str = hash
         if (variant != null)
             str += ("&" + variant)
-        switch(IdUtil.GetOwnerType(ownerId)){
+        switch (IdUtil.GetOwnerType(ownerId)) {
             case OwnerType.User:
                 return "api/users/" + ownerId + "/assets/" + str
             case OwnerType.Group:
@@ -1028,26 +1069,25 @@ class CloudXInterface {
                 throw new Error("Invalid ownerId")
         }
     }
-    async UploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null){
+    async UploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null) {
         let cloudResult = await this.BeginUploadAsset(ownerId, signature, variant, assetPath, retries, progressIndicator, new Number())
         if (!cloudResult.isOK) return cloudResult
         return await this.WaitForAssetFinishProcessing(cloudResult.Entity)
     }
-    EnqueueChunk(baseUrl, fileName, buffer, processingBuffers){
-        buffer.task = this.RunRequest((()=>{})) //TODO Wtf is this
+    EnqueueChunk(baseUrl, fileName, buffer, processingBuffers) {
+        buffer.task = this.RunRequest((() => { })) //TODO Wtf is this
     }
-    async TakeFinishedBuffer(buffers){
+    async TakeFinishedBuffer(buffers) {
         //TODO TakeFinishedBuffer
     }
-    async BeginUploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null, bytes = null){
+    async BeginUploadAsset(ownerId, signature, variant, assetPath, retries = 5, progressIndicator = null, bytes = null) {
         let fileName = Path.GetFileName(assetPath)
         //TODO finish
     }
-    async WaitForAssetFinishProcessing(assetUpload){
+    async WaitForAssetFinishProcessing(assetUpload) {
         let baseUrl = this.GetAssetBaseURL(assetUpload.OwnerId, assetUpload.Signature, assetUpload.Variant) + "/chunks"
         let cloudResult
-        while (true)
-        {
+        while (true) {
             cloudResult = await this.GET(baseUrl, new TimeSpan())
             if (!cloudResult.IsError && (cloudResult.Entity.UploadState != UploadState.Uploaded && cloudResult.Entity.UploadState != UploadState.Failed))
                 await Delay(new TimeSpan(250))
@@ -1056,55 +1096,54 @@ class CloudXInterface {
         }
         return cloudResult
     }
-    UploadThumbnail(path){
+    UploadThumbnail(path) {
         return this.POST_File("api/thumbnails", path, "image/webp", null)
     }
-    ExtendThumbnailLifetime(thumbnail){
+    ExtendThumbnailLifetime(thumbnail) {
         return this.PATCH("api/thumbnails", thumbnail, new TimeSpan())
     }
-    DeleteThumbnail(thumbnail){
+    DeleteThumbnail(thumbnail) {
         return this.DELETE("api/thumbnails/" + thumbnail.Id + "/" + thumbnail.Key, new TimeSpan())
     }
-    async GetGroup(groupId){
+    async GetGroup(groupId) {
         return await this.GET("api/groups/" + groupId, new TimeSpan())
     }
-    async GetGroupCaches(groupId){
+    async GetGroupCaches(groupId) {
         return await this.GetGroup(groupId)
     }
-    async CreateGroup(group){
+    async CreateGroup(group) {
         return await this.POST("api/groups", group, new TimeSpan())
     }
-    async AddGroupMember(member){
+    async AddGroupMember(member) {
         return await this.POST("api/groups/" + member.GroupId + "/members", member, new TimeSpan())
     }
-    async DeleteGroupMember(member){
+    async DeleteGroupMember(member) {
         return await this.DELETE("api/groups/" + member.GroupId + "/members/" + member.UserId, new TimeSpan())
     }
-    async GetGroupMember(groupId, userId){
+    async GetGroupMember(groupId, userId) {
         return await this.GET("api/groups/" + groupId + "/members/" + userId, new TimeSpan())
     }
-    async GetGroupMembers(groupId){
+    async GetGroupMembers(groupId) {
         return await this.GET("api/groups/" + groupId + "/members", new TimeSpan())
     }
-    async UpdateCurrentUserMemberships(){
+    async UpdateCurrentUserMemberships() {
         let groupMemberships = await this.GetUserMemberships();
         if (groupMemberships.isOK)
             this.SetMemberships(groupMemberships.Entity)
         return groupMemberships
     }
-    async GetUserGroupMemberships(userId){
+    async GetUserGroupMemberships(userId) {
         if (!userId)
             return await this.GetUserGroupMemberships(this.CurrentUser.Id);
-        return await this.GET("api/users/" + userId + "/memberships", new TimeSpan()) 
+        return await this.GET("api/users/" + userId + "/memberships", new TimeSpan())
     }
-    async UpdateGroupInfo(groupId){
+    async UpdateGroupInfo(groupId) {
         let group = this.GetGroup(groupId)
         let memberTask = this.GetGroupMember(groupId, this.CurrentUser.Id)
         let groupResult = await group
         let cloudResult = await memberTask
-        Lock.acquire(this.lockobj, ()=>{
-            if (groupResult.IsOK)
-            {
+        Lock.acquire(this.lockobj, () => {
+            if (groupResult.IsOK) {
                 this._groups.Remove(groupId)
                 this._groups.Add(groupId, groupResult.Entity)
                 groupUpdated = this.GroupUpdated
@@ -1114,19 +1153,12 @@ class CloudXInterface {
         })
     }
 }
-class CancellationTokenSource{
-    constructor(timeout){
+class CancellationTokenSource {
+    constructor(timeout) {
+        this.Token = new uuidv4()
+    }
+}
 
-    }
-}
-class httpRequestMessage{
-    constructor(method, uri){
-        this.Headers = {}
-        this.Content = {}
-        this.Method = method
-        this.RequestUri = uri
-    }
-}
 class Endpoints {
     static CLOUDX_NEOS_API = "https://cloudx.azurewebsites.net";
     static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/assets/";
@@ -1265,25 +1297,25 @@ class MessageManager {
     MarkUnreadCountDirty() {
         this._unreadCountDirty = true;
     }
-    Reset(){
-        Lock.acquire(this._messagesLock, ()=>{
+    Reset() {
+        Lock.acquire(this._messagesLock, () => {
             this._messages = new Array()
             this.lastUnreadMessage = new Date()
             this.InitialmessagesFetched = false;
-        })        
+        })
     }
-    GetUserMessages(userId){
-        Lock.acquire(this._messagesLock,()=>{
+    GetUserMessages(userId) {
+        Lock.acquire(this._messagesLock, () => {
             if (this._messages.indexOf(userId))
-            return this._messages[userId]
+                return this._messages[userId]
             let usermessages2 = new MessageManager.UserMessages(userId, this)
-            this._messages.push({userId:usermessages2})
+            this._messages.push({ userId: usermessages2 })
             return usermessages2
         })
     }
-    GetAllUserMessages(list){
-        Lock.acquire(this._messagesLock, ()=>{
-            for (message of this._messages){
+    GetAllUserMessages(list) {
+        Lock.acquire(this._messagesLock, () => {
+            for (message of this._messages) {
                 list.push(message.Value)
             }
         })
@@ -1291,7 +1323,7 @@ class MessageManager {
     //event OnMessageReceived
     //event UnreadMessageCounrChange
     static UserMessages = class {
-        constructor(){
+        constructor() {
             this._messageIds = new List()
             this._lock = "MessageManager.UserMessages._lock"
             this._historyLoadTask;
@@ -1303,33 +1335,33 @@ class MessageManager {
         get CloudXInterface() {
             return this.Manager.Cloud
         }
-        UserMessages(userId, manager){
+        UserMessages(userId, manager) {
             this.UserId = userId
             this.Manager = manager
         }
-        MarkAllRead(){
+        MarkAllRead() {
             let ids = null
-            Lock.acquire(this._lock,()=>{
+            Lock.acquire(this._lock, () => {
                 if (this.UnreadCount == 0) return;
                 ids = new Array()
-                for (message of this.Messages){
-                    if (!message.IsSent && !(message.ReadTime!=undefined)){
+                for (message of this.Messages) {
+                    if (!message.IsSent && !(message.ReadTime != undefined)) {
                         message.ReadTime = new Date()
                         ids.push(message.Id)
                     }
                 }
                 this.UnreadCount = 0;
             })
-            (async ()=>{await this.Cloud.MarkMessagesRead(ids)})
+                (async () => { await this.Cloud.MarkMessagesRead(ids) })
             this.Manager.MarkUnreadCountDirty()
         }
-        CreateTextMessage(text){
+        CreateTextMessage(text) {
             let message = new Message()
             message.MessageType = MessageType.Text
             message.Content = text
             return message
         }
-        CreateInviteMessage(sessionInfo){
+        CreateInviteMessage(sessionInfo) {
             let message = new Message()
             message.Id = Message.GenerateId()
             message.SendTime = new Date()
@@ -1337,10 +1369,10 @@ class MessageManager {
             message.SetContent(sessionInfo)
             return message
         }
-        async SendInviteMessage(sessionInfo){
+        async SendInviteMessage(sessionInfo) {
             return await this.SendMessage(this.CreateInviteMessage(sessionInfo));
         }
-        AddSentTransactionMessage(token, amount, comment){
+        AddSentTransactionMessage(token, amount, comment) {
             let message = new Message()
             message.Id = Message.GenerateId();
             message.OwnerId = this.Cloud.CurrentUser.Id;
@@ -1354,33 +1386,33 @@ class MessageManager {
             _transaction.Comment = comment
             _transaction.RecipientId = this.UserId
             message.SetContent(_transaction)
-            Lock.acquire(this._lock,()=>{
+            Lock.acquire(this._lock, () => {
                 this.Messages.push(message)
             })
             return message
         }
-        async SendMessage(message){
+        async SendMessage(message) {
             if (message.Id == null) message.Id = Message.GenerateId()
             message.RecipientId = this.UserId
             message.SenderId = this.Cloud.CurrentUser.Id
             message.OwnerId = message.SenderId
             message.SendTime = new Date()
-            Lock.acquire(this._lock,()=>{
+            Lock.acquire(this._lock, () => {
                 this.Messages.push(message)
             })
             let friend = this.Cloud.Friends.GetFriend(message.RecipientId)
-            if (friend!= null) friend.LatestMessageTime = new Date()
+            if (friend != null) friend.LatestMessageTime = new Date()
             return await this.Cloud.SendMessage(message)
         }
-        async SendTextMessage(text){
+        async SendTextMessage(text) {
             return await this.SendMessage(this.CreateTextMessage(text))
         }
-        async EnsureHistory(){
+        async EnsureHistory() {
             if (this._historyLoaded) return;
             let isFirstRequest = false
-            Lock.acquire(this._lock,()=>{
+            Lock.acquire(this._lock, () => {
                 if (this._historyLoaded) return;
-                if (this._historyLoadTask == null){
+                if (this._historyLoadTask == null) {
                     isFirstRequest = true
                     this._historyLoadTask = this.Cloud.GetMessageHistory(this.UserId, MessageManager.MAX_READ_HISTORY)
 
@@ -1388,25 +1420,24 @@ class MessageManager {
             })
             let cloudResult = await this._historyLoadTask
             if (!isFirstRequest) return;
-            if (!cloudResult.IsOK){
+            if (!cloudResult.IsOK) {
                 this._historyLoadTask = null
             } else {
-                Lock.acquire(this._lock, ()=>{
+                Lock.acquire(this._lock, () => {
                     this.Messages = cloudResult.Entity
                     this.Messages.reverse()
-                    this.UnreadCount = this.Messages.filter(m=>!m.ReadTime!=undefined).length
+                    this.UnreadCount = this.Messages.filter(m => !m.ReadTime != undefined).length
                     this._historyLoaded = true
                 })
             }
         }
-        AddMessage(message){
-            Lock.acquire(this._lock,()=>{
+        AddMessage(message) {
+            Lock.acquire(this._lock, () => {
                 if (this._messageIds.includes(message.Id)) return false;
                 this.Messages.Add(message)
                 this._messageIds.Add(message.Id)
-                if (message.IsReceived && !message.ReadTime!=undefined) ++ this.UnreadCount
-                while (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY || this.Messages.length > MessageManager.MAX_UNREAD_HISTORY && (this.Messages[0].IsSent || this.Messages[0].ReadTime!=undefined))
-                {
+                if (message.IsReceived && !message.ReadTime != undefined)++this.UnreadCount
+                while (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY || this.Messages.length > MessageManager.MAX_UNREAD_HISTORY && (this.Messages[0].IsSent || this.Messages[0].ReadTime != undefined)) {
                     this._messageIds.Remove(this.Messages[0].Id)
                     this.Messages.RemoveAt(0)
                 }
@@ -1414,49 +1445,49 @@ class MessageManager {
             })
             return true
         }
-        GetMessages(messages){
+        GetMessages(messages) {
             messages.AddRange(this.Messages);
         }
     }
 }
-class TransactionUtil{
+class TransactionUtil {
     static NCR_CONVERSION_VARIABLE = "NCR_CONVERSION"
 }
-class StringNumberConversion{
-    static DecimalToBigInt(value){}
-    static BigIntToDecimal(value){}
+class StringNumberConversion {
+    static DecimalToBigInt(value) { }
+    static BigIntToDecimal(value) { }
 }
 class TransactionManager {
     constructor() {
         this.Cloud
         this.NCRConversionRatio
     }
-    TransactionManager(cloud){
+    TransactionManager(cloud) {
         this.Cloud = cloud
-        (async ()=> {await this.LoadConversionData()})
+            (async () => { await this.LoadConversionData() })
     }
-    async LoadConversionData(){
+    async LoadConversionData() {
         let cloudResult = await this.Cloud.ReadGlobalVariable(TransactionUtil.NCR_CONVERSION_VARIABLE)
-        if (cloudResult.IsOK){
+        if (cloudResult.IsOK) {
             this.NCRConversionRatio = BigInt(StringNumberConversion.DecimalToBigInt(cloudResult.Entity));
         } else {
             console.error("Error getting conversion ratio. " + cloudResult.State.ToString() + "\n\n" + cloudResult.Content);
         }
     }
-    TryConvert(sourceToken, sourceAmount, targetToken){
-        if (sourceToken == "USD"){
+    TryConvert(sourceToken, sourceAmount, targetToken) {
+        if (sourceToken == "USD") {
             if (targetToken == null || !(targetToken == "NCR")) return new Number()
             let num = sourceAmount;
             let ncrConversionRatio = this.NCRConversionRatio
             if (!ncrConversionRatio != undefined) return new Number()
-            return new BigInt(num /ncrConversionRatio)
+            return new BigInt(num / ncrConversionRatio)
         }
         if (!(targetToken == "USD")) return new Number()
     }
     //TODO Rest of Thing, Will Break
 }
 
-const Shared = {CloudXInterface}
+const Shared = { CloudXInterface }
 module.exports = {
     Shared
 }
