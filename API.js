@@ -15,7 +15,7 @@ class HTTP_CLIENT {
         cloudResult.CloudResult(state,response)
         return cloudResult
     }
-}
+} 
 const HttpMethod = {
     "Get": "GET",
     "Put": "PUT",
@@ -147,6 +147,7 @@ class httpRequestMessage {
         this.RequestUri = uri
     }
 }
+//CLOUD
 /**
  *
  * @public
@@ -155,13 +156,15 @@ class httpRequestMessage {
 class AssetEntry {
     /**
      *Creates an instance of AssetEntry.
+     * @param {*} $b 
      * @memberof AssetEntry
      */
-    constructor() {
-        this.id = new String()
-        this.OwnerId = new String()
-        this.Entry
-        this.ComputeLock = "AssetEntry.ComputeLock"
+    constructor($b) {
+        if ($b) $b={}
+        this.id = $b.id ? $b.id : new String()
+        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
+        this.Entry = $b.entry ? $b.entry : null
+        this.ComputeLock = $b.computeLock ? $b.computeLock : null
     }
     /**
      *
@@ -188,14 +191,15 @@ class AssetInfo {
      *Creates an instance of AssetInfo.
      * @memberof AssetInfo
      */
-    constructor() {
-        this.ownerId = new String()
-        this.assetHash = new String()
-        this.Bytes = new Number()
-        this.Free = new Boolean()
-        this.isUploaded = new Boolean()
-        this.UploaderUserId = new String()
-        this.CountsAgainstMemberQuota = new Boolean()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
+        this.AssetHash = $b.assetHash ? $b.assetHash : new String()
+        this.Bytes = $b.bytes ? $b.bytes : new Number()
+        this.Free = $b.free ? $b.free : new Boolean()
+        this.IsUploaded = $b.isUploaded ? $b.isUploaded : new Boolean()
+        this.UploaderUserId = $b.uploadUserId ? uploadUserId : new String()
+        this.CountsAgainstMemberQuota = $b.bytes ? $b.bytes : new Boolean()
     }
 }
 /**
@@ -208,8 +212,9 @@ class CloudMessage {
      *Creates an instance of CloudMessage.
      * @memberof CloudMessage
      */
-    constructor() {
-        this.Message = new String()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Message = $b.Message ? $b.Message : new String()
     }
     static ExtractMessage(content) {
         try {
@@ -220,10 +225,11 @@ class CloudMessage {
     }
 }
 class CloudVariable {
-    constructor() {
-        this.VariableOwnerId = new String()
-        this.Path = new String()
-        this.Value = new String()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.VariableOwnerId = $b.ownerId ? $b.ownerId : new String()
+        this.Path = $b.path ? $b.path : new String()
+        this.Value = $b.value ? $b.value : new String()
     }
     static GetDefinitionPath(path, ownerId, subpath) {
         let length = path.indexOf('.')
@@ -235,14 +241,16 @@ class CloudVariable {
     }
 }
 class CloudVariableDefinition {
-    constructor() {
-        this.DefinitionOwnerId = new String()
-        this.Subpath = new String()
-        this.TypeHint = new String()
-        this.VariableOwnerCanRead = new Boolean()
-        this.VariableOwnerCanWrite = new Boolean()
-        this.AnyoneCanRead = new Boolean()
-        this.AnyoneCanWrite = new Boolean()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.DefinitionOwnerId = $b.definitionOwnerId ? $b.definitionOwnerId : new String()
+        this.Subpath = $b.subpath ? $b.subpath : new String()
+        this.TypeHint = $b.typeHint ? $b.typeHint : new String()
+        this.DefaultValue = $b.defaultvalue ? $b.defaultValue : new String()
+        this.VariableOwnerCanRead = $b.variableOwnerCanRead ? $b.variableOwnerCanRead : new Boolean()
+        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite ? $b.variableOwnerCanWrite : new Boolean()
+        this.AnyoneCanRead = $b.anyoneCanRead ? $b.anyoneCanRead : new Boolean()
+        this.AnyoneCanWrite = $b.anyoneCanWrite ? $b.anyoneCanWrite : new Boolean()
     }
     CanRead(variableOwnerId, readerId) {
         return this.AnyoneCanRead || this.VariableOwnerCanRead && variableOwnerId == readerId || readerId == this.DefinitionOwnerId
@@ -252,15 +260,16 @@ class CloudVariableDefinition {
     }
 }
 class Friend {
-    constructor() {
-        this.FriendUserId = new String()
-        this.OwnerId = new String()
-        this.FriendUsername = new String()
-        this.FriendStatus
-        this.IsAccepted = new Boolean()
-        this.UserStatus
-        this.LatestMessageTime
-        this.Profile
+    constructor($b) {
+        if (!$b) $b = {}
+        this.FriendUserId = $b.id ? $b.id : new String()
+        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
+        this.FriendUsername = $b.friendUsername ? $b.friendUsername : new String()
+        this.FriendStatus = $b.friendStatus ? $b.friendStatus : new Object()
+        this.IsAccepted = $b.isAccepted ? $b.isAccepted : new Boolean()
+        this.UserStatus = $b.userStatus ? $b.userStatus : new Object()
+        this.LatestMessageTime = $b.latestMessageTime ? $b.latestMessageTime : new Date() 
+        this.Profile = $b.profile ? $b.profile : new Object()
     }
 }
 class Group {
