@@ -390,6 +390,29 @@ class Message {
         return (this.ReadTime !== undefined)
     }
 }
+class NeosSession {
+    constructor($b){
+        this.ReverseTimestamp = $b.reverseTimestamp ? $b.reverseTimestamp : new String()
+        this.SessionId = $b.sessionId ? $b.sessionId : new String()
+        this.NeosVersion = $b.neosVersion ? $b.neosVersion : new String()
+        this.UserId = $b.userId ? $b.userId : new String()
+        this.MachineId = $b.machineId ? $b.machineId : new String()
+        this.CountryCode = $b.countryCode ? $b.countryCode : new String()
+        this.SystemLocale = $b.systemLocale ? $b.systemLocale : new String()
+        this.ClientIp = $b.clientIp ? $b.clientIp : new String()
+        this.SessionStart = $b.sessionStart ? $b.sessionStart : new Date()
+        this.SessionEnd = $b.sessionEnd ? $b.sessionEnd : new Date()
+        this.VisitedWorlds = $b.visitedWorlds ? $b.visitedWorlds : new Number()
+        this.CreatedWorlds = $b.createdWorlds ? $b.createdWorlds : new Number()
+        this.OperatingSystem = $b.operatingSystem ? $b.operatingSystem : new String()
+        this.HeadDevice = $b.headDevice ? $b.headDevice : new String()
+        this.HeadDeviceModel = $b.headDeviceModel ? $b.headDeviceModel : new String()
+        this.CPU = $b.cpu ? $b.cpu : new String()
+        this.GPU = $b.gpu ? $b.gpu : new String()
+        this.MemoryBytes = $b.memoryBytes ? $b.memoryBytes : new Number()
+        this.Peripherals = $b.peripherals ? $b.peripherals : new String()
+    }
+}
 class IRecord {
     constructor() {
         this.RecordId = new String()
