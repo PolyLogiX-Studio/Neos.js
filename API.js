@@ -12,10 +12,10 @@ class HTTP_CLIENT {
             return res.json()
         })
         let cloudResult = new CloudResult()
-        cloudResult.CloudResult(state,response)
+        cloudResult.CloudResult(state, response)
         return cloudResult
     }
-} 
+}
 const HttpMethod = {
     "Get": "GET",
     "Put": "PUT",
@@ -160,7 +160,7 @@ class AssetEntry {
      * @memberof AssetEntry
      */
     constructor($b) {
-        if ($b) $b={}
+        if ($b) $b = {}
         this.id = $b.id ? $b.id : new String()
         this.OwnerId = $b.ownerId ? $b.ownerId : new String()
         this.Entry = $b.entry ? $b.entry : null
@@ -268,46 +268,108 @@ class Friend {
         this.FriendStatus = $b.friendStatus ? $b.friendStatus : new Object()
         this.IsAccepted = $b.isAccepted ? $b.isAccepted : new Boolean()
         this.UserStatus = $b.userStatus ? $b.userStatus : new Object()
-        this.LatestMessageTime = $b.latestMessageTime ? $b.latestMessageTime : new Date() 
+        this.LatestMessageTime = $b.latestMessageTime ? $b.latestMessageTime : new Date()
         this.Profile = $b.profile ? $b.profile : new Object()
     }
 }
 class Group {
-    constructor() {
-        this.GroupId = new String()
-        this.AdminUserId = new String()
-        this.Name = new String()
-        this.QuotaBytes = new Number()
-        this.UsedBytes = new Number()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.GroupId = $b.id ? $b.id : new String()
+        this.AdminUserId = $b.adminUserId ? $b.adminUserId : new String()
+        this.Name = $b.name ? $b.name : new String()
+        this.QuotaBytes = $b.quotaBytes ? $b.quotaBytes : new Number()
+        this.UsedBytes = $b.usedBytes ? $b.usedBytes : new Number()
     }
 }
-//IRecord
+class RecordHelper {
+    static IsSameVersion(record, other) {
+        if (record.LastModifyingMachineId == other.LastModifyingMachineId && record.LastModifyingUserId == other.LastModifyingUserId)
+            return record.LocalVersion == other.LocalVersion;
+        if (record.LocalVersion == other.LocalVersion && record.GlobalVersion == other.GlobalVersion && record.LastModifyingMachineId == other.LastModifyingMachineId)
+            return record.LastModifyingUserId == other.LastModifyingUserId;
+        return false;
+    }
+    static IsSameRecord(record, other) {
+        if (record.OwnerId == other.OwnerId)
+            return record.RecordId == other.RecordId;
+        return false;
+    }
+
+    static InheritPermissions(record, source) {
+        record.IsPublic = source.IsPublic;
+        record.IsForPatrons = source.IsForPatrons;
+        return record
+    }
+
+    static CanOverwrite(record, oldRecord) {
+        if (oldRecord == null)
+            return true;
+        if (record.LastModifyingMachineId == oldRecord.LastModifyingMachineId && record.LastModifyingUserId == oldRecord.LastModifyingUserId)
+            return record.LocalVersion > oldRecord.LocalVersion;
+        return record.GlobalVersion == oldRecord.GlobalVersion;
+    }
+
+    static TakeIdentityFrom(record, source) {
+        record.RecordId = source.RecordId;
+        record.OwnerId = source.OwnerId;
+        record.LocalVersion = source.LocalVersion;
+        record.GlobalVersion = source.GlobalVersion;
+        record.LastModifyingMachineId = source.LastModifyingMachineId;
+        record.LastModifyingUserId = source.LastModifyingUserId;
+        record.IsPublic = source.IsPublic;
+        record.IsForPatrons = source.IsForPatrons;
+        record.IsListed = source.IsListed;
+        record.FirstPublishTime = source.FirstPublishTime;
+        record.CreationTime = source.CreationTime;
+        record.Visits = source.Visits;
+        record.Rating = source.Rating;
+        return record
+    }
+
+    static GetUrl(record) {
+        return RecordUtil.GenerateUri(record.OwnerId, record.RecordId);
+    }
+
+    static SetUrl(record, url) {
+        let ownerId = [];
+        let recordId = [];
+        if (!RecordUtil.ExtractRecordID(url, ownerId, recordId))
+            throw new Exception("Invalid Record URL");
+        record.OwnerId = ownerId.Out;
+        record.RecordId = recordId.Out;
+        return record
+    }
+}
 class Member {
-    constructor() {
-        this.UserId = new String()
-        this.GroupId = new String()
-        this.QuotaBytes = new Number()
-        this.UsedBytes = new Number()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.UserId = $b.id ? $b.id : new String()
+        this.GroupId = $b.ownerId ? $b.ownerId : new String()
+        this.QuotaBytes = $b.quotaBytes ? $b.quotaBytes : new Number()
+        this.UsedBytes = $b.usedBytes ? $b.usedBytes : new Number()
     }
 }
 class Membership {
-    constructor() {
-        this.UserId = new String()
-        this.GroupId = new String()
-        this.GroupName = new String()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.UserId = $b.ownerId ? $b.ownerId : new String()
+        this.GroupId = $b.id ? $b.id : new String()
+        this.GroupName = $b.groupName ? $b.groupName : new String()
     }
 }
 class Message {
-    constructor() {
-        this.Id = new String()
-        this.OwnerId = new String()
-        this.RecipientId = new String()
-        this.SenderId = new String()
-        this.MessageType = new Object()
-        this.Content = new String()
-        this.SendTime = new Date()
-        this.LastUpdateTime = new Date()
-        this.ReadTime
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Id = $b.id ? $b.id : new String()
+        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
+        this.RecipientId = $b.recipientId ? $b.recipientId : new String()
+        this.SenderId = $b.senderId ? $b.senderId : new String()
+        this.MessageType = $b.messageType ? $b.messageType : new Object()
+        this.Content = $b.content ? $b.content : new String()
+        this.SendTime = $b.sendTime ? $b.sendTime : new Date()
+        this.LastUpdateTime = $b.lastUpdateTime ? $b.lastUpdateTime : new Date()
+        this.ReadTime = $b.readTime ? $b.readTime : new Date()
     }
     static GenerateId() {
         return "MSG-" + new uuidv4()
@@ -327,9 +389,6 @@ class Message {
     get IsRead() {
         return (this.ReadTime !== undefined)
     }
-}
-class RecordHelper {
-
 }
 class IRecord {
     constructor() {
