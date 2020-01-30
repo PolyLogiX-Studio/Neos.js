@@ -16,7 +16,7 @@ class HTTP_CLIENT {
         return cloudResult
     }
 }
-AccountType = {
+const AccountType = {
     'Normal': 0,
     'AgentSmith': 1,
     'BladeRunner': 2,
@@ -29,20 +29,20 @@ AccountType = {
     'Anorak': 9,
     'END': 10
 }
-ServerStatus = {
+const ServerStatus = {
     "Good": 0,
     "Slow": 1,
     "Down": 2,
     "NoInternet": 3
 }
-MessageType = {
+const MessageType = {
     "Text": 0,
     "Object": 1,
     "SessionInvite": 2,
     "CreditTransfer": 3,
     "SugarCubes": 4 //Not Implimented
 }
-TransactionType = {
+const TransactionType = {
     "User2User": 0,
     "Withdrawal": 1,
     "Deposit": 2,
@@ -311,7 +311,7 @@ class HashSet extends Array {
 String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
 }
-String.prototype.IsNullOrWhiteSpace = function(str){
+String.prototype.IsNullOrWhiteSpace = function (str) {
     if (!str) return true
     if (str.trim() == '') return true
     return false
@@ -328,6 +328,238 @@ class httpRequestMessage {
         this.Method = method
         this.RequestUri = uri
     }
+}
+
+//Models
+class HubPatreons {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.MAX_NAMES = 400;
+        this.MAX_PICTURES = 50
+        this.PatreonNames = $b['patreon-names']
+        this.PatreonPictures = $b['patreon-pictures']
+    }
+}
+class AssetDiff {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Hash = $b.hash
+        this.Bytes = $b.bytes
+        this.State = $b.state
+        this.IsUploaded = $b.isUploaded || new Boolean()
+        this.Diff = {
+            "Added": 0,
+            "Unchanged": 1,
+            "Removed": 2
+        }
+    }
+}
+class AssetUploadData {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Signature = $b.signature
+        this.Variant = $b.variant
+        this.OwnerId = $b.ownerId
+        this.TotalBytes = $b.TotalBytes
+        this.ChunkSIze = $b.ChunkSIze
+        this.TotalChunks = $b.TotalChunks
+        this.UploadState = $b.uploadState
+    }
+}
+class AssetVariantComputationTask {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.AssetSignature = $b.assetSignature
+        this.VariantId = $b.variantId
+        this.EntityType = $b.entityType;
+    }
+}
+class ChildRecordDiff {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Operation = $b.operation;
+        this.Created = $b.created;
+        this.ParentRecord = $b.parentRecord
+        this.RecordInfo = $b.recordInfo;
+        this.RecordInfoOperation = {
+            "Upsert": 0,
+            "Remove": 1
+        }
+    }
+}
+class CreditTransaction {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Token = $b.token;
+        this.FromUserId = $b.fromUserId;
+        this.ToUserId = $b.toUserId;
+        this.Amount = $b.amount;
+        this.Comment = $b.comment;
+        this.TransactionType = $b.transactionType;
+        this.Anonymous = $b.anonymous;
+    }
+}
+class ExternalQueueObject {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Id = $b.id
+        this.PopReceipt = $b.popReceipt
+        this.Object = $b.object
+    }
+}
+class PicturePatreon {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Name = $b.name
+        this.PictureURL = $b.pictureUrl;
+    }
+    PicturePatreon(name, url) {
+        this.Name = name
+        this.PictureURL = url
+    }
+}
+class License {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.LicenseGroup = $b.licenseGroup;
+        this.LicenseKey = $b.licenseKey;
+        this.PairedMachineUUID = $b.PairedMachineUUID;
+    }
+}
+class LoginCredentials {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.OwnerId = $b.ownerId
+        this.Username = $b.username
+        this.Email = $b.email
+        this.Password = $b.password;
+        this.RecoverCode = $b.recoverCode
+        this.SessionToken = $b.sessionCode
+        this.SecretMachineId = $b.secretMachineId;
+        this.RememberMe = $b.rememberMe
+    }
+    Preprocess() {
+        if (this.Username) this.Username = this.Username.trim();
+        if (this.Email) this.Email = this.Email.trim();
+    }
+    get IsPasswordValid() {
+        return true //TODO: CryptoHelper
+    }
+}
+class NeosAccount {
+    static MinCents(type) {
+        let num = 100;
+        switch (type) {
+            case AccountType.Normal:
+                return 0;
+            case AccountType.AgentSmith:
+                return num
+            case AccountType.BladeRunner:
+                return num * 6;
+            case AccountType.Gunter:
+                return num * 12
+            case AccountType.Neuromancer:
+                return num * 24
+            case AccountType.Architect:
+                return num * 32
+            case AccountType.Curator:
+                return num * 72
+            case AccountType.Level144:
+                return num * 144
+            case AccountType.Level250:
+                return num * 250
+            case AccountType.Anorak:
+                return num * 500
+            default:
+                throw new Error("Invalid AccountType: " + type)
+        }
+    }
+    static AccountName(type) {
+        switch (type) {
+            case AccountType.Normal:
+                return "Standard Account";
+            case AccountType.AgentSmith:
+                return "Agent Smith";
+            case AccountType.BladeRunner:
+                return "Blade Runner";
+            case AccountType.Gunter:
+                return "Gunter";
+            case AccountType.Neuromancer:
+                return "Neuromancer";
+            case AccountType.Architect:
+                return "Architect";
+            case AccountType.Curator:
+                return "Curator";
+            case AccountType.Level144:
+                return "Level 144";
+            case AccountType.Level250:
+                return "Level 250";
+            case AccountType.Anorak:
+                return "Anorak";
+            default:
+                return "Unknown Account Type";
+        }
+    }
+    static StorageBytes(type) {
+        var num = 1073741824;
+        switch (type) {
+            case AccountType.Normal:
+                return num;
+            case AccountType.AgentSmith:
+                return num * 5;
+            case AccountType.BladeRunner:
+                return num * 25;
+            case AccountType.Gunter:
+                return num * 50;
+            case AccountType.Neuromancer:
+                return num * 100;
+            case AccountType.Architect:
+                return num * 150;
+            case AccountType.Curator:
+                return num * 300;
+            case AccountType.Level144:
+                return num * 600;
+            case AccountType.Level250:
+                return num * 1200;
+            case AccountType.Anorak:
+                return num * 2400;
+            default:
+                throw new Error("Invalid AccountType: " + type);
+        }
+    }
+    static HasPatreonWorldAccess(type) {
+        switch (type) {
+            case AccountType.Normal:
+            case AccountType.AgentSmith:
+                return false;
+            case AccountType.BladeRunner:
+            case AccountType.Gunter:
+            case AccountType.Neuromancer:
+            case AccountType.Architect:
+            case AccountType.Curator:
+            case AccountType.Level144:
+            case AccountType.Level250:
+            case AccountType.Anorak:
+                return true;
+            default:
+                throw new Error("Invalid AccountType: " + type);
+        }
+    }
+}
+class NeosDBAsset {
+    constructor($b) {
+        if ($b) $b = {}
+        this.Hash = $b.hash
+        this.Bytes = $b.bytes
+    }
+}
+class RecordId {
+    constructor($b) {
+        if ($b) $b = {}
+        this.Id = $b.recordId
+        this.OwnerId = $b.ownerId
+    }
+    Equals(obj)
 }
 //CLOUD
 /**
@@ -625,6 +857,7 @@ class IRecord {
 }
 class Record extends IRecord {
     constructor($b) {
+        if (!$b) $b = {}
         super()
         this.RecordId = $b.id || new String()
         this.OwnerId = $b.ownerId || new String()
@@ -656,8 +889,8 @@ class Record extends IRecord {
     get URL() {
         return RecordHelper.GetUrl(this)
     }
-    set URL(value) {
-        this = RecordHelper.SetUrl(this, value)
+    URL(value) {
+        return RecordHelper.SetUrl(this, value)
     }
     static IsValidId(recordId) {
         return recordId.startsWith("R-")
@@ -677,6 +910,7 @@ class Record extends IRecord {
 }
 class RecordList {
     constructor($b) {
+        if (!$b) $b = {}
         this._Id = $b.id || new String()
         this.OwnerId = b.ownerId || new String()
         this.Name = $b.name || new String()
@@ -689,6 +923,7 @@ class RecordList {
 }
 class SessionUser {
     constructor($b) {
+        if (!$b) $b = {}
         this.Username = $b.username || new String()
         this.UserID = $b.userID || new String()
         this.IsPresent = $b.isPresent || new Boolean()
@@ -701,6 +936,7 @@ class SessionUser {
 }
 class Submission {
     constructor($b) {
+        if (!$b) $b = {}
         this.Id = $b.id || new String()
         this.GroupId = $b.ownerId || new String()
         this.TargetRecordId = $b.targetRecordId || new RecordId()
@@ -713,6 +949,7 @@ class Submission {
 }
 class User {
     constructor($b) {
+        if (!$b) $b = {}
         this.Id = $b.id || new String()
         this.Username = $b.username || new String()
         this.Email = $b.email || undefined
@@ -764,6 +1001,7 @@ class User {
 }
 class UserSession {
     constructor($b) {
+        if (!$b) $b = {}
         this.UserID = $b.userId || new String()
         this.SessionToken = $b.token || new String()
         this.SessionCreated = $b.created || new Date()
@@ -777,7 +1015,18 @@ class UserSession {
 }
 class Visit {
     constructor($b) {
+        if (!$b) $b = {}
         this.URL = $b.url || new Uri()
+        this.UserId = $b.userId || new String()
+        this.NeosSessionID = $b.neosSessionID || new String()
+        this.RecordVersion = $b.recordVersion || new Number()
+        this.Duration = $b.duration || new Number()
+        this.Start = $b.start || new Date()
+        this.End = $b.end || new Date()
+        this.Referal = $b.referal || new String()
+    }
+    get IsValid() {
+        return this.Start.getFullYear() >= 2016 && !(this.Start >= this.End) && ((this.End - this.Start).getSeconds() >= this.Duration && !String.IsNullOrWhiteSpace(this.URL._rawUrl))
     }
 }
 class CloudResult {
