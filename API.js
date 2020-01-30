@@ -137,7 +137,7 @@ class Dictionary extends Array {
     }
 }
 class HashSet extends Array {
-    constructor(){}
+    constructor() { }
 }
 String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
@@ -447,23 +447,93 @@ class IRecord {
 class Record extends IRecord {
     constructor($b) {
         super()
-        this.RecordId = $b.id  || new String()
+        this.RecordId = $b.id || new String()
         this.OwnerId = $b.ownerId || new String()
         this.AssetURI = $b.assetUri || new String()
         this._URL = new String()
         this.GlobalVersion = $b.globalVersion || new Number()
         this.Localversion = $b.localVersion || new Number()
         this.LastModifyingUserId = $b.lastModifyingUserId || new String()
+        this.LastModifyingMachineId = $b.lastModifyingMachineId || new String()
+        this.Name = $b.name || new String()
+        this.Description = $b.description || undefined
+        this.RecordType = $b.recordType || new String()
+        this.OwnerName = $b.ownerName || new String()
+        this.Tags = ($b.tags ? new HashSet($b.tags) : undefined)
+        this.Path = $b.path || new String()
+        this.ThumbnailURI = $b.thumbnailUri || new String()
+        this.LastModificationTime = $b.lastModificationTime || new Date()
+        this.CreationTime = $b.creationTime || new Date()
+        this.FirstPublishTime = $b.firstPublishTime || new Date()
+        this.IsPublic = $b.isPublic || new Boolean()
+        this.IsForPatreons = $b.isForPatreons || new Boolean()
+        this.IsListed = $b.isListed || new Boolean()
+        this.Visits = $b.visits || new Number()
+        this.Rating = $b.rating || new Number()
+        this.Submissions = $b.submissions || new List()
+        this.Manifest = new List()
+        this.NeosDBManifest = $b.neosDbManidest || new List()
     }
-    get URL(){
+    get URL() {
         return RecordHelper.GetUrl(this)
     }
-    set URL(value){
+    set URL(value) {
         this = RecordHelper.SetUrl(this, value)
+    }
+    static IsValidId(recordId) {
+        return recordId.startsWith("R-")
+    }
+    get IsValidOwnerId() {
+        return IdUtil.GetOwnerType(this.OwnerName) != OwnerType.INVALID
+    }
+    get IsValidRecordId() {
+        return RecordUtil.IsValidRecordID(this.RecordId)
+    }
+    ResetVersioning() {
+        this.Localversion = 0;
+        this.GlobalVersion = 0;
+        this.LastModifyingMachineId = null
+        this.LastModifyingMachineId = null
+    }
+}
+class RecordList {
+    constructor($b){
+        this._Id = $b.id || new String()
+        this.OwnerId = b.ownerId || new String()
+        this.Name = $b.name || new String()
+        this.Page = $b.page || new Number()
+        this.Records = $b.records || new List() //type Record
+    }
+    get Id(){
+        return this.Name + "-" + this.Page.toString()
+    }
+}
+class SessionUser {
+    constructor($b){
+        this.Username = $b.username || new String()
+        this.UserID = $b.userID || new String()
+        this.IsPresent = $b.isPresent || new Boolean()
+    }
+    Equals(other){
+        if (this.Username == other.Username && this.UserID == other.UserID)
+            return this.IsPresent == other.IsPresent;
+        return false
+    }
+}
+class Submission {
+    constructor($b){
+        this.Id = $b.id || new String()
+        this.GroupId = $b.ownerId || new String()
+        this.TargetRecordId = $b.targetRecordId || new RecordId()
+        this.SubmissionTime = $b.submissionTime || new Date()
+        this.SubmittedById = $b.submittedById || new String()
+        this.Featured = $b.featured || new Boolean()
+        this.FeaturedByUserId = $b.featuredByUserId || new String()
+        this.FeaturedTimestamp = $b.featuredTimestamp || new Date()
     }
 }
 class User {
-    constructor() {
+    constructor($b) {
         this.Id = new String()
         this.Username = new String()
         this.Email = new String()
