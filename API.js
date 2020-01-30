@@ -136,6 +136,9 @@ class Dictionary extends Array {
         return false
     }
 }
+class HashSet extends Array {
+    constructor(){}
+}
 String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
 }
@@ -161,10 +164,10 @@ class AssetEntry {
      */
     constructor($b) {
         if ($b) $b = {}
-        this.id = $b.id ? $b.id : new String()
-        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
-        this.Entry = $b.entry ? $b.entry : null
-        this.ComputeLock = $b.computeLock ? $b.computeLock : null
+        this.id = $b.id || new String()
+        this.OwnerId = $b.ownerId || new String()
+        this.Entry = $b.entry || null
+        this.ComputeLock = $b.computeLock || null
     }
     /**
      *
@@ -193,13 +196,13 @@ class AssetInfo {
      */
     constructor($b) {
         if (!$b) $b = {}
-        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
-        this.AssetHash = $b.assetHash ? $b.assetHash : new String()
-        this.Bytes = $b.bytes ? $b.bytes : new Number()
-        this.Free = $b.free ? $b.free : new Boolean()
-        this.IsUploaded = $b.isUploaded ? $b.isUploaded : new Boolean()
-        this.UploaderUserId = $b.uploadUserId ? uploadUserId : new String()
-        this.CountsAgainstMemberQuota = $b.bytes ? $b.bytes : new Boolean()
+        this.OwnerId = $b.ownerId || new String()
+        this.AssetHash = $b.assetHash || new String()
+        this.Bytes = $b.bytes || new Number()
+        this.Free = $b.free || new Boolean()
+        this.IsUploaded = $b.isUploaded || new Boolean()
+        this.UploaderUserId = $b.uploadUserId || new String()
+        this.CountsAgainstMemberQuota = $b.bytes || new Boolean()
     }
 }
 /**
@@ -214,7 +217,7 @@ class CloudMessage {
      */
     constructor($b) {
         if (!$b) $b = {}
-        this.Message = $b.Message ? $b.Message : new String()
+        this.Message = $b.Message || new String()
     }
     static ExtractMessage(content) {
         try {
@@ -227,9 +230,9 @@ class CloudMessage {
 class CloudVariable {
     constructor($b) {
         if (!$b) $b = {}
-        this.VariableOwnerId = $b.ownerId ? $b.ownerId : new String()
-        this.Path = $b.path ? $b.path : new String()
-        this.Value = $b.value ? $b.value : new String()
+        this.VariableOwnerId = $b.ownerId || new String()
+        this.Path = $b.path || new String()
+        this.Value = $b.value || new String()
     }
     static GetDefinitionPath(path, ownerId, subpath) {
         let length = path.indexOf('.')
@@ -243,14 +246,14 @@ class CloudVariable {
 class CloudVariableDefinition {
     constructor($b) {
         if (!$b) $b = {}
-        this.DefinitionOwnerId = $b.definitionOwnerId ? $b.definitionOwnerId : new String()
-        this.Subpath = $b.subpath ? $b.subpath : new String()
-        this.TypeHint = $b.typeHint ? $b.typeHint : new String()
-        this.DefaultValue = $b.defaultvalue ? $b.defaultValue : new String()
-        this.VariableOwnerCanRead = $b.variableOwnerCanRead ? $b.variableOwnerCanRead : new Boolean()
-        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite ? $b.variableOwnerCanWrite : new Boolean()
-        this.AnyoneCanRead = $b.anyoneCanRead ? $b.anyoneCanRead : new Boolean()
-        this.AnyoneCanWrite = $b.anyoneCanWrite ? $b.anyoneCanWrite : new Boolean()
+        this.DefinitionOwnerId = $b.definitionOwnerId || new String()
+        this.Subpath = $b.subpath || new String()
+        this.TypeHint = $b.typeHint || new String()
+        this.DefaultValue = $b.defaultvalue || new String()
+        this.VariableOwnerCanRead = $b.variableOwnerCanRead || new Boolean()
+        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite || new Boolean()
+        this.AnyoneCanRead = $b.anyoneCanRead || new Boolean()
+        this.AnyoneCanWrite = $b.anyoneCanWrite || new Boolean()
     }
     CanRead(variableOwnerId, readerId) {
         return this.AnyoneCanRead || this.VariableOwnerCanRead && variableOwnerId == readerId || readerId == this.DefinitionOwnerId
@@ -262,24 +265,24 @@ class CloudVariableDefinition {
 class Friend {
     constructor($b) {
         if (!$b) $b = {}
-        this.FriendUserId = $b.id ? $b.id : new String()
-        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
-        this.FriendUsername = $b.friendUsername ? $b.friendUsername : new String()
-        this.FriendStatus = $b.friendStatus ? $b.friendStatus : new Object()
-        this.IsAccepted = $b.isAccepted ? $b.isAccepted : new Boolean()
-        this.UserStatus = $b.userStatus ? $b.userStatus : new Object()
-        this.LatestMessageTime = $b.latestMessageTime ? $b.latestMessageTime : new Date()
-        this.Profile = $b.profile ? $b.profile : new Object()
+        this.FriendUserId = $b.id || new String()
+        this.OwnerId = $b.ownerId || new String()
+        this.FriendUsername = $b.friendUsername || new String()
+        this.FriendStatus = $b.friendStatus || new Object()
+        this.IsAccepted = $b.isAccepted || new Boolean()
+        this.UserStatus = $b.userStatus || new Object()
+        this.LatestMessageTime = $b.latestMessageTime || new Date()
+        this.Profile = $b.profile || new Object()
     }
 }
 class Group {
     constructor($b) {
         if (!$b) $b = {}
-        this.GroupId = $b.id ? $b.id : new String()
-        this.AdminUserId = $b.adminUserId ? $b.adminUserId : new String()
-        this.Name = $b.name ? $b.name : new String()
-        this.QuotaBytes = $b.quotaBytes ? $b.quotaBytes : new Number()
-        this.UsedBytes = $b.usedBytes ? $b.usedBytes : new Number()
+        this.GroupId = $b.id || new String()
+        this.AdminUserId = $b.adminUserId || new String()
+        this.Name = $b.name || new String()
+        this.QuotaBytes = $b.quotaBytes || new Number()
+        this.UsedBytes = $b.usedBytes || new Number()
     }
 }
 class RecordHelper {
@@ -344,32 +347,32 @@ class RecordHelper {
 class Member {
     constructor($b) {
         if (!$b) $b = {}
-        this.UserId = $b.id ? $b.id : new String()
-        this.GroupId = $b.ownerId ? $b.ownerId : new String()
-        this.QuotaBytes = $b.quotaBytes ? $b.quotaBytes : new Number()
-        this.UsedBytes = $b.usedBytes ? $b.usedBytes : new Number()
+        this.UserId = $b.id || new String()
+        this.GroupId = $b.ownerId || new String()
+        this.QuotaBytes = $b.quotaBytes || new Number()
+        this.UsedBytes = $b.usedBytes || new Number()
     }
 }
 class Membership {
     constructor($b) {
         if (!$b) $b = {}
-        this.UserId = $b.ownerId ? $b.ownerId : new String()
-        this.GroupId = $b.id ? $b.id : new String()
-        this.GroupName = $b.groupName ? $b.groupName : new String()
+        this.UserId = $b.ownerId || new String()
+        this.GroupId = $b.id || new String()
+        this.GroupName = $b.groupName || new String()
     }
 }
 class Message {
     constructor($b) {
         if (!$b) $b = {}
-        this.Id = $b.id ? $b.id : new String()
-        this.OwnerId = $b.ownerId ? $b.ownerId : new String()
-        this.RecipientId = $b.recipientId ? $b.recipientId : new String()
-        this.SenderId = $b.senderId ? $b.senderId : new String()
-        this.MessageType = $b.messageType ? $b.messageType : new Object()
-        this.Content = $b.content ? $b.content : new String()
-        this.SendTime = $b.sendTime ? $b.sendTime : new Date()
-        this.LastUpdateTime = $b.lastUpdateTime ? $b.lastUpdateTime : new Date()
-        this.ReadTime = $b.readTime ? $b.readTime : new Date()
+        this.Id = $b.id || new String()
+        this.OwnerId = $b.ownerId || new String()
+        this.RecipientId = $b.recipientId || new String()
+        this.SenderId = $b.senderId || new String()
+        this.MessageType = $b.messageType || new Object()
+        this.Content = $b.content || new String()
+        this.SendTime = $b.sendTime || new Date()
+        this.LastUpdateTime = $b.lastUpdateTime || new Date()
+        this.ReadTime = $b.readTime || new Date()
     }
     static GenerateId() {
         return "MSG-" + new uuidv4()
@@ -391,26 +394,27 @@ class Message {
     }
 }
 class NeosSession {
-    constructor($b){
-        this.ReverseTimestamp = $b.reverseTimestamp ? $b.reverseTimestamp : new String()
-        this.SessionId = $b.sessionId ? $b.sessionId : new String()
-        this.NeosVersion = $b.neosVersion ? $b.neosVersion : new String()
-        this.UserId = $b.userId ? $b.userId : new String()
-        this.MachineId = $b.machineId ? $b.machineId : new String()
-        this.CountryCode = $b.countryCode ? $b.countryCode : new String()
-        this.SystemLocale = $b.systemLocale ? $b.systemLocale : new String()
-        this.ClientIp = $b.clientIp ? $b.clientIp : new String()
-        this.SessionStart = $b.sessionStart ? $b.sessionStart : new Date()
-        this.SessionEnd = $b.sessionEnd ? $b.sessionEnd : new Date()
-        this.VisitedWorlds = $b.visitedWorlds ? $b.visitedWorlds : new Number()
-        this.CreatedWorlds = $b.createdWorlds ? $b.createdWorlds : new Number()
-        this.OperatingSystem = $b.operatingSystem ? $b.operatingSystem : new String()
-        this.HeadDevice = $b.headDevice ? $b.headDevice : new String()
-        this.HeadDeviceModel = $b.headDeviceModel ? $b.headDeviceModel : new String()
-        this.CPU = $b.cpu ? $b.cpu : new String()
-        this.GPU = $b.gpu ? $b.gpu : new String()
-        this.MemoryBytes = $b.memoryBytes ? $b.memoryBytes : new Number()
-        this.Peripherals = $b.peripherals ? $b.peripherals : new String()
+    constructor($b) {
+        if (!$b) $b = {}
+        this.ReverseTimestamp = $b.reverseTimestamp || new String()
+        this.SessionId = $b.sessionId || new String()
+        this.NeosVersion = $b.neosVersion || new String()
+        this.UserId = $b.userId || new String()
+        this.MachineId = $b.machineId || new String()
+        this.CountryCode = $b.countryCode || new String()
+        this.SystemLocale = $b.systemLocale || new String()
+        this.ClientIp = $b.clientIp || new String()
+        this.SessionStart = $b.sessionStart || new Date()
+        this.SessionEnd = $b.sessionEnd || new Date()
+        this.VisitedWorlds = $b.visitedWorlds || new Number()
+        this.CreatedWorlds = $b.createdWorlds || new Number()
+        this.OperatingSystem = $b.operatingSystem || new String()
+        this.HeadDevice = $b.headDevice || new String()
+        this.HeadDeviceModel = $b.headDeviceModel || new String()
+        this.CPU = $b.cpu || new String()
+        this.GPU = $b.gpu || new String()
+        this.MemoryBytes = $b.memoryBytes || new Number()
+        this.Peripherals = $b.peripherals || new String()
     }
 }
 class IRecord {
@@ -426,7 +430,7 @@ class IRecord {
         this.OwnerName = new String()
         this.Description = new String()
         this.RecordType = new String()
-        this.Tags
+        this.Tags = new HashSet()
         this.Path = new String()
         this.ThumbnailURI = new String()
         this.IsPublic = new Boolean()
@@ -434,17 +438,29 @@ class IRecord {
         this.IsListed = new Boolean()
         this.Visits = new Number()
         this.Rating = new Number()
-        this.FirstPublishTime
-        this.CreationTime
-        this.LastModificationTime
-        this.NeosDBManifest = new Array()
+        this.FirstPublishTime = new Date()
+        this.CreationTime = new Date()
+        this.LastModificationTime = new Date()
+        this.NeosDBManifest = new List()
     }
 }
 class Record extends IRecord {
-    constructor() {
-
+    constructor($b) {
+        super()
+        this.RecordId = $b.id  || new String()
+        this.OwnerId = $b.ownerId || new String()
+        this.AssetURI = $b.assetUri || new String()
+        this._URL = new String()
+        this.GlobalVersion = $b.globalVersion || new Number()
+        this.Localversion = $b.localVersion || new Number()
+        this.LastModifyingUserId = $b.lastModifyingUserId || new String()
     }
-
+    get URL(){
+        return RecordHelper.GetUrl(this)
+    }
+    set URL(value){
+        this = RecordHelper.SetUrl(this, value)
+    }
 }
 class User {
     constructor() {
