@@ -16,6 +16,38 @@ class HTTP_CLIENT {
         return cloudResult
     }
 }
+AccountType = {
+    'Normal': 0,
+    'AgentSmith': 1,
+    'BladeRunner': 2,
+    'Gunter': 3,
+    "Neuromancer": 4,
+    'Architect': 5,
+    'Curator': 6,
+    "Level144": 7,
+    'Level250': 8,
+    'Anorak': 9,
+    'END': 10
+}
+ServerStatus = {
+    "Good": 0,
+    "Slow": 1,
+    "Down": 2,
+    "NoInternet": 3
+}
+MessageType = {
+    "Text": 0,
+    "Object": 1,
+    "SessionInvite": 2,
+    "CreditTransfer": 3,
+    "SugarCubes": 4 //Not Implimented
+}
+TransactionType = {
+    "User2User": 0,
+    "Withdrawal": 1,
+    "Deposit": 2,
+    "Tip": 3
+}
 const HttpMethod = {
     "Get": "GET",
     "Put": "PUT",
@@ -23,11 +55,24 @@ const HttpMethod = {
     "Post": "POST",
     "Patch": "PATCH"
 }
+/**
+ *
+ *  Delay by ms
+ * @param {TimeSpan} timespan
+ * @returns {Promise}
+ */
 function Delay(timespan) {
     return new Promise(resolve => setTimeout(resolve, timespan.msecs));
 }
 class Uri {
     constructor(url) {
+        if (!url) return
+        this.URL = url
+    }
+    /**
+     * @param {URL} value
+     */
+    set URL(value) {
         this._rawUrl = url
         this._raw = URI.parse(url)
         let path = (this._raw.path.split('/'))
@@ -46,14 +91,35 @@ class Uri {
 class Path {
 
 }
+/**
+ * Unordered List
+ *
+ * @class List
+ * @extends {Array}
+ */
 class List extends Array {
+    /**
+     *Creates an instance of List.
+     * @param {List} props List
+     * @memberof List
+     */
     constructor(props) {
         if (!props) return super()
         super(props)
     }
+    /**
+     *Add a Value to the List
+     *
+     * @param {*} value
+     * @memberof List
+     */
     Add(value) {
         this.push(value)
     }
+    /**
+     * Concat 2 Lists
+     * @param {List} list 
+     */
     AddRange(list) {
         if (list == null) throw new Error("ArgumentNullException")
         if (!typeof list == "object") throw new Error("AddRange: Expected type List")
@@ -61,21 +127,54 @@ class List extends Array {
             this.Add(item)
         }
     }
+    /**
+     *Clear the List
+     *
+     * @memberof List
+     */
     Clear() {
         this.splice(0, this.length)
     }
+    /**
+     * Does the List contain a given item
+     * @param {*} item 
+     */
     Contains(item) {
         return this.includes(item)
     }
+    /**
+     * 
+     * @param {*} match 
+     */
     Exists(match) {
         //TODO
     }
+    /**
+     *
+     *
+     * @param {*} match
+     * @returns
+     * @memberof List
+     */
     Find(match) {
         return this.find(match)
     }
+    /**
+     *
+     *
+     * @param {*} action
+     * @memberof List
+     */
     ForEach(action) {
         this.forEach(action)
     }
+    /**
+     *
+     *
+     * @param {*} iValue 
+     * @returns {Number} Index
+     * @memberof List
+     */
     Remove(iValue) {
         var iIndex = this.indexOf(iValue)
         if (iIndex > -1) {
@@ -83,6 +182,13 @@ class List extends Array {
         }
         return iIndex
     }
+    /**
+     *
+     *
+     * @param {Number} iIndex
+     * @returns {*} Removed Item
+     * @memberof List
+     */
     RemoveAt(iIndex) {
         var vItem = this[iIndex];
         if (vItem) {
@@ -94,33 +200,79 @@ class List extends Array {
         return //TODO
     }
 }
+/**
+ *
+ *
+ * @class Dictionary
+ * @extends {Array}
+ */
 class Dictionary extends Array {
     constructor(props) {
         if (!props) return super()
         super(props)
     }
+    /**
+     *
+     *
+     * @param {*} Key
+     * @param {*} Value
+     * @memberof Dictionary
+     */
     Add(Key, Value) {
         if (this.ContainsKey(Key)) throw new Error("ArgumentException: An element with the same key already exists")
         this.push({ Key, Value })
     }
+    /**
+     *
+     *
+     * @memberof Dictionary
+     */
     Clear() {
         this.splice(0, this.length)
     }
+    /**
+     *
+     *
+     * @param {*} key
+     * @returns
+     * @memberof Dictionary
+     */
     ContainsKey(key) {
         for (let object of this) {
             if (object.Key == key) return true
         }
         return false
     }
+    /**
+     *
+     *
+     * @param {*} value
+     * @returns
+     * @memberof Dictionary
+     */
     ContainsValue(value) {
         for (let object of this) {
             if (object.Value == value) return true
         }
         return false
     }
+    /**
+     *
+     *
+     * @param {*} capacity
+     * @returns
+     * @memberof Dictionary
+     */
     EnsureCapacity(capacity) {
         return this.length
     }
+    /**
+     *
+     *
+     * @param {*} iIndex
+     * @returns
+     * @memberof Dictionary
+     */
     RemoveAt(iIndex) {
         var vItem = this[iIndex];
         if (vItem) {
@@ -128,6 +280,13 @@ class Dictionary extends Array {
         }
         return vItem;
     }
+    /**
+     *
+     *
+     * @param {*} key
+     * @returns
+     * @memberof Dictionary
+     */
     Remove(key) {
         if (!this.ContainsKey(key)) return false
         for (let object of this) {
@@ -136,12 +295,32 @@ class Dictionary extends Array {
         return false
     }
 }
+/**
+ *
+ *
+ * @class HashSet
+ * @extends {Array}
+ */
 class HashSet extends Array {
-    constructor() { }
+    constructor($b) {
+        if (!$b) return super()
+        super($b)
+    }
 }
+
 String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
 }
+String.prototype.IsNullOrWhiteSpace = function(str){
+    if (!str) return true
+    if (str.trim() == '') return true
+    return false
+}
+/**
+ *
+ *
+ * @class httpRequestMessage
+ */
 class httpRequestMessage {
     constructor(method, uri) {
         this.Headers = {}
@@ -497,31 +676,31 @@ class Record extends IRecord {
     }
 }
 class RecordList {
-    constructor($b){
+    constructor($b) {
         this._Id = $b.id || new String()
         this.OwnerId = b.ownerId || new String()
         this.Name = $b.name || new String()
         this.Page = $b.page || new Number()
-        this.Records = $b.records || new List() //type Record
+        this.Records = $b.records || new List() //TYPE Record
     }
-    get Id(){
+    get Id() {
         return this.Name + "-" + this.Page.toString()
     }
 }
 class SessionUser {
-    constructor($b){
+    constructor($b) {
         this.Username = $b.username || new String()
         this.UserID = $b.userID || new String()
         this.IsPresent = $b.isPresent || new Boolean()
     }
-    Equals(other){
+    Equals(other) {
         if (this.Username == other.Username && this.UserID == other.UserID)
             return this.IsPresent == other.IsPresent;
         return false
     }
 }
 class Submission {
-    constructor($b){
+    constructor($b) {
         this.Id = $b.id || new String()
         this.GroupId = $b.ownerId || new String()
         this.TargetRecordId = $b.targetRecordId || new RecordId()
@@ -534,26 +713,26 @@ class Submission {
 }
 class User {
     constructor($b) {
-        this.Id = new String()
-        this.Username = new String()
-        this.Email = new String()
-        this.RegistrationDate = new Date()
-        this.QuotaBytes = new Number()
-        this.UsedBytes = new Number()
-        this.isVerified = new Boolean()
-        this.AccountBanExpiration
-        this.PublicBanExpiration
-        this.SpectatorBanExpiration
-        this.MuteBanExpiration
-        this.Password = new String()
-        this.RecoverCode = new String()
-        this.Tags = new Array()
-        this.PatreonData = null
-        this.Credits = new Number()
-        this.NCRDepositAddress = new String()
-        this.ReferralId = new String()
-        this.ReferrerUserId = new String()
-        this.Profile = new Object()
+        this.Id = $b.id || new String()
+        this.Username = $b.username || new String()
+        this.Email = $b.email || undefined
+        this.RegistrationDate = $b.registrationDate || new Date()
+        this.QuotaBytes = $b.quotaBytes || new Number()
+        this.UsedBytes = $b.usedBytes || new Number()
+        this.isVerified = $b.isVerified || new Boolean()
+        this.AccountBanExpiration = $b.accountBanExpiration || new Date(0)
+        this.PublicBanExpiration = $b.publicBanExpiration || new Date(0)
+        this.SpectatorBanExpiration = $b.spectatorBanExpiration || new Date(0)
+        this.MuteBanExpiration = $b.muteBanExpiration || new Date(0)
+        this.Password = $b.password || new String()
+        this.RecoverCode = $b.recoverCode || new String()
+        this.Tags = $b.tags || new List()
+        this.PatreonData = $b.patreonData || null
+        this.Credits = $b.credits || new Number()
+        this.NCRDepositAddress = $b.NCRDepositAddress || new String()
+        this.ReferralId = $b.referralId || new String()
+        this.ReferrerUserId = $b.referrerUserId || new String()
+        this.Profile = $b.profile || new Object()
     }
     get IsAccountBanned() {
         return new Date() < this.AccountBanExpiration
@@ -574,38 +753,32 @@ class User {
     get AccountName() {
         return this.PatreonData.AccountName || NeosAccount.AccountName(AccountType.Normal)
     }
+    get IsPasswordValid() {
+        return this.Password != null && this.Password.length >= 8 && true //TODO:Count Check
+    }
+    get IsUsernameValid() {
+        if (this.Username != null)
+            return this.Username.length > 0;
+        return false
+    }
 }
-AccountType = {
-    'Normal': 0,
-    'AgentSmith': 1,
-    'BladeRunner': 2,
-    'Gunter': 3,
-    "Neuromancer": 4,
-    'Architect': 5,
-    'Curator': 6,
-    "Level144": 7,
-    'Level250': 8,
-    'Anorak': 9,
-    'END': 10
+class UserSession {
+    constructor($b) {
+        this.UserID = $b.userId || new String()
+        this.SessionToken = $b.token || new String()
+        this.SessionCreated = $b.created || new Date()
+        this.SessionExpire = $b.expire || new Date()
+        this.SecretMachineId = $b.secretMachineId || new String()
+        this.RememberMe = $b.rememberMe || new Boolean()
+    }
+    get IsExpired() {
+        return new Date() > this.SessionExpire
+    }
 }
-ServerStatus = {
-    "Good": 0,
-    "Slow": 1,
-    "Down": 2,
-    "NoInternet": 3
-}
-MessageType = {
-    "Text": 0,
-    "Object": 1,
-    "SessionInvite": 2,
-    "CreditTransfer": 3,
-    "SugarCubes": 4 //Not Implimented
-}
-TransactionType = {
-    "User2User": 0,
-    "Withdrawal": 1,
-    "Deposit": 2,
-    "Tip": 3
+class Visit {
+    constructor($b) {
+        this.URL = $b.url || new Uri()
+    }
 }
 class CloudResult {
     constructor() {
