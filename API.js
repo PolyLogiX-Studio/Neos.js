@@ -559,7 +559,29 @@ class RecordId {
         this.Id = $b.recordId
         this.OwnerId = $b.ownerId
     }
-    Equals(obj)
+    GetHashCode(){
+        return this.Id.GetHashCode() ^ this.OwnerId.GetHashCode()
+    }
+    Equals(other) {
+        if (this.Id == other.Id)
+        return this.OwnerId == other.OwnerId
+        return false;
+    }
+    RecordId(ownerId, recordId){
+        this.OwnerId = ownerId
+        this.Id = recordId
+    }
+}
+class RecordInfo {
+    constructor($b){
+        if ($b) $b = {}
+        this.Id = $b.recordId
+        this.OwnerId = $b.ownerId
+        this.Name = $b.name
+        this.AssetURI = $b.assetUri
+        this.ThumbnailURI = $b.thumbnailUri
+        this.GlobalVersion = $b.globalVersion
+    }
 }
 //CLOUD
 /**
