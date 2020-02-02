@@ -3,6 +3,7 @@ const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
 const Lock = new AsyncLock()
 const URI = require('uri-js')
+const testSessionData = [{ "name": "PoKe Stadium", "description": "Pokeballs and Pokemon!", "tags": [], "sessionId": "827ac337-98af-4dc3-96fc-2c4c45709e89", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://827ac337-98af-4dc3-96fc-2c4c45709e89/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/94ff099e-fbab-4fe1-800d-b9428384d452.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": true, "sessionBeginTime": "2020-02-01T20:04:53.379037Z", "lastUpdate": "2020-02-02T16:19:23.4506503Z", "awaySince": "2020-02-02T08:40:12.475562Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "The Directory", "description": "Find a Public Folder your looking for!", "tags": [], "sessionId": "d9f5cbd9-4563-4db0-b8ad-a9ba548a3ef7", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://d9f5cbd9-4563-4db0-b8ad-a9ba548a3ef7/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/1ab7a345-937d-4355-98bc-3234a53a200f.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-01T20:04:57.492029Z", "lastUpdate": "2020-02-02T16:19:23.4080882Z", "awaySince": "2020-02-01T20:04:59.286643Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Tooltip Tutorials!", "description": "BusinessLawyer's gonna Business you up Neos Style", "tags": [], "sessionId": "dfc4af13-3842-445d-b111-6f727f53d6c3", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://dfc4af13-3842-445d-b111-6f727f53d6c3/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/ea07e8c0-b567-4b18-8dff-3f524ab7d4d9.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-01T20:04:58.664355Z", "lastUpdate": "2020-02-02T16:19:23.4148902Z", "awaySince": "2020-02-01T20:05:02.109191Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Cosmo Canyon", "description": "FF7! Made by Wauf", "tags": [], "sessionId": "7ffad818-cbc8-4b5a-b898-6c4fd13da118", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://7ffad818-cbc8-4b5a-b898-6c4fd13da118/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/c810c8aa-bf63-49ff-a490-4ccc7080ee29.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-01T20:05:00.997404Z", "lastUpdate": "2020-02-02T16:19:23.4223669Z", "awaySince": "2020-02-01T20:05:07.388524Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Just Dancing", "description": "Shake that booty!", "tags": [], "sessionId": "d2babbc5-5f17-4b41-ad74-86d064fa42de", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://d2babbc5-5f17-4b41-ad74-86d064fa42de/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/211629ae-c31f-4dda-81c0-5438dfd924bc.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-01T20:05:05.878058Z", "lastUpdate": "2020-02-02T16:19:23.428955Z", "awaySince": "2020-02-01T20:05:13.500546Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Lone Digger", "tags": ["zab", "world", "lone", "digger"], "sessionId": "fd14ba9c-d3b3-4337-beb3-7c4d623aaf09", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://fd14ba9c-d3b3-4337-beb3-7c4d623aaf09/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/f38a920b-c708-413b-8ee7-a878fd99f167.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-01T20:05:13.805306Z", "lastUpdate": "2020-02-02T16:19:23.4357512Z", "awaySince": "2020-02-01T20:05:15.810305Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Racecar Simulator!", "description": "Modified by Gearbell, original map by Aegis Wolf", "tags": ["drift", "stage", "city", "car", "costume", "race"], "sessionId": "208d1e4f-423c-49ce-a331-638ccadba997", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://208d1e4f-423c-49ce-a331-638ccadba997/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/3d05293b-22e1-48e0-a3a5-13126cdf0e4f.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-01T20:05:15.03447Z", "lastUpdate": "2020-02-02T16:19:23.4439328Z", "awaySince": "2020-02-01T23:34:08.195558Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Boating Demo (persistent)", "tags": ["boating", "demo"], "sessionId": "2ea93cfb-a87e-437d-bc9b-3a010e06c606", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://2ea93cfb-a87e-437d-bc9b-3a010e06c606/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/0313b0d2-8d23-46fd-a0c7-0065a24d0529.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T06:24:39.7451498Z", "lastUpdate": "2020-02-02T16:19:04.4678296Z", "awaySince": "2020-02-02T06:24:47.1848181Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Prop Hunt Game (persistent)", "tags": ["creator", "jam", "CJ", "cj", "template", "prop", "hunt", "game", "Creator", "Jam", "may", "lag"], "sessionId": "e11649b9-7fad-42b4-9189-8ae8b6b11e97", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://e11649b9-7fad-42b4-9189-8ae8b6b11e97/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/1bb5d136-5041-424f-9d9e-710cb6932765.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T06:25:04.385895Z", "lastUpdate": "2020-02-02T16:19:04.4756128Z", "awaySince": "2020-02-02T07:40:46.1435112Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Tea House (persistent)", "tags": ["tea", "house", "V"], "sessionId": "6ab6c46f-63a2-44c4-8549-324419c6d140", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://6ab6c46f-63a2-44c4-8549-324419c6d140/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/6d6e14b2-fa1f-43b8-a731-fd9a6a9fd166.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T07:40:45.1387519Z", "lastUpdate": "2020-02-02T16:19:04.481479Z", "awaySince": "2020-02-02T08:22:50.2118624Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "O'Neos Cylinder (persistent)", "tags": ["neos", "cylinder"], "sessionId": "a287d350-0dd8-4b79-ba58-e6ddbc4ee5e1", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://a287d350-0dd8-4b79-ba58-e6ddbc4ee5e1/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/0ef837e7-5a7c-4645-8e55-fdbc4e6f76e4.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T08:22:49.3345775Z", "lastUpdate": "2020-02-02T16:19:04.4874516Z", "awaySince": "2020-02-02T10:42:30.8433517Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Minecraft Rain House", "description": "Created by a VFX artist, this world might just be a visual tech demo, Special thanks to LucasRo7 for help with the reflections.", "tags": ["insanegrox", "world", "minecraft", "rainy", "house"], "sessionId": "b193fbf4-d60d-408a-968d-a732ad061e31", "hostUserId": "U-MechaTurk", "hostMachineId": "eyx1im8qmuipomejx2cghq", "hostUsername": "MechaTurk", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://b193fbf4-d60d-408a-968d-a732ad061e31/"], "sessionUsers": [{ "username": "MechaTurk", "userID": "U-MechaTurk", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/d3aeed6d-b872-4d26-b8e6-5bdda003c390.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 8, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T08:40:11.448181Z", "lastUpdate": "2020-02-02T16:19:23.4002995Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Viridian Island (persistent)", "tags": ["viridian", "island"], "sessionId": "56fa120c-7edd-4235-ac9a-02819dc3c347", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://56fa120c-7edd-4235-ac9a-02819dc3c347/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/59c01bbf-4c1d-4847-b9b6-e237d382ebb8.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T11:23:45.3953333Z", "lastUpdate": "2020-02-02T16:19:04.4937184Z", "awaySince": "2020-02-02T11:33:37.9386707Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Neon Arcade Hangout (persistent)", "tags": ["rueshejn", "world", "neon", "arcade", "hangout"], "sessionId": "9f947b29-e22f-4dfa-b2f9-ae3c5eff9fb0", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://9f947b29-e22f-4dfa-b2f9-ae3c5eff9fb0/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/dafc1b3d-1e04-441f-8dc6-bdb49a135f97.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T11:33:37.2570923Z", "lastUpdate": "2020-02-02T16:19:04.499715Z", "awaySince": "2020-02-02T12:23:20.7232952Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "JP Tutorial World (Public)", "tags": ["jp", "tutorial", "world", "color"], "sessionId": "439b8203-6d3b-440c-9c08-8cd44f3167f5", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://439b8203-6d3b-440c-9c08-8cd44f3167f5/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/b12c85de-268c-4607-bceb-6c2d47aa34d9.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T12:23:19.4352322Z", "lastUpdate": "2020-02-02T16:19:04.5067412Z", "awaySince": "2020-02-02T12:56:01.6182811Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Twitch Streamer House (persistent)", "tags": ["neos", "vr", "twitch", "stream", "streaming", "house", "chat", "integration", "interactive"], "sessionId": "5019ab06-65eb-40f5-b4d2-b412cf4691ef", "hostUserId": "U-FrooxLess", "hostMachineId": "m3modbf070owt214eb6pea", "hostUsername": "FrooxLess", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://5019ab06-65eb-40f5-b4d2-b412cf4691ef/"], "sessionUsers": [{ "username": "FrooxLess", "userID": "U-FrooxLess", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/9ce438e2-9cb4-4b16-b080-c27c4e396563.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T12:56:00.0807761Z", "lastUpdate": "2020-02-02T16:19:04.4595131Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Hayden World", "tags": [], "sessionId": "8c587de1-2a2f-449a-a00c-7eafd5ea4d95", "hostUserId": "U-Hayden", "hostMachineId": "kqhg4dmi1uclrujdldkjgw", "hostUsername": "Hayden", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://8c587de1-2a2f-449a-a00c-7eafd5ea4d95/"], "sessionUsers": [], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/b04a9f38-3efd-48d6-93a2-4e2b80d2210f.webp", "joinedUsers": 1, "activeUsers": 1, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T13:29:25.4194528Z", "lastUpdate": "2020-02-02T16:19:10.739025Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "Struggle", "tags": ["struggle"], "sessionId": "358fa057-d46b-41a1-bfe8-800c0163951a", "hostUserId": "U-Lhannan", "hostMachineId": "5z9wsroczkcme3zh3v9x2g", "hostUsername": "Lhannan", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://358fa057-d46b-41a1-bfe8-800c0163951a/"], "sessionUsers": [{ "username": "Lhannan", "userID": "U-Lhannan", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/bd5cab14-e162-4459-8af4-1ff0d8cb85be.webp", "joinedUsers": 1, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T13:48:56.7205304Z", "lastUpdate": "2020-02-02T16:19:27.3421013Z", "awaySince": "2020-02-02T15:11:23.4685118Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "alex derpy fox World", "tags": [], "sessionId": "54b132cc-5c2d-4f66-8305-0a0071b2c8ee", "hostUserId": "U-alex-derpy-fox", "hostMachineId": "w2lfl-tftka9hn-eadflog", "hostUsername": "alex derpy fox", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://54b132cc-5c2d-4f66-8305-0a0071b2c8ee/"], "sessionUsers": [{ "username": "alex derpy fox", "userID": "U-alex-derpy-fox", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/aa33fac3-6aa2-4ca9-979f-9898cb491d36.webp", "joinedUsers": 1, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T14:07:58.9140758Z", "lastUpdate": "2020-02-02T16:19:15.1008439Z", "awaySince": "2020-02-02T14:23:58.9095588Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "<b>London Home 18xx", "description": "mhh yes quite", "tags": ["color", "red", "blue", "yellow", "green", "london", "home", "xx"], "sessionId": "5b54f0a6-d196-433c-94b6-bcd3626bfaba", "hostUserId": "U-EroSensei", "hostMachineId": "wougnqk5cus--ecnrvammg", "hostUsername": "EroSensei", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://5b54f0a6-d196-433c-94b6-bcd3626bfaba/"], "sessionUsers": [{ "username": "EroSensei", "userID": "U-EroSensei", "isPresent": true }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/8819209b-3a93-4a98-bad1-df34df0556ff.webp", "joinedUsers": 1, "activeUsers": 1, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T14:22:49.0924154Z", "lastUpdate": "2020-02-02T16:18:41.4203034Z", "accessLevel": "RegisteredUsers", "hasEnded": false }, { "name": "Neos Hub", "tags": ["neos", "hub"], "sessionId": "e9c6470e-d100-4775-84ca-00aa030fc670", "hostUserId": "U-CBGog", "hostMachineId": "mpxswdm61ugpnlqef43kig", "hostUsername": "CBGog", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://e9c6470e-d100-4775-84ca-00aa030fc670/"], "sessionUsers": [{ "username": "CBGog", "userID": "U-CBGog", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/15dcaa5b-3e46-4dc1-8fda-b88d606e45bb.webp", "joinedUsers": 1, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T14:24:43.5826077Z", "lastUpdate": "2020-02-02T16:19:03.344984Z", "awaySince": "2020-02-02T15:34:47.7200886Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "The Underground", "description": "Party in the creepy sewers taken over by neon punks. Beware the Lurkers...", "tags": ["underground", "sewers", "graffiti", "rave", "club", "pool", "dark", "scary"], "sessionId": "a2a89bcc-c72e-4edc-8c79-fb88b873c689", "hostUserId": "U-Nexulan", "hostMachineId": "m0b4jj7ptksyy4mdldocrq", "hostUsername": "Nexulan", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://a2a89bcc-c72e-4edc-8c79-fb88b873c689/"], "sessionUsers": [{ "username": "Nexulan", "userID": "U-Nexulan", "isPresent": true }, { "username": "PurpleJuice", "userID": "U-PurpleJuice", "isPresent": false }, { "username": "Lhannan", "userID": "U-Lhannan", "isPresent": false }, { "username": "CBGog", "userID": "U-CBGog", "isPresent": true }, { "username": "alex derpy fox", "userID": "U-alex-derpy-fox", "isPresent": true }, { "username": "Aegis_Wolf", "userID": "U-Aegis-Wolf", "isPresent": true }, { "username": "Elektrospy", "userID": "U-Elektrospy", "isPresent": true }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/e177d59c-f950-4161-a168-0b7a8e017504.webp", "joinedUsers": 8, "activeUsers": 6, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T14:50:19.8984452Z", "lastUpdate": "2020-02-02T16:18:52.181058Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "haykelvin World", "tags": [], "sessionId": "c557ccf6-0410-4ff5-852e-52db036d1904", "hostMachineId": "ad6ialbph0qgofojdpog8g", "hostUsername": "haykelvin", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://c557ccf6-0410-4ff5-852e-52db036d1904/"], "sessionUsers": [], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/987ec009-c88a-44b6-94fa-c458f13e0877.webp", "joinedUsers": 1, "activeUsers": 1, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T01:51:32.1637334Z", "lastUpdate": "2020-02-02T16:18:45.5539536Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "ModularShips", "description": "ModularShips", "tags": ["creator", "jam", "CJ", "cj", "template", "prop", "hunt", "game", "Creator", "Jam", "may", "lag"], "sessionId": "bdae9b07-cda6-43e6-9baf-40832662e8d2", "hostUserId": "U-Creator-Jam", "hostMachineId": "elyyzgperkufbif0mfkgnw", "hostUsername": "Creator Jam", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": true, "sessionURLs": ["lnl-nat://bdae9b07-cda6-43e6-9baf-40832662e8d2/"], "sessionUsers": [{ "username": "Creator Jam", "userID": "U-Creator-Jam", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/c4521d9d-92f1-409a-b55b-b5297b3c8521.webp", "joinedUsers": 0, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T15:50:17.3867044Z", "lastUpdate": "2020-02-02T16:19:28.4363697Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "MTC Stream/Record room", "tags": ["mtc", "stream", "record", "room"], "sessionId": "ff6560a4-709a-41fc-af8c-ef604f4279cf", "hostMachineId": "jhez9pedjumhxfdtlzst8q", "hostUsername": "ArchGamer", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://ff6560a4-709a-41fc-af8c-ef604f4279cf/"], "sessionUsers": [{ "username": "ArchGamer", "isPresent": false }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/c5374e10-2ffb-406f-ae90-7e87556dd07d.webp", "joinedUsers": 1, "activeUsers": 0, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T15:55:38.689086Z", "lastUpdate": "2020-02-02T16:19:14.8089986Z", "awaySince": "2020-02-02T15:56:08.7404418Z", "accessLevel": "Anyone", "hasEnded": false }, { "name": "MTC Avatar Creation", "tags": ["mtc", "avatar", "creation"], "sessionId": "d60a2e6f-098f-4daa-8fa2-84f9a575cd31", "hostMachineId": "jhez9pedjumhxfdtlzst8q", "hostUsername": "ArchGamer", "compatibilityHash": "L5pN9zfrFI6qqSFw+ylvlQ==", "neosVersion": "0.8.19.9988", "headlessHost": false, "sessionURLs": ["lnl-nat://d60a2e6f-098f-4daa-8fa2-84f9a575cd31/"], "sessionUsers": [{ "username": "ArchGamer", "isPresent": true }], "thumbnail": "https://cloudxstorage.blob.core.windows.net/thumbnails/fd55d962-ebd2-4f2e-bf36-76462989991e.webp", "joinedUsers": 1, "activeUsers": 1, "maxUsers": 32, "mobileFriendly": false, "sessionBeginTime": "2020-02-02T15:56:05.4936629Z", "lastUpdate": "2020-02-02T16:19:14.8007688Z", "accessLevel": "Anyone", "hasEnded": false }]
 const { TimeSpan, parse, parseDate, fromSeconds } = require('timespan')
 class HTTP_CLIENT {
     static async SendAsync(request, token) {
@@ -16,45 +17,80 @@ class HTTP_CLIENT {
         return cloudResult
     }
 }
-const AccountType = {
-    'Normal': 0,
-    'AgentSmith': 1,
-    'BladeRunner': 2,
-    'Gunter': 3,
-    "Neuromancer": 4,
-    'Architect': 5,
-    'Curator': 6,
-    "Level144": 7,
-    'Level250': 8,
-    'Anorak': 9,
-    'END': 10
+class Enumerable extends Object {
+    constructor($b) {
+        super()
+        
+        if ($b.constructor.name == "Object") {
+            this._values = {}
+            let keys = Object.keys($b)
+            for (let i = 0; i < keys.length; i++) {
+                this[keys[i]] = i
+                this._values[keys[i]] = $b[[keys[i]]]
+            }
+        }
+        if ($b.constructor.name == "Array" || ($b.constructor.name == "List")) {
+            let keys = $b
+            for (let i = 0; i < keys.length; i++) {
+                this[keys[i]] = i
+            }
+        }
+        Object.freeze(this)
+    }
+    GetValue(key){
+        if (this._values)
+        return this._values[key]
+        return this[key]
+    }
+    
+    FromEnum(Enum){
+        let keys = Object.keys(Enum).shift()
+        if (Enum > keys.length) throw new Error("Bounds Exceeded")
+        for (let i = 0; i < keys.length; i++) {
+            if (this[keys[i]] == Enum)  return keys[i]
+        }
+        throw new Error("Value not Found")
+    }
 }
-const ServerStatus = {
-    "Good": 0,
-    "Slow": 1,
-    "Down": 2,
-    "NoInternet": 3
-}
-const MessageType = {
-    "Text": 0,
-    "Object": 1,
-    "SessionInvite": 2,
-    "CreditTransfer": 3,
-    "SugarCubes": 4 //Not Implimented
-}
-const TransactionType = {
-    "User2User": 0,
-    "Withdrawal": 1,
-    "Deposit": 2,
-    "Tip": 3
-}
-const HttpMethod = {
+const AccountType = new Enumerable([
+    'Normal',
+    'AgentSmith',
+    'BladeRunner',
+    'Gunter',
+    "Neuromancer",
+    'Architect',
+    'Curator',
+    "Level144",
+    'Level250',
+    'Anorak',
+    'END'
+])
+const ServerStatus = new Enumerable([
+    "Good",
+    "Slow",
+    "Down",
+    "NoInternet"
+])
+const MessageType = new Enumerable([
+    "Text",
+    "Object",
+    "SessionInvite",
+    "CreditTransfer",
+    "SugarCubes" //Not Implimented
+])
+const TransactionType = new Enumerable([
+    "User2User",
+    "Withdrawal",
+    "Deposit",
+    "Tip"
+])
+const HttpMethod = new Enumerable({
     "Get": "GET",
     "Put": "PUT",
     "Delete": "DELETE",
     "Post": "POST",
     "Patch": "PATCH"
-}
+})
 /**
  *
  *  Delay by ms
@@ -122,8 +158,8 @@ class List extends Array {
      */
     AddRange(list) {
         if (list == null) throw new Error("ArgumentNullException")
-        if (!typeof list == "object") throw new Error("AddRange: Expected type List")
-        for (item of list) {
+        if (!(list.constructor.name == "List")) throw new Error("AddRange: Expected type List");
+        for (var item of list) {
             this.Add(item)
         }
     }
@@ -307,7 +343,13 @@ class HashSet extends Array {
         super($b)
     }
 }
-
+Array.prototype.ToList = function () {
+    let t = new List()
+    for (let item of this) {
+        t.Add(item)
+    }
+    return t
+}
 String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
 }
@@ -559,21 +601,21 @@ class RecordId {
         this.Id = $b.recordId
         this.OwnerId = $b.ownerId
     }
-    GetHashCode(){
+    GetHashCode() {
         return this.Id.GetHashCode() ^ this.OwnerId.GetHashCode()
     }
     Equals(other) {
         if (this.Id == other.Id)
-        return this.OwnerId == other.OwnerId
+            return this.OwnerId == other.OwnerId
         return false;
     }
-    RecordId(ownerId, recordId){
+    RecordId(ownerId, recordId) {
         this.OwnerId = ownerId
         this.Id = recordId
     }
 }
 class RecordInfo {
-    constructor($b){
+    constructor($b) {
         if ($b) $b = {}
         this.Id = $b.recordId
         this.OwnerId = $b.ownerId
@@ -581,6 +623,67 @@ class RecordInfo {
         this.AssetURI = $b.assetUri
         this.ThumbnailURI = $b.thumbnailUri
         this.GlobalVersion = $b.globalVersion
+    }
+}
+class RecordPreprocessStatus {
+    constructor($b) {
+        if ($b) $b = {}
+        this.PreprocessId = $b.id
+        this.OwnerId = $b.ownerId
+        this.RecordId = $b.recordId
+        this.State = $b.state
+        this.Progress = $b.progress
+        this.FailReason = $b.failReason
+        this.ResultDiffs = $b.resultDiffs
+    }
+}
+class RSAParametersData {
+    constructor($b) {
+        if ($b) $b = {}
+        this.Exponent = $b.Exponent
+        this.Modulus = $b.Modulus
+        this.P = $b.P
+        this.Q = $b.Q
+        this.DP = $b.DP
+        this.DQ = $b.DQ
+        this.InverseQ = $b.InverseQ
+        this.D = $b.D
+    }
+    static RSAParameters(data) {
+        return new RSAParametersData(data)
+    }
+}
+class ServerStatistics {
+    constructor($b) {
+        if ($b) $b = {}
+        this.LastUpdate = $b.lastUpdate
+        this.ResponseTimeMilliseconds = $b.responseTimeMilliseconds
+    }
+}
+class SessionInfo {
+    constructor($b) {
+        if ($b) $b = {}
+        this.Name = $b.name
+        this.Description = $b.description
+        this.Tags = $b.tags
+        this.SessionId = $b.sessionId
+        this.HostUserId = $b.hostUserId
+        this.HostMachineId = $b.hostMachineId
+        this.HostUsername = $b.hostUsername;
+        this.CompatibilityHash = $b.compatibilityHash
+        this.NeosVersion = $b.neosVersion
+        this.HeadlessHost = $b.headlessHost
+        this.LegacySessionURL = $b.url || null //LEGACY
+        let SessionURLs = $b.sessionURLs
+        if (SessionURLs.constructor.name == "List")
+            this.SessionURLs = SessionURLs
+        if (SessionURLs.constructor.name == "Array")
+            this.SessionURLs = SessionURLs.ToList()
+        let SessionUsers = $b.sessionUsers
+        if (SessionUsers.constructor.name == "List")
+            this.SessionUsers = SessionUsers
+        if (SessionUsers.constructor.name == "Array")
+            this.SessionUsers = SessionUsers.ToList()
     }
 }
 //CLOUD
