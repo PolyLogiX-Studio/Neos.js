@@ -20,24 +20,10 @@ class HTTP_CLIENT {
 class Type {
     static Get(obj) { return obj.constructor.name }
 }
-class HashSet extends Array {
-    constructor($b) {
-        super()
-        switch (Type.Get($b)) {
-            case "Array":
-            case "Object":
 
-        }
-    }
-    IsSame(set) {
-        for (item of set) {
-
-        }
-    }
-}
 class Enumerable extends Object {
     constructor($b) {
-        if ($b==null) throw new Error("No Data Given")
+        if ($b == null) throw new Error("No Data Given")
         super()
         let keys
         let i
@@ -204,6 +190,9 @@ class List extends Array {
     Contains(item) {
         return this.includes(item)
     }
+    get Count() {
+        return this.length
+    }
     /**
      * 
      * @param {*} match 
@@ -258,8 +247,35 @@ class List extends Array {
         }
         return vItem;
     }
+    TryGetValue(value, out) {
+        if (value == null) return false
+        if (!this.includes(value)) return false
+        if (out) out.Out = value
+        return true
+    }
     ToArray() {
         return //TODO
+    }
+}
+class HashSet extends List {
+    constructor($b) {
+        
+        switch (Type.Get($b)) {
+            case "Array":
+                $b = $b.ToList()
+            case "List":
+                super()
+                this.AddRange($b)
+                break
+            case "Number":
+                super($b)
+                break
+        }
+    }
+    IsSame(set) {
+        for (item of set) {
+
+        }
     }
 }
 /**
@@ -357,18 +373,7 @@ class Dictionary extends Array {
         return false
     }
 }
-/**
- *
- *
- * @class HashSet
- * @extends {Array}
- */
-class HashSet extends Array {
-    constructor($b) {
-        if (!$b) return super()
-        super($b)
-    }
-}
+
 Array.prototype.ToList = function () {
     let t = new List()
     for (let item of this) {
