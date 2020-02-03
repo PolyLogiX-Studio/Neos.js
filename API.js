@@ -270,6 +270,8 @@ class HashSet extends List {
             case "Number":
                 super($b)
                 break
+            default:
+                throw new Error("ArgumentException: Expected <Array, List, Number>")
         }
     }
     IsSame(set) {
