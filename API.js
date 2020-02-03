@@ -17,37 +17,63 @@ class HTTP_CLIENT {
         return cloudResult
     }
 }
-class Enumerable extends Object {
+class Type {
+    static Get(obj) { return obj.constructor.name }
+}
+class HashSet extends Array {
     constructor($b) {
         super()
-        
-        if ($b.constructor.name == "Object") {
-            this._values = {}
-            let keys = Object.keys($b)
-            for (let i = 0; i < keys.length; i++) {
-                this[keys[i]] = i
-                this._values[keys[i]] = $b[[keys[i]]]
-            }
+        switch (Type.Get($b)) {
+            case "Array":
+            case "Object":
+
         }
-        if ($b.constructor.name == "Array" || ($b.constructor.name == "List")) {
-            let keys = $b
-            for (let i = 0; i < keys.length; i++) {
-                this[keys[i]] = i
-            }
+    }
+    IsSame(set) {
+        for (item of set) {
+
+        }
+    }
+}
+class Enumerable extends Object {
+    constructor($b) {
+        if ($b==null) throw new Error("No Data Given")
+        super()
+        let keys
+        let i
+        switch (Type.Get($b)) {
+            case "Array":
+            case "List":
+                keys = $b
+                for (i = 0; i < keys.length; i++) {
+                    this[keys[i]] = i
+                }
+                break
+            case "Object":
+                this._values = {}
+                keys = Object.keys($b)
+                for (i = 0; i < keys.length; i++) {
+                    this[keys[i]] = i
+                    this._values[keys[i]] = $b[[keys[i]]]
+                }
+                break
+            default:
+                throw new Error("Invalid Data, Expected type: <Array, List, Object>")
+
         }
         Object.freeze(this)
     }
-    GetValue(key){
+    GetValue(key) {
         if (this._values)
-        return this._values[key]
+            return this._values[key]
         return this[key]
     }
-    
-    FromEnum(Enum){
+
+    FromEnum(Enum) {
         let keys = Object.keys(Enum).shift()
         if (Enum > keys.length) throw new Error("Bounds Exceeded")
         for (let i = 0; i < keys.length; i++) {
-            if (this[keys[i]] == Enum)  return keys[i]
+            if (this[keys[i]] == Enum) return keys[i]
         }
         throw new Error("Value not Found")
     }
@@ -158,7 +184,7 @@ class List extends Array {
      */
     AddRange(list) {
         if (list == null) throw new Error("ArgumentNullException")
-        if (!(list.constructor.name == "List")) throw new Error("AddRange: Expected type List");
+        if (!(Type.Get(list) == "List")) throw new Error("AddRange: Expected type List");
         for (var item of list) {
             this.Add(item)
         }
@@ -665,7 +691,7 @@ class SessionInfo {
         if ($b) $b = {}
         this.Name = $b.name
         this.Description = $b.description
-        this.Tags = $b.tags
+        this.Tags = new HashSet($b.tags)
         this.SessionId = $b.sessionId
         this.HostUserId = $b.hostUserId
         this.HostMachineId = $b.hostMachineId
@@ -675,15 +701,34 @@ class SessionInfo {
         this.HeadlessHost = $b.headlessHost
         this.LegacySessionURL = $b.url || null //LEGACY
         let SessionURLs = $b.sessionURLs
-        if (SessionURLs.constructor.name == "List")
+        if (Type.Get(SessionURLs) == "List")
             this.SessionURLs = SessionURLs
-        if (SessionURLs.constructor.name == "Array")
+        if (Type.Get(SessionURLs) == "Array")
             this.SessionURLs = SessionURLs.ToList()
         let SessionUsers = $b.sessionUsers
-        if (SessionUsers.constructor.name == "List")
+        if (Type.Get(SessionUsers) == "List")
             this.SessionUsers = SessionUsers
-        if (SessionUsers.constructor.name == "Array")
+        if (Type.Get(SessionUsers) == "Array")
             this.SessionUsers = SessionUsers.ToList()
+        this.Thumbnail = $b.thumbnail
+        this.JoinedUsers = $b.joinedUsers
+        this.ActiveUsers = $b.activeUsers
+        this.MaximumUsers = $b.activeUsers
+        this.MobileFriendly = $b.mobileFriendly
+        this.SessionBeginTime = $b.sessionBeginTime;
+        this.LastUpdate = $b.lastUpdate
+        this.AwaySince = $b.awaySince
+        this.AccessLevel = $b.accessLevel
+        this.IsLAN = new Boolean()
+    }
+    get HasEnded() {
+        if (this.SessionURLs == null || this.SessionURLs.length == 0)
+            return this.LegacySessionURL == null
+        return false
+    }
+    IsSame(other) {
+        if (!(this.Name == other.Name) || !(this.Description == other.Description) || (!this.Tags.IsSame(other.Tags) || !(this.SessionId == other.SessionId)) || (!(this.HostUserId == other.HostUserId) || !(this.HostMachineId == other.HostMachineId) || (!(this.HostUsername == other.HostUsername) || !(this.CompatibilityHash == other.CompatibilityHash))) || (!(this.NeosVersion == other.NeosVersion) || this.HeadlessHost != other.HeadlessHost || (!(this.LegacySessionURL == other.LegacySessionURL) || !this.SessionURLs.ElementWiseEquals<string>((IList<string>) other.SessionURLs)) || (!this.SessionUsers.ElementWiseEquals<SessionUser>((IList<SessionUser>) other.SessionUsers) || !(this.Thumbnail == other.Thumbnail) || (this.JoinedUsers != other.JoinedUsers || this.ActiveUsers != other.ActiveUsers))) || (this.MaximumUsers != other.MaximumUsers || this.MobileFriendly != other.MobileFriendly || (this.IsLAN != other.IsLAN || this.AccessLevel != other.AccessLevel)))
+            return false;
     }
 }
 //CLOUD
@@ -1088,7 +1133,7 @@ class User {
         this.MuteBanExpiration = $b.muteBanExpiration || new Date(0)
         this.Password = $b.password || new String()
         this.RecoverCode = $b.recoverCode || new String()
-        this.Tags = $b.tags || new List()
+        this.Tags = new HashSet($b.tags)
         this.PatreonData = $b.patreonData || null
         this.Credits = $b.credits || new Number()
         this.NCRDepositAddress = $b.NCRDepositAddress || new String()
