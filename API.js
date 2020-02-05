@@ -186,7 +186,7 @@ class Path {
  *
  * @class List
  * @extends {Array}
- * @template T
+ * 
  */
 class List extends Array {
     /**
@@ -203,8 +203,9 @@ class List extends Array {
     }
     /**
      *Add a Value to the List
-     *
-     * @param {*} value
+     * @template T
+     * @type {ThisType[0]} T
+     * @param {T} value
      * @memberof List
      */
     Add(value) {
@@ -305,7 +306,6 @@ class List extends Array {
 }
 
 
-let a = new List()
 /**
  *
  *
@@ -314,6 +314,12 @@ let a = new List()
  * @template T
  */
 class HashSet extends Set {
+    /**
+     *Creates an instance of HashSet.
+     * @param {*} $b
+     * @memberof HashSet
+     * @return {T}
+     */
     constructor($b) {
 
         switch (Type.Get($b)) {
@@ -562,7 +568,7 @@ class ChildRecordDiff {
 /**
  *Creates an instance of ChildRecordDiff.
  * @param {{
- * operation: <ChildRecordDiff.RecordInfoOperation>,
+ * operation: <#RecordInfoOperation>,
  * created: Date,
  * parentRecord: RecordId,
  * recordInfo: RecordInfo,
@@ -571,7 +577,6 @@ class ChildRecordDiff {
  */
 constructor($b) {
         if (!$b) $b = {}
-        /**@template <ChildRecordDiff.RecordInfoOperation>*/
         this.Operation = $b.operation;
         this.Created = $b.created;
         this.ParentRecord = $b.parentRecord
@@ -584,6 +589,19 @@ constructor($b) {
     }
 }
 class CreditTransaction {
+    /**
+     *Creates an instance of CreditTransaction.
+     * @param {{
+     * token: string,
+     * fromUserId: string,
+     * toUserId: string,
+     * amount: number,
+     * comment: string,
+     * transactionType: TransactionType,
+     * anonymous: Boolean
+     * }} $b
+     * @memberof CreditTransaction
+     */
     constructor($b) {
         if (!$b) $b = {}
         this.Token = $b.token;
@@ -596,6 +614,16 @@ class CreditTransaction {
     }
 }
 class ExternalQueueObject {
+    /**
+     *Creates an instance of ExternalQueueObject.
+     @template T
+     * @param {{
+     * id: string,
+     * popReceipt: string,
+     * object: T
+     * }} $b
+     * @memberof ExternalQueueObject
+     */
     constructor($b) {
         if (!$b) $b = {}
         this.Id = $b.id
@@ -604,17 +632,41 @@ class ExternalQueueObject {
     }
 }
 class PicturePatreon {
+    /**
+     *Creates an instance of PicturePatreon.
+     * @param {{
+     * name: string,
+     * pictureUrl: string
+     * }} $b
+     * @memberof PicturePatreon
+     */
     constructor($b) {
         if (!$b) $b = {}
         this.Name = $b.name
         this.PictureURL = $b.pictureUrl;
     }
+    /**
+     *
+     *
+     * @param {string} name
+     * @param {string} url
+     * @memberof PicturePatreon
+     */
     PicturePatreon(name, url) {
         this.Name = name
         this.PictureURL = url
     }
 }
 class License {
+    /**
+     *Creates an instance of License.
+     * @param {{
+     * licenseGroup: string,
+     * licenseKey: string,
+     * PairedMachineUUID: string
+     * }} $b
+     * @memberof License
+     */
     constructor($b) {
         if (!$b) $b = {}
         this.LicenseGroup = $b.licenseGroup;
@@ -623,6 +675,20 @@ class License {
     }
 }
 class LoginCredentials {
+    /**
+     *Creates an instance of LoginCredentials.
+     * @param {{
+     * ownerId: string,
+     * username: string,
+     * email: string,
+     * password: string,
+     * recoverCode: string,
+     * sessionCode: string
+     * secretMachineId: string,
+     * rememberMe: Boolean
+     * }} $b
+     * @memberof LoginCredentials
+     */
     constructor($b) {
         if (!$b) $b = {}
         this.OwnerId = $b.ownerId
@@ -638,11 +704,24 @@ class LoginCredentials {
         if (this.Username) this.Username = this.Username.trim();
         if (this.Email) this.Email = this.Email.trim();
     }
+    /**
+     *
+     * @readonly
+     * @memberof LoginCredentials
+     * @returns {Boolean}
+     */
     get IsPasswordValid() {
-        return true //TODO: CryptoHelper
+        return CryptoHelper.IsValidPassword(this.Password)
     }
 }
 class NeosAccount {
+    /**
+     *
+     * @static
+     * @param {AccountType} type
+     * @returns {Number}
+     * @memberof NeosAccount
+     */
     static MinCents(type) {
         let num = 100;
         switch (type) {
@@ -670,6 +749,14 @@ class NeosAccount {
                 throw new Error("Invalid AccountType: " + type)
         }
     }
+    /**
+     *
+     *
+     * @static
+     * @param {AccountType} type
+     * @returns {number}
+     * @memberof NeosAccount
+     */
     static AccountName(type) {
         switch (type) {
             case AccountType.Normal:
@@ -696,6 +783,14 @@ class NeosAccount {
                 return "Unknown Account Type";
         }
     }
+    /**
+     *
+     *
+     * @static
+     * @param {AccountType} type
+     * @returns {Number}
+     * @memberof NeosAccount
+     */
     static StorageBytes(type) {
         var num = 1073741824;
         switch (type) {
@@ -723,6 +818,14 @@ class NeosAccount {
                 throw new Error("Invalid AccountType: " + type);
         }
     }
+    /**
+     *
+     *
+     * @static
+     * @param {AccountType} type
+     * @returns {Number}
+     * @memberof NeosAccount
+     */
     static HasPatreonWorldAccess(type) {
         switch (type) {
             case AccountType.Normal:
@@ -743,6 +846,14 @@ class NeosAccount {
     }
 }
 class NeosDBAsset {
+    /**
+     *Creates an instance of NeosDBAsset.
+     * @param {{
+        * hash: string,
+        * bytes: number
+        * }} $b
+     * @memberof NeosDBAsset
+     */
     constructor($b) {
         if ($b) $b = {}
         this.Hash = $b.hash
@@ -750,6 +861,14 @@ class NeosDBAsset {
     }
 }
 class RecordId {
+    /**
+     *Creates an instance of RecordId.
+     * @param {{
+     * recordId: string,
+     * ownerId: string
+     * }} $b
+     * @memberof RecordId
+     */
     constructor($b) {
         if ($b) $b = {}
         this.Id = $b.recordId
@@ -758,17 +877,43 @@ class RecordId {
     GetHashCode() {
         return this.Id.GetHashCode() ^ this.OwnerId.GetHashCode()
     }
+    /**
+     *
+     *
+     * @param {RecordId} other
+     * @returns {Boolean}
+     * @memberof RecordId
+     */
     Equals(other) {
         if (this.Id == other.Id)
             return this.OwnerId == other.OwnerId
         return false;
     }
+    /**
+     *
+     *
+     * @param {string} ownerId
+     * @param {string} recordId
+     * @memberof RecordId
+     */
     RecordId(ownerId, recordId) {
         this.OwnerId = ownerId
         this.Id = recordId
     }
 }
 class RecordInfo {
+    /**
+     *Creates an instance of RecordInfo.
+     * @param {{
+     * recordId: string,
+     * ownerId: string,
+     * name: string,
+     * assetUri: string,
+     * thumbnailUri: string,
+     * globalVersion: Number
+     * }} $b
+     * @memberof RecordInfo
+     */
     constructor($b) {
         if ($b) $b = {}
         this.Id = $b.recordId
@@ -780,6 +925,19 @@ class RecordInfo {
     }
 }
 class RecordPreprocessStatus {
+    /**
+     *Creates an instance of RecordPreprocessStatus.
+     * @param {{
+     * id: string,
+     * ownerId: string,
+     * recordId: string,
+     * state: RecordPreprocessStatus,
+     * progress: number,
+     * failReason: string
+     * resultDiffs: List
+     * }} $b
+     * @memberof RecordPreprocessStatus
+     */
     constructor($b) {
         if ($b) $b = {}
         this.PreprocessId = $b.id
@@ -791,6 +949,7 @@ class RecordPreprocessStatus {
         this.ResultDiffs = $b.resultDiffs
     }
 }
+let a = new RecordPreprocessStatus()
 class RSAParametersData {
     constructor($b) {
         if ($b) $b = {}
