@@ -2,7 +2,10 @@ const uuidv4 = require('uuid/v4')
 const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
 const Lock = new AsyncLock()
+const fs = require("fs")
 const URI = require('uri-js')
+const path = require("path")
+const SHA256 = require("crypto-js/sha256");
 const { TimeSpan, parse, parseDate, fromSeconds } = require('timespan')
 class HTTP_CLIENT {
     static async SendAsync(request, token) {
@@ -19,6 +22,7 @@ class HTTP_CLIENT {
 class Type {
     static Get(obj) { return obj.constructor.name }
 }
+
 String.prototype.GetHashCode = function () {
     var hash = 0, i, chr;
     if (this.length === 0) return hash;
@@ -29,7 +33,10 @@ String.prototype.GetHashCode = function () {
     }
     return hash;
 };
-
+/**
+ * @typedef {[]} out
+ * Out type, read value.Out
+ */
 
 /**
  *
@@ -85,8 +92,6 @@ class Enumerable extends Object {
         throw new Error("Value not Found")
     }
 }
-let a = new Enumerable(["test"])
-a
 const AccountType = new Enumerable([
     'Normal',
     'AgentSmith',
@@ -149,7 +154,7 @@ class Uri {
      * @param {string} url
      */
     set URL(url) {
-        Object.defineProperty(this, "rawUrl", url)
+        Object.defineProperty(this, "rawUrl", { value: url, enumerable: false })
         this._raw = URI.parse(url)
         let path = (this._raw.path.split('/'))
         this.Segments = new Array()
@@ -164,7 +169,7 @@ class Uri {
      * @memberof Uri
      */
     get Scheme() {
-        return this._raw.schema
+        return this._raw.scheme
     }
     /**
      *
@@ -186,7 +191,7 @@ class Path {
  *
  * @class List
  * @extends {Array}
- * 
+ * @template T
  */
 class List extends Array {
     /**
@@ -210,6 +215,9 @@ class List extends Array {
      */
     Add(value) {
         this.push(value)
+    }
+    Any(action) {
+        return this.some(action)
     }
     /**
      * Concat 2 Lists
@@ -478,6 +486,7 @@ class httpRequestMessage {
  * @class HubPatreons
  */
 class HubPatreons {
+    
     /**
      *Creates an instance of HubPatreons.
      * @param {{
@@ -492,6 +501,7 @@ class HubPatreons {
         this.MAX_PICTURES = 50
         this.PatreonNames = $b['patreon-names'] || new List()
         this.PatreonPictures = $b['patreon-pictures'] || new List()
+        
     }
 }
 /**
@@ -500,26 +510,30 @@ class HubPatreons {
  * @class AssetDiff
  */
 class AssetDiff {
-/**
- *Creates an instance of AssetDiff.
- * @param {{
- * hash:string,
- * bytes:Number,
- * state: AssetDiff.Diff,
- * isUploaded?: Boolean
- * }} $b
- * @memberof AssetDiff
- */
-constructor($b) {
+    /**
+     *Creates an instance of AssetDiff.
+     * @param {{
+     * hash:string,
+     * bytes:Number,
+     * state: AssetDiff.Diff,
+     * isUploaded?: Boolean
+     * }} $b
+     * @memberof AssetDiff
+     */
+    constructor($b) {
         if (!$b) $b = {}
         this.Hash = $b.hash
         this.Bytes = $b.bytes
         this.State = $b.state
         this.IsUploaded = $b.isUploaded || new Boolean()
         /**@type {Enumerable<string>} */
-        this.Diff = new Enumerable(["Added","Unchanged","Removed"])
+        this.Diff = new Enumerable(["Added", "Unchanged", "Removed"])
     }
 }
+class AssetMetadataRequest {
+    static MAX_BATCH_SIZE = 32
+}
+
 class AssetUploadData {
     /**
      *Creates an instance of AssetUploadData.
@@ -546,6 +560,31 @@ class AssetUploadData {
         this.UploadState = $b.uploadState
     }
 }
+class AssetUtil {
+    static get COMPUTE_VERSION() {
+        return 4
+    }
+    /**
+     *
+     * @template T
+     * @static
+     * @param {T} file
+     * @memberof AssetUtil
+     */
+    static GenerateHashSignature(file) {
+        if (Type.Get(file) == "String") {
+            let fileStream = fs.readFileSync(file)
+            return AssetUtil.GenerateHashSignature(fileStream)
+        } else {
+            return SHA256(file.toString()).toString().replace("-", "").toLowerCase()
+        }
+    }
+    static GenerateURL(signature, extension) {
+        if (!extension.startsWith("."))
+            extension = "." + extension;
+        return new Uri("neosdb:///" + signature + extension)
+    }
+}
 class AssetVariantComputationTask {
     /**
      *Creates an instance of AssetVariantComputationTask.
@@ -565,17 +604,17 @@ class AssetVariantComputationTask {
     }
 }
 class ChildRecordDiff {
-/**
- *Creates an instance of ChildRecordDiff.
- * @param {{
- * operation: <#RecordInfoOperation>,
- * created: Date,
- * parentRecord: RecordId,
- * recordInfo: RecordInfo,
- * }} $b
- * @memberof ChildRecordDiff
- */
-constructor($b) {
+    /**
+     *Creates an instance of ChildRecordDiff.
+     * @param {{
+     * operation: <#RecordInfoOperation>,
+     * created: Date,
+     * parentRecord: RecordId,
+     * recordInfo: RecordInfo,
+     * }} $b
+     * @memberof ChildRecordDiff
+     */
+    constructor($b) {
         if (!$b) $b = {}
         this.Operation = $b.operation;
         this.Created = $b.created;
@@ -855,7 +894,7 @@ class NeosDBAsset {
      * @memberof NeosDBAsset
      */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.Hash = $b.hash
         this.Bytes = $b.bytes
     }
@@ -870,7 +909,7 @@ class RecordId {
      * @memberof RecordId
      */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.Id = $b.recordId
         this.OwnerId = $b.ownerId
     }
@@ -915,7 +954,7 @@ class RecordInfo {
      * @memberof RecordInfo
      */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.Id = $b.recordId
         this.OwnerId = $b.ownerId
         this.Name = $b.name
@@ -939,7 +978,7 @@ class RecordPreprocessStatus {
      * @memberof RecordPreprocessStatus
      */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.PreprocessId = $b.id
         this.OwnerId = $b.ownerId
         this.RecordId = $b.recordId
@@ -949,10 +988,23 @@ class RecordPreprocessStatus {
         this.ResultDiffs = $b.resultDiffs
     }
 }
-let a = new RecordPreprocessStatus()
 class RSAParametersData {
+    /**
+     *Creates an instance of RSAParametersData.
+     * @param {{
+     * Exponent:Number[],
+     * Modulus:Number[],
+     * P:Number[],
+     * Q:Number[],
+     * DP:Number[],
+     * DQ:Number[],
+     * InverseQ:Number[],
+     * D:Number[]
+     * }} $b
+     * @memberof RSAParametersData
+     */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.Exponent = $b.Exponent
         this.Modulus = $b.Modulus
         this.P = $b.P
@@ -962,23 +1014,76 @@ class RSAParametersData {
         this.InverseQ = $b.InverseQ
         this.D = $b.D
     }
+    /**
+     *
+     * @static
+     * @param {RSAParametersData} rsa
+     * @memberof RSAParametersData
+     */
+    static RSAParametersData(rsa) {
+        let rsaParametersData = new RSAParametersData(rsa)
+        rsaParametersData.D = rsaParametersData.D
+        return rsaParametersData
+    }
+    /**
+     *
+     * @static
+     * @param {RSAParametersData} data
+     * @memberof RSAParametersData
+     */
     static RSAParameters(data) {
         return new RSAParametersData(data)
     }
 }
 class ServerStatistics {
+    /**
+     *Creates an instance of ServerStatistics.
+     * @param {{
+     * lastUpdate: Date,
+     * responseTimeMilliseconds:Number
+     * }} $b
+     * @memberof ServerStatistics
+     */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.LastUpdate = $b.lastUpdate
         this.ResponseTimeMilliseconds = $b.responseTimeMilliseconds
     }
 }
 class SessionInfo {
+    /**
+     *Creates an instance of SessionInfo.
+     * @param {{
+     * name:String,
+     * description:String,
+     * tags:HashSet<String>,
+     * sessionId:String,
+     * hostUserId:String,
+     * hostMachineId:String,
+     * hostUsername:String,
+     * compatibilityHash:String,
+     * neosVersion:String,
+     * headlessHost:Boolean,
+     * url:String,
+     * sessionURLs:List<String>,
+     * sessionUsers:List<SessionUser>,
+     * thumbnail:String,
+     * joinedUsers:Number,
+     * activeUsers:Number,
+     * maxUsers:Number,
+     * mobileFriendly:Boolean,
+     * sessionBeginTime:Date,
+     * lastUpdate:Date,
+     * awaySince?:Date,
+     * accessLevel:SessionAccessLevel
+     * }} $b
+     * @memberof SessionInfo
+     */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.Name = $b.name
         this.Description = $b.description
-        this.Tags = new HashSet($b.tags)
+        this.Tags = $b.tags
         this.SessionId = $b.sessionId
         this.HostUserId = $b.hostUserId
         this.HostMachineId = $b.hostMachineId
@@ -1000,7 +1105,7 @@ class SessionInfo {
         this.Thumbnail = $b.thumbnail
         this.JoinedUsers = $b.joinedUsers
         this.ActiveUsers = $b.activeUsers
-        this.MaximumUsers = $b.activeUsers
+        this.MaximumUsers = $b.maxUsers
         this.MobileFriendly = $b.mobileFriendly
         this.SessionBeginTime = $b.sessionBeginTime;
         this.LastUpdate = $b.lastUpdate
@@ -1008,19 +1113,40 @@ class SessionInfo {
         this.AccessLevel = $b.accessLevel
         this.IsLAN = new Boolean()
     }
+    /**
+     *
+     *
+     * @returns {List<Uri>}
+     * @memberof SessionInfo
+     */
     GetSessionURLs() {
         if (this.SessionURLs != null)
             return this.SessionURLs.filter((str) => { return str }).map(str => new Uri(str)).ToList()
-        new Array().
+        let uriList = new List()
+        if (this.LegacySessionURL != null)
+            uriList.Add(new Uri(this.LegacySessionURL));
+        return uriList
     }
+    /**
+     *
+     * @readonly
+     * @memberof SessionInfo
+     */
     get HasEnded() {
         if (this.SessionURLs == null || this.SessionURLs.length == 0)
             return this.LegacySessionURL == null
         return false
     }
+    /**
+     *
+     * @param {SessionInfo} other
+     * @returns Boolean
+     * @memberof SessionInfo
+     */
     IsSame(other) {
         if (!(this.Name == other.Name) || !(this.Description == other.Description) || (!this.Tags.IsSame(other.Tags) || !(this.SessionId == other.SessionId)) || (!(this.HostUserId == other.HostUserId) || !(this.HostMachineId == other.HostMachineId) || (!(this.HostUsername == other.HostUsername) || !(this.CompatibilityHash == other.CompatibilityHash))) || (!(this.NeosVersion == other.NeosVersion) || this.HeadlessHost != other.HeadlessHost || (!(this.LegacySessionURL == other.LegacySessionURL) || !this.SessionURLs.ElementWiseEquals<string>((IList<string>) other.SessionURLs)) || (!this.SessionUsers.ElementWiseEquals<SessionUser>((IList<SessionUser>) other.SessionUsers) || !(this.Thumbnail == other.Thumbnail) || (this.JoinedUsers != other.JoinedUsers || this.ActiveUsers != other.ActiveUsers))) || (this.MaximumUsers != other.MaximumUsers || this.MobileFriendly != other.MobileFriendly || (this.IsLAN != other.IsLAN || this.AccessLevel != other.AccessLevel)))
             return false;
+
     }
 }
 /**
@@ -1054,7 +1180,7 @@ class AssetEntry {
      * @memberof AssetEntry
      */
     constructor($b) {
-        if ($b) $b = {}
+        if (!$b) $b = {}
         this.id = $b.id || new String()
         this.OwnerId = $b.ownerId || new String()
         this.Entry = $b.entry || null
@@ -1075,6 +1201,268 @@ class AssetEntry {
         this.OwnerId = "A-" + value
     }
 }
+class ThumbnailInfo {
+    /**
+     *Creates an instance of ThumbnailInfo.
+     * @param {{
+     * id: string,
+     * key: string
+     * }} $b
+     * @memberof ThumbnailInfo
+     */
+    constructor($b) {
+        if (!b) $b = {}
+        this.MAX_THUMBNAIL_LIFETIME_MINUTES = 10
+        this.Id = $b.id
+        this.Key = $b.key || null
+    }
+}
+
+class TransactionMessage {
+    /**
+     *Creates an instance of TransactionMessage.
+     * @param {{
+     * token: string,
+     * recipientId: string,
+     * amount:number,
+     * comment:string,
+     * transactionType: TransactionType
+     * }} $b
+     * @memberof TransactionMessage
+     */
+    constructor($b) {
+        if (!$b) $b = {}
+        this.Token = $b.token
+        this.RecipientId = $b.recipientId
+        this.Amount = $b.amount
+        this.Comment = $b.comment
+        this.TransactionType = $b.transactionType || null
+    }
+}
+
+class UserPatreonData {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.MIN_WORLD_ACCESS_CENTS = 600
+        this.ACTIVATION_LENGTH = 40
+        this.Email = $b.email
+        this.IsPatreonSupporter = $b.isPatreonSupporter
+        this.LastPatreonPledgeCents = $b.lastPatreonPledgeCents
+        this.LastTotalCents = $b.lastTotalCents
+        this.RewardMultiplier = $b.rewardMultiplier || null
+        this.RewardType = $b.rewardType;
+        this.CustomTier = $b.customTier;
+        /** @deprecated */
+        this.LastPlusActivationTime = $b.lastPlusActivationTime || null
+        this.LastActivationTime = $b.lastActivationTime
+        /** @deprecated */
+        this.LastPlusPledgeAmount = $b.lastPlusPledgeAmount || null
+        this.LastPaidPledgeAmount = $b.lastPaidPledgeAmount
+    }
+    /**
+     * @deprecated
+     * @param {Date} value
+     * @memberof UserPatreonData
+     */
+    set LastPlusActivationTime(value) {
+        this.LastActivationTime = value || this.LastActivationTime
+    }
+    get LastPlusActivationTime() {
+        return this.LastActivationTime
+    }
+    /**
+     * @deprecated
+     * @memberof UserPatreonData
+     */
+    set LastPlusPledgeAmount(value) {
+        this.LastPaidPledgeAmount = value
+    }
+    get LastPlusPledgeAmount() {
+        return this.LastPaidPledgeAmount
+    }
+    /**
+     * @returns {AccountType}
+     * @readonly
+     * @memberof UserPatreonData
+     */
+    get AccountName() {
+        if (this.CustomTier != null)
+            return this.CustomTier
+        return NeosAccount.AccountName(this.CurrentAccountType)
+    }
+    /**
+     * @returns {AccountType}
+     * @readonly
+     * @memberof UserPatreonData
+     */
+    get CurrentAccountType() {
+        if (((new Date() - this.LastActivationTime).getSeconds() / (1000 * 3600 * 24)) <= 40.0)
+            return UserPatreonData.GetAccountType(this.LastPaidPledgeAmount)
+        return AccountType.Normal
+    }
+    get PledgedAccountType() {
+        return UserPatreonData.GetAccountType(this.LastPatreonPledgeCents);
+    }
+    /**
+     *
+     * @public
+     * @param {number} currentTotalCents
+     * @param {out} extendedPlus
+     * @returns
+     * @memberof UserPatreonData
+     */
+    UpdatePatreonStatus(currentTotalCents, extendedPlus) {
+        extendedPlus.Out = false;
+        let num = currentTotalCents - this.LastTotalCents;
+        if (num <= 0) {
+            if (this.LastActivationTime.getFullYear() > 2016)
+                return false
+            num = this.LastPaidPledgeAmount;
+        }
+        if (num > 0) {
+            this.LastActivationTime = new Date()
+            this.LastPaidPledgeAmount = num
+            extendedPlus.Out = true
+        }
+        this.LastTotalCents = currentTotalCents
+        return true
+    }
+    /**
+     *
+     * @private
+     * @param {number} cents
+     * @memberof UserPatreonData
+     * @returns {AccountType}
+     */
+    GetAccountType(cents) {
+        for (var type = AccountType.Anorak; type >= AccountType.Normal; type--) {
+            if (cents >= NeosAccount.MinCents(type))
+                return type
+        }
+        return AccountType.Normal
+    }
+    get HasPledgesEnoughForPlus() {
+        return Math.max(this.LastPatreonPledgeCents, this.LastPaidPledgeAmount) > NeosAccount.MinCents(AccountType.BladeRunner)
+    }
+    get HasPledgedEnoughForWorlds() {
+        return Math.max(this.LastPatreonPledgeCents, this.LastPaidPledgeAmount) >= 600
+    }
+}
+
+class UserProfile {
+    constructor($b) {
+        if (!$b) $b = {}
+        this.IconUrl = $b.iconUrl;
+        this.BackgroundUrl = $b.backgroundUrl;
+        this.TagLine = $b.tagLine;
+        this.Description = $b.description;
+        this.ProfileWorldUrl = $b.profileWorldUrl;
+        this.ShowcaseItems = $b.showcaseItems;
+        this.TokenOptOut = $b.tokenOptOut;
+    }
+    static MAX_SHOWCASE_ITEMS() {
+        return 6
+    }
+    /**
+     *
+     * @readonly
+     * @memberof UserProfile
+     */
+    get IsValid() {
+        let showcaseItems = this.ShowcaseItems
+        return ((showcaseItems != null) ? showcaseItems.Count : 0) <= UserProfile.MAX_SHOWCASE_ITEMS
+    }
+    /**
+     *
+     *
+     * @param {String} token
+     * @returns
+     * @memberof UserProfile
+     */
+    AcceptsToken(token) {
+        return this.TokenOptOut == null || !this.TokenOptOut.Any(s => s == token)
+    }
+}
+class UserStatus {
+    static get STATUS_RESET_SECONDS() {
+        return 120
+    }
+    static get REMOVED_STATUS_KEEP_SECONDS() {
+        return 300
+    }
+    constructor($b) {
+        if (!$b) $b = {}
+        this.OnlineStatus = $b.onlineStatus
+        this.LastStatusChange = $b.lastStatusChange
+        this.CurrentSessionId = $b.currentSessionId
+        this.CompatibilityHash = $b.compatibilityHash
+        this.NeosVersion = $b.neosVersion
+        this.PublicRSAKey = $b.publicRSAKey;
+        this.ActiveSessions = $b.activeSessions
+    }
+    /**
+     *
+     * @returns {SessionInfo}
+     * @readonly
+     * @memberof UserStatus
+     */
+    get CurrentSession() {
+        let activeSessions = this.ActiveSessions;
+        if (activeSessions == null)
+            return null
+        return activeSessions.find(s => s.SessionId == this.CurrentSessionId)
+    }
+    /**
+     *
+     * @returns {Boolean}
+     * @param {UserStatus} other
+     * @memberof UserStatus
+     */
+    IsSame(other) {
+        if (other == null || this.OnlineStatus != other.OnlineStatus || this.CurrentSessionId != other.currentSessionId)
+            return false
+        let activeSessions1 = this.ActiveSessions
+        let num1 = activeSessions1 != null ? activeSessions1.Count : 0
+        let activeSessions2 = this.ActiveSessions
+        let num2 = activeSessions2 != null ? activeSessions2.Count : 0
+        let activeSessions3 = other.ActiveSessions
+        let num3 = activeSessions3 != null ? activeSessions3.Count : 0
+        if (num2 != num3)
+            return false
+        for (let index = 0; index < num1; index++) {
+            if (!this.ActiveSessions[index].IsSame(other.ActiveSessions[index]))
+                return false
+        }
+        return true
+    }
+    SortSessions() {
+        if (this.ActiveSessions == null)
+            return
+        this.ActiveSessions.sort((a, b) => {
+            if (a.SessionId == this.CurrentSessionId)
+                return -1
+            if (b.SessionId == this.CurrentSessionId)
+                return 1;
+            if (a.AwaySince != null && b.AwaySince != null)
+                return a.AwaySince.toLocaleString().localeCompare(b.AwaySince.toLocaleString())
+            return a.SessionId.localeCompare(b.SessionId)
+        });
+    }
+
+}
+
+
+
+
+
+class TransactionManager {
+    constructor($b) {
+        if (!$b) $b = {}
+    }
+}
+
+
+
 /**
  *
  *
