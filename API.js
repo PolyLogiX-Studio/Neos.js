@@ -1,3 +1,17 @@
+/**
+ * @fileoverview NeosVR CloudX.Shared Library in NodeJS
+ * 
+ * @author Bitman
+ * @author PolyLogiX Studio
+ * 
+ * @requires NPM:uuid
+ * @requires NPM:node-fetch
+ * @requires NPM:uri-js
+ * 
+ */
+
+
+
 const uuidv4 = require('uuid/v4')
 const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
@@ -7,6 +21,22 @@ const URI = require('uri-js')
 const path = require("path")
 const SHA256 = require("crypto-js/sha256");
 const { TimeSpan, parse, parseDate, fromSeconds } = require('timespan')
+
+/**
+ * @template T
+ *
+ * @class Out
+ */
+class Out {
+    /**
+     *Creates an instance of Out.
+     * @param {T} type
+     * @memberof Out
+     */
+    constructor(type){
+        return []
+    }
+}
 class HTTP_CLIENT {
     static async SendAsync(request, token) {
         let state
@@ -34,12 +64,7 @@ String.prototype.GetHashCode = function () {
     return hash;
 };
 /**
- * @typedef {[]} out
- * Out type, read value.Out
- */
-
-/**
- *
+ * @template T
  * @class Enumerable
  * @extends {Object}
  * @returns {Enumerable<T>}
@@ -131,6 +156,10 @@ const HttpMethod = new Enumerable({
     "Post": "POST",
     "Patch": "PATCH"
 })
+const AssetVariantEntityType = new Enumerable([
+    "BitmapMetadata",
+    "BitmapVariant"
+])
 /**
  *
  *  Delay by ms
@@ -302,6 +331,11 @@ class List extends Array {
         }
         return vItem;
     }
+    /**
+     * 
+     * @param {} value 
+     * @param {Out<T>} out 
+     */
     TryGetValue(value, out) {
         if (value == null) return false
         if (!this.includes(value)) return false
@@ -526,7 +560,7 @@ class AssetDiff {
         this.Bytes = $b.bytes
         this.State = $b.state
         this.IsUploaded = $b.isUploaded || new Boolean()
-        /**@type {Enumerable<string>} */
+        /**@type {Enumerable<String>} */
         this.Diff = new Enumerable(["Added", "Unchanged", "Removed"])
     }
 }
@@ -561,6 +595,12 @@ class AssetUploadData {
     }
 }
 class AssetUtil {
+    /**
+     * @returns 4
+     * @readonly
+     * @static
+     * @memberof AssetUtil
+     */
     static get COMPUTE_VERSION() {
         return 4
     }
@@ -584,6 +624,53 @@ class AssetUtil {
             extension = "." + extension;
         return new Uri("neosdb:///" + signature + extension)
     }
+    /**
+     * @static
+     * @param {Uri} uri
+     * @param {Out<String>} extension
+     * @memberof AssetUtil
+     */
+    static ExtractSignature(uri, extension) {
+        if (uri.Scheme != neosdb)
+            throw new Error("Not a NeosDB URI");
+        let segment = uri.Segments[1];
+        extension.Out = Path.GetExtension(segment)
+        return segment.noExtension()
+    }
+    /**
+     *
+     *
+     * @param {string} signature
+     * @param {string} variant
+     * @memberof AssetUtil
+     */
+    static ComposeIdentifier(signature, variant){
+        if (String.IsNullOrWhiteSpace(variant))
+            return signature
+        return signature + "&" + variant;
+    }
+    /**
+     *
+     *
+     * @static
+     * @param {string} identifier
+     * @param {Out<String>} signature
+     * @param {Out<String>} variant
+     * @memberof AssetUtil
+     */
+    static SplitIdentifier(identifier, signature, variant){
+        let length = identifier.indexOf("&")
+        if (length>=0) {
+            variant.Out = identifier.substr(length + 1);
+            signature.Out = identifier.substr(0, length)
+        }
+        else
+        {
+            variant.Out = null;
+            signature.Out = identifier.toLowerCase()
+        }
+
+    }
 }
 class AssetVariantComputationTask {
     /**
@@ -599,7 +686,6 @@ class AssetVariantComputationTask {
         if (!$b) $b = {}
         this.AssetSignature = $b.assetSignature
         this.VariantId = $b.variantId
-        /** @template AssetVariantEntityType */
         this.EntityType = $b.entityType;
     }
 }
@@ -1307,7 +1393,7 @@ class UserPatreonData {
      *
      * @public
      * @param {number} currentTotalCents
-     * @param {out} extendedPlus
+     * @param {Out<Boolean>} extendedPlus
      * @returns
      * @memberof UserPatreonData
      */
@@ -1897,14 +1983,33 @@ class Visit {
         return this.Start.getFullYear() >= 2016 && !(this.Start >= this.End) && ((this.End - this.Start).getSeconds() >= this.Duration && !String.IsNullOrWhiteSpace(this.URL._rawUrl))
     }
 }
+/**
+ *
+ *
+ * @class CloudResult
+ */
 class CloudResult {
-    constructor() {
-        this.State
-        this.Content
+    /**
+     *Creates an instance of CloudResult.
+     * @memberof CloudResult
+     * @param {{
+     * state: HttpStatusCode,
+     * content: string
+     * }} $b
+     */
+    constructor($b) {
+        if (!$b) return
+        this.CloudResult($b.state, $b.content)
     }
     ToString() {
         return ("CloudResult - State: " + this.State + " Content: " + this.Content)
     }
+    /**
+     * @param {HttpStatusCode} state
+     * @param {string} content
+     * @returns undefined
+     * @memberof CloudResult
+     */
     CloudResult(state, content) {
         this.State = state
         this.Content = content
@@ -1916,13 +2021,30 @@ class CloudResult {
             this.Content = content
         }
     }
+    /**
+     * Cet the Result Content Entity
+     * @readonly
+     * @memberof CloudResult
+     */
     get Entity() {
         return this.Content
     }
+    /**
+     * Is Valid?
+     *
+     * @readonly
+     * @memberof CloudResult
+     */
     get IsOK() {
         if (this.State != 200) return (this.State == 204);
         return true
     }
+    /**
+     * Is Invalid?
+     *
+     * @readonly
+     * @memberof CloudResult
+     */
     get IsError() {
         return !this.IsOK;
     }
@@ -2953,8 +3075,30 @@ class TransactionManager {
     }
     //TODO Rest of Thing, Will Break
 }
+/**
+ * @namespace
+ * @memberof CloudX
+ */
+const Shared = {
+    AccountType,
+    AssetMetadataRequest,
+    AssetUtil,
+    AssetVariantEntityType,
+    CloudResult,
+    CloudXInterface,
+    ComputationLock,
+    CryptoHelper,
+    Endpoints,
 
-const Shared = { CloudXInterface }
+    ServerStatus,
+    MessageType,
+    TransactionType,
+    HttpMethod,
+    CloudXInterface}
+/**
+ * @namespace CloudX
+ */
+const CloudX = {Shared}
 module.exports = {
-    Shared
+    CloudX
 }
