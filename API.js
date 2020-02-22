@@ -10,7 +10,10 @@
  * 
  */
 
-
+/**
+ * @template T
+ * @typedef Action
+ */
 
 const uuidv4 = require('uuid/v4')
 const fetch = require('node-fetch')
@@ -384,26 +387,25 @@ class HashSet extends Set {
         }
     }
 }
+new Dictionary()
 /**
  *
  *
  * @class Dictionary
  * @extends {Array}
- * @template T
+ * @template T, A
  */
 class Dictionary extends Array {
     /**
      *Creates an instance of Dictionary.
-     * @param {*} props
      * @memberof Dictionary
      */
-    constructor(props) {
-        if (!props) return super()
-        super(props)
+    constructor() {
+        super()
     }
     /**
-     * @param {*} Key
-     * @param {*} Value
+     * @param {T} Key
+     * @param {A} Value
      * @memberof Dictionary
      */
     Add(Key, Value) {
@@ -2052,7 +2054,6 @@ class CloudResultGeneric extends CloudResult {
 
 }
 class CloudXInterface {
-
     /**
      * 
      * @param {{
@@ -2060,15 +2061,16 @@ class CloudXInterface {
      * }} $b 
      */
     constructor($b) {
+        new Dictionary()
         if (!$b) $b = {}
         this.lockobj = new Object()
         /** @type List<Membership> */
         this._groupMemberships = new List();
-        /** @type Dictionary<String & Member> */
+        /** @type Dictionary<String, Member> */
         this._groupMemberInfos = new Dictionary();
-        /** @type Dictionary<String & Group> */
+        /** @type Dictionary<String, Group> */
         this._groups = new Dictionary();
-        /** @type Dictionary<Type & Dictionary<Uri & CloudResult>> */
+        /** @type Dictionary<Type, Dictionary<Uri, CloudResult>> */
         this.cachedRecords = new Dictionary()
         this._currentSession;
         this._currentUser;
