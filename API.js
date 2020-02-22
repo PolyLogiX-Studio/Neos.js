@@ -33,7 +33,7 @@ class Out {
      * @param {T} type
      * @memberof Out
      */
-    constructor(type){
+    constructor(type) {
         return []
     }
 }
@@ -520,7 +520,7 @@ class httpRequestMessage {
  * @class HubPatreons
  */
 class HubPatreons {
-    
+
     /**
      *Creates an instance of HubPatreons.
      * @param {{
@@ -535,7 +535,7 @@ class HubPatreons {
         this.MAX_PICTURES = 50
         this.PatreonNames = $b['patreon-names'] || new List()
         this.PatreonPictures = $b['patreon-pictures'] || new List()
-        
+
     }
 }
 /**
@@ -644,7 +644,7 @@ class AssetUtil {
      * @param {string} variant
      * @memberof AssetUtil
      */
-    static ComposeIdentifier(signature, variant){
+    static ComposeIdentifier(signature, variant) {
         if (String.IsNullOrWhiteSpace(variant))
             return signature
         return signature + "&" + variant;
@@ -658,14 +658,13 @@ class AssetUtil {
      * @param {Out<String>} variant
      * @memberof AssetUtil
      */
-    static SplitIdentifier(identifier, signature, variant){
+    static SplitIdentifier(identifier, signature, variant) {
         let length = identifier.indexOf("&")
-        if (length>=0) {
+        if (length >= 0) {
             variant.Out = identifier.substr(length + 1);
             signature.Out = identifier.substr(0, length)
         }
-        else
-        {
+        else {
             variant.Out = null;
             signature.Out = identifier.toLowerCase()
         }
@@ -2053,12 +2052,24 @@ class CloudResultGeneric extends CloudResult {
 
 }
 class CloudXInterface {
-    constructor() {
+
+    /**
+     * 
+     * @param {{
+     * 
+     * }} $b 
+     */
+    constructor($b) {
+        if (!$b) $b = {}
         this.lockobj = new Object()
-        this._groupMemberships = new Membership();
-        this._groupMemberInfos = new Member();
-        this._groups = new List();
-        this.cachedRecords = new CloudResult();
+        /** @type List<Membership> */
+        this._groupMemberships = new List();
+        /** @type Dictionary<String & Member> */
+        this._groupMemberInfos = new Dictionary();
+        /** @type Dictionary<String & Group> */
+        this._groups = new Dictionary();
+        /** @type Dictionary<Type & Dictionary<Uri & CloudResult>> */
+        this.cachedRecords = new Dictionary()
         this._currentSession;
         this._currentUser;
         this._cryptoProvider;
@@ -2079,11 +2090,12 @@ class CloudXInterface {
         this.GroupUpdated
         this.GroupMemberUpdated
     }
-    static CloudEndpoint = {
-        "Production": 0,
-        "Staging": 1,
-        "Local": 2
-    }
+    
+    static CloudEndpoint = new Enumerable([
+        "Production",
+        "Staging",
+        "Local"])
+
     static DEFAULT_RETRIES = 5;
     static UPLOAD_DEGREE_OF_PARALLELISM = 16;
     static DEBUG_UPLOAD = false;
@@ -3094,11 +3106,12 @@ const Shared = {
     MessageType,
     TransactionType,
     HttpMethod,
-    CloudXInterface}
+    CloudXInterface
+}
 /**
  * @namespace CloudX
  */
-const CloudX = {Shared}
+const CloudX = { Shared }
 module.exports = {
     CloudX
 }
