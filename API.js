@@ -11,10 +11,21 @@
  */
 
 /**
+ *
  * @template T
- * @typedef Action
+ * @class Action
  */
+class Action {
 
+}
+/**
+ *
+ * @template T
+ * @class Task
+ */
+class Task extends Promise {
+
+}
 const uuidv4 = require('uuid/v4')
 const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
@@ -23,7 +34,7 @@ const fs = require("fs")
 const URI = require('uri-js')
 const path = require("path")
 const SHA256 = require("crypto-js/sha256");
-const { TimeSpan, parse, parseDate, fromSeconds } = require('timespan')
+const { TimeSpan, parse, parseDate, fromSeconds, fromMinutes } = require('timespan')
 
 /**
  * @template T
@@ -387,7 +398,6 @@ class HashSet extends Set {
         }
     }
 }
-new Dictionary()
 /**
  *
  *
@@ -483,6 +493,27 @@ class Dictionary extends Array {
             if (object.Key == key) { this.RemoveAt(this.indexOf(object)); return true }
         }
         return false
+    }
+    get Count(){
+        return this.length
+    }
+    Get(key, out){
+        if (!this.ContainsKey(key)) return false
+        for (let object of this){
+            if (object.Key == key) {out.Out = object.Value; return true}
+        }
+        return false // How tf you manage that??
+    }
+    /**
+     * 
+     * @param {} value 
+     * @param {Out<T>} out 
+     */
+    TryGetValue(value, out) {
+        if (value == null) return false
+        if (!this.ContainsKey(value)) return false
+        if (out) this.Get(value, out)
+        return true
     }
 }
 
@@ -1986,7 +2017,7 @@ class Visit {
 }
 /**
  *
- *
+ * @template T
  * @class CloudResult
  */
 class CloudResult {
@@ -2053,16 +2084,16 @@ class CloudResult {
 class CloudResultGeneric extends CloudResult {
 
 }
+/**
+ *
+ *
+ * @class CloudXInterface
+ */
 class CloudXInterface {
     /**
      * 
-     * @param {{
-     * 
-     * }} $b 
      */
-    constructor($b) {
-        new Dictionary()
-        if (!$b) $b = {}
+    constructor() {
         this.lockobj = new Object()
         /** @type List<Membership> */
         this._groupMemberships = new List();
@@ -2072,19 +2103,33 @@ class CloudXInterface {
         this._groups = new Dictionary();
         /** @type Dictionary<Type, Dictionary<Uri, CloudResult>> */
         this.cachedRecords = new Dictionary()
+        /** @type UserSession */
         this._currentSession;
+        /** @type User */
         this._currentUser;
+        /** @type RSACryptoServiceProvider */
         this._cryptoProvider;
+        /** @type AuthenticationHeaderValue */
         this._currentAuthenticationHeader;
+        /** @type Date */
         this._lastSessionUpdate;
+        /** @type Date */
         this.lastServerStatsUpdate;
+        /** @type HttpClient */
         this.HttpClient
+        /** @type RSAParameters */
         this.PublicKey
+        /** @type Number */
         this.ServerResponseTime
+        /** @type Date */
         this.LastServerUpdate
+        /** @type Date */
         this.lastServerStateFetch
+        /** @type FriendManager */
         this.Friends
+        /** @type MessageManager */
         this.Messages
+        /** @type TransactionManager */
         this.Transactions
         this.SessionChanged
         this.UserUpdated
@@ -2108,8 +2153,11 @@ class CloudXInterface {
         }
     }
     static SESSION_EXTEND_INTERVAL = 3600;
+    /** @type Action<string> */
     static ProfilerBeginSampleCallback;
+    /** @type Action */
     static ProfilerEndSampleCallback;
+    /** @type Func<MemoryStream> */
     static MemoryStreamAllocator;
     static USE_CDN = new Boolean();
     static CLOUDX_PRODUCTION_NEOS_API = "https://cloudx.azurewebsites.net/";
@@ -2322,8 +2370,7 @@ class CloudXInterface {
     }
     static TryFromString(url) {
         if (url == null) return null;
-        //TODO URI VALIDATION, FOR NOT IS RAW
-        if (true) return new Uri(url)
+        if (Uri.IsWellFormedUriString(url, 1)) return new Uri(url)
         return null
     }
     static IsLegacyNeosDB(uri) {
@@ -2347,7 +2394,7 @@ class CloudXInterface {
             request = this.CreateRequest(resource, HttpMethod.Post);
             this.AddFileToRequest(request, filePath, FileMIME, progressIndicator);
             return request
-        }), 60.0)//TODO TIMESPAN FROM MINUTES NOT 60
+        }), fromMinutes(60.0))
     }
     PUT(resource, entity, timeout = null) {
         return this.RunRequest((() => {
@@ -2367,9 +2414,19 @@ class CloudXInterface {
         return this.RunRequest((() => { return this.CreateRequest(resource, HttpMethod.Delete) }), timeout);
 
     }
+
+    /**
+     *
+     *
+     * @param {HttpRequestMessage} request
+     * @param {string} filePath
+     * @param {string} [mime=null]
+     * @param {IProgressIndicator} [progressIndicator=null]
+     * @memberof CloudXInterface
+     */
     AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
         //FILESTREAM
-        /*
+       /* 
         FileStream fileStream = System.IO.File.OpenRead(filePath);
         StreamProgressWrapper streamProgressWrapper = new StreamProgressWrapper((Stream) fileStream, progressIndicator, (Action<Stream, IProgressIndicator>) null, new long?());
         MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
@@ -2740,10 +2797,20 @@ class CloudXInterface {
             return await this.GetUserGroupMemberships(this.CurrentUser.Id);
         return await this.GET("api/users/" + userId + "/memberships", new TimeSpan())
     }
+    /**
+     *
+     * @returns {Task}
+     * @param {string} groupId
+     * @memberof CloudXInterface
+     */
     async UpdateGroupInfo(groupId) {
+        /** @type {Task<CloudResult<Group>>>} */
         let group = this.GetGroup(groupId)
+        /** @type {Task<CloudResult<Member>>>} */
         let memberTask = this.GetGroupMember(groupId, this.CurrentUser.Id)
+        /** @type {CloudResult<Group>>} */
         let groupResult = await group
+        /** @type {CloudResult<Member>>} */
         let cloudResult = await memberTask
         Lock.acquire(this.lockobj, () => {
             if (groupResult.IsOK) {
@@ -2753,6 +2820,14 @@ class CloudXInterface {
                 if (groupUpdated != null)
                     groupUpdated(groupResult.Entity)
             }
+            if (!cloudResult.IsOK)
+            return;
+            this._groupMemberInfos.Remove(groupId)
+            this._groupMemberInfos.Add(groupId, cloudResult.Entity);
+            let groupMemberUpdated = this.GroupMemberUpdated
+            if (groupMemberUpdated == null)
+            return
+            groupMemberUpdated(cloudResult.Entity)
         })
     }
 }
@@ -2770,44 +2845,142 @@ class Endpoints {
 class FriendManager {
     static UPDATE_PERIOD_SECONDS = 5
     constructor() {
-        this.friends = new Array()
-        this._friendSessions = new Array()
-        this._lock = "FriendManager._lock"
+        /** @type Dictionary<string, Friend> */
+        this.friends = new Dictionary()
+        /** @type Dictionary<string, SessionInfo> */
+        this._friendSessions = new Dictionary()
+        this._lock = new Object()
+        /** @type Date */
         this.lastStatusUpdate = null
+        /** @type Date */
         this.lastRequest = null
-        this._friendsChanged = new Boolean()
+        /** @type boolean */
+        this._friendsChanged
+        /** @type CloudXInterface */
         this.Cloud
+        /** @type Number */
         this.FriendRequestCount
     }
+
+    /**
+     *
+     *
+     * @param {CloudXInterface} cloud
+     * @memberof FriendManager
+     */
     FriendManager(cloud) {
         this.Cloud = cloud
     }
+    /**
+     *
+     * @returns {Boolean}
+     * @readonly
+     * @memberof FriendManager
+     */
     get FriendCount() {
-        return this.friends.length
+        return this.friends.Count
     }
+    /**
+     *
+     *
+     * @param {List<Friend>} list
+     * @memberof FriendManager
+     */
     GetFriends(list) {
         for (let friend of this.friends) {
             list.push(friend.Value)
         }
     }
+
+    /**
+     *
+     *
+     * @param {Action<Friend>} action
+     * @memberof FriendManager
+     */
     ForeachFriend(action) {
         for (let friend of this.friends) {
             action(friend.Value)
         }
     }
+    /**
+     *
+     *
+     * @param {List<SessionInfo>} sessions
+     * @returns
+     * @memberof FriendManager
+     */
     GetFriendSessions(sessions) {
         for (let friendSession of this._friendSessions) {
-            sessions.push(friendSession.Value)
+            sessions.Add(friendSession.Value)
         }
-        return this._friendSessions.length
+        return this._friendSessions.Count
     }
     ForeachFriendSession(action) {
         for (let friendSession of this._friendSessions) {
             action(friendSession.Value)
         }
     }
+    /**
+     *
+     *
+     * @param {string} friendId
+     * @returns {(Friend | Friend<Null>)}
+     * @memberof FriendManager
+     */
     GetFriend(friendId) {
-        //TODO GetFriend
+        Lock.acquire(this._lock, ()=>{
+            let friend = new Out()
+            if (this.friends.TryGetValue(friendId, friend))
+                return friend.Out
+            return null
+        })
+    }
+    FindFriend(predicate){
+        Lock.acquire(this._lock, ()=>{
+            for (let friend of this.friends){
+                if (predicate(friend.Value))
+                    return friend.Value
+            }
+        })
+        return null
+    }
+    IsFriend(userId){
+        Lock.acquire(this._lock, ()=>{
+            let friend = new Out()
+            if (this.friends.TryGetValue(userId, friend))
+                return friend.Out.FriendStatus == FriendStatus.Accepted;
+            return false
+        })
+    }
+    /**
+     *
+     *
+     * @param {(String | Friend)} friend
+     * @memberof FriendManager
+     */
+    AddFriend(friend){
+        switch (Type.Get(friend)) {
+            case "String":
+                this.AddFriend(new Friend({'friendUserId':friend,'friendUsername':friend.Substr(2), 'friendStatus':FriendStatus.Accepted}))
+                break;
+            case "Friend":
+                friend.OwnerId = this.Cloud.CurrentUser.Id;
+                friend.FriendStatus = FriendStatus.Accepted;
+                this.Cloud.UpsertFriend(friend);
+                Lock.acquire(this._lock, ()=>{
+                    this.AddedOrUpdated(friend)
+                })
+                break;
+        }
+    }
+    RemoveFriend(friend){
+        friend.OwnerId = this.Cloud.CurrentUser.Id
+        friend.FriendStatus = FriendStatus.Ignored;
+        this.Cloud.DeleteFriend(friend)
+        Lock.acquire(this._lock,()=>{
+            this.Removed(friend)
+        })
     }
     //TODO Friend Manager
 }
