@@ -51,6 +51,11 @@ class Out {
         return []
     }
 }
+class AuthenticationHeaderValue{
+    constructor(bearer, token){
+    this.Authorization = bearer +" "+token
+    }
+}
 class HTTP_CLIENT {
     /**
      *
@@ -62,17 +67,15 @@ class HTTP_CLIENT {
      * @memberof HTTP_CLIENT
      */
     static async SendAsync(request, token) {
-        console.log("token",token)
         let state
-        console.log("Request",request)
         let dat = { method: request.Method }
+        dat.headers = request.Headers
         if (request.Method == "POST") dat.body = request.Content
-        console.log(dat)
-        let response = await fetch(request.RequestUri, dat ).then(res => {
-            state = res.status
-            return res.json()
-        })
-        console.log('State', state, "Response", response)
+       
+            let response = await fetch(request.RequestUri, dat ).then(res => {
+                state = res.status
+                return res.json()
+            })
         let cloudResult = new CloudResult()
         cloudResult.CloudResult(state, response)
         return cloudResult
@@ -384,7 +387,7 @@ class List extends Array {
  * @extends {Set}
  * @template T
  */
-class HashSet extends Set {
+class HashSet extends List {
     /**
      *Creates an instance of HashSet.
      * @param {*} $b
@@ -392,7 +395,7 @@ class HashSet extends Set {
      * @return {T}
      */
     constructor($b) {
-
+        if (!$b) $b = []
         switch (Type.Get($b)) {
             case "Array":
                 $b = $b.ToList()
@@ -2005,7 +2008,7 @@ class User {
 class UserSession {
     constructor($b) {
         if (!$b) $b = {}
-        this.UserID = $b.userId || new String()
+        this.UserId = $b.userId || new String()
         this.SessionToken = $b.token || new String()
         this.SessionCreated = $b.created || new Date()
         this.SessionExpire = $b.expire || new Date()
@@ -2097,6 +2100,69 @@ class CloudResult {
         return !this.IsOK;
     }
 }
+
+class UserTags{
+    static get NeosTeam(){
+        return 'neos team'
+    }
+    static get NeosAdmin(){
+        return 'neos admin'
+    }
+    static get NeosModerator(){
+        return 'neos moderator'
+    }
+    static get NeosCommunityManager(){
+        return 'neos community manager'
+    }
+    static get DiagnoseRecordSync(){
+        return 'diagnose record sync'
+    }
+    static get HearingImpaired(){
+        return 'hearing impaired'
+    }
+    static get Potato(){
+        return 'potato'
+    }
+    static get Coffee(){
+        return 'coffee'
+    }
+    static get Java(){
+        return 'java'
+    }
+    static get NCC_Participant(){
+        return 'ncc participant'
+    }
+    static get NCC_Diamond(){
+        return 'ncc diamond'
+    }
+    static get NCC_Gold(){
+        return 'ncc gold'
+    }
+    static get NCC_Silver(){
+        return 'ncc silver'
+    }
+    static  CustomBadge( neosDb,  pointFiltering)
+    {
+      let str = "custom badge:" + CloudXInterface.NeosDBSignature(neosDb);
+      if (pointFiltering)
+        str += ".point";
+      return str;
+    }
+     static  GetCustomBadge( badge, pointFiltering)
+    {
+      if (!badge.startsWith("custom badge:"))
+      {
+        pointFiltering.Out = false;
+        return  null;
+      }
+      badge = badge.substr("custom badge:".length).trim();
+      pointFiltering = badge.includes(".point");
+      return new Uri("neosdb:///" + badge.trim());
+    }
+}
+
+
+
 class CloudResultGeneric extends CloudResult {
 
 }
@@ -2120,7 +2186,7 @@ class CloudXInterface {
         /** @type Dictionary<Type, Dictionary<Uri, CloudResult>> */
         this.cachedRecords = new Dictionary()
         /** @type UserSession */
-        this._currentSession;
+        this._currentSession = new UserSession();
         /** @type User */
         this._currentUser;
         /** @type RSACryptoServiceProvider */
@@ -2152,6 +2218,7 @@ class CloudXInterface {
         this.MembershipsUpdated
         this.GroupUpdated
         this.GroupMemberUpdated
+        this.CloudXInterface()
     }
 
     static CloudEndpoint = new Enumerable([
@@ -2165,7 +2232,7 @@ class CloudXInterface {
     static storageUpdateDelays = [1, 5, 15, 30];
     static get JSON_MEDIA_TYPE() {
         return {
-            'content-type': 'application/json'
+            'Content-Type': 'application/json'
         }
     }
     static SESSION_EXTEND_INTERVAL = 3600;
@@ -2236,7 +2303,8 @@ class CloudXInterface {
     }
     set CurrentUser(value) {
         if (value == this._currentUser) return;
-        this._currentUser = value;
+        let user = new User(value);
+        this._currentUser = user 
         let userUpdated = this.UserUpdated
         if (userUpdated == null) return;
         userUpdated(this._currentUser)
@@ -2245,11 +2313,16 @@ class CloudXInterface {
         return this._currentSession
     }
     set CurrentSession(value) {
+        if (value == null){
+            this._currentSession = new UserSession()
+            return
+        }
         if (value == this._currentSession) return;
         //LOCK OBJECT
+        if (!this._currentSession) this._currentSession = new UserSession()
         if (this._currentSession.SessionToken != value.SessionToken) this._lastSessionUpdate = new Date();
         this._currentSession = value;
-        this._currentAuthenticationHeader = value != null ? new AuthenticationHeaderValue('neos', value.userId + ":" + value.SessionToken) : (AuthenticationHeaderValue);
+        this._currentAuthenticationHeader = value != null ? new AuthenticationHeaderValue('neos', value.UserId + ":" + value.SessionToken).Authorization : (AuthenticationHeaderValue);
         this.OnSessionUpdated()
         try {
             let sessionChanged = this.sessionChanged;
@@ -2476,7 +2549,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     AddBody(message, entity) {
-        message.Headers.ContentType = CloudXInterface.JSON_MEDIA_TYPE
+        message.Headers['Content-Type'] = CloudXInterface.JSON_MEDIA_TYPE['Content-Type']
         message.Content = JSON.stringify(entity)
 
     }
@@ -2500,17 +2573,15 @@ class CloudXInterface {
         do {
 
             request = requestSource();
-            console.log(request)
             let cancellationToken = new CancellationTokenSource(timeout ? timeout : fromSeconds(30.0));
             result = await HTTP_CLIENT.SendAsync(request, cancellationToken.Token)
-            console.log(result)
-            result = result.Entity
             if (result == null) {
                 console.error(`Exception running `)
                 request = null
                 await Delay(new TimeSpan(delay))
                 delay += 250
             }
+            return result //BYPASS
         }
         while (result == null && remainingRetries-- > 0)
         if (result == null) {
@@ -2560,34 +2631,34 @@ class CloudXInterface {
      * @returns {Promise<CloudResult<UserSession>>>}
      */
     async Login(credential, password, sessionToken, secretMachineId, rememberMe, recoverCode) {
-        let cloudXinterface = this
-        cloudXinterface.Logout(false);
+        this.Logout(false);
         let credentials = new LoginCredentials()
-        credentials.Password = password
-        credentials.RecoverCode = recoverCode
-        credentials.SessionToken = sessionToken
+        credentials.password = password
+        credentials.recoverCode = recoverCode
+        credentials.sessionToken = sessionToken
         credentials.secretMachineId = secretMachineId
-        credentials.RememberMe = rememberMe
+        credentials.rememberMe = rememberMe
         if (credential.startsWith('U-'))
-            credentials.OwnerId = credential
+            credentials.ownerId = credential
         else if (credential.includes('@'))
-            credentials.Email = credential
+            credentials.email = credential
         else
-            credentials.Email = credential
-        var result = await cloudXinterface.POST("api/userSessions", credentials, new TimeSpan())
+            credentials.username = credential
+        var result = await this.POST("api/userSessions", credentials, new TimeSpan())
         if (result.IsOK) {
-            cloudXinterface.CurrentSession = result.Entity
-            cloudXinterface.CurrentUser = new User()
-            cloudXinterface.CurrentUser.Id = cloudXinterface.CurrentSession.UserId
-            cloudXinterface.CurrentUser.Username = credentials.Username
-            cloudXinterface.UpdateCurrentUserInfo()
-            cloudXinterface.UpdateCurrentUserMemberships()
-            cloudXinterface.Friends.Update()
-            cloudXinterface.onLogin()
+            this.CurrentSession = new UserSession(result.Content)
+            this.CurrentUser = new User()
+            this.CurrentUser.Id = this.CurrentSession.UserId
+            this.CurrentUser.Username = credentials.Username
+            this.UpdateCurrentUserInfo()
+            this.UpdateCurrentUserMemberships()
+            this.Friends.Update()
+            this.onLogin()
         }
-        else throw new Error("Error loging in: " + result.State.toString() + "\n" + result.Content)
+        else throw new Error("Error loging in: " + result.State + "\n" + result.Content)
         return result
     }
+    onLogin(){}
     async ExtendSession() {
         return await this.PATCH("api/userSessions", null, new TimeSpan())
     }
@@ -2619,19 +2690,19 @@ class CloudXInterface {
     async RequestRecoveryCode(email) {
         return await this.POST("/api/users/requestlostpassword",  new User({username:username, email:email, password:password}), new TimeSpan())
     }
-    async UpdateCurrentUserinfo() {
+    async UpdateCurrentUserInfo() {
         switch (this.CurrentUser.Id) {
             case null:
                 throw new Error("No current user!")
             default:
                 let user = await this.GetUser(this.CurrentUser.Id);
                 let entity = user.Entity
-                if (user.IsOK && this.CurrentUser != null && this.CurrentUser.Id == entity.Id) {
+                if (user.IsOK && this.CurrentUser != null && this.CurrentUser.Id == entity.id) {
                     this.CurrentUser = entity
-                    patreonData = this.CurrentUser.PatreonData;
+                    let patreonData = this.CurrentUser.PatreonData;
                     let num = new Number()
                     if ((patreonData != null ? (patreonData.IsPatreonSupporter ? 1 : 0) : 0) == 0) {
-                        tags = this.CurrentUser.Tags
+                        let tags = this.CurrentUser.Tags
                         num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
                     }
                     else
@@ -2665,7 +2736,7 @@ class CloudXInterface {
         this.CurrentSession = null
         this.CurrentUser = null
         this.ClearMemberships()
-        this.Friends = []
+        this.Friends = new FriendManager(this)
         CloudXInterface.USE_CDN = false
     }
     SignHash(hash) {
@@ -2887,7 +2958,7 @@ class CloudXInterface {
         return await this.GET("api/groups/" + groupId + "/members", new TimeSpan())
     }
     async UpdateCurrentUserMemberships() {
-        let groupMemberships = await this.GetUserMemberships();
+        let groupMemberships = await this.GetUserGroupMemberships();
         if (groupMemberships.isOK)
             this.SetMemberships(groupMemberships.Entity)
         return groupMemberships
@@ -2944,7 +3015,8 @@ class Endpoints {
 }
 class FriendManager {
     static UPDATE_PERIOD_SECONDS = 5
-    constructor() {
+    constructor(cloud) {
+        this.Cloud = cloud
         /** @type Dictionary<string, Friend> */
         this.friends = new Dictionary()
         /** @type Dictionary<string, SessionInfo> */
@@ -3082,19 +3154,20 @@ class FriendManager {
             this.Removed(friend)
         })
     }
+    Update(){}
     //TODO Friend Manager
 }
 
 
 class MessageManager {
-    constructor() {
+    constructor(cloud) {
         this._messagesLock = "MessageManager._messagesLock"
         this._messages = new List()
         this.lastRequest
         this.lastUnreadMessage
         this._unreadCountDirty = new Boolean()
         this._waitingForRequest = new Boolean()
-        this.Cloud
+        this.Cloud = cloud
         this.InitialmessagesFetched = new Boolean()
         this.UnreadCount = new Number()
     }
@@ -3334,8 +3407,8 @@ class StringNumberConversion {
     static BigIntToDecimal(value) { }
 }
 class TransactionManager {
-    constructor() {
-        this.Cloud
+    constructor(cloud) {
+        this.Cloud = cloud
         this.NCRConversionRatio
     }
     TransactionManager(cloud) {
