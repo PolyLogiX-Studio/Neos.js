@@ -52,12 +52,27 @@ class Out {
     }
 }
 class HTTP_CLIENT {
+    /**
+     *
+     *
+     * @static
+     * @param {*} request
+     * @param {*} token
+     * @returns {Promise<HttpResponseMessage>}
+     * @memberof HTTP_CLIENT
+     */
     static async SendAsync(request, token) {
+        console.log("token",token)
         let state
-        let response = await fetch(request.RequestUri, { method: request.Method }).then(res => {
+        console.log("Request",request)
+        let dat = { method: request.Method }
+        if (request.Method == "POST") dat.body = request.Content
+        console.log(dat)
+        let response = await fetch(request.RequestUri, dat ).then(res => {
             state = res.status
             return res.json()
         })
+        console.log('State', state, "Response", response)
         let cloudResult = new CloudResult()
         cloudResult.CloudResult(state, response)
         return cloudResult
@@ -494,13 +509,13 @@ class Dictionary extends Array {
         }
         return false
     }
-    get Count(){
+    get Count() {
         return this.length
     }
-    Get(key, out){
+    Get(key, out) {
         if (!this.ContainsKey(key)) return false
-        for (let object of this){
-            if (object.Key == key) {out.Out = object.Value; return true}
+        for (let object of this) {
+            if (object.Key == key) { out.Out = object.Value; return true }
         }
         return false // How tf you manage that??
     }
@@ -535,14 +550,23 @@ String.prototype.IsNullOrWhiteSpace = function (str) {
 /**
  *
  *
- * @class httpRequestMessage
+ * @class HttpRequestMessage
  */
-class httpRequestMessage {
+class HttpRequestMessage {
     constructor(method, uri) {
         this.Headers = {}
         this.Content = {}
         this.Method = method
         this.RequestUri = uri
+    }
+}
+/**
+ *
+ * @class HttpResponseMessage
+ */
+class HttpResponseMessage {
+    constructor() {
+
     }
 }
 
@@ -1262,9 +1286,9 @@ class SessionInfo {
      * @memberof SessionInfo
      */
     IsSame(other) {
-        if (!(this.Name == other.Name) || !(this.Description == other.Description) || (!this.Tags.IsSame(other.Tags) || !(this.SessionId == other.SessionId)) || (!(this.HostUserId == other.HostUserId) || !(this.HostMachineId == other.HostMachineId) || (!(this.HostUsername == other.HostUsername) || !(this.CompatibilityHash == other.CompatibilityHash))) || (!(this.NeosVersion == other.NeosVersion) || this.HeadlessHost != other.HeadlessHost || (!(this.LegacySessionURL == other.LegacySessionURL) || !this.SessionURLs.ElementWiseEquals<string>((IList<string>) other.SessionURLs)) || (!this.SessionUsers.ElementWiseEquals<SessionUser>((IList<SessionUser>) other.SessionUsers) || !(this.Thumbnail == other.Thumbnail) || (this.JoinedUsers != other.JoinedUsers || this.ActiveUsers != other.ActiveUsers))) || (this.MaximumUsers != other.MaximumUsers || this.MobileFriendly != other.MobileFriendly || (this.IsLAN != other.IsLAN || this.AccessLevel != other.AccessLevel)))
+        if (!(this.Name == other.Name) || !(this.Description == other.Description) || !(this.Tags.IsSame(other.Tags)) || !(this.SessionId == other.SessionId) || !(this.HostUserId == other.HostUserId) || !(this.HostMachineId == other.HostMachineId) || !(this.HostUsername == other.HostUsername) || !(this.CompatibilityHash == other.CompatibilityHash) || !(this.NeosVersion == other.NeosVersion) || this.HeadlessHost != other.HeadlessHost)
             return false;
-
+            return true
     }
 }
 /**
@@ -1571,13 +1595,6 @@ class UserStatus {
 
 
 
-
-
-class TransactionManager {
-    constructor($b) {
-        if (!$b) $b = {}
-    }
-}
 
 
 
@@ -2029,9 +2046,8 @@ class CloudResult {
      * content: string
      * }} $b
      */
-    constructor($b) {
-        if (!$b) return
-        this.CloudResult($b.state, $b.content)
+    constructor(entity, state, content) {
+        this.CloudResult(state, content)
     }
     ToString() {
         return ("CloudResult - State: " + this.State + " Content: " + this.Content)
@@ -2137,7 +2153,7 @@ class CloudXInterface {
         this.GroupUpdated
         this.GroupMemberUpdated
     }
-    
+
     static CloudEndpoint = new Enumerable([
         "Production",
         "Staging",
@@ -2384,28 +2400,29 @@ class CloudXInterface {
     }
     POST(resource, entity, timeout = null) {
         return this.RunRequest((() => {
-            request = this.CreateRequest(resource, HttpMethod.Post);
+        
+            let request = this.CreateRequest(resource, HttpMethod.Post);
             this.AddBody(request, entity)
             return request;
         }), timeout)
     }
     POST_File(resource, filePath, FileMIME = null, progressIndicator = null) {
         return this.RunRequest((() => {
-            request = this.CreateRequest(resource, HttpMethod.Post);
+            let request = this.CreateRequest(resource, HttpMethod.Post);
             this.AddFileToRequest(request, filePath, FileMIME, progressIndicator);
             return request
         }), fromMinutes(60.0))
     }
     PUT(resource, entity, timeout = null) {
         return this.RunRequest((() => {
-            request = this.CreateRequest(resource, HttpMethod.Put)
+            let request = this.CreateRequest(resource, HttpMethod.Put)
             this.AddBody(request, entity)
             return request
         }), timeout)
     }
     PATCH(resource, entity, timeout = null) {
         return this.RunRequest((() => {
-            request = this.CreateRequest(resource, CloudXInterface.PATCH_METHOD)
+            let request = this.CreateRequest(resource, CloudXInterface.PATCH_METHOD)
             this.AddBody(request, entity)
             return request
         }), timeout)
@@ -2426,45 +2443,73 @@ class CloudXInterface {
      */
     AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
         //FILESTREAM
-       /* 
-        FileStream fileStream = System.IO.File.OpenRead(filePath);
-        StreamProgressWrapper streamProgressWrapper = new StreamProgressWrapper((Stream) fileStream, progressIndicator, (Action<Stream, IProgressIndicator>) null, new long?());
-        MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
-        StreamContent streamContent = new StreamContent((Stream) streamProgressWrapper, 32768);
-        if (mime != null)
-            streamContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mime);
-        streamContent.Headers.ContentLength = new long?(fileStream.Length);
-        multipartFormDataContent.Add((HttpContent) streamContent, "file", Path.GetFileName(filePath));
-        request.Content = (HttpContent) multipartFormDataContent;
-        */
+        /* 
+         FileStream fileStream = System.IO.File.OpenRead(filePath);
+         StreamProgressWrapper streamProgressWrapper = new StreamProgressWrapper((Stream) fileStream, progressIndicator, (Action<Stream, IProgressIndicator>) null, new long?());
+         MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
+         StreamContent streamContent = new StreamContent((Stream) streamProgressWrapper, 32768);
+         if (mime != null)
+             streamContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mime);
+         streamContent.Headers.ContentLength = new long?(fileStream.Length);
+         multipartFormDataContent.Add((HttpContent) streamContent, "file", Path.GetFileName(filePath));
+         request.Content = (HttpContent) multipartFormDataContent;
+         */
     }
+
+    /**
+     * 
+     * @param {string} resource 
+     * @param {HttpMethod} method 
+     * @returns {HttpRequestMessage}
+     */
     CreateRequest(resource, method) {
-        let request = new httpRequestMessage(method, CloudXInterface.NEOS_API + resource)
+        let request = new HttpRequestMessage(method, CloudXInterface.NEOS_API + resource)
         if (this.CurrentSession != null)
             request.Headers.Authorization = this._currentAuthenticationHeader;
         return request
     }
+    /**
+     *
+     *
+     * @param {HttpResponseMessage} message
+     * @param {*} entity
+     * @memberof CloudXInterface
+     */
     AddBody(message, entity) {
-        //TODO
+        message.Headers.ContentType = CloudXInterface.JSON_MEDIA_TYPE
+        message.Content = JSON.stringify(entity)
+
     }
+
+    /**
+     *
+     *
+     * @param {Func<HttpRequestMessage>} requestSource
+     * @param {TimeSpan} timeout
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
     async RunRequest(requestSource, timeout) {
+        /** @type {HttpRequestMessage} request */
         let request = null
+        /** @type {HttpResponseMessage} */
         let result = null
         let exception = null
         let remainingRetries = CloudXInterface.DEFAULT_RETRIES
         let delay = 0
         do {
+
             request = requestSource();
+            console.log(request)
             let cancellationToken = new CancellationTokenSource(timeout ? timeout : fromSeconds(30.0));
             result = await HTTP_CLIENT.SendAsync(request, cancellationToken.Token)
+            console.log(result)
             result = result.Entity
             if (result == null) {
                 console.error(`Exception running `)
                 request = null
                 await Delay(new TimeSpan(delay))
                 delay += 250
-            } else {
-                return result
             }
         }
         while (result == null && remainingRetries-- > 0)
@@ -2473,13 +2518,53 @@ class CloudXInterface {
                 throw new Error("Failed to get response. Exception is null")
             throw new Error(exception)
         }
+        let entity
+        let content = null
+        if (result.IsSuccessStatusCode) {
+            if (typeof result.Content == "string") {
+                content = await result.Content.toString()
+                entity = content
+            } else {
+                try {
+                    let contentLength = result.Content.Headers.ContentLength
+                    let num = 0
+                    if (contentLength > num && (contentLength != null)) {
+                        let responseStream = await result.Content.toString()
+                        entity = await JSON.parse(responseStream)
+                    }
+                }
+                catch (error) {
+                    console.log('Exception deserializing ')
+                }
+                finally {
+
+                }
+
+            }
+        }
+        else {
+            content = await result.Content
+            return new CloudResult(entity, result.StatusCode, content)
+
+        }
+
     }
-    async Login(credential, password, sessionToken, secretMachineId, rememberMe, reciverCode) {
+    /**
+     * 
+     * @param {string} credential 
+     * @param {string} password 
+     * @param {string} sessionToken 
+     * @param {string} secretMachineId 
+     * @param {Boolean} rememberMe 
+     * @param {string} reciverCode 
+     * @returns {Promise<CloudResult<UserSession>>>}
+     */
+    async Login(credential, password, sessionToken, secretMachineId, rememberMe, recoverCode) {
         let cloudXinterface = this
         cloudXinterface.Logout(false);
         let credentials = new LoginCredentials()
         credentials.Password = password
-        credentials.RecoverCode = reciverCode
+        credentials.RecoverCode = recoverCode
         credentials.SessionToken = sessionToken
         credentials.secretMachineId = secretMachineId
         credentials.RememberMe = rememberMe
@@ -2489,7 +2574,7 @@ class CloudXInterface {
             credentials.Email = credential
         else
             credentials.Email = credential
-        result = await cloudXinterface.POST("api/userSessions", credentials, new TimeSpan())
+        var result = await cloudXinterface.POST("api/userSessions", credentials, new TimeSpan())
         if (result.IsOK) {
             cloudXinterface.CurrentSession = result.Entity
             cloudXinterface.CurrentUser = new User()
@@ -2500,12 +2585,22 @@ class CloudXInterface {
             cloudXinterface.Friends.Update()
             cloudXinterface.onLogin()
         }
-        else error("Error loging in: " + result.State.toString() + "\n" + result.Content)
+        else throw new Error("Error loging in: " + result.State.toString() + "\n" + result.Content)
         return result
     }
     async ExtendSession() {
         return await this.PATCH("api/userSessions", null, new TimeSpan())
     }
+
+    /**
+     *
+     *
+     * @param {string} username
+     * @param {string} email
+     * @param {string} password
+     * @returns {Promise<CloudResult<User>>}
+     * @memberof CloudXInterface
+     */
     async Register(username, email, password) {
         this.Logout(false)
         let u = new User()
@@ -2514,10 +2609,15 @@ class CloudXInterface {
         u.Password = password
         return await this.POST("/api/users", u, new TimeSpan())
     }
+    /**
+     *
+     *
+     * @param {*} email
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
     async RequestRecoveryCode(email) {
-        let u = new User()
-        u.Email = email
-        return await this.POST("/api/users/requestlostpassword", u, new TimeSpan())
+        return await this.POST("/api/users/requestlostpassword",  new User({username:username, email:email, password:password}), new TimeSpan())
     }
     async UpdateCurrentUserinfo() {
         switch (this.CurrentUser.Id) {
@@ -2821,12 +2921,12 @@ class CloudXInterface {
                     groupUpdated(groupResult.Entity)
             }
             if (!cloudResult.IsOK)
-            return;
+                return;
             this._groupMemberInfos.Remove(groupId)
             this._groupMemberInfos.Add(groupId, cloudResult.Entity);
             let groupMemberUpdated = this.GroupMemberUpdated
             if (groupMemberUpdated == null)
-            return
+                return
             groupMemberUpdated(cloudResult.Entity)
         })
     }
@@ -2929,24 +3029,24 @@ class FriendManager {
      * @memberof FriendManager
      */
     GetFriend(friendId) {
-        Lock.acquire(this._lock, ()=>{
+        Lock.acquire(this._lock, () => {
             let friend = new Out()
             if (this.friends.TryGetValue(friendId, friend))
                 return friend.Out
             return null
         })
     }
-    FindFriend(predicate){
-        Lock.acquire(this._lock, ()=>{
-            for (let friend of this.friends){
+    FindFriend(predicate) {
+        Lock.acquire(this._lock, () => {
+            for (let friend of this.friends) {
                 if (predicate(friend.Value))
                     return friend.Value
             }
         })
         return null
     }
-    IsFriend(userId){
-        Lock.acquire(this._lock, ()=>{
+    IsFriend(userId) {
+        Lock.acquire(this._lock, () => {
             let friend = new Out()
             if (this.friends.TryGetValue(userId, friend))
                 return friend.Out.FriendStatus == FriendStatus.Accepted;
@@ -2959,26 +3059,26 @@ class FriendManager {
      * @param {(String | Friend)} friend
      * @memberof FriendManager
      */
-    AddFriend(friend){
+    AddFriend(friend) {
         switch (Type.Get(friend)) {
             case "String":
-                this.AddFriend(new Friend({'friendUserId':friend,'friendUsername':friend.Substr(2), 'friendStatus':FriendStatus.Accepted}))
+                this.AddFriend(new Friend({ 'friendUserId': friend, 'friendUsername': friend.Substr(2), 'friendStatus': FriendStatus.Accepted }))
                 break;
             case "Friend":
                 friend.OwnerId = this.Cloud.CurrentUser.Id;
                 friend.FriendStatus = FriendStatus.Accepted;
                 this.Cloud.UpsertFriend(friend);
-                Lock.acquire(this._lock, ()=>{
+                Lock.acquire(this._lock, () => {
                     this.AddedOrUpdated(friend)
                 })
                 break;
         }
     }
-    RemoveFriend(friend){
+    RemoveFriend(friend) {
         friend.OwnerId = this.Cloud.CurrentUser.Id
         friend.FriendStatus = FriendStatus.Ignored;
         this.Cloud.DeleteFriend(friend)
-        Lock.acquire(this._lock,()=>{
+        Lock.acquire(this._lock, () => {
             this.Removed(friend)
         })
     }
@@ -3262,6 +3362,8 @@ class TransactionManager {
     }
     //TODO Rest of Thing, Will Break
 }
+class CryptoHelper{}
+class ComputationLock {}
 /**
  * @namespace
  * @memberof CloudX
