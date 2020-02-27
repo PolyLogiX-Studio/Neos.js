@@ -1441,7 +1441,7 @@ class UserPatreonData {
      * @memberof UserPatreonData
      */
     get CurrentAccountType() {
-        if (((new Date() - this.LastActivationTime).getSeconds() / (1000 * 3600 * 24)) <= 40.0)
+        if ((new Date(new Date() - this.LastActivationTime).getSeconds() / (1000 * 3600 * 24)) <= 40.0)
             return UserPatreonData.GetAccountType(this.LastPaidPledgeAmount)
         return AccountType.Normal
     }
@@ -1955,6 +1955,7 @@ class Submission {
 }
 class User {
     constructor($b) {
+        console.log($b)
         if (!$b) $b = {}
         this.Id = $b.id || new String()
         this.Username = $b.username || new String()
@@ -1970,9 +1971,9 @@ class User {
         this.Password = $b.password || new String()
         this.RecoverCode = $b.recoverCode || new String()
         this.Tags = new HashSet($b.tags)
-        this.PatreonData = $b.patreonData || null
+        this.PatreonData = new UserPatreonData($b.patreonData) || null
         this.Credits = $b.credits || new Number()
-        this.NCRDepositAddress = $b.NCRDepositAddress || new String()
+        this.NCRDepositAddress = $b.NCRdepositAddress || new String()
         this.ReferralId = $b.referralId || new String()
         this.ReferrerUserId = $b.referrerUserId || new String()
         this.Profile = $b.profile || new Object()
