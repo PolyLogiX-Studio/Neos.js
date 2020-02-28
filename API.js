@@ -70,7 +70,7 @@ class HTTP_CLIENT {
         let state
         let dat = { method: request.Method }
         dat.headers = request.Headers
-        if (request.Method == "POST") dat.body = request.Content
+        if (request.Method == "POST"||request.Method == "PATCH") dat.body = request.Content
        
             let response = await fetch(request.RequestUri, dat ).then(res => {
                 state = res.status
@@ -1955,7 +1955,6 @@ class Submission {
 }
 class User {
     constructor($b) {
-        console.log($b)
         if (!$b) $b = {}
         this.Id = $b.id || new String()
         this.Username = $b.username || new String()
@@ -2177,7 +2176,7 @@ class CloudXInterface {
      * 
      */
     constructor() {
-        this.lockobj = new Object()
+        this.lockobj = "CloudXLockObj"
         /** @type List<Membership> */
         this._groupMemberships = new List();
         /** @type Dictionary<String, Member> */
@@ -2987,15 +2986,15 @@ class CloudXInterface {
         Lock.acquire(this.lockobj, () => {
             if (groupResult.IsOK) {
                 this._groups.Remove(groupId)
-                this._groups.Add(groupId, groupResult.Entity)
-                groupUpdated = this.GroupUpdated
+                this._groups.Add(groupId, new Group(groupResult.Entity))
+                let groupUpdated = this.GroupUpdated
                 if (groupUpdated != null)
                     groupUpdated(groupResult.Entity)
             }
             if (!cloudResult.IsOK)
                 return;
             this._groupMemberInfos.Remove(groupId)
-            this._groupMemberInfos.Add(groupId, cloudResult.Entity);
+            this._groupMemberInfos.Add(groupId, new Member(cloudResult.Entity));
             let groupMemberUpdated = this.GroupMemberUpdated
             if (groupMemberUpdated == null)
                 return
@@ -3452,17 +3451,24 @@ const Shared = {
     ComputationLock,
     CryptoHelper,
     Endpoints,
-
+    Group,
     ServerStatus,
     MessageType,
     TransactionType,
     HttpMethod,
     CloudXInterface
 }
+const Util = {
+    Type,
+    List,
+    Dictionary,
+    Enumerable,
+    HashSet
+}
 /**
  * @namespace CloudX
  */
-const CloudX = { Shared }
+const CloudX = { Shared, Util }
 module.exports = {
     CloudX
 }
