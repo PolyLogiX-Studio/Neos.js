@@ -2495,8 +2495,9 @@ class CloudXInterface {
     }
     PATCH(resource, entity, timeout = null) {
         return this.RunRequest((() => {
-            let request = this.CreateRequest(resource, CloudXInterface.PATCH_METHOD)
+            let request = this.CreateRequest(resource, HttpMethod.Patch)
             this.AddBody(request, entity)
+            console.log(request)
             return request
         }), timeout)
     }
@@ -2550,6 +2551,7 @@ class CloudXInterface {
      */
     AddBody(message, entity) {
         message.Headers['Content-Type'] = CloudXInterface.JSON_MEDIA_TYPE['Content-Type']
+        if (entity)
         message.Content = JSON.stringify(entity)
 
     }
