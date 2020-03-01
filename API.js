@@ -160,7 +160,7 @@ class Enumerable extends Object {
      *
      *
      * @param {String} key
-     * @returns
+     * @returns {T}
      * @memberof Enumerable
      */
     GetValue(key) {
@@ -714,7 +714,6 @@ class AssetUploadData {
 }
 class AssetUtil {
     /**
-     * @returns 4
      * @readonly
      * @static
      * @memberof AssetUtil
@@ -1343,7 +1342,7 @@ class SessionInfo {
     /**
      *
      * @param {SessionInfo} other
-     * @returns Boolean
+     * @returns {Boolean}
      * @memberof SessionInfo
      */
     IsSame(other) {
