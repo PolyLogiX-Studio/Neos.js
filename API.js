@@ -15,19 +15,19 @@
  * @class StringBuilder
  */
 class StringBuilder {
-    constructor(){
+    constructor() {
         this.String = []
     }
-    Append(str){
+    Append(str) {
         this.String.push(str)
     }
-    Insert(pos, str){
+    Insert(pos, str) {
         this.String.splice(pos, 0, str)
     }
-    toString(){
+    toString() {
         return this.String.join('')
     }
-    get Length(){
+    get Length() {
         return this.String.length
     }
 }
@@ -189,6 +189,13 @@ const AccountType = new Enumerable([
     'Anorak',
     'END'
 ])
+const SearchSortParameter = new Enumerable([
+    "CreationDate",
+    "LastUpdateDate",
+    "FirstPublishTime",
+    "TotalVisits",
+    "Name"
+])
 const ServerStatus = new Enumerable([
     "Good",
     "Slow",
@@ -297,7 +304,7 @@ class List extends Array {
      * @memberof List
      */
     constructor(props) {
-        if (!props) {super(); return;}
+        if (!props) { super(); return; }
         super(props)
     }
     /**
@@ -2021,10 +2028,31 @@ class RecordUtil {
      * @param {Out<string>} recordId
      * @memberof RecordUtil
      */
-    static ExtractRecordID(recordUri, ownerId, recordId){
+    static ExtractRecordID(recordUri, ownerId, recordId) {
+        ownerId.Out = null
+        recordId.Out = null
         if (recordUri == null) return false
-        if (recordUri.Scheme != "neosrec" || recordUri.Segments.length != 3)return false
+        if (recordUri.Scheme != "neosrec" || recordUri.Segments.length != 3) return false
         ownerId.Out = recordUri.Segments[1]
+        if (String.IsNullOrEmpty(ownerId))
+            return false;
+        ownerId.Out = ownerId.Out.substr(ownerId.Out.length - 1);
+        recordId.Out = recordUri.Segments[2];
+        return !String.IsNullOrEmpty(recordId.Out) && RecordUtil.IsValidRecordID(recordId.Out)
+    }
+    /**
+     *
+     *
+     * @static
+     * @param {Uri} recordUri
+     * @param {Out<string>} ownerId
+     * @param {Out<string>} recordPath
+     * @memberof RecordUtil
+     */
+    static ExtractRecordPath(recordUri, ownerId, recordPath){
+        ownerId.Out = null
+        recordPath.Out = null
+        
     }
 }
 /**
@@ -2041,8 +2069,8 @@ class IdUtil {
      * @returns {OwnerType}
      * @memberof IdUtil
      */
-    static GetOwnerType(id){
-        if (id==null)
+    static GetOwnerType(id) {
+        if (id == null)
             return OwnerType.INVALID
         if (id.startsWith("M-"))
             return OwnerType.Machine
@@ -2058,14 +2086,14 @@ class IdUtil {
      * @param {number} [randomAppend=0]
      * @memberof IdUtil
      */
-    static GenerateId(ownerType, name = null, randomAppend = 0){
-        name = name != null ? name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u{0080}-\u{FFFF}]/gu,"") : null;
+    static GenerateId(ownerType, name = null, randomAppend = 0) {
+        name = name != null ? name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u{0080}-\u{FFFF}]/gu, "") : null;
         var stringBuilder = new StringBuilder()
-        if (name != null){
-            for (/** @type string */ let c of name){
+        if (name != null) {
+            for (/** @type string */ let c of name) {
                 if (Char.IsLetterOrDigit(c))
                     stringBuilder.Append(c);
-                if (Char.IsWhiteSpace(c) || c=="_")
+                if (Char.IsWhiteSpace(c) || c == "_")
                     stringBuilder.Append("-")
                 if (stringBuilder.Length == 20)
                     break
@@ -2361,15 +2389,15 @@ class CloudXInterface {
         this.GroupMemberUpdated
         //Setup Private Properties
         Object.defineProperties(this, {
-            _groupMemberships: { value: new List(), writable:true },
-            _groupMemberInfos: { value: new Dictionary(), writable:true },
-            _groups: { value: new Dictionary(), writable:true },
-            _currentSession: { value: new UserSession(), configurable:true },
-            _currentUser: {writable:true },
-            _cryptoProvider: {writable:true },
-            _currentAuthenticationHeader: {writable:true },
-            _lastSessionUpdate: {writable:true },
-            lockobj: {value:"CloudXLockObj"}
+            _groupMemberships: { value: new List(), writable: true },
+            _groupMemberInfos: { value: new Dictionary(), writable: true },
+            _groups: { value: new Dictionary(), writable: true },
+            _currentSession: { value: new UserSession(), configurable: true },
+            _currentUser: { writable: true },
+            _cryptoProvider: { writable: true },
+            _currentAuthenticationHeader: { writable: true },
+            _lastSessionUpdate: { writable: true },
+            lockobj: { value: "CloudXLockObj" }
         })
         this.CloudXInterface()
     }
@@ -2477,14 +2505,14 @@ class CloudXInterface {
     }
     set CurrentSession(value) {
         if (value == null) {
-            Object.defineProperties(this, {_currentSession:{value:new UserSession(), configurable:true}})
+            Object.defineProperties(this, { _currentSession: { value: new UserSession(), configurable: true } })
             return
         }
         if (value == this._currentSession) return;
         //LOCK OBJECT
-        if (!this._currentSession) Object.defineProperties(this, {_currentSession:{value:new UserSession(), configurable:true}})
+        if (!this._currentSession) Object.defineProperties(this, { _currentSession: { value: new UserSession(), configurable: true } })
         if (this._currentSession.SessionToken != value.SessionToken) this._lastSessionUpdate = new Date();
-        Object.defineProperties(this, {_currentSession:{value:value, configurable:true}})
+        Object.defineProperties(this, { _currentSession: { value: value, configurable: true } })
         this._currentAuthenticationHeader = value != null ? new AuthenticationHeaderValue('neos', value.UserId + ":" + value.SessionToken).Authorization : (AuthenticationHeaderValue);
         this.OnSessionUpdated()
         try {
@@ -3169,7 +3197,96 @@ class CancellationTokenSource {
         this.Token = new uuidv4()
     }
 }
-class SearchParameters {}
+class SearchParameters {
+    constructor($b) {
+        if (!$b) $b = {}
+        /** @type Boolean */
+        this.Private = $b.private
+        /** @type string */
+        this.ByOwner = $b.byOwner
+        /** @type OwnerType */
+        this.OwnerType = $b.ownerType || OwnerType.User
+        /** @type string */
+        this.SubmittedTo = $b.submittedTo
+        /** @type boolean */
+        this.OnlyFeatured = $b.onlyFeatured
+        /** @type string */
+        this.RecordType = $b.recordType
+        /** @type List<string> */
+        this.RequiredTags = $b.requiredTags
+        /** @type Date */
+        this.MinDate = $b.minDate
+        /** @type Date */
+        this.MaxDate = $b.maxDate
+        /** @type SearchSortParameter */
+        this.SortBy = $b.sortBy
+        /** @type SearchSortDirection */
+        this.SortDirection = $b.sortDirection
+        /** @type List<string> */
+        this.ExtraSignatures = new List()
+        Object.defineProperties(this, {
+            _isNormalized: { value: new Boolean() },
+        })
+    }
+    Normalize() {
+        if (this._isNormalized)
+            return;
+        if (this.RequiredTags != null) {
+            this.RequiredTags.Sort()
+            if (this.RequiredTags.Count == 0)
+                this.RequiredTags = null
+        }
+        if (this.ExtraSignatures != null) {
+            this.ExtraSignatures.Sort();
+            if (this.ExtraSignatures.Count == 0)
+                this.ExtraSignatures = null
+        }
+        Object.defineProperties(this, {
+            _isNormalized: { value: true },
+        })
+    }
+    /**
+     *
+     *
+     * @param {SearchParameters} other
+     * @memberof SearchParameters
+     */
+    Equals(other) {
+        if (this.Private != other.Private || this.ByOwner != other.ByOwner || (this.OwnerType != other.OwnerType || this.SubmittedTo != other.SubmittedTo) || this.RecordType != other.RecordType)
+            return false
+        let nullable1 = this.MinDate
+        let nullable2 = other.MinDate
+        if ((nullable1 != null == nullable2 != null ? (nullable1 != null ? (nullable1 != nullable2 ? 1 : 0) : 0) : 1) != 0)
+            return false
+        nullable1 = this.MaxDate
+        nullable2 = other.MaxDate
+        if ((nullable1 != null == nullable2 != null ? (nullable1 != null ? (nullable1 != nullable2 ? 1 : 0) : 0) : 1) != 0 || this.SortBy != other.SortBy || (this.OnlyFeatured != other.OnlyFeatured || this.SortDirection != other.SortDirection))
+            return false
+        this.Normalize()
+        other.Normalize()
+        return SearchParameters.ListEqual(this.RequiredTags, other.RequiredTags) && SearchParameters.ListEqual(this.ExtraSignatures, other.ExtraSignatures);
+    }
+    /**
+     *
+     *
+     * @static
+     * @param {List<string>} a
+     * @param {List<String>} b
+     * @memberof SearchParameters
+     */
+    static ListEqual(a, b) {
+        //Explicit Non-Virtual Call
+        let num1 = a != null ? a.Count : 0
+        let num2 = b != null ? b.Count : 0
+        if (num1 != num2)
+            return false;
+        for (let index = 0; index < num1; index++) {
+            if (a[index] != b[index])
+                return false
+        }
+        return true
+    }
+}
 class Endpoints {
     static CLOUDX_NEOS_API = "https://cloudx.azurewebsites.net";
     static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/assets/";
@@ -3194,9 +3311,9 @@ class FriendManager {
         /** @type Number */
         this.FriendRequestCount
         Object.defineProperties(this, {
-            _friendSessions: { value: new Dictionary(), writable:true },
-            _lock: { value: new Object(), writable:false },
-            _friendsChanged: { value: new Boolean(), writable:true }
+            _friendSessions: { value: new Dictionary(), writable: true },
+            _lock: { value: new Object(), writable: false },
+            _friendsChanged: { value: new Boolean(), writable: true }
         })
     }
 
@@ -3333,10 +3450,10 @@ class MessageManager {
         this.InitialmessagesFetched = new Boolean()
         this.UnreadCount = new Number()
         Object.defineProperties(this, {
-            _messagesLock: { value: new Object(), writable:true },
-            _messages: { value: new List(), writable:false },
-            _unreadCountDirty: { value: new Boolean(), writable:true },
-            _waitingForRequest: { value: new Boolean(), writable:true }
+            _messagesLock: { value: new Object(), writable: true },
+            _messages: { value: new List(), writable: false },
+            _unreadCountDirty: { value: new Boolean(), writable: true },
+            _waitingForRequest: { value: new Boolean(), writable: true }
         })
     }
     static UPDATE_PERIOD_SECONDS = 1;
@@ -3358,7 +3475,7 @@ class MessageManager {
         }
         if (this._unreadCountDirty) {
             Object.defineProperties(this, {
-                _unreadCountDirty: { value: false, writable:true }
+                _unreadCountDirty: { value: false, writable: true }
             })
             Lock.acquire(this._messagesLock, () => {
                 this.UnreadCount = this._messages.length
@@ -3373,60 +3490,60 @@ class MessageManager {
         }
         this.lastRequest = new Date()
         Object.defineProperties(this, {
-            _waitingForRequest: { value: true, writable:true }
+            _waitingForRequest: { value: true, writable: true }
         })
-        (async () => {
-            let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
-            Object.defineProperties(this, {
-                _waitingForRequest: { value: false, writable:true }
-            })
-            if (!cloudResult1.IsOK) {
-                return
-            }
-            var hashSet = [] // HashSet need to create
-            Lock.acquire(this._messagesLock, () => {
-                for (message of cloudResult1.Entity) {
-                    if (this.GetUserMessages(message.SenderId).AddMessage(message))
-                        hashSet.push(message);
+            (async () => {
+                let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
+                Object.defineProperties(this, {
+                    _waitingForRequest: { value: false, writable: true }
+                })
+                if (!cloudResult1.IsOK) {
+                    return
                 }
-            })
-            let flag1 = false
-            for (message of cloudResult1.Entity) {
-                if (!hashSet.includes(message)) {
-                    if (this.InitialmessagesFetched && message.MessageType == MessageType.CreditTransfer) {
-                        let content = message.ExtractContent()
-                        let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id
-                        let currentUser = this.Cloud.CurrentUser
-                        if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
-                            currentUser.Credits[content.Token] += flag2 ? content.Amount : -content.Amount;
-                        }
-                        flag1 = true;
+                var hashSet = [] // HashSet need to create
+                Lock.acquire(this._messagesLock, () => {
+                    for (message of cloudResult1.Entity) {
+                        if (this.GetUserMessages(message.SenderId).AddMessage(message))
+                            hashSet.push(message);
                     }
-                    let onMessageReceived = this.onMessageReceived
-                    if (onMessageReceived != null) onMessageReceived(message);
-                    let friend = this.Cloud.Friends.GetFriend(message.SenderId);
-                    if (friend != null) friend.LatestMessageTime = Math.max(new Date(), message.SendTime);
+                })
+                let flag1 = false
+                for (message of cloudResult1.Entity) {
+                    if (!hashSet.includes(message)) {
+                        if (this.InitialmessagesFetched && message.MessageType == MessageType.CreditTransfer) {
+                            let content = message.ExtractContent()
+                            let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id
+                            let currentUser = this.Cloud.CurrentUser
+                            if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
+                                currentUser.Credits[content.Token] += flag2 ? content.Amount : -content.Amount;
+                            }
+                            flag1 = true;
+                        }
+                        let onMessageReceived = this.onMessageReceived
+                        if (onMessageReceived != null) onMessageReceived(message);
+                        let friend = this.Cloud.Friends.GetFriend(message.SenderId);
+                        if (friend != null) friend.LatestMessageTime = Math.max(new Date(), message.SendTime);
+                    }
                 }
-            }
-            //TODO: POOL RETURN
-            this.MarkUnreadCountDirty()
-            this.InitialmessagesFetched = true;
-            if (!flag1) return;
-            await setTimeout(() => {
-                cloudResult2 = this.Cloud.UpdateCurrentUserInfo()
-            }, 10000)
-        })
+                //TODO: POOL RETURN
+                this.MarkUnreadCountDirty()
+                this.InitialmessagesFetched = true;
+                if (!flag1) return;
+                await setTimeout(() => {
+                    cloudResult2 = this.Cloud.UpdateCurrentUserInfo()
+                }, 10000)
+            })
 
     }
     MarkUnreadCountDirty() {
         Object.defineProperties(this, {
-            _unreadCountDirty: { value: true, writable:true }
+            _unreadCountDirty: { value: true, writable: true }
         })
     }
     Reset() {
         Lock.acquire(this._messagesLock, () => {
             Object.defineProperties(this, {
-                _messages: { value: new List(), writable:false }
+                _messages: { value: new List(), writable: false }
             })
             this.lastUnreadMessage = new Date()
             this.InitialmessagesFetched = false;
