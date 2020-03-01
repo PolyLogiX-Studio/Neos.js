@@ -303,7 +303,6 @@ class List extends Array {
     /**
      *Add a Value to the List
      * @template T
-     * @type {ThisType[0]} T
      * @param {T} value
      * @memberof List
      */
@@ -353,7 +352,7 @@ class List extends Array {
      *
      *
      * @param {*} match
-     * @returns
+     * 
      * @memberof List
      */
     Find(match) {
@@ -488,7 +487,7 @@ class Dictionary extends Array {
      *
      *
      * @param {*} key
-     * @returns
+     * 
      * @memberof Dictionary
      */
     ContainsKey(key) {
@@ -501,7 +500,7 @@ class Dictionary extends Array {
      *
      *
      * @param {*} value
-     * @returns
+     * 
      * @memberof Dictionary
      */
     ContainsValue(value) {
@@ -514,7 +513,7 @@ class Dictionary extends Array {
      *
      *
      * @param {*} capacity
-     * @returns
+     * 
      * @memberof Dictionary
      */
     EnsureCapacity(capacity) {
@@ -524,7 +523,7 @@ class Dictionary extends Array {
      *
      *
      * @param {*} iIndex
-     * @returns
+     * 
      * @memberof Dictionary
      */
     RemoveAt(iIndex) {
@@ -538,7 +537,7 @@ class Dictionary extends Array {
      *
      *
      * @param {*} key
-     * @returns
+     * 
      * @memberof Dictionary
      */
     Remove(key) {
@@ -1510,7 +1509,7 @@ class UserPatreonData {
      * @public
      * @param {number} currentTotalCents
      * @param {Out<Boolean>} extendedPlus
-     * @returns
+     * 
      * @memberof UserPatreonData
      */
     UpdatePatreonStatus(currentTotalCents, extendedPlus) {
@@ -1578,7 +1577,7 @@ class UserProfile {
      *
      *
      * @param {String} token
-     * @returns
+     * 
      * @memberof UserProfile
      */
     AcceptsToken(token) {
@@ -1996,7 +1995,7 @@ class RecordUtil {
      * @static
      * @param {string} ownerId
      * @param {string} recordId
-     * @returns
+     * 
      * @memberof RecordUtil
      */
     static GenerateUri(ownerId, recordId) {
@@ -2007,7 +2006,7 @@ class RecordUtil {
      *
      * @static
      * @param {string} recordId
-     * @returns
+     * 
      * @memberof RecordUtil
      */
     static IsValidRecordID(recordId) {
@@ -3246,7 +3245,7 @@ class FriendManager {
      *
      *
      * @param {List<SessionInfo>} sessions
-     * @returns
+     * 
      * @memberof FriendManager
      */
     GetFriendSessions(sessions) {
