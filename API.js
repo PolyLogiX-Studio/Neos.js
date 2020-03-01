@@ -9,7 +9,28 @@
  * @requires NPM:uri-js
  * 
  */
-
+/**
+ *
+ *
+ * @class StringBuilder
+ */
+class StringBuilder {
+    constructor(){
+        this.String = []
+    }
+    Append(str){
+        this.String.push(str)
+    }
+    Insert(pos, str){
+        this.String.splice(pos, 0, str)
+    }
+    toString(){
+        return this.String.join('')
+    }
+    get Length(){
+        return this.String.length
+    }
+}
 /**
  *
  * @template T
@@ -24,7 +45,6 @@ class Action {
  * @class Task
  */
 class Task extends Promise {
-
 }
 const uuidv4 = require('uuid/v4')
 const fetch = require('node-fetch')
@@ -40,6 +60,7 @@ const { TimeSpan, parse, parseDate, fromSeconds, fromMinutes } = require('timesp
  * @template T
  *
  * @class Out
+ * @property {*} Out
  */
 class Out {
     /**
@@ -48,34 +69,35 @@ class Out {
      * @memberof Out
      */
     constructor(type) {
-        return []
+        let self = []
+        self.Out = new Object()
+        return self
     }
 }
-class AuthenticationHeaderValue{
-    constructor(bearer, token){
-    this.Authorization = bearer +" "+token
+class AuthenticationHeaderValue {
+    constructor(bearer, token) {
+        this.Authorization = bearer + " " + token
     }
 }
 class HTTP_CLIENT {
+    constructor() { }
     /**
      *
-     *
-     * @static
-     * @param {*} request
-     * @param {*} token
+     * @param {HttpRequestMessage} request
+     * @param {TimeSpan} token
      * @returns {Promise<HttpResponseMessage>}
      * @memberof HTTP_CLIENT
      */
-    static async SendAsync(request, token) {
+    async SendAsync(request, token) {
         let state
         let dat = { method: request.Method }
         dat.headers = request.Headers
-        if (request.Method == "POST"||request.Method == "PATCH") dat.body = request.Content
-       
-            let response = await fetch(request.RequestUri, dat ).then(res => {
-                state = res.status
-                return res.json()
-            })
+        if (request.Method == "POST" || request.Method == "PATCH") dat.body = request.Content
+
+        let response = await fetch(request.RequestUri, dat).then(res => {
+            state = res.status
+            return res.json()
+        })
         let cloudResult = new CloudResult()
         cloudResult.CloudResult(state, response)
         return cloudResult
@@ -134,9 +156,14 @@ class Enumerable extends Object {
         }
         Object.freeze(this)
     }
+    /**
+     *
+     *
+     * @param {String} key
+     * @returns
+     * @memberof Enumerable
+     */
     GetValue(key) {
-        if (this._values)
-            return this._values[key]
         return this[key]
     }
 
@@ -191,6 +218,12 @@ const HttpMethod = new Enumerable({
 const AssetVariantEntityType = new Enumerable([
     "BitmapMetadata",
     "BitmapVariant"
+])
+const OwnerType = new Enumerable([
+    "Machine",
+    "User",
+    "Group",
+    "INVALID"
 ])
 /**
  *
@@ -264,7 +297,7 @@ class List extends Array {
      * @memberof List
      */
     constructor(props) {
-        if (!props) return super()
+        if (!props) {super(); return;}
         super(props)
     }
     /**
@@ -376,6 +409,9 @@ class List extends Array {
     }
     ToArray() {
         return //TODO
+    }
+    Sort(compareFn) {
+        return this.sort(compareFn)
     }
 }
 
@@ -550,6 +586,25 @@ String.prototype.IsNullOrWhiteSpace = function (str) {
     if (str.trim() == '') return true
     return false
 }
+String.prototype.IsNullOrEmpty = function (str) {
+    if (!str) return true
+    if (str == '') return true
+    return false
+}
+class Char {
+    static IsLetterOrDigit = function (char) {
+        if (char == null) return false
+        if (!isNaN(char)) return true
+        if (char.toUpperCase() != char.toLowerCase()) return true
+        return false
+    }
+    static IsWhiteSpace = function (char) {
+        if (!char) return false
+        if (char == ' ') return true
+        return false
+    }
+}
+
 /**
  *
  *
@@ -569,7 +624,10 @@ class HttpRequestMessage {
  */
 class HttpResponseMessage {
     constructor() {
-
+        this.Headers = {}
+        this.Content = {}
+        this.Method = new String()
+        this.RequestUri = new String()
     }
 }
 
@@ -938,7 +996,7 @@ class NeosAccount {
      *
      * @static
      * @param {AccountType} type
-     * @returns {number}
+     * @returns {String}
      * @memberof NeosAccount
      */
     static AccountName(type) {
@@ -1050,7 +1108,7 @@ class RecordId {
      * @param {{
      * recordId: string,
      * ownerId: string
-     * }} $b
+     * }} [$b]
      * @memberof RecordId
      */
     constructor($b) {
@@ -1291,7 +1349,7 @@ class SessionInfo {
     IsSame(other) {
         if (!(this.Name == other.Name) || !(this.Description == other.Description) || !(this.Tags.IsSame(other.Tags)) || !(this.SessionId == other.SessionId) || !(this.HostUserId == other.HostUserId) || !(this.HostMachineId == other.HostMachineId) || !(this.HostUsername == other.HostUsername) || !(this.CompatibilityHash == other.CompatibilityHash) || !(this.NeosVersion == other.NeosVersion) || this.HeadlessHost != other.HeadlessHost)
             return false;
-            return true
+        return true
     }
 }
 /**
@@ -1927,6 +1985,96 @@ class RecordList {
         return this.Name + "-" + this.Page.toString()
     }
 }
+/**
+ *
+ * @static
+ * @class RecordUtil
+ */
+class RecordUtil {
+    /**
+     *
+     *
+     * @static
+     * @param {string} ownerId
+     * @param {string} recordId
+     * @returns
+     * @memberof RecordUtil
+     */
+    static GenerateUri(ownerId, recordId) {
+        return new Uri("neosrec:///" + ownerId + "/" + recordId)
+    }
+    /**
+     *
+     *
+     * @static
+     * @param {string} recordId
+     * @returns
+     * @memberof RecordUtil
+     */
+    static IsValidRecordID(recordId) {
+        return !String.IsNullOrWhiteSpace(recordId) && recordId.startsWith("R-") && recordId.length > "R-".length
+    }
+    /**
+     *
+     *
+     * @static
+     * @param {Uri} recordUri
+     * @param {Out<string>} ownerId
+     * @param {Out<string>} recordId
+     * @memberof RecordUtil
+     */
+    static ExtractRecordID(recordUri, ownerId, recordId){
+        if (recordUri == null) return false
+        if (recordUri.Scheme != "neosrec" || recordUri.Segments.length != 3)return false
+        ownerId.Out = recordUri.Segments[1]
+    }
+}
+/**
+ *
+ * @static
+ * @class IdUtil
+ */
+class IdUtil {
+    static MAX_NAME_LENGTH = 20;
+    /**
+     *
+     * @static
+     * @param {string} id
+     * @returns {OwnerType}
+     * @memberof IdUtil
+     */
+    static GetOwnerType(id){
+        if (id==null)
+            return OwnerType.INVALID
+        if (id.startsWith("M-"))
+            return OwnerType.Machine
+        if (id.startsWith("U-"))
+            return OwnerType.User
+        return id.startsWith("G-") ? OwnerType.Group : OwnerType.INVALID
+    }
+    /**
+     *
+     * @static
+     * @param {OwnerType} ownerType
+     * @param {string} [name=null]
+     * @param {number} [randomAppend=0]
+     * @memberof IdUtil
+     */
+    static GenerateId(ownerType, name = null, randomAppend = 0){
+        name = name != null ? name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u{0080}-\u{FFFF}]/gu,"") : null;
+        var stringBuilder = new StringBuilder()
+        if (name != null){
+            for (/** @type string */ let c of name){
+                if (Char.IsLetterOrDigit(c))
+                    stringBuilder.Append(c);
+                if (Char.IsWhiteSpace(c) || c=="_")
+                    stringBuilder.Append("-")
+                if (stringBuilder.Length == 20)
+                    break
+            }
+        }
+    }
+}
 class SessionUser {
     constructor($b) {
         if (!$b) $b = {}
@@ -2043,13 +2191,12 @@ class Visit {
 class CloudResult {
     /**
      *Creates an instance of CloudResult.
+     * @param {*} entity
+     * @param {*} state
+     * @param {*} content
      * @memberof CloudResult
-     * @param {{
-     * state: HttpStatusCode,
-     * content: string
-     * }} $b
      */
-    constructor(entity, state, content) {
+    constructor(entity = undefined, state, content) {
         this.CloudResult(state, content)
     }
     ToString() {
@@ -2101,63 +2248,60 @@ class CloudResult {
     }
 }
 
-class UserTags{
-    static get NeosTeam(){
+class UserTags {
+    static get NeosTeam() {
         return 'neos team'
     }
-    static get NeosAdmin(){
+    static get NeosAdmin() {
         return 'neos admin'
     }
-    static get NeosModerator(){
+    static get NeosModerator() {
         return 'neos moderator'
     }
-    static get NeosCommunityManager(){
+    static get NeosCommunityManager() {
         return 'neos community manager'
     }
-    static get DiagnoseRecordSync(){
+    static get DiagnoseRecordSync() {
         return 'diagnose record sync'
     }
-    static get HearingImpaired(){
+    static get HearingImpaired() {
         return 'hearing impaired'
     }
-    static get Potato(){
+    static get Potato() {
         return 'potato'
     }
-    static get Coffee(){
+    static get Coffee() {
         return 'coffee'
     }
-    static get Java(){
+    static get Java() {
         return 'java'
     }
-    static get NCC_Participant(){
+    static get NCC_Participant() {
         return 'ncc participant'
     }
-    static get NCC_Diamond(){
+    static get NCC_Diamond() {
         return 'ncc diamond'
     }
-    static get NCC_Gold(){
+    static get NCC_Gold() {
         return 'ncc gold'
     }
-    static get NCC_Silver(){
+    static get NCC_Silver() {
         return 'ncc silver'
     }
-    static  CustomBadge( neosDb,  pointFiltering)
-    {
-      let str = "custom badge:" + CloudXInterface.NeosDBSignature(neosDb);
-      if (pointFiltering)
-        str += ".point";
-      return str;
+    static CustomBadge(neosDb, pointFiltering) {
+        let str = "custom badge:" + CloudXInterface.NeosDBSignature(neosDb);
+        if (pointFiltering)
+            str += ".point";
+        return str;
     }
-     static  GetCustomBadge( badge, pointFiltering)
-    {
-      if (!badge.startsWith("custom badge:"))
-      {
-        pointFiltering.Out = false;
-        return  null;
-      }
-      badge = badge.substr("custom badge:".length).trim();
-      pointFiltering = badge.includes(".point");
-      return new Uri("neosdb:///" + badge.trim());
+    static GetCustomBadge(badge, pointFiltering) {
+        if (!badge.startsWith("custom badge:")) {
+            pointFiltering.Out = false;
+            return null;
+        }
+        badge = badge.substr("custom badge:".length).trim();
+        pointFiltering = badge.includes(".point");
+        return new Uri("neosdb:///" + badge.trim());
     }
 }
 
@@ -2176,17 +2320,16 @@ class CloudXInterface {
      * 
      */
     constructor() {
-        this.lockobj = "CloudXLockObj"
         /** @type List<Membership> */
-        this._groupMemberships = new List();
+        this._groupMemberships
         /** @type Dictionary<String, Member> */
-        this._groupMemberInfos = new Dictionary();
+        this._groupMemberInfos
         /** @type Dictionary<String, Group> */
-        this._groups = new Dictionary();
+        this._groups
         /** @type Dictionary<Type, Dictionary<Uri, CloudResult>> */
         this.cachedRecords = new Dictionary()
         /** @type UserSession */
-        this._currentSession = new UserSession();
+        this._currentSession
         /** @type User */
         this._currentUser;
         /** @type RSACryptoServiceProvider */
@@ -2218,6 +2361,18 @@ class CloudXInterface {
         this.MembershipsUpdated
         this.GroupUpdated
         this.GroupMemberUpdated
+        //Setup Private Properties
+        Object.defineProperties(this, {
+            _groupMemberships: { value: new List(), writable:true },
+            _groupMemberInfos: { value: new Dictionary(), writable:true },
+            _groups: { value: new Dictionary(), writable:true },
+            _currentSession: { value: new UserSession(), configurable:true },
+            _currentUser: {writable:true },
+            _cryptoProvider: {writable:true },
+            _currentAuthenticationHeader: {writable:true },
+            _lastSessionUpdate: {writable:true },
+            lockobj: {value:"CloudXLockObj"}
+        })
         this.CloudXInterface()
     }
 
@@ -2249,8 +2404,18 @@ class CloudXInterface {
     static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
     static LOCAL_NEOS_API = "http://localhost:60612/";
     static LOCAL_NEOS_BLOB = "http://127.0.0.1:10000/devstoreaccount1/";
-    ProfilerBeginSample(name) { }
-    ProfilerEndSample() { }
+    ProfilerBeginSample(name) {
+        let beginSampleCallback = CloudXInterface.ProfilerBeginSampleCallback;
+        if (beginSampleCallback == null)
+            return;
+        beginSampleCallback()
+    }
+    ProfilerEndSample() {
+        let endSampleCallback = CloudXInterface.ProfilerEndSampleCallback
+        if (endSampleCallback == null)
+            return;
+        endSampleCallback()
+    }
     static CLOUD_ENDPOINT = CloudXInterface.CloudEndpoint.Production;
     static get NEOS_API() {
         switch (CloudXInterface.CLOUD_ENDPOINT) {
@@ -2294,8 +2459,8 @@ class CloudXInterface {
         return !CloudXInterface.USE_CDN ? "https://cloudxstorage.blob.core.windows.net/" : "https://cloudx.azureedge.net/";
     }
     get ServerStatus() {
-        if ((new Date() - this.lastServerStateFetch).getSeconds >= 60.0) return ServerStatus.NoInternet
-        if ((new Date() - this.LastServerUpdate).getSeconds >= 60.0) return ServerStatus.Down
+        if (new Date(new Date() - this.lastServerStateFetch).getSeconds() >= 60.0) return ServerStatus.NoInternet
+        if (new Date(new Date() - this.LastServerUpdate).getSeconds() >= 60.0) return ServerStatus.Down
         return this.ServerResponseTime > 250 ? this.ServerStatus.Slow : this.ServerStatus.Good
     }
     get CurrentUser() {
@@ -2304,7 +2469,7 @@ class CloudXInterface {
     set CurrentUser(value) {
         if (value == this._currentUser) return;
         let user = new User(value);
-        this._currentUser = user 
+        this._currentUser = user
         let userUpdated = this.UserUpdated
         if (userUpdated == null) return;
         userUpdated(this._currentUser)
@@ -2313,15 +2478,15 @@ class CloudXInterface {
         return this._currentSession
     }
     set CurrentSession(value) {
-        if (value == null){
-            this._currentSession = new UserSession()
+        if (value == null) {
+            Object.defineProperties(this, {_currentSession:{value:new UserSession(), configurable:true}})
             return
         }
         if (value == this._currentSession) return;
         //LOCK OBJECT
-        if (!this._currentSession) this._currentSession = new UserSession()
+        if (!this._currentSession) Object.defineProperties(this, {_currentSession:{value:new UserSession(), configurable:true}})
         if (this._currentSession.SessionToken != value.SessionToken) this._lastSessionUpdate = new Date();
-        this._currentSession = value;
+        Object.defineProperties(this, {_currentSession:{value:value, configurable:true}})
         this._currentAuthenticationHeader = value != null ? new AuthenticationHeaderValue('neos', value.UserId + ":" + value.SessionToken).Authorization : (AuthenticationHeaderValue);
         this.OnSessionUpdated()
         try {
@@ -2366,21 +2531,21 @@ class CloudXInterface {
     OnLogout() { }
     OnSessionUpdated() { }
     CloudXInterface() {
-        this.HttpClient = HTTP_CLIENT
+        this.HttpClient = new HTTP_CLIENT()
         this.Friends = new FriendManager(this);
         this.Messages = new MessageManager(this);
         this.Transactions = new TransactionManager(this);
     }
-    update() {
+    Update() {
         Lock.acquire(this.lockobj, () => {
             if (this.CurrentSession != null) {
-                if ((new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0) {
-                    //Task.Run<CloudResult>(new Func<Task<CloudResult>>(this.ExtendSession)); TODO
+                if (new Date(new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0) {
+                    this.ExtendSession()
                     this._lastSessionUpdate = new Date()
                 }
             }
         })
-        if ((new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0) {
+        if (new Date(new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0) {
             (async () => {
                 cloudResult = await this.GetServerStatistics()
                 if (cloudResult.IsOK) {
@@ -2401,10 +2566,7 @@ class CloudXInterface {
             case OwnerType.User:
                 return ownerId == this.CurrentUser.Id
             case OwnerType.Group:
-                let ogreturn
-                //TODO Create Object.Any
-                Lock.acquire(this.lockobj, () => { ogreturn = this.CurrentUserMemberships.Any(m => m.GroupId == ownerId) })
-                return ogreturn
+                return Lock.acquire(this.lockobj, () => { return this.CurrentUserMemberships.Any(m => m.GroupId == ownerId) })
             default:
                 return false
         }
@@ -2473,7 +2635,7 @@ class CloudXInterface {
     }
     POST(resource, entity, timeout = null) {
         return this.RunRequest((() => {
-        
+
             let request = this.CreateRequest(resource, HttpMethod.Post);
             this.AddBody(request, entity)
             return request;
@@ -2552,7 +2714,7 @@ class CloudXInterface {
     AddBody(message, entity) {
         message.Headers['Content-Type'] = CloudXInterface.JSON_MEDIA_TYPE['Content-Type']
         if (entity)
-        message.Content = JSON.stringify(entity)
+            message.Content = JSON.stringify(entity)
 
     }
 
@@ -2576,7 +2738,7 @@ class CloudXInterface {
 
             request = requestSource();
             let cancellationToken = new CancellationTokenSource(timeout ? timeout : fromSeconds(30.0));
-            result = await HTTP_CLIENT.SendAsync(request, cancellationToken.Token)
+            result = await this.HttpClient.SendAsync(request, cancellationToken.Token)
             if (result == null) {
                 console.error(`Exception running `)
                 request = null
@@ -2660,7 +2822,7 @@ class CloudXInterface {
         else throw new Error("Error loging in: " + result.State + "\n" + result.Content)
         return result
     }
-    onLogin(){}
+    onLogin() { }
     async ExtendSession() {
         return await this.PATCH("api/userSessions", null, new TimeSpan())
     }
@@ -2690,7 +2852,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async RequestRecoveryCode(email) {
-        return await this.POST("/api/users/requestlostpassword",  new User({username:username, email:email, password:password}), new TimeSpan())
+        return await this.POST("/api/users/requestlostpassword", new User({ username: username, email: email, password: password }), new TimeSpan())
     }
     async UpdateCurrentUserInfo() {
         switch (this.CurrentUser.Id) {
@@ -3009,7 +3171,7 @@ class CancellationTokenSource {
         this.Token = new uuidv4()
     }
 }
-
+class SearchParameters {}
 class Endpoints {
     static CLOUDX_NEOS_API = "https://cloudx.azurewebsites.net";
     static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/assets/";
@@ -3022,18 +3184,22 @@ class FriendManager {
         /** @type Dictionary<string, Friend> */
         this.friends = new Dictionary()
         /** @type Dictionary<string, SessionInfo> */
-        this._friendSessions = new Dictionary()
-        this._lock = new Object()
+        this._friendSessions
         /** @type Date */
         this.lastStatusUpdate = null
         /** @type Date */
-        this.lastRequest = null
+        this.lastRequest = new Date()
         /** @type boolean */
         this._friendsChanged
         /** @type CloudXInterface */
         this.Cloud
         /** @type Number */
         this.FriendRequestCount
+        Object.defineProperties(this, {
+            _friendSessions: { value: new Dictionary(), writable:true },
+            _lock: { value: new Object(), writable:false },
+            _friendsChanged: { value: new Boolean(), writable:true }
+        })
     }
 
     /**
@@ -3156,22 +3322,24 @@ class FriendManager {
             this.Removed(friend)
         })
     }
-    Update(){}
+    Update() { }
     //TODO Friend Manager
 }
 
 
 class MessageManager {
     constructor(cloud) {
-        this._messagesLock = "MessageManager._messagesLock"
-        this._messages = new List()
         this.lastRequest
         this.lastUnreadMessage
-        this._unreadCountDirty = new Boolean()
-        this._waitingForRequest = new Boolean()
         this.Cloud = cloud
         this.InitialmessagesFetched = new Boolean()
         this.UnreadCount = new Number()
+        Object.defineProperties(this, {
+            _messagesLock: { value: new Object(), writable:true },
+            _messages: { value: new List(), writable:false },
+            _unreadCountDirty: { value: new Boolean(), writable:true },
+            _waitingForRequest: { value: new Boolean(), writable:true }
+        })
     }
     static UPDATE_PERIOD_SECONDS = 1;
     static UPDATE_TIMEOUT_SECONDS = 10
@@ -3191,22 +3359,29 @@ class MessageManager {
             return
         }
         if (this._unreadCountDirty) {
-            this._unreadCountDirty = false
+            Object.defineProperties(this, {
+                _unreadCountDirty: { value: false, writable:true }
+            })
             Lock.acquire(this._messagesLock, () => {
                 this.UnreadCount = this._messages.length
-                messageCountChanged = this.UnreadMessageCountChanged
+                let messageCountChanged = this.UnreadMessageCountChanged
                 if (messageCountChanged != null) {
                     messageCountChanged(this.UnreadCount)
                 }
             })
         }
-        if ((new Date() - this.lastRequest).getSeconds() < (this._waitingForRequest ? MessageManager.UPDATE_TIMEOUT_SECONDS : MessageManager.UPDATE_PERIOD_SECONDS)) {
+        if (new Date(new Date() - this.lastRequest).getSeconds() < (this._waitingForRequest ? MessageManager.UPDATE_TIMEOUT_SECONDS : MessageManager.UPDATE_PERIOD_SECONDS)) {
             return;
         }
         this.lastRequest = new Date()
-        this._waitingForRequest = true(async () => {
+        Object.defineProperties(this, {
+            _waitingForRequest: { value: true, writable:true }
+        })
+        (async () => {
             let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
-            this._waitingForRequest = false
+            Object.defineProperties(this, {
+                _waitingForRequest: { value: false, writable:true }
+            })
             if (!cloudResult1.IsOK) {
                 return
             }
@@ -3246,11 +3421,15 @@ class MessageManager {
 
     }
     MarkUnreadCountDirty() {
-        this._unreadCountDirty = true;
+        Object.defineProperties(this, {
+            _unreadCountDirty: { value: true, writable:true }
+        })
     }
     Reset() {
         Lock.acquire(this._messagesLock, () => {
-            this._messages = new Array()
+            Object.defineProperties(this, {
+                _messages: { value: new List(), writable:false }
+            })
             this.lastUnreadMessage = new Date()
             this.InitialmessagesFetched = false;
         })
@@ -3437,8 +3616,8 @@ class TransactionManager {
     }
     //TODO Rest of Thing, Will Break
 }
-class CryptoHelper{}
-class ComputationLock {}
+class CryptoHelper { }
+class ComputationLock { }
 /**
  * @namespace
  * @memberof CloudX
