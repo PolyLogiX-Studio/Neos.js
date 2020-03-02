@@ -92,12 +92,14 @@ class HTTP_CLIENT {
         let state
         let dat = { method: request.Method }
         dat.headers = request.Headers
-        if (request.Method == "POST" || request.Method == "PATCH") dat.body = request.Content
+        if (request.Method == "POST" || request.Method == "PATCH" || request.Method == "PUT") dat.body = request.Content
 
         let response = await fetch(request.RequestUri, dat).then(res => {
             state = res.status
+            //return res.text()
             return res.json()
         })
+            .catch(err => console.error(err));
         let cloudResult = new CloudResult()
         cloudResult.CloudResult(state, response)
         return cloudResult
@@ -285,7 +287,12 @@ class Uri {
     }
 }
 class Path {
-
+    static GetExtension(str){
+        return str.match(/\.[a-zA-Z0-9]+$/)[0]
+    }
+    static GetFileNameWithoutExtension(str){
+        return str.replace(/\.[^/.]+$/, "")
+    }
 }
 /**
  * Unordered List
@@ -587,19 +594,24 @@ Array.prototype.ToList = function () {
 String.prototype.noExtension = function () {
     return this.replace(/\.[^/.]+$/, "")
 }
-String.prototype.IsNullOrWhiteSpace = function (str) {
+String.IsNullOrWhiteSpace = function (str) {
     if (!str) return true
     if (str.trim() == '') return true
     return false
 }
-String.prototype.IsNullOrEmpty = function (str) {
+String.IsNullOrEmpty = function (str) {
     if (!str) return true
     if (str == '') return true
     return false
 }
+/**
+ * Simple class to work with Characters
+ *
+ * @class Char
+ */
 class Char {
     static IsLetterOrDigit = function (char) {
-        if (char == null) return false
+        if (char == null || char == "" || char == ' ') return false
         if (!isNaN(char)) return true
         if (char.toUpperCase() != char.toLowerCase()) return true
         return false
@@ -618,7 +630,7 @@ class Char {
  */
 class HttpRequestMessage {
     constructor(method, uri) {
-        this.Headers = {}
+        this.Headers = { "Accept": "application/json" }
         this.Content = {}
         this.Method = method
         this.RequestUri = uri
@@ -753,12 +765,12 @@ class AssetUtil {
      * @param {Out<String>} extension
      * @memberof AssetUtil
      */
-    static ExtractSignature(uri, extension) {
-        if (uri.Scheme != neosdb)
+    static ExtractSignature(uri, extension = new Out()) {
+        if (uri.Scheme != 'neosdb')
             throw new Error("Not a NeosDB URI");
         let segment = uri.Segments[1];
         extension.Out = Path.GetExtension(segment)
-        return segment.noExtension()
+        return Path.GetFileNameWithoutExtension(segment)
     }
     /**
      *
@@ -1855,7 +1867,7 @@ class Message {
         this.ReadTime = $b.readTime || new Date()
     }
     static GenerateId() {
-        return "MSG-" + new uuidv4()
+        return "MSG-" + uuidv4()
     }
     ExtractContent() {
         return JSON.parse(this.Content)
@@ -2036,7 +2048,7 @@ class RecordUtil {
         ownerId.Out = recordUri.Segments[1]
         if (String.IsNullOrEmpty(ownerId))
             return false;
-        ownerId.Out = ownerId.Out.substr(ownerId.Out.length - 1);
+        ownerId.Out = ownerId.Out.substr(0, ownerId.Out.length - 1);
         recordId.Out = recordUri.Segments[2];
         return !String.IsNullOrEmpty(recordId.Out) && RecordUtil.IsValidRecordID(recordId.Out)
     }
@@ -2049,10 +2061,23 @@ class RecordUtil {
      * @param {Out<string>} recordPath
      * @memberof RecordUtil
      */
-    static ExtractRecordPath(recordUri, ownerId, recordPath){
+    static ExtractRecordPath(recordUri, ownerId, recordPath) {
         ownerId.Out = null
         recordPath.Out = null
-        
+        if (recordUri == null || recordUri.Scheme != 'neosrec' || recordUri.Segments.length < 3)
+            return false;
+        ownerId.Out = recordUri.Segments[1];
+        if (String.IsNullOrEmpty(ownerId.Out))
+            return false;
+        ownerId.Out = ownerId.Out.substr(0, ownerId.Out.length - 1);
+        let stringBuilder = new StringBuilder();
+        for (let index = 2; index < recordUri.Segments.length; index++)
+            stringBuilder.Append(recordUri.Segments[index]);
+        recordPath.Out = stringBuilder.toString();
+        return true;
+    }
+    static GenerateRecordID() {
+        return "R-" + uuidv4()
     }
 }
 /**
@@ -2099,6 +2124,28 @@ class IdUtil {
                     break
             }
         }
+        if (stringBuilder.Length == 0 || randomAppend > 0) {
+            if (stringBuilder.Length > 0)
+                stringBuilder.Append("-");
+            let str = uuidv4()
+            if (randomAppend > 0)
+                str = str.substr(0, randomAppend);
+            stringBuilder.Append(str)
+        }
+        switch (ownerType) {
+            case OwnerType.Machine:
+                stringBuilder.Insert(0, "M-")
+                break;
+            case OwnerType.User:
+                stringBuilder.Insert(0, "U-")
+                break
+            case OwnerType.Group:
+                stringBuilder.Insert(0, "G-")
+                break
+            default:
+                throw new Error("Invalid Owner Type")
+        }
+        return stringBuilder.toString()
     }
 }
 class SessionUser {
@@ -2130,25 +2177,25 @@ class Submission {
 class User {
     constructor($b) {
         if (!$b) $b = {}
-        this.Id = $b.id || new String()
-        this.Username = $b.username || new String()
+        this.Id = $b.id
+        this.Username = $b.username
         this.Email = $b.email || undefined
-        this.RegistrationDate = $b.registrationDate || new Date()
-        this.QuotaBytes = $b.quotaBytes || new Number()
-        this.UsedBytes = $b.usedBytes || new Number()
-        this.isVerified = $b.isVerified || new Boolean()
+        this.RegistrationDate = $b.registrationDate
+        this.QuotaBytes = $b.quotaBytes
+        this.UsedBytes = $b.usedBytes
+        this.isVerified = $b.isVerified
         this.AccountBanExpiration = $b.accountBanExpiration || new Date(0)
         this.PublicBanExpiration = $b.publicBanExpiration || new Date(0)
         this.SpectatorBanExpiration = $b.spectatorBanExpiration || new Date(0)
         this.MuteBanExpiration = $b.muteBanExpiration || new Date(0)
-        this.Password = $b.password || new String()
-        this.RecoverCode = $b.recoverCode || new String()
-        this.Tags = new HashSet($b.tags)
+        this.Password = $b.password
+        this.RecoverCode = $b.recoverCode
+        this.Tags = new HashSet($b.tags) || null
         this.PatreonData = new UserPatreonData($b.patreonData) || null
-        this.Credits = $b.credits || new Number()
-        this.NCRDepositAddress = $b.NCRdepositAddress || new String()
-        this.ReferralId = $b.referralId || new String()
-        this.ReferrerUserId = $b.referrerUserId || new String()
+        this.Credits = $b.credits
+        this.NCRDepositAddress = $b.NCRdepositAddress
+        this.ReferralId = $b.referralId
+        this.ReferrerUserId = $b.referrerUserId
         this.Profile = $b.profile || new Object()
     }
     get IsAccountBanned() {
@@ -2685,7 +2732,6 @@ class CloudXInterface {
         return this.RunRequest((() => {
             let request = this.CreateRequest(resource, HttpMethod.Patch)
             this.AddBody(request, entity)
-            console.log(request)
             return request
         }), timeout)
     }
@@ -2704,18 +2750,10 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
-        //FILESTREAM
-        /* 
-         FileStream fileStream = System.IO.File.OpenRead(filePath);
-         StreamProgressWrapper streamProgressWrapper = new StreamProgressWrapper((Stream) fileStream, progressIndicator, (Action<Stream, IProgressIndicator>) null, new long?());
-         MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
-         StreamContent streamContent = new StreamContent((Stream) streamProgressWrapper, 32768);
-         if (mime != null)
-             streamContent.Headers.ContentType = MediaTypeHeaderValue.Parse(mime);
-         streamContent.Headers.ContentLength = new long?(fileStream.Length);
-         multipartFormDataContent.Add((HttpContent) streamContent, "file", Path.GetFileName(filePath));
-         request.Content = (HttpContent) multipartFormDataContent;
-         */
+        let fileStream = fs.readFile(filePath)
+        //TODO Multi Part Form Content
+        //if (mime != null)
+
     }
 
     /**
@@ -2843,18 +2881,18 @@ class CloudXInterface {
             this.UpdateCurrentUserInfo()
             this.UpdateCurrentUserMemberships()
             this.Friends.Update()
-            this.onLogin()
+            this.OnLogin()
         }
         else throw new Error("Error loging in: " + result.State + "\n" + result.Content)
         return result
     }
-    onLogin() { }
+    OnLogin() { }
     async ExtendSession() {
         return await this.PATCH("api/userSessions", null, new TimeSpan())
     }
 
     /**
-     *
+     * Register a new Neos Account
      *
      * @param {string} username
      * @param {string} email
@@ -2864,11 +2902,7 @@ class CloudXInterface {
      */
     async Register(username, email, password) {
         this.Logout(false)
-        let u = new User()
-        u.Username = username
-        u.Email = email
-        u.Password = password
-        return await this.POST("/api/users", u, new TimeSpan())
+        return await this.POST("/api/users", new User({ username, email, password }), new TimeSpan())
     }
     /**
      *
@@ -2878,7 +2912,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async RequestRecoveryCode(email) {
-        return await this.POST("/api/users/requestlostpassword", new User({ username: username, email: email, password: password }), new TimeSpan())
+        return await this.POST("/api/users/requestlostpassword", new User({ email }), new TimeSpan())
     }
     async UpdateCurrentUserInfo() {
         switch (this.CurrentUser.Id) {
@@ -2909,7 +2943,7 @@ class CloudXInterface {
         return await this.GET("api/users/" + username + "?byUsername=true", new TimeSpan())
     }
     async GetUsers(searchName) {
-        return await this.GET("api/users?name=" + Uri.ExcapeDataString(searchName), new TimeSpan())
+        return await this.GET("api/users?name=" + Uri.EscapeDataString(searchName), new TimeSpan())
     }
     async GetUserCached(userId) {
         return await this.GetUser(userId)
@@ -2934,23 +2968,34 @@ class CloudXInterface {
     }
     async FetchRecordCached(recordUri) {
         Lock.acquire(this.cachedRecords, () => {
-            let dictionary = []
-            //TODO Wtf is this lol
+            let dictionary
+            //TODO Type Handling
         })
+    }
+    FetchRecord(ownerId, recordId) {
+        if (!recordId) {
+            let recordUri = ownerId
+            ownerId = new Out()
+            let recordId = new Out()
+            if (RecordUtil.ExtractRecordID(recordUri, ownerId, recordId))
+                return this.FetchRecord(ownerId.Out, recordId.Out)
+            let recordPath = new Out()
+            if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
+                return this.FetchRecordAtPath(ownerId.Out, recordPath.Out)
+            throw new Error("Uri is not a record URI")
+        } else {
+            return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/" + recordId, new TimeSpan())
+        }
     }
     FetchRecordIRecord(recordUri) {
         var ownerId = []
         var recordId = []
         if (RecordUtil.ExtractRecordID(recordUri, ownerId, recordId))
-            return this.FetchRecord(ownerId.Value, recordId.Value)
+            return this.FetchRecord(ownerId.Out, recordId.Out)
         var recordPath = []
         if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
-            return this.FetchRecordAtPath(ownerId.Value, recordPath.Value)
+            return this.FetchRecordAtPath(ownerId.Out, recordPath.Out)
         throw new Error("Uri is not a record URI")
-    }
-    FetchRecord(ownerId, recordId) {
-        if (!recordId) return this.FetchRecordIRecord(ownerId); // iRecord fetch
-        return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/" + recordId, new TimeSpan())
     }
     FetchRecordAtPath(ownerId, path) {
         return this.GET("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/records/root/" + path, new TimeSpan())
@@ -2964,6 +3009,13 @@ class CloudXInterface {
             str = "?path=" + Uri.EscapeDataString(path)
         return this.GET("api/" + ownerPath + "/" + ownerId + "/records" + str)
     }
+    /**
+     *
+     *
+     * @param {SearchParameters} search
+     * @returns
+     * @memberof CloudXInterface
+     */
     FindRecords(search) {
         return this.POST("/api/records/search", search, new TimeSpan())
     }
@@ -3191,10 +3243,20 @@ class CloudXInterface {
             groupMemberUpdated(cloudResult.Entity)
         })
     }
+    static GetOwnerPath(ownerId){
+        switch(IdUtil.GetOwnerType(ownerId)){
+            case OwnerType.User:
+                return 'users'
+            case OwnerType.Group:
+                return "groups"
+            default:
+                throw new Error("Invalid Owner Type: " + ownerId)
+        }
+    }
 }
 class CancellationTokenSource {
     constructor(timeout) {
-        this.Token = new uuidv4()
+        this.Token = uuidv4()
     }
 }
 class SearchParameters {
@@ -3752,14 +3814,19 @@ const Shared = {
     MessageType,
     TransactionType,
     HttpMethod,
-    CloudXInterface
+    CloudXInterface,
+    RecordUtil,
+    IdUtil,
+    User,
+    SearchParameters
 }
 const Util = {
     Type,
     List,
     Dictionary,
     Enumerable,
-    HashSet
+    HashSet,
+    Uri
 }
 /**
  * @namespace CloudX
