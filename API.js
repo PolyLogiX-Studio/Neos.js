@@ -3340,7 +3340,40 @@ class CloudXInterface {
         if (!path) return await this.DeleteVariable(this.CurrentUser.Id, ownerId)
         return await this.DELETE("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/vars/" + path, new TimeSpan())
     }
-    
+    /**
+     *
+     * @returns {Promise<CloudResult>}
+     * @param {Visit} visit
+     * @memberof CloudXInterface
+     */
+    async LogVisit(visit){
+        return await this.POST("api/visits", visit, new TimeSpan())
+    }
+    /**
+     *
+     * @returns {Promise<CloudResult<NeosSession>>}
+     * @param {NeosSession} session
+     * @memberof CloudXInterface
+     */
+    async CreateNeosSession(session){
+        return await this.POST("api/neosSessions", session, new TimeSpan())
+    }
+    /**
+     *
+     * @param {NeosSession} session
+     * @returns {Promise<CloudResult<NeosSession>>}
+     * @memberof CloudXInterface
+     */
+    async PatchNeosSession(session){
+        return await this.PATCH("api/neosSessions", session, new TimeSpan())
+    }
+    async GetStatus(userId){
+        return await this.GET("api/users/" + userId + "/status", new TimeSpan())
+    }
+    async UpdateStatus(userId, status){
+        if (!status) return await this.UpdateStatus(this.CurrentUser.Id, userId)
+        return await this.PUT("api/users/" + userid + "/status", status, new TimeSpan())
+    }
 }
 class CancellationTokenSource {
     constructor(timeout) {
