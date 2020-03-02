@@ -1722,9 +1722,9 @@ class CloudMessage {
 class CloudVariable {
     constructor($b) {
         if (!$b) $b = {}
-        this.VariableOwnerId = $b.ownerId || new String()
-        this.Path = $b.path || new String()
-        this.Value = $b.value || new String()
+        this.VariableOwnerId = $b.ownerId 
+        this.Path = $b.path 
+        this.Value = $b.value
     }
     static GetDefinitionPath(path, ownerId, subpath) {
         let length = path.indexOf('.')
@@ -1738,14 +1738,14 @@ class CloudVariable {
 class CloudVariableDefinition {
     constructor($b) {
         if (!$b) $b = {}
-        this.DefinitionOwnerId = $b.definitionOwnerId || new String()
-        this.Subpath = $b.subpath || new String()
-        this.TypeHint = $b.typeHint || new String()
-        this.DefaultValue = $b.defaultvalue || new String()
-        this.VariableOwnerCanRead = $b.variableOwnerCanRead || new Boolean()
-        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite || new Boolean()
-        this.AnyoneCanRead = $b.anyoneCanRead || new Boolean()
-        this.AnyoneCanWrite = $b.anyoneCanWrite || new Boolean()
+        this.DefinitionOwnerId = $b.definitionOwnerId
+        this.Subpath = $b.subpath
+        this.TypeHint = $b.typeHint 
+        this.DefaultValue = $b.defaultvalue
+        this.VariableOwnerCanRead = $b.variableOwnerCanRead 
+        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite 
+        this.AnyoneCanRead = $b.anyoneCanRead
+        this.AnyoneCanWrite = $b.anyoneCanWrite
     }
     CanRead(variableOwnerId, readerId) {
         return this.AnyoneCanRead || this.VariableOwnerCanRead && variableOwnerId == readerId || readerId == this.DefinitionOwnerId
@@ -2164,14 +2164,14 @@ class SessionUser {
 class Submission {
     constructor($b) {
         if (!$b) $b = {}
-        this.Id = $b.id || new String()
-        this.GroupId = $b.ownerId || new String()
-        this.TargetRecordId = $b.targetRecordId || new RecordId()
-        this.SubmissionTime = $b.submissionTime || new Date()
-        this.SubmittedById = $b.submittedById || new String()
-        this.Featured = $b.featured || new Boolean()
-        this.FeaturedByUserId = $b.featuredByUserId || new String()
-        this.FeaturedTimestamp = $b.featuredTimestamp || new Date()
+        this.Id = $b.id 
+        this.GroupId = $b.ownerId 
+        this.TargetRecordId = $b.targetRecordId
+        this.SubmissionTime = $b.submissionTime 
+        this.SubmittedById = $b.submittedById 
+        this.Featured = $b.featuredByUserId
+        this.FeaturedByUserId = $b.featuredByUserId 
+        this.FeaturedTimestamp = $b.featuredTimestamp 
     }
 }
 class User {
@@ -2966,11 +2966,36 @@ class CloudXInterface {
     SignHash(hash) {
         return this._cryptoProvider //TODO Cryptography
     }
-    async FetchRecordCached(recordUri) {
+    /**
+     * @template R
+     *
+     * @param {Uri} recordUri
+     * @param {R} type
+     * @memberof CloudXInterface
+     */
+    async FetchRecordCached(recordUri, type) {
         Lock.acquire(this.cachedRecords, () => {
-            let dictionary
-            //TODO Type Handling
+            /** @type Dictionary<Uri, CloudResult> */
+            let dictionary = new Out()
+            if (!this.cachedRecords.TryGetValue(type, dictionary)){
+                dictionary = new Dictionary()
+                this.cachedRecords.Add(type, dictionary);
+            }
+            let cloudResult = new Out()
+            if (dictionary.TryGetValue(recordUri, cloudResult))
+                return cloudResult.Out
+           
         })
+        let cloudResult1 = await this.FetchRecord(recordUri)
+        Lock.acquire(this.cachedRecords, () => {
+            let out = new Out()
+            this.cachedRecords.Get(type, out)
+            /** @type Dictionary<Uri, CloudResult> */
+            let cachedRecord = out.Out
+            cachedRecord.Remove(recordUri)
+            cachedRecord.Add(recordUri, cloudResult1)
+        })
+        return cloudResult1
     }
     FetchRecord(ownerId, recordId) {
         if (!recordId) {
@@ -3106,7 +3131,7 @@ class CloudXInterface {
         return await this.GET("api/assets/" + hash.toLowerCase(), new TimeSpan())
     }
     async FetchUserAssetInfo(hash) {
-        return await this.FetchUserAssetInfo(this.CurrentUser.Id, hash)
+        return await this.FetchAssetInfo(this.CurrentUser.Id, hash)
     }
     async FetchAssetInfo(ownerId, hash) {
         switch (IdUtil.GetOwnerType(ownerId)) {
@@ -3169,6 +3194,13 @@ class CloudXInterface {
         }
         return cloudResult
     }
+    /**
+     *
+     *
+     * @param {string} path
+     * @returns {Promise<CloudResult<ThumbnailInfo>>}
+     * @memberof CloudXInterface
+     */
     UploadThumbnail(path) {
         return this.POST_File("api/thumbnails", path, "image/webp", null)
     }
@@ -3243,6 +3275,12 @@ class CloudXInterface {
             groupMemberUpdated(cloudResult.Entity)
         })
     }
+    async UpsertSubmission(groupId, ownerId, recordId, feature = false){
+        return await this.PUT("api/groups/" + groupId + "/submissions", new Submission({groupId, feature, targetRecordId:new RecordId(ownerId, recordId)}, new TimeSpan()))
+    }
+    async DeleteSubmission(groupId, submissionId){
+        return await this.DELETE("api/groups/"+groupId+"/submissions/" +submissionId, new TimeSpan())
+    }
     static GetOwnerPath(ownerId){
         switch(IdUtil.GetOwnerType(ownerId)){
             case OwnerType.User:
@@ -3253,6 +3291,56 @@ class CloudXInterface {
                 throw new Error("Invalid Owner Type: " + ownerId)
         }
     }
+    /**
+     *
+     *
+     * @param {CloudVariableDefinition} definition
+     * @returns
+     * @memberof CloudXInterface
+     */
+    async UpsertVariableDefinition(definition){
+        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) + "/" + definition.DefinitionOwnerId + "/vardefs/" + definition.Subpath, definition, new TimeSpan())
+    }
+    async ReadGlobalVariable(path){
+        return await this.ReadVariable("GLOBAL", path);
+    }
+    async ReadVariable(ownerId, path){
+        if (!path) return await this.ReadVariable(this.CurrentUser.Id, ownerId)
+        let cloudXInterface = this
+        let resource
+        if (ownerId == "GLOBAL")
+            resource = "api/globalvars/" = path;
+        else
+            resource = "api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/vars/" + path;
+        let cloudResult = await cloudXInterface.GET(resource, new TimeSpan())
+        if (cloudResult.IsOK){
+            switch (cloudResult.Entity.Value){
+                case null:
+                    break
+                default:
+                    return console.error("Something Happened?")
+            }
+        }
+        return new CloudResult('default', cloudResult.State, cloudResult.Content)
+    }
+    SerializationErrorHandeler(){}
+    /**
+     *
+     * @template T
+     * @param {string} ownerId
+     * @param {string} path
+     * @param {T} value
+     * @memberof CloudXInterface
+     */
+    async WriteVariable(ownerId, path, value){
+        if (!value) return await this.WriteVariable(this.CurrentUser.Id,ownerId, path)
+        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId +"/vars/" + path, new CloudVariable({value:JSON.stringify(value)}, new TimeSpan()))
+    }
+    async DeleteVariable(ownerId, path){
+        if (!path) return await this.DeleteVariable(this.CurrentUser.Id, ownerId)
+        return await this.DELETE("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/vars/" + path, new TimeSpan())
+    }
+    
 }
 class CancellationTokenSource {
     constructor(timeout) {
