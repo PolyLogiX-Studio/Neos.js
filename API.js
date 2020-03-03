@@ -287,10 +287,10 @@ class Uri {
     }
 }
 class Path {
-    static GetExtension(str){
+    static GetExtension(str) {
         return str.match(/\.[a-zA-Z0-9]+$/)[0]
     }
-    static GetFileNameWithoutExtension(str){
+    static GetFileNameWithoutExtension(str) {
         return str.replace(/\.[^/.]+$/, "")
     }
 }
@@ -1722,8 +1722,8 @@ class CloudMessage {
 class CloudVariable {
     constructor($b) {
         if (!$b) $b = {}
-        this.VariableOwnerId = $b.ownerId 
-        this.Path = $b.path 
+        this.VariableOwnerId = $b.ownerId
+        this.Path = $b.path
         this.Value = $b.value
     }
     static GetDefinitionPath(path, ownerId, subpath) {
@@ -1740,10 +1740,10 @@ class CloudVariableDefinition {
         if (!$b) $b = {}
         this.DefinitionOwnerId = $b.definitionOwnerId
         this.Subpath = $b.subpath
-        this.TypeHint = $b.typeHint 
+        this.TypeHint = $b.typeHint
         this.DefaultValue = $b.defaultvalue
-        this.VariableOwnerCanRead = $b.variableOwnerCanRead 
-        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite 
+        this.VariableOwnerCanRead = $b.variableOwnerCanRead
+        this.VariableOwnerCanWrite = $b.variableOwnerCanWrite
         this.AnyoneCanRead = $b.anyoneCanRead
         this.AnyoneCanWrite = $b.anyoneCanWrite
     }
@@ -2164,14 +2164,14 @@ class SessionUser {
 class Submission {
     constructor($b) {
         if (!$b) $b = {}
-        this.Id = $b.id 
-        this.GroupId = $b.ownerId 
+        this.Id = $b.id
+        this.GroupId = $b.ownerId
         this.TargetRecordId = $b.targetRecordId
-        this.SubmissionTime = $b.submissionTime 
-        this.SubmittedById = $b.submittedById 
+        this.SubmissionTime = $b.submissionTime
+        this.SubmittedById = $b.submittedById
         this.Featured = $b.featuredByUserId
-        this.FeaturedByUserId = $b.featuredByUserId 
-        this.FeaturedTimestamp = $b.featuredTimestamp 
+        this.FeaturedByUserId = $b.featuredByUserId
+        this.FeaturedTimestamp = $b.featuredTimestamp
     }
 }
 class User {
@@ -2977,14 +2977,14 @@ class CloudXInterface {
         Lock.acquire(this.cachedRecords, () => {
             /** @type Dictionary<Uri, CloudResult> */
             let dictionary = new Out()
-            if (!this.cachedRecords.TryGetValue(type, dictionary)){
+            if (!this.cachedRecords.TryGetValue(type, dictionary)) {
                 dictionary = new Dictionary()
                 this.cachedRecords.Add(type, dictionary);
             }
             let cloudResult = new Out()
             if (dictionary.TryGetValue(recordUri, cloudResult))
                 return cloudResult.Out
-           
+
         })
         let cloudResult1 = await this.FetchRecord(recordUri)
         Lock.acquire(this.cachedRecords, () => {
@@ -3275,14 +3275,14 @@ class CloudXInterface {
             groupMemberUpdated(cloudResult.Entity)
         })
     }
-    async UpsertSubmission(groupId, ownerId, recordId, feature = false){
-        return await this.PUT("api/groups/" + groupId + "/submissions", new Submission({groupId, feature, targetRecordId:new RecordId(ownerId, recordId)}, new TimeSpan()))
+    async UpsertSubmission(groupId, ownerId, recordId, feature = false) {
+        return await this.PUT("api/groups/" + groupId + "/submissions", new Submission({ groupId, feature, targetRecordId: new RecordId(ownerId, recordId) }, new TimeSpan()))
     }
-    async DeleteSubmission(groupId, submissionId){
-        return await this.DELETE("api/groups/"+groupId+"/submissions/" +submissionId, new TimeSpan())
+    async DeleteSubmission(groupId, submissionId) {
+        return await this.DELETE("api/groups/" + groupId + "/submissions/" + submissionId, new TimeSpan())
     }
-    static GetOwnerPath(ownerId){
-        switch(IdUtil.GetOwnerType(ownerId)){
+    static GetOwnerPath(ownerId) {
+        switch (IdUtil.GetOwnerType(ownerId)) {
             case OwnerType.User:
                 return 'users'
             case OwnerType.Group:
@@ -3298,23 +3298,23 @@ class CloudXInterface {
      * @returns
      * @memberof CloudXInterface
      */
-    async UpsertVariableDefinition(definition){
+    async UpsertVariableDefinition(definition) {
         return await this.PUT("api/" + CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) + "/" + definition.DefinitionOwnerId + "/vardefs/" + definition.Subpath, definition, new TimeSpan())
     }
-    async ReadGlobalVariable(path){
+    async ReadGlobalVariable(path) {
         return await this.ReadVariable("GLOBAL", path);
     }
-    async ReadVariable(ownerId, path){
+    async ReadVariable(ownerId, path) {
         if (!path) return await this.ReadVariable(this.CurrentUser.Id, ownerId)
         let cloudXInterface = this
         let resource
         if (ownerId == "GLOBAL")
-            resource = "api/globalvars/" = path;
+            resource = "api/globalvars/" + path;
         else
             resource = "api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/vars/" + path;
         let cloudResult = await cloudXInterface.GET(resource, new TimeSpan())
-        if (cloudResult.IsOK){
-            switch (cloudResult.Entity.Value){
+        if (cloudResult.IsOK) {
+            switch (cloudResult.Entity.Value) {
                 case null:
                     break
                 default:
@@ -3323,20 +3323,21 @@ class CloudXInterface {
         }
         return new CloudResult('default', cloudResult.State, cloudResult.Content)
     }
-    SerializationErrorHandeler(){}
+    SerializationErrorHandeler() { }
     /**
-     *
+     * Write a Variable
+     * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
      * @template T
-     * @param {string} ownerId
-     * @param {string} path
-     * @param {T} value
+     * @param {string | string} ownerId OwnerID | Path
+     * @param {string | T} path Path or T
+     * @param {T} [value]
      * @memberof CloudXInterface
      */
-    async WriteVariable(ownerId, path, value){
-        if (!value) return await this.WriteVariable(this.CurrentUser.Id,ownerId, path)
-        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId +"/vars/" + path, new CloudVariable({value:JSON.stringify(value)}, new TimeSpan()))
+    async WriteVariable(ownerId, path, value) {
+        if (!value) return await this.WriteVariable(this.CurrentUser.Id, ownerId, path)
+        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/" + ownerId + "/vars/" + path, new CloudVariable({ value: JSON.stringify(value) }, new TimeSpan()))
     }
-    async DeleteVariable(ownerId, path){
+    async DeleteVariable(ownerId, path) {
         if (!path) return await this.DeleteVariable(this.CurrentUser.Id, ownerId)
         return await this.DELETE("api/" + CloudXInterface.GetOwnerPath(ownerId) + "/vars/" + path, new TimeSpan())
     }
@@ -3346,7 +3347,7 @@ class CloudXInterface {
      * @param {Visit} visit
      * @memberof CloudXInterface
      */
-    async LogVisit(visit){
+    async LogVisit(visit) {
         return await this.POST("api/visits", visit, new TimeSpan())
     }
     /**
@@ -3355,7 +3356,7 @@ class CloudXInterface {
      * @param {NeosSession} session
      * @memberof CloudXInterface
      */
-    async CreateNeosSession(session){
+    async CreateNeosSession(session) {
         return await this.POST("api/neosSessions", session, new TimeSpan())
     }
     /**
@@ -3364,15 +3365,49 @@ class CloudXInterface {
      * @returns {Promise<CloudResult<NeosSession>>}
      * @memberof CloudXInterface
      */
-    async PatchNeosSession(session){
+    async PatchNeosSession(session) {
         return await this.PATCH("api/neosSessions", session, new TimeSpan())
     }
-    async GetStatus(userId){
+    /**
+     * Get User Status
+     *
+     * @param {string} userId
+     * @returns {Promise<CloudResult<UserStatus>>}
+     * @memberof CloudXInterface
+     */
+    async GetStatus(userId) {
         return await this.GET("api/users/" + userId + "/status", new TimeSpan())
     }
-    async UpdateStatus(userId, status){
+    /**
+     * Update the User Status
+     * -If not userId is supplied, uses Current User, Refer to Examples
+     *
+     * @param {string | UserStatus} userId
+     * @param {UserStatus} [status]
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     * @example
+     * await UpdateStatus(userId, UserStatus)
+     * await UpdateStatus(UserStatus)
+     */
+    async UpdateStatus(userId, status) {
         if (!status) return await this.UpdateStatus(this.CurrentUser.Id, userId)
         return await this.PUT("api/users/" + userid + "/status", status, new TimeSpan())
+    }
+    /**
+     * Update the User Profile
+     *
+     * @param {string | UserProfile} userId
+     * @param {UserProfile} [profile]
+     * @memberof CloudXInterface
+     * @returns {Promise<CloudResult>}
+     * @example 
+     * await UpdateProfile(userId, UserProfile)
+     * await UpdateProfile(UserProfile)
+     */
+    async UpdateProfile(userId, profile) {
+        if (!profile) { this.CurrentUser.Profile = userId; return await this.UpdateProfile(this.CurrentUser.Id, ) }
+        return await this.PUT("api/users/" + userId + "/profile", profile, new TimeSpan())
     }
 }
 class CancellationTokenSource {
@@ -3380,6 +3415,8 @@ class CancellationTokenSource {
         this.Token = uuidv4()
     }
 }
+
+
 class SearchParameters {
     constructor($b) {
         if (!$b) $b = {}
