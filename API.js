@@ -90,18 +90,20 @@ class HTTP_CLIENT {
      */
     async SendAsync(request, token) {
         let state
+        let resHeaders
         let dat = { method: request.Method }
         dat.headers = request.Headers
         if (request.Method == "POST" || request.Method == "PATCH" || request.Method == "PUT") dat.body = request.Content
 
         let response = await fetch(request.RequestUri, dat).then(res => {
             state = res.status
+            resHeaders = res.headers
             //return res.text()
             return res.json()
         })
             .catch(err => console.error(err));
         let cloudResult = new CloudResult()
-        cloudResult.CloudResult(state, response)
+        cloudResult.CloudResult(state, response, resHeaders)
         return cloudResult
     }
 }
@@ -224,9 +226,24 @@ const HttpMethod = new Enumerable({
     "Post": "POST",
     "Patch": "PATCH"
 })
+const OnlineStatus = new Enumerable([
+    "Offline",
+    "Invisible",
+    "Away",
+    "Busy",
+    "Online"
+])
 const AssetVariantEntityType = new Enumerable([
     "BitmapMetadata",
     "BitmapVariant"
+])
+const FriendStatus = new Enumerable([
+    "None",
+    "SearchResult",
+    "Requested",
+    "Ignored",
+    "Blocked",
+    "Accepted"
 ])
 const OwnerType = new Enumerable([
     "Machine",
@@ -1757,14 +1774,14 @@ class CloudVariableDefinition {
 class Friend {
     constructor($b) {
         if (!$b) $b = {}
-        this.FriendUserId = $b.id || new String()
-        this.OwnerId = $b.ownerId || new String()
-        this.FriendUsername = $b.friendUsername || new String()
-        this.FriendStatus = $b.friendStatus || new Object()
-        this.IsAccepted = $b.isAccepted || new Boolean()
-        this.UserStatus = $b.userStatus || new Object()
-        this.LatestMessageTime = $b.latestMessageTime || new Date()
-        this.Profile = $b.profile || new Object()
+        this.FriendUserId = $b.id
+        this.OwnerId = $b.ownerId
+        this.FriendUsername = $b.friendUsername
+        this.FriendStatus = $b.friendStatus
+        this.IsAccepted = $b.isAccepted
+        this.UserStatus = new UserStatus($b.userStatus)
+        this.LatestMessageTime = $b.latestMessageTime
+        this.Profile = $b.profile
     }
 }
 class Group {
@@ -1856,15 +1873,15 @@ class Membership {
 class Message {
     constructor($b) {
         if (!$b) $b = {}
-        this.Id = $b.id || new String()
-        this.OwnerId = $b.ownerId || new String()
-        this.RecipientId = $b.recipientId || new String()
-        this.SenderId = $b.senderId || new String()
-        this.MessageType = $b.messageType || new Object()
-        this.Content = $b.content || new String()
-        this.SendTime = $b.sendTime || new Date()
-        this.LastUpdateTime = $b.lastUpdateTime || new Date()
-        this.ReadTime = $b.readTime || new Date()
+        this.Id = $b.id
+        this.OwnerId = $b.ownerId
+        this.RecipientId = $b.recipientId
+        this.SenderId = $b.senderId
+        this.MessageType = $b.messageType
+        this.Content = $b.content
+        this.SendTime = $b.sendTime
+        this.LastUpdateTime = $b.lastUpdateTime
+        this.ReadTime = $b.readTime
     }
     static GenerateId() {
         return "MSG-" + uuidv4()
@@ -2281,9 +2298,13 @@ class CloudResult {
      * @returns undefined
      * @memberof CloudResult
      */
-    CloudResult(state, content) {
+    CloudResult(state, content, headers) {
         this.State = state
         this.Content = content
+        
+        if (headers!= null) {this.Headers = {}
+        for (let item of headers)
+        this.Headers[item[0]] = item[1]}
         if (!this.IsError) return;
         if (content == null) return;
         try {
@@ -2318,6 +2339,9 @@ class CloudResult {
      */
     get IsError() {
         return !this.IsOK;
+    }
+    IsSuccessStatusCode(){
+        return this.IsOK()
     }
 }
 
@@ -2825,7 +2849,7 @@ class CloudXInterface {
                 entity = content
             } else {
                 try {
-                    let contentLength = result.Content.Headers.ContentLength
+                    let contentLength = result.Headers['content-length']
                     let num = 0
                     if (contentLength > num && (contentLength != null)) {
                         let responseStream = await result.Content.toString()
@@ -3299,7 +3323,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async UpsertVariableDefinition(definition) {
-        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) + "/" + definition.DefinitionOwnerId + "/vardefs/" + definition.Subpath, definition, new TimeSpan())
+        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) + "/" + definition.DefinitionOwnerId + "/vardefs/" + definition.Subpath, definition, new TimeSpan()).then((b)=>{b.COntent = new CloudVariableDefinition(b.Entity)})
     }
     async ReadGlobalVariable(path) {
         return await this.ReadVariable("GLOBAL", path);
@@ -3357,7 +3381,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async CreateNeosSession(session) {
-        return await this.POST("api/neosSessions", session, new TimeSpan())
+        return await this.POST("api/neosSessions", session, new TimeSpan()).then((b)=>{b.Content = new NeosSession(b.Entity)})
     }
     /**
      *
@@ -3366,7 +3390,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async PatchNeosSession(session) {
-        return await this.PATCH("api/neosSessions", session, new TimeSpan())
+        return await this.PATCH("api/neosSessions", session, new TimeSpan()).then((b)=>{b.Content = new NeosSession(b.Entity)})
     }
     /**
      * Get User Status
@@ -3376,7 +3400,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async GetStatus(userId) {
-        return await this.GET("api/users/" + userId + "/status", new TimeSpan())
+        return await this.GET("api/users/" + userId + "/status", new TimeSpan()).then((b)=>{b.Content = new UserStatus(b.Entity)})
     }
     /**
      * Update the User Status
@@ -3406,8 +3430,189 @@ class CloudXInterface {
      * await UpdateProfile(UserProfile)
      */
     async UpdateProfile(userId, profile) {
-        if (!profile) { this.CurrentUser.Profile = userId; return await this.UpdateProfile(this.CurrentUser.Id, ) }
+        if (!profile) { this.CurrentUser.Profile = userId; return await this.UpdateProfile(this.CurrentUser.Id) }
         return await this.PUT("api/users/" + userId + "/profile", profile, new TimeSpan())
+    }
+    /**
+     *
+     *
+     * @param {string | Date} userId
+     * @param {Date} [lastStatusUpdate = null]
+     * @memberof CloudXInterface
+     * @returns {Promise<CloudResult<List<Friend>>>>}
+     */
+    async GetFriends(userId, lastStatusUpdate = null) {
+        if (typeof userId != 'string') return await this.GetFriends(this.CurrentUser.Id, userId)
+        let str = new String()
+        if (lastStatusUpdate)
+            str += '?lastStatusUpdate=' + lastStatusUpdate.toUTCString();
+        return await this.GET("api/users/" + userId + "/friends" + str, new TimeSpan()).then((b) => {
+            let a = new List();
+            for (let item of b.Entity)
+                a.Add(new Friend(item))
+                b.Content = a
+            return b
+        })
+    }
+    /**
+     * Add a Friend Record
+     *
+     * @param {Friend} friend
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
+    async UpsertFriend(friend) {
+        if (String.IsNullOrWhiteSpace(friend.OwnerId))
+            throw new Error("Argument Acception: friend.OwnerId")
+        if (String.IsNullOrWhiteSpace(friend.FriendUserId))
+            throw new Error("Argument Acception: friend.FriendUserId")
+        return await this.PUT("api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId, friend, new TimeSpan())
+    }
+    /**
+     * Remove a Friend
+     *
+     * @param {Friend} friend
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
+    async DeleteFriend(friend) {
+        if (String.IsNullOrWhiteSpace(friend.OwnerId))
+            throw new Error("Argument Acception: friend.OwnerId")
+        if (String.IsNullOrWhiteSpace(friend.FriendUserId))
+            throw new Error("Argument Acception: friend.FriendUserId")
+        return await this.DELETE("api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId, friend, new TimeSpan())
+    }
+    /**
+     * Send a Message Object
+     * - Requires Sender be friends with Recipient
+     * @param {Message} message
+     * @returns {Promise<CloudResult<Message>>}
+     * @memberof CloudXInterface
+     */
+    async SendMessage(message) {
+        return await this.POST("api/users/" + message.RecipientId + "/messages", message, new TimeSpan())
+    }
+    /**
+     * Return all unread messages
+     * @returns {Promise<CloudResult<List<Message>>>}
+     * @param {Date} [fromTime=null]
+     * @memberof CloudXInterface
+     */
+    async GetUnreadMessages(fromTime = null) {
+        return await this.GetMessages(fromTime, -1, null, true)
+    }
+    /**
+     * Get message history with `user`
+     * 
+     * @param {string} user
+     * @param {number} [maxItems=100]
+     * @returns {Promise<CloudResult<List<Message>>>}
+     * @memberof CloudXInterface
+     */
+    async GetMessageHistory(user, maxItems = 100) {
+        return await this.GetMessages(new Date, maxItems, user, false)
+    }
+    /**
+     * Get messages
+     *
+     * @param {Date} [fromTime]
+     * @param {Number} maxItems
+     * @param {String} user
+     * @param {Boolean} unreadOnly
+     * @returns {Promise<CloudResult<List<Message>>>}
+     * @memberof CloudXInterface
+     */
+    async GetMessages(fromTime, maxItems, user, unreadOnly) {
+        let stringBuilder = new StringBuilder();
+        stringBuilder.Append(`?maxItems=${maxItems}`)
+        if (fromTime)
+            stringBuilder.Append(`&fromTime=${Uri.EscapeDataString(fromTime.toUTCString())}`)
+        if (user != null)
+            stringBuilder.Append(`&user=${user}`)
+        if (unreadOnly)
+            stringBuilder.Append("&unread=true")
+        return await this.GET(`api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`, new TimeSpan()).then((b) => {
+            let a = new List();
+            for (let item of b.Entity)
+                a.Add(new Message(item))
+            return a
+        })
+    }
+    /**
+     * Mark Messages as Read
+     *
+     * @param {List<String>} messageIds
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
+    async MarkMessagesRead(messageIds) {
+        switch (messageIds[0].constructor.name) {
+            case "String":
+                return await this.PATCH("api/users/" + this.CurrentUser.Id + "/messages", messageIds, new TimeSpan())
+            case "Message":
+                return await this.MarkMessagesRead(messageIds.map((m)=>m.Id))
+        }
+    }
+    /**
+     *
+     *
+     * @param {SessionUpdate} update
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
+    async UpdateSessions(update){
+        return await this.PUT("api/sessions/", update, new TimeSpan())
+    }
+    /**
+     *
+     *
+     * @param {string} sessionId Session Id
+     * @returns {Promise<CloudResult<SessionInfo>>}
+     * @memberof CloudXInterface
+     */
+    async GetSession(sessionId){
+        return await this.GET("api/sessions/" + sessionId, new TimeSpan()).then((b)=>new SessionInfo(b.Entity))
+    }
+    /**
+     *
+     *
+     * @returns {Promise<CloudResult>}
+     * @memberof CloudXInterface
+     */
+    async Ping(){
+        return await this.GET("api/testing/ping",new TimeSpan())
+    }
+    /**
+     *
+     *
+     * @returns {Promise<CloudResult<ServerStatistics>>}
+     * @memberof CloudXInterface
+     */
+    async GetServerStatistics(){
+        try {
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://cloudxstorage.blob.core.windows.net/install/ServerResponse")
+            return await this.HttpClient.SendAsync(request).then((httpResponseMessage)=>{
+            if (!httpResponseMessage.IsSuccessStatusCode)
+                return new CloudResult(null, httpResponseMessage.StatusCode, null);
+            let contentLength = httpResponseMessage.Headers['content-length']
+            let num = 0
+            if (!(contentLength > num))
+                return null
+            return new CloudResult(undefined,200,new ServerStatistics(httpResponseMessage.Content))
+            })
+        } catch (error) {
+            return null
+        }
+    }
+
+    /**
+     *
+     * @returns {Promise<Number>}
+     * @memberof CloudXInterface
+     */
+    async GetOnlineUserCount() {
+        let cloudResult = await this.GET("api/stats/onlineUsers", new TimeSpan());
+        return !cloudResult.IsOK || !Number.parseInt(cloudResult.Content) ? -1 : Number.parseInt(cloudResult.Content)
     }
 }
 class CancellationTokenSource {
@@ -3665,7 +3870,7 @@ class FriendManager {
 class MessageManager {
     constructor(cloud) {
         this.lastRequest
-        this.lastUnreadMessage
+        this.lastUnreadMessage = new Date(0)
         this.Cloud = cloud
         this.InitialmessagesFetched = new Boolean()
         this.UnreadCount = new Number()
@@ -3709,14 +3914,11 @@ class MessageManager {
             return;
         }
         this.lastRequest = new Date()
-        Object.defineProperties(this, {
-            _waitingForRequest: { value: true, writable: true }
-        })
+        this._waitingForRequest = true;
             (async () => {
                 let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
-                Object.defineProperties(this, {
-                    _waitingForRequest: { value: false, writable: true }
-                })
+                this._waitingForRequest = false
+                
                 if (!cloudResult1.IsOK) {
                     return
                 }
@@ -3976,7 +4178,8 @@ const Shared = {
     RecordUtil,
     IdUtil,
     User,
-    SearchParameters
+    SearchParameters,
+    Message
 }
 const Util = {
     Type,
