@@ -46,7 +46,7 @@ class Action {
  */
 class Task extends Promise {
 }
-const uuidv4 = require('uuid/v4')
+const {v4:uuidv4} = require('uuid')
 const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
 const Lock = new AsyncLock()
