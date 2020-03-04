@@ -98,11 +98,16 @@ class HTTP_CLIENT {
         let response = await fetch(request.RequestUri, dat).then(res => {
             state = res.status
             resHeaders = res.headers
-            //return res.text()
-            return res.json()
+            return res.text().then((body)=>{
+                try {
+                    return JSON.parse(body)
+                } catch (error) {
+                    return body
+                }
+            })
         })
             .catch(err => console.error(err));
-        let cloudResult = new CloudResult()
+        let cloudResult = new CloudResult("",state,response,resHeaders)
         cloudResult.CloudResult(state, response, resHeaders)
         return cloudResult
     }
@@ -2286,8 +2291,8 @@ class CloudResult {
      * @param {*} content
      * @memberof CloudResult
      */
-    constructor(entity = undefined, state, content) {
-        this.CloudResult(state, content)
+    constructor(entity = undefined, state, content, resHeaders) {
+        this.CloudResult(state, content, resHeaders)
     }
     ToString() {
         return ("CloudResult - State: " + this.State + " Content: " + this.Content)
@@ -2301,10 +2306,12 @@ class CloudResult {
     CloudResult(state, content, headers) {
         this.State = state
         this.Content = content
-        
-        if (headers!= null) {this.Headers = {}
-        for (let item of headers)
-        this.Headers[item[0]] = item[1]}
+
+        if (headers != null) {
+            this.Headers = {}
+            for (let item of headers)
+                this.Headers[item[0]] = item[1]
+        }
         if (!this.IsError) return;
         if (content == null) return;
         try {
@@ -2340,7 +2347,7 @@ class CloudResult {
     get IsError() {
         return !this.IsOK;
     }
-    IsSuccessStatusCode(){
+    IsSuccessStatusCode() {
         return this.IsOK()
     }
 }
@@ -3323,7 +3330,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async UpsertVariableDefinition(definition) {
-        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) + "/" + definition.DefinitionOwnerId + "/vardefs/" + definition.Subpath, definition, new TimeSpan()).then((b)=>{b.COntent = new CloudVariableDefinition(b.Entity)})
+        return await this.PUT("api/" + CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) + "/" + definition.DefinitionOwnerId + "/vardefs/" + definition.Subpath, definition, new TimeSpan()).then((b) => { b.COntent = new CloudVariableDefinition(b.Entity) })
     }
     async ReadGlobalVariable(path) {
         return await this.ReadVariable("GLOBAL", path);
@@ -3381,7 +3388,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async CreateNeosSession(session) {
-        return await this.POST("api/neosSessions", session, new TimeSpan()).then((b)=>{b.Content = new NeosSession(b.Entity)})
+        return await this.POST("api/neosSessions", session, new TimeSpan()).then((b) => { b.Content = new NeosSession(b.Entity) })
     }
     /**
      *
@@ -3390,7 +3397,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async PatchNeosSession(session) {
-        return await this.PATCH("api/neosSessions", session, new TimeSpan()).then((b)=>{b.Content = new NeosSession(b.Entity)})
+        return await this.PATCH("api/neosSessions", session, new TimeSpan()).then((b) => { b.Content = new NeosSession(b.Entity) })
     }
     /**
      * Get User Status
@@ -3400,7 +3407,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async GetStatus(userId) {
-        return await this.GET("api/users/" + userId + "/status", new TimeSpan()).then((b)=>{b.Content = new UserStatus(b.Entity)})
+        return await this.GET("api/users/" + userId + "/status", new TimeSpan()).then((b) => { b.Content = new UserStatus(b.Entity) })
     }
     /**
      * Update the User Status
@@ -3450,7 +3457,7 @@ class CloudXInterface {
             let a = new List();
             for (let item of b.Entity)
                 a.Add(new Friend(item))
-                b.Content = a
+            b.Content = a
             return b
         })
     }
@@ -3535,7 +3542,8 @@ class CloudXInterface {
             let a = new List();
             for (let item of b.Entity)
                 a.Add(new Message(item))
-            return a
+            b.Content = a
+            return b
         })
     }
     /**
@@ -3550,7 +3558,7 @@ class CloudXInterface {
             case "String":
                 return await this.PATCH("api/users/" + this.CurrentUser.Id + "/messages", messageIds, new TimeSpan())
             case "Message":
-                return await this.MarkMessagesRead(messageIds.map((m)=>m.Id))
+                return await this.MarkMessagesRead(messageIds.map((m) => m.Id))
         }
     }
     /**
@@ -3560,7 +3568,7 @@ class CloudXInterface {
      * @returns {Promise<CloudResult>}
      * @memberof CloudXInterface
      */
-    async UpdateSessions(update){
+    async UpdateSessions(update) {
         return await this.PUT("api/sessions/", update, new TimeSpan())
     }
     /**
@@ -3570,8 +3578,8 @@ class CloudXInterface {
      * @returns {Promise<CloudResult<SessionInfo>>}
      * @memberof CloudXInterface
      */
-    async GetSession(sessionId){
-        return await this.GET("api/sessions/" + sessionId, new TimeSpan()).then((b)=>new SessionInfo(b.Entity))
+    async GetSession(sessionId) {
+        return await this.GET("api/sessions/" + sessionId, new TimeSpan()).then((b) => new SessionInfo(b.Entity))
     }
     /**
      *
@@ -3579,8 +3587,8 @@ class CloudXInterface {
      * @returns {Promise<CloudResult>}
      * @memberof CloudXInterface
      */
-    async Ping(){
-        return await this.GET("api/testing/ping",new TimeSpan())
+    async Ping() {
+        return await this.GET("api/testing/ping", new TimeSpan())
     }
     /**
      *
@@ -3588,17 +3596,17 @@ class CloudXInterface {
      * @returns {Promise<CloudResult<ServerStatistics>>}
      * @memberof CloudXInterface
      */
-    async GetServerStatistics(){
+    async GetServerStatistics() {
         try {
             var request = new HttpRequestMessage(HttpMethod.Get, "https://cloudxstorage.blob.core.windows.net/install/ServerResponse")
-            return await this.HttpClient.SendAsync(request).then((httpResponseMessage)=>{
-            if (!httpResponseMessage.IsSuccessStatusCode)
-                return new CloudResult(null, httpResponseMessage.StatusCode, null);
-            let contentLength = httpResponseMessage.Headers['content-length']
-            let num = 0
-            if (!(contentLength > num))
-                return null
-            return new CloudResult(undefined,200,new ServerStatistics(httpResponseMessage.Content))
+            return await this.HttpClient.SendAsync(request).then((httpResponseMessage) => {
+                if (!httpResponseMessage.IsSuccessStatusCode)
+                    return new CloudResult(null, httpResponseMessage.StatusCode, null);
+                let contentLength = httpResponseMessage.Headers['content-length']
+                let num = 0
+                if (!(contentLength > num))
+                    return null
+                return new CloudResult(undefined, 200, new ServerStatistics(httpResponseMessage.Content))
             })
         } catch (error) {
             return null
@@ -3870,13 +3878,13 @@ class FriendManager {
 class MessageManager {
     constructor(cloud) {
         this.lastRequest
-        this.lastUnreadMessage = new Date(0)
+        this.lastUnreadMessage = null
         this.Cloud = cloud
         this.InitialmessagesFetched = new Boolean()
         this.UnreadCount = new Number()
         Object.defineProperties(this, {
-            _messagesLock: { value: new Object(), writable: true },
-            _messages: { value: new List(), writable: false },
+            _messagesLock: { value: new Object(), writable: false },
+            _messages: { value: new Dictionary(), writable: true },
             _unreadCountDirty: { value: new Boolean(), writable: true },
             _waitingForRequest: { value: new Boolean(), writable: true }
         })
@@ -3911,34 +3919,36 @@ class MessageManager {
             })
         }
         if (new Date(new Date() - this.lastRequest).getSeconds() < (this._waitingForRequest ? MessageManager.UPDATE_TIMEOUT_SECONDS : MessageManager.UPDATE_PERIOD_SECONDS)) {
-            return;
+            return
         }
         this.lastRequest = new Date()
         this._waitingForRequest = true;
-            (async () => {
-                let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage)
+        (async () => {
+            let cloudResult1 = await this.Cloud.GetUnreadMessages(this.lastUnreadMessage).then(async (cloudResult1) => {
                 this._waitingForRequest = false
-                
                 if (!cloudResult1.IsOK) {
                     return
                 }
-                var hashSet = [] // HashSet need to create
-                Lock.acquire(this._messagesLock, () => {
-                    for (message of cloudResult1.Entity) {
-                        if (this.GetUserMessages(message.SenderId).AddMessage(message))
-                            hashSet.push(message);
-                    }
-                })
+                var hashSet = new HashSet()
+                for (let message of cloudResult1.Entity) {
+                    let tMessage = this.GetUserMessages(message.SenderId)
+                    if (!tMessage)
+                        hashSet.push(message);
+                    else {  tMessage.AddMessage(message) }
+
+                }
                 let flag1 = false
-                for (message of cloudResult1.Entity) {
+                for (let message of cloudResult1.Entity) {
                     if (!hashSet.includes(message)) {
                         if (this.InitialmessagesFetched && message.MessageType == MessageType.CreditTransfer) {
                             let content = message.ExtractContent()
                             let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id
                             let currentUser = this.Cloud.CurrentUser
+                            /*
                             if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
                                 currentUser.Credits[content.Token] += flag2 ? content.Amount : -content.Amount;
                             }
+                            */
                             flag1 = true;
                         }
                         let onMessageReceived = this.onMessageReceived
@@ -3956,6 +3966,8 @@ class MessageManager {
                 }, 10000)
             })
 
+        })()
+
     }
     MarkUnreadCountDirty() {
         Object.defineProperties(this, {
@@ -3965,24 +3977,27 @@ class MessageManager {
     Reset() {
         Lock.acquire(this._messagesLock, () => {
             Object.defineProperties(this, {
-                _messages: { value: new List(), writable: false }
+                _messages: { value: new Dictionary(), writable: true }
             })
             this.lastUnreadMessage = new Date()
             this.InitialmessagesFetched = false;
         })
     }
     GetUserMessages(userId) {
-        Lock.acquire(this._messagesLock, () => {
-            if (this._messages.indexOf(userId))
-                return this._messages[userId]
-            let usermessages2 = new MessageManager.UserMessages(userId, this)
-            this._messages.push({ userId: usermessages2 })
-            return usermessages2
-        })
+
+        let usermessages1 = new Out
+        if (this._messages.TryGetValue(userId, usermessages1)) {
+            return usermessages1.Out
+        }
+        let usermessages2 = new MessageManager.UserMessages()
+        usermessages2.UserMessages(userId, this)
+        this._messages.Add(userId, usermessages2)
+        return usermessages2
+
     }
     GetAllUserMessages(list) {
         Lock.acquire(this._messagesLock, () => {
-            for (message of this._messages) {
+            for (let message of this._messages) {
                 list.push(message.Value)
             }
         })
@@ -3991,13 +4006,15 @@ class MessageManager {
     //event UnreadMessageCounrChange
     static UserMessages = class {
         constructor() {
-            this._messageIds = new List()
-            this._lock = "MessageManager.UserMessages._lock"
-            this._historyLoadTask;
-            this._historyLoaded = new Boolean()
             this.UserId = new String()
             this.UnreadCount = new Number()
-            this.Messages = new Array()
+            this.Messages = new List()
+            Object.defineProperties(this, {
+                _messageIds: { value: new List(), writable: false },
+                _lock: { value: "MessageManager.UserMessages._lock", writable: false },
+                _historyLoadTask: { value: function () { }, writable: true },
+                _historyLoaded: { value: new Boolean(), writable: true }
+            })
         }
         get CloudXInterface() {
             return this.Manager.Cloud
@@ -4179,6 +4196,7 @@ const Shared = {
     IdUtil,
     User,
     SearchParameters,
+    MessageManager,
     Message
 }
 const Util = {
