@@ -632,13 +632,13 @@ String.IsNullOrEmpty = function (str) {
  * @class Char
  */
 class Char {
-    static IsLetterOrDigit = function (char) {
+    static IsLetterOrDigit(char) {
         if (char == null || char == "" || char == ' ') return false
         if (!isNaN(char)) return true
         if (char.toUpperCase() != char.toLowerCase()) return true
         return false
     }
-    static IsWhiteSpace = function (char) {
+    static IsWhiteSpace(char) {
         if (!char) return false
         if (char == ' ') return true
         return false
