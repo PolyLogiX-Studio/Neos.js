@@ -723,7 +723,7 @@ class AssetDiff {
     }
 }
 class AssetMetadataRequest {
-    static MAX_BATCH_SIZE = 32
+    static get MAX_BATCH_SIZE(){return 32}
 }
 
 class AssetUploadData {
@@ -2108,7 +2108,7 @@ class RecordUtil {
  * @class IdUtil
  */
 class IdUtil {
-    static MAX_NAME_LENGTH = 20;
+    static get MAX_NAME_LENGTH(){ return 20}
     /**
      *
      * @static
