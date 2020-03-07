@@ -2909,15 +2909,14 @@ class CloudXInterface {
             this.CurrentUser = new User()
             this.CurrentUser.Id = this.CurrentSession.UserId
             this.CurrentUser.Username = credentials.Username
-            this.UpdateCurrentUserInfo()
-            this.UpdateCurrentUserMemberships()
-            this.Friends.Update()
+            await this.UpdateCurrentUserInfo()
+            await this.UpdateCurrentUserMemberships()
+            await this.Friends.Update()
             this.OnLogin()
         }
         else throw new Error("Error loging in: " + result.State + "\n" + result.Content)
         return result
     }
-    OnLogin() { }
     async ExtendSession() {
         return await this.PATCH("api/userSessions", null, new TimeSpan())
     }
