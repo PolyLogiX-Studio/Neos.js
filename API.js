@@ -94,7 +94,6 @@ class HTTP_CLIENT {
         let dat = { method: request.Method }
         dat.headers = request.Headers
         if (request.Method == "POST" || request.Method == "PATCH" || request.Method == "PUT") dat.body = request.Content
-
         let response = await fetch(request.RequestUri, dat).then(res => {
             state = res.status
             resHeaders = res.headers
@@ -2441,19 +2440,19 @@ class CloudXInterface {
         /** @type AuthenticationHeaderValue */
         this._currentAuthenticationHeader;
         /** @type Date */
-        this._lastSessionUpdate;
+        this._lastSessionUpdate = new Date(0)
         /** @type Date */
-        this.lastServerStatsUpdate;
+        this.lastServerStatsUpdate = new Date(0)
         /** @type HttpClient */
         this.HttpClient
         /** @type RSAParameters */
         this.PublicKey
         /** @type Number */
-        this.ServerResponseTime
+        this.ServerResponseTime = 0
         /** @type Date */
-        this.LastServerUpdate
+        this.LastServerUpdate = new Date(0)
         /** @type Date */
-        this.lastServerStateFetch
+        this.lastServerStateFetch = new Date(0)
         /** @type FriendManager */
         this.Friends
         /** @type MessageManager */
@@ -2466,6 +2465,7 @@ class CloudXInterface {
         this.GroupUpdated
         this.GroupMemberUpdated
         //Setup Private Properties
+        
         Object.defineProperties(this, {
             _groupMemberships: { value: new List(), writable: true },
             _groupMemberInfos: { value: new Dictionary(), writable: true },
@@ -2474,7 +2474,8 @@ class CloudXInterface {
             _currentUser: { writable: true },
             _cryptoProvider: { writable: true },
             _currentAuthenticationHeader: { writable: true },
-            _lastSessionUpdate: { writable: true },
+            _lastSessionUpdate: { value:new Date(0),writable: true },
+            _lastServerStatsUpdate: { value:new Date(0),writable: true },
             lockobj: { value: "CloudXLockObj" }
         })
         this.CloudXInterface()
@@ -2565,7 +2566,7 @@ class CloudXInterface {
     get ServerStatus() {
         if (new Date(new Date() - this.lastServerStateFetch).getSeconds() >= 60.0) return ServerStatus.NoInternet
         if (new Date(new Date() - this.LastServerUpdate).getSeconds() >= 60.0) return ServerStatus.Down
-        return this.ServerResponseTime > 250 ? this.ServerStatus.Slow : this.ServerStatus.Good
+        return this.ServerResponseTime > 250 ? ServerStatus.Slow : ServerStatus.Good
     }
     get CurrentUser() {
         return this._currentUser;
@@ -2641,27 +2642,26 @@ class CloudXInterface {
         this.Transactions = new TransactionManager(this);
     }
     Update() {
-        Lock.acquire(this.lockobj, () => {
             if (this.CurrentSession != null) {
                 if (new Date(new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0) {
                     this.ExtendSession()
                     this._lastSessionUpdate = new Date()
                 }
             }
-        })
         if (new Date(new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0) {
             (async () => {
-                cloudResult = await this.GetServerStatistics()
+                let cloudResult = await this.GetServerStatistics()
                 if (cloudResult.IsOK) {
                     this.ServerResponseTime = cloudResult.Entity.ResponseTimeMilliseconds
                     this.LastServerUpdate = cloudResult.Entity.LastUpdate;
                 }
                 this.lastServerStateFetch = new Date()
-            })
+            })()
             this._lastServerStatsUpdate = new Date()
         }
         this.Friends.Update()
         this.Messages.Update()
+        return true
     }
     HasPotentialAccess(ownerId) {
         switch (IdUtil.GetOwnerType(ownerId)) {
@@ -2864,7 +2864,7 @@ class CloudXInterface {
                     }
                 }
                 catch (error) {
-                    console.log('Exception deserializing ')
+                    console.error('Exception deserializing ')
                 }
                 finally {
 
@@ -2918,7 +2918,7 @@ class CloudXInterface {
         return result
     }
     async ExtendSession() {
-        return await this.PATCH("api/userSessions", null, new TimeSpan())
+        return await this.PATCH("api/userSessions", {}, new TimeSpan())
     }
 
     /**
@@ -3387,7 +3387,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async CreateNeosSession(session) {
-        return await this.POST("api/neosSessions", session, new TimeSpan()).then((b) => { b.Content = new NeosSession(b.Entity) })
+        return await this.POST("api/neosSessions", session, new TimeSpan()).then((b) => { b.Content = new NeosSession(b.Entity); return b })
     }
     /**
      *
@@ -3396,7 +3396,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async PatchNeosSession(session) {
-        return await this.PATCH("api/neosSessions", session, new TimeSpan()).then((b) => { b.Content = new NeosSession(b.Entity) })
+        return await this.PATCH("api/neosSessions", session, new TimeSpan()).then((b) => { b.Content = new NeosSession(b.Entity); return b })
     }
     /**
      * Get User Status
@@ -3406,7 +3406,7 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async GetStatus(userId) {
-        return await this.GET("api/users/" + userId + "/status", new TimeSpan()).then((b) => { b.Content = new UserStatus(b.Entity) })
+        return await this.GET("api/users/" + userId + "/status", new TimeSpan()).then((b) => { b.Content = new UserStatus(b.Entity); return b })
     }
     /**
      * Update the User Status
@@ -3422,7 +3422,7 @@ class CloudXInterface {
      */
     async UpdateStatus(userId, status) {
         if (!status) return await this.UpdateStatus(this.CurrentUser.Id, userId)
-        return await this.PUT("api/users/" + userid + "/status", status, new TimeSpan())
+        return await this.PUT("api/users/" + userId + "/status", status, new TimeSpan())
     }
     /**
      * Update the User Profile
@@ -3538,6 +3538,7 @@ class CloudXInterface {
         if (unreadOnly)
             stringBuilder.Append("&unread=true")
         return await this.GET(`api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`, new TimeSpan()).then((b) => {
+            
             let a = new List();
             for (let item of b.Entity)
                 a.Add(new Message(item))
@@ -3773,10 +3774,16 @@ class FriendManager {
      * @param {List<Friend>} list
      * @memberof FriendManager
      */
-    GetFriends(list) {
-        for (let friend of this.friends) {
-            list.push(friend.Value)
+    GetFriends(friendId) {
+        switch(Type.Get(friendId)){
+            case "List":
+            for (let friend of this.friends) {
+                friendId.Add(friend.Value)
+            }
+            break
+
         }
+        
     }
 
     /**
@@ -4196,7 +4203,9 @@ const Shared = {
     User,
     SearchParameters,
     MessageManager,
-    Message
+    Message,
+    NeosSession,
+    UserStatus
 }
 const Util = {
     Type,
