@@ -46,7 +46,7 @@ class Action {
  */
 class Task extends Promise {
 }
-const {v4:uuidv4} = require('uuid')
+const { v4: uuidv4 } = require('uuid')
 const fetch = require('node-fetch')
 const AsyncLock = require('async-lock')
 const Lock = new AsyncLock()
@@ -94,10 +94,11 @@ class HTTP_CLIENT {
         let dat = { method: request.Method }
         dat.headers = request.Headers
         if (request.Method == "POST" || request.Method == "PATCH" || request.Method == "PUT") dat.body = request.Content
+        console.log(request)
         let response = await fetch(request.RequestUri, dat).then(res => {
             state = res.status
             resHeaders = res.headers
-            return res.text().then((body)=>{
+            return res.text().then((body) => {
                 try {
                     return JSON.parse(body)
                 } catch (error) {
@@ -106,8 +107,9 @@ class HTTP_CLIENT {
             })
         })
             .catch(err => console.error(err));
-        let cloudResult = new CloudResult("",state,response,resHeaders)
+        let cloudResult = new CloudResult("", state, response, resHeaders)
         cloudResult.CloudResult(state, response, resHeaders)
+        console.log(cloudResult)
         return cloudResult
     }
 }
@@ -510,6 +512,13 @@ class Dictionary extends Array {
         if (this.ContainsKey(Key)) throw new Error("ArgumentException: An element with the same key already exists")
         this.push({ Key, Value })
     }
+    Replace(key, Value) {
+        if (!this.ContainsKey(key)) return false
+        for (let object of this) {
+            if (object.Key == key) { this[this.indexOf(object)].Value = Value; return true }
+        }
+        return false
+    }
     /**
      *
      *
@@ -517,6 +526,10 @@ class Dictionary extends Array {
      */
     Clear() {
         this.splice(0, this.length)
+    }
+    CheckCount(func) {
+        if (func == null) return this.length;
+        return this.filter(func).length
     }
     /**
      *
@@ -722,7 +735,7 @@ class AssetDiff {
     }
 }
 class AssetMetadataRequest {
-    static get MAX_BATCH_SIZE(){return 32}
+    static get MAX_BATCH_SIZE() { return 32 }
 }
 
 class AssetUploadData {
@@ -1276,6 +1289,9 @@ class RSAParametersData {
         return new RSAParametersData(data)
     }
 }
+const SessionAccessLevel = new Enumerable([
+    "Private", "LAN", "Friends", "RegisteredUsers", "Anyone"
+])
 class ServerStatistics {
     /**
      *Creates an instance of ServerStatistics.
@@ -1776,6 +1792,12 @@ class CloudVariableDefinition {
     }
 }
 class Friend {
+
+    /**
+     *Creates an instance of Friend.
+     * @param {*} $b
+     * @memberof Friend
+     */
     constructor($b) {
         if (!$b) $b = {}
         this.FriendUserId = $b.id
@@ -1785,7 +1807,7 @@ class Friend {
         this.IsAccepted = $b.isAccepted
         this.UserStatus = new UserStatus($b.userStatus)
         this.LatestMessageTime = $b.latestMessageTime
-        this.Profile = $b.profile
+        this.Profile = new UserProfile($b.profile)
     }
 }
 class Group {
@@ -2107,7 +2129,7 @@ class RecordUtil {
  * @class IdUtil
  */
 class IdUtil {
-    static get MAX_NAME_LENGTH(){ return 20}
+    static get MAX_NAME_LENGTH() { return 20 }
     /**
      *
      * @static
@@ -2465,7 +2487,7 @@ class CloudXInterface {
         this.GroupUpdated
         this.GroupMemberUpdated
         //Setup Private Properties
-        
+
         Object.defineProperties(this, {
             _groupMemberships: { value: new List(), writable: true },
             _groupMemberInfos: { value: new Dictionary(), writable: true },
@@ -2474,8 +2496,8 @@ class CloudXInterface {
             _currentUser: { writable: true },
             _cryptoProvider: { writable: true },
             _currentAuthenticationHeader: { writable: true },
-            _lastSessionUpdate: { value:new Date(0),writable: true },
-            _lastServerStatsUpdate: { value:new Date(0),writable: true },
+            _lastSessionUpdate: { value: new Date(0), writable: true },
+            _lastServerStatsUpdate: { value: new Date(0), writable: true },
             lockobj: { value: "CloudXLockObj" }
         })
         this.CloudXInterface()
@@ -2642,12 +2664,12 @@ class CloudXInterface {
         this.Transactions = new TransactionManager(this);
     }
     Update() {
-            if (this.CurrentSession != null) {
-                if (new Date(new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0) {
-                    this.ExtendSession()
-                    this._lastSessionUpdate = new Date()
-                }
+        if (this.CurrentSession != null) {
+            if (new Date(new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0) {
+                this.ExtendSession()
+                this._lastSessionUpdate = new Date()
             }
+        }
         if (new Date(new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0) {
             (async () => {
                 let cloudResult = await this.GetServerStatistics()
@@ -2983,7 +3005,7 @@ class CloudXInterface {
         if (this.CurrentSession != null && !this.CurrentSession.RememberMe | manualLogOut) {
             let _userId = this.CurrentSession.UserId
             let _sessionToken = this.CurrentSession.SessionToken
-                (async () => await this.DELETE("api/userSessions/" + _userId + "/" + _sessionToken, new TimeSpan()))
+                (async () => { await this.DELETE("api/userSessions/" + _userId + "/" + _sessionToken, new TimeSpan()) })()
         }
         this._cryptoProvider = null
         this.PublicKey // TODO RSAParameters
@@ -3348,7 +3370,8 @@ class CloudXInterface {
                 case null:
                     break
                 default:
-                    return console.error("Something Happened?")
+                    return new CloudResult("error", cloudResult.State, cloudResult.Content)
+                //TODO Deserialize
             }
         }
         return new CloudResult('default', cloudResult.State, cloudResult.Content)
@@ -3449,11 +3472,12 @@ class CloudXInterface {
      */
     async GetFriends(userId, lastStatusUpdate = null) {
         if (typeof userId != 'string') return await this.GetFriends(this.CurrentUser.Id, userId)
-        let str = new String()
+        let str = ''
         if (lastStatusUpdate)
-            str += '?lastStatusUpdate=' + lastStatusUpdate.toUTCString();
+            str += '?lastStatusUpdate=' + encodeURI(lastStatusUpdate.toUTCString())
         return await this.GET("api/users/" + userId + "/friends" + str, new TimeSpan()).then((b) => {
             let a = new List();
+            console.log(b)
             for (let item of b.Entity)
                 a.Add(new Friend(item))
             b.Content = a
@@ -3538,7 +3562,7 @@ class CloudXInterface {
         if (unreadOnly)
             stringBuilder.Append("&unread=true")
         return await this.GET(`api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`, new TimeSpan()).then((b) => {
-            
+
             let a = new List();
             for (let item of b.Entity)
                 a.Add(new Message(item))
@@ -3734,9 +3758,9 @@ class FriendManager {
         /** @type Dictionary<string, SessionInfo> */
         this._friendSessions
         /** @type Date */
-        this.lastStatusUpdate = null
+        this.lastStatusUpdate = new Date(0)
         /** @type Date */
-        this.lastRequest = new Date()
+        this.lastRequest = new Date(0)
         /** @type boolean */
         this._friendsChanged
         /** @type CloudXInterface */
@@ -3775,15 +3799,18 @@ class FriendManager {
      * @memberof FriendManager
      */
     GetFriends(friendId) {
-        switch(Type.Get(friendId)){
+        switch (Type.Get(friendId)) {
             case "List":
-            for (let friend of this.friends) {
-                friendId.Add(friend.Value)
-            }
-            break
-
+                for (let friend of this.friends) {
+                    friendId.Add(friend.Value)
+                }
+                break
+            case "String":
+                let friend = new Out();
+                if (this.friends.TryGetValue(friendId, friend))
+                    return friend.Out
+                return null
         }
-        
     }
 
     /**
@@ -3823,29 +3850,23 @@ class FriendManager {
      * @memberof FriendManager
      */
     GetFriend(friendId) {
-        Lock.acquire(this._lock, () => {
-            let friend = new Out()
-            if (this.friends.TryGetValue(friendId, friend))
-                return friend.Out
-            return null
-        })
+        let friend = new Out()
+        if (this.friends.TryGetValue(friendId, friend))
+            return friend.Out
+        return null
     }
     FindFriend(predicate) {
-        Lock.acquire(this._lock, () => {
-            for (let friend of this.friends) {
-                if (predicate(friend.Value))
-                    return friend.Value
-            }
-        })
+        for (let friend of this.friends) {
+            if (predicate(friend.Value))
+                return friend.Value
+        }
         return null
     }
     IsFriend(userId) {
-        Lock.acquire(this._lock, () => {
-            let friend = new Out()
-            if (this.friends.TryGetValue(userId, friend))
-                return friend.Out.FriendStatus == FriendStatus.Accepted;
-            return false
-        })
+        let friend = new Out()
+        if (this.friends.TryGetValue(userId, friend))
+            return friend.Out.FriendStatus == "Accepted";
+        return false
     }
     /**
      *
@@ -3856,11 +3877,11 @@ class FriendManager {
     AddFriend(friend) {
         switch (Type.Get(friend)) {
             case "String":
-                this.AddFriend(new Friend({ 'friendUserId': friend, 'friendUsername': friend.Substr(2), 'friendStatus': FriendStatus.Accepted }))
+                this.AddFriend(new Friend({ 'friendUserId': friend, 'friendUsername': friend.Substr(2), 'friendStatus': "Accepted" }))
                 break;
             case "Friend":
                 friend.OwnerId = this.Cloud.CurrentUser.Id;
-                friend.FriendStatus = FriendStatus.Accepted;
+                friend.FriendStatus = "Accepted";
                 this.Cloud.UpsertFriend(friend);
                 Lock.acquire(this._lock, () => {
                     this.AddedOrUpdated(friend)
@@ -3870,14 +3891,119 @@ class FriendManager {
     }
     RemoveFriend(friend) {
         friend.OwnerId = this.Cloud.CurrentUser.Id
-        friend.FriendStatus = FriendStatus.Ignored;
+        friend.FriendStatus = "Ignored";
         this.Cloud.DeleteFriend(friend)
-        Lock.acquire(this._lock, () => {
-            this.Removed(friend)
-        })
+        this.Removed(friend)
     }
-    Update() { }
-    //TODO Friend Manager
+    IgnoreRequest(friend) {
+        friend.OwnerId = this.Cloud.CurrentSession.UserId;
+        friend.FriendStatus = "Ignored"
+        this.Cloud.UpsertFriend(friend);
+        this.AddedOrUpdated(friend)
+    }
+    FriendAdded() { }
+    FriendUpdated() { }
+    FriendRemoved() { }
+    FriendsChanged() { }
+    FriendRequestCountChanged() { }
+    /**
+     *
+     *
+     * @param {Friend} friend
+     * @memberof FriendManager
+     */
+    AddedOrUpdated(friend) {
+        let old = new Out();
+        console.log('addedorupdated friend')
+        if (!this.friends.TryGetValue(friend.FriendUserId, old)) {
+            console.log("FailedTryGet")
+            this.friends.Add(friend.FriendUserId, friend);
+            let friendAdded = this.FriendAdded
+            if (friendAdded != null)
+                friendAdded(friend);
+        }
+        else {
+            console.log("PassedTryGet")
+            this.friends.Replace(friend.FriendUserId, friend)
+            let friendUpdated = this.FriendUpdated
+            if (friendUpdated != null)
+                friendUpdated(friend, old.Out)
+        }
+        this._friendsChanged = true
+    }
+    /**
+     *
+     *
+     * @param {Friend} friend
+     * @memberof FriendManager
+     */
+    Removed(friend) {
+        this.friends.Remove(friend.FriendUserId)
+        let friendRemoved = this.FriendRemoved
+        if (friendRemoved != null)
+            friendRemoved(friend)
+        this._friendsChanged = true
+    }
+    Reset() {
+        for (let friend of this.friends) {
+            let friendRemoved = this.FriendRemoved
+            if (friendRemoved != null)
+                friendRemoved(friend.Value)
+        }
+        this.friends.Clear()
+        this.lastStatusUpdate = new Date(0)
+        this.lastRequest = new Date(0)
+    }
+    Update() {
+        if (this._friendsChanged) {
+            this._friendsChanged = false
+            let num
+            num = this.friends.filter((f => {
+                console.log(f)
+                if (f.Value.FriendStatus == "Requested")
+                    return f.Value.FriendUserId != this.Cloud.CurrentUser.Id;
+                return false
+            })).length;
+            console.log(num)
+            this._friendSessions.Clear()
+            for (let friend of this.friends) {
+                if (!friend.Value.UserStatus) friend.Value.UserStatus = {}
+                if (friend.Value.UserStatus.ActiveSessions != null) {
+                    for (let activeSession in friend.Value.UserStatus.ActiveSessions) {
+                        if (activeSession.AccessLevel == SessionAccessLevel.Friends && !this._friendSessions.ContainsKey(activeSession.SessionId))
+                            this._friendSessions.Add(activeSession.SessionId, activeSession)
+                    }
+                }
+            }
+            if (num != this.FriendRequestCount) {
+                this.FriendRequestCount = num
+                let requestCountChanged = this.FriendRequestCountChanged;
+                if (requestCountChanged != null)
+                    requestCountChanged(this.FriendRequestCount)
+            }
+            let friendsChanged = this.FriendsChanged;
+            if (friendsChanged != null)
+                friendsChanged()
+        }
+        if (this.Cloud.CurrentUser == null || new Date(new Date() - this.lastRequest).getSeconds() < FriendManager.UPDATE_PERIOD_SECONDS) {
+            return
+        }
+        this.lastRequest = new Date();
+        this.Cloud.GetFriends(this.lastStatusUpdate).then((friends) => {
+            console.log(friends)
+            if (friends.IsError) { return }
+            console.log(friends.Entity)
+            for (let friend of friends.Entity) {
+                console.log("for (let friend of friends.Entity){", friend)
+                if (friend.UserStatus != null) {
+                    this.lastStatusUpdate = new Date()
+                }
+                this.AddedOrUpdated(friend)
+            }
+        })
+
+
+    }
 }
 
 
@@ -3940,7 +4066,7 @@ class MessageManager {
                     let tMessage = this.GetUserMessages(message.SenderId)
                     if (!tMessage)
                         hashSet.push(message);
-                    else {  tMessage.AddMessage(message) }
+                    else { tMessage.AddMessage(message) }
 
                 }
                 let flag1 = false
@@ -4031,18 +4157,16 @@ class MessageManager {
         }
         MarkAllRead() {
             let ids = null
-            Lock.acquire(this._lock, () => {
-                if (this.UnreadCount == 0) return;
-                ids = new Array()
-                for (message of this.Messages) {
-                    if (!message.IsSent && !(message.ReadTime != undefined)) {
-                        message.ReadTime = new Date()
-                        ids.push(message.Id)
-                    }
+            if (this.UnreadCount == 0) return;
+            ids = new Array()
+            for (let message of this.Messages) {
+                if (!message.IsSent && !(message.ReadTime != undefined)) {
+                    message.ReadTime = new Date()
+                    ids.push(message.Id)
                 }
-                this.UnreadCount = 0;
-            })
-                (async () => { await this.Cloud.MarkMessagesRead(ids) })
+            }
+            this.UnreadCount = 0;
+            (async () => { await this.Cloud.MarkMessagesRead(ids) })()
             this.Manager.MarkUnreadCountDirty()
         }
         CreateTextMessage(text) {
@@ -4122,17 +4246,15 @@ class MessageManager {
             }
         }
         AddMessage(message) {
-            Lock.acquire(this._lock, () => {
-                if (this._messageIds.includes(message.Id)) return false;
-                this.Messages.Add(message)
-                this._messageIds.Add(message.Id)
-                if (message.IsReceived && !message.ReadTime != undefined)++this.UnreadCount
-                while (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY || this.Messages.length > MessageManager.MAX_UNREAD_HISTORY && (this.Messages[0].IsSent || this.Messages[0].ReadTime != undefined)) {
-                    this._messageIds.Remove(this.Messages[0].Id)
-                    this.Messages.RemoveAt(0)
-                }
-                return true
-            })
+            if (this._messageIds.includes(message.Id)) return false;
+            this.Messages.Add(message)
+            this._messageIds.Add(message.Id)
+            if (message.IsReceived && !message.ReadTime != undefined)++this.UnreadCount
+            while (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY || this.Messages.length > MessageManager.MAX_UNREAD_HISTORY && (this.Messages[0].IsSent || this.Messages[0].ReadTime != undefined)) {
+                this._messageIds.Remove(this.Messages[0].Id)
+                this.Messages.RemoveAt(0)
+            }
+            return true
             return true
         }
         GetMessages(messages) {
@@ -4149,18 +4271,17 @@ class StringNumberConversion {
 }
 class TransactionManager {
     constructor(cloud) {
-        this.Cloud = cloud
-        this.NCRConversionRatio
+        this.TransactionManager(cloud)
     }
     TransactionManager(cloud) {
-        this.Cloud = cloud
-            (async () => { await this.LoadConversionData() })
+        this.Cloud = cloud;
+            (async () => { await this.LoadConversionData() })()
     }
     async LoadConversionData() {
         let cloudResult = await this.Cloud.ReadGlobalVariable(TransactionUtil.NCR_CONVERSION_VARIABLE)
         if (cloudResult.IsOK) {
-            this.NCRConversionRatio = BigInt(StringNumberConversion.DecimalToBigInt(cloudResult.Entity));
-        } else {
+            this.NCRConversionRatio = parseFloat(cloudResult.Entity.value)
+                } else {
             console.error("Error getting conversion ratio. " + cloudResult.State.ToString() + "\n\n" + cloudResult.Content);
         }
     }
@@ -4173,8 +4294,45 @@ class TransactionManager {
             return new BigInt(num / ncrConversionRatio)
         }
         if (!(targetToken == "USD")) return new Number()
+        if (sourceToken != null) {
+            if (!(sourceToken == "NCR")) {
+                if (sourceToken == "KFC")
+                    return new Number()
+            }
+            else {
+                let num = sourceAmount
+                let ncrConversionRatio = this.NCRConversionRatio
+                if (!ncrConversionRatio)
+                    return new Number()
+                return new Number(num * ncrConversionRatio)
+
+            }
+        }
+        return new Number()
     }
-    //TODO Rest of Thing, Will Break
+    IsValidToken(token) {
+        return token != null && (token == "NCR" || token == "KFC")
+    }
+    ToUSD(token, amount) {
+        if (token != null) {
+            if (!(token == "NCR")) {
+                if (token == "KFC")
+                    return new Number()
+            }
+            else {
+                if (!this.NCRConversionRatio)
+                    return new Number()
+                return new Number(this.NCRConversionRatio * amount)
+            }
+        }
+        throw new Error("Invalid Token: " + token)
+    }
+    static FormatCurrency(amount) {
+        if (!amount)
+            return "N/A"
+        return amount.toString()
+
+    }
 }
 class CryptoHelper { }
 class ComputationLock { }
@@ -4205,7 +4363,8 @@ const Shared = {
     MessageManager,
     Message,
     NeosSession,
-    UserStatus
+    UserStatus,
+    TransactionManager
 }
 const Util = {
     Type,
