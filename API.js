@@ -4154,7 +4154,7 @@ class MessageManager {
                 }
             }
             this.UnreadCount = 0;
-            (async () => { await this.Cloud.MarkMessagesRead(ids) })()
+            (async () => { await this.Manager.Cloud.MarkMessagesRead(ids) })()
             this.Manager.MarkUnreadCountDirty()
         }
         CreateTextMessage(text) {
@@ -4177,7 +4177,7 @@ class MessageManager {
         AddSentTransactionMessage(token, amount, comment) {
             let message = new Message()
             message.Id = Message.GenerateId();
-            message.OwnerId = this.Cloud.CurrentUser.Id;
+            message.OwnerId = this.Manager.Cloud.CurrentUser.Id;
             message.RecipientId = this.UserId
             message.SenderId = message.OwnerId
             message.SendTime = new Date()
@@ -4202,9 +4202,9 @@ class MessageManager {
             Lock.acquire(this._lock, () => {
                 this.Messages.push(message)
             })
-            let friend = this.Cloud.Friends.GetFriend(message.RecipientId)
+            let friend = this.Manager.Cloud.Friends.GetFriend(message.RecipientId)
             if (friend != null) friend.LatestMessageTime = new Date()
-            return await this.Cloud.SendMessage(message)
+            return await this.Manager.Cloud.SendMessage(message)
         }
         async SendTextMessage(text) {
             return await this.SendMessage(this.CreateTextMessage(text))
@@ -4216,7 +4216,7 @@ class MessageManager {
                 if (this._historyLoaded) return;
                 if (this._historyLoadTask == null) {
                     isFirstRequest = true
-                    this._historyLoadTask = this.Cloud.GetMessageHistory(this.UserId, MessageManager.MAX_READ_HISTORY)
+                    this._historyLoadTask = this.Manager.Cloud.GetMessageHistory(this.UserId, MessageManager.MAX_READ_HISTORY)
 
                 }
             })
