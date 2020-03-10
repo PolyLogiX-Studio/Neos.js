@@ -1,6 +1,7 @@
-class test {
+const {CloudX} = require("./API.js")
+class Neos {
     constructor(){
         
     }
 }
-module.exports.CloudXInterface = test
+module.exports = {Neos, CloudX}
