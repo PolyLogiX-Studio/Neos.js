@@ -94,7 +94,6 @@ class HTTP_CLIENT {
         let dat = { method: request.Method }
         dat.headers = request.Headers
         if (request.Method == "POST" || request.Method == "PATCH" || request.Method == "PUT") dat.body = request.Content
-        console.log(request)
         let response = await fetch(request.RequestUri, dat).then(res => {
             state = res.status
             resHeaders = res.headers
@@ -109,7 +108,6 @@ class HTTP_CLIENT {
             .catch(err => console.error(err));
         let cloudResult = new CloudResult("", state, response, resHeaders)
         cloudResult.CloudResult(state, response, resHeaders)
-        console.log(cloudResult)
         return cloudResult
     }
 }
@@ -3477,7 +3475,6 @@ class CloudXInterface {
             str += '?lastStatusUpdate=' + encodeURI(lastStatusUpdate.toUTCString())
         return await this.GET("api/users/" + userId + "/friends" + str, new TimeSpan()).then((b) => {
             let a = new List();
-            console.log(b)
             for (let item of b.Entity)
                 a.Add(new Friend(item))
             b.Content = a
@@ -3914,16 +3911,13 @@ class FriendManager {
      */
     AddedOrUpdated(friend) {
         let old = new Out();
-        console.log('addedorupdated friend')
         if (!this.friends.TryGetValue(friend.FriendUserId, old)) {
-            console.log("FailedTryGet")
             this.friends.Add(friend.FriendUserId, friend);
             let friendAdded = this.FriendAdded
             if (friendAdded != null)
                 friendAdded(friend);
         }
         else {
-            console.log("PassedTryGet")
             this.friends.Replace(friend.FriendUserId, friend)
             let friendUpdated = this.FriendUpdated
             if (friendUpdated != null)
@@ -3959,12 +3953,10 @@ class FriendManager {
             this._friendsChanged = false
             let num
             num = this.friends.filter((f => {
-                console.log(f)
                 if (f.Value.FriendStatus == "Requested")
                     return f.Value.FriendUserId != this.Cloud.CurrentUser.Id;
                 return false
             })).length;
-            console.log(num)
             this._friendSessions.Clear()
             for (let friend of this.friends) {
                 if (!friend.Value.UserStatus) friend.Value.UserStatus = {}
@@ -3990,11 +3982,8 @@ class FriendManager {
         }
         this.lastRequest = new Date();
         this.Cloud.GetFriends(this.lastStatusUpdate).then((friends) => {
-            console.log(friends)
             if (friends.IsError) { return }
-            console.log(friends.Entity)
             for (let friend of friends.Entity) {
-                console.log("for (let friend of friends.Entity){", friend)
                 if (friend.UserStatus != null) {
                     this.lastStatusUpdate = new Date()
                 }
