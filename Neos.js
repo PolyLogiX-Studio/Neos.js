@@ -1,75 +1,102 @@
 const {CloudX} = require("./API.js")
 const EventEmitter = require("events").EventEmitter
+class Events extends EventEmitter{
+    constructor(){super()}
+}
 class Neos extends EventEmitter {
     constructor(options){
         super()
-        this.Events = new EventEmitter()
+        this.Events = new Events()
         this.CloudX = CloudX
         this.CloudXInterface = new CloudX.Shared.CloudXInterface(this.Events)
         this._UserMessage = new CloudX.Shared.MessageManager.UserMessages()
         this._UserMessage.Cloud = this.CloudXInterface
-        console.log(this.CloudXInterface.Update())
-        this.CloudXInterface.OnLogin = function(){this.Events.emit('login')}
-        this.CloudXInterface.OnLogout = function(){this.Events.emit("logout")}
-        this.CloudXInterface.OnSessionUpdated = function(){this.Events.emit("sessionUpdated")}
-        this.CloudXInterface.SessionChanged = function(session){this.Events.emit("sessionChanged", session)}
-        this.CloudXInterface.UserUpdated = function(user){this.Events.emit("userUpdated", user)}
-        this.CloudXInterface.MembershipsUpdated = function(memberships){this.Events.emit("membershipsUpdated", memberships)}
-        this.CloudXInterface.GroupUpdated = function(group){this.Events.emit("groupUpdated", group)}
-        this.CloudXInterface.GroupMemberUpdated = function(groupMember){this.Events.emit("groupMemberUpdated", groupMember)}
-        this.CloudXInterface.Messages.onMessageReceived = function(message){this.Cloud.Events.emit("messageReceived", message)}
-        this.CloudXInterface.Messages.messageCountChanged = function(count){this.Cloud.Events.emit("messageCountChanged", count)}
-        this.CloudXInterface.Friends.FriendAdded = function(friend){this.Cloud.Events.emit("friendAdded", friend)}
-        this.CloudXInterface.Friends.FriendUpdated = function(friend){this.Cloud.Events.emit("friendUpdated", friend)}
-        this.CloudXInterface.Friends.FriendRemoved = function(friend){this.Cloud.Events.emit("friendRemoved", friend)}
-        this.CloudXInterface.Friends.FriendRequestCountChanged = function(count){this.Cloud.Events.emit("friendRequestCountChanged", count)}
-        this.CloudXInterface.Friends.FriendsChanged = function(){this.Cloud.Events.emit("friendsChanged")}
+        this.CloudXInterface.OnLogin = ()=>{this.Events.emit('login')}
+        this.CloudXInterface.OnLogout = ()=>{this.Events.emit("logout")}
+        this.CloudXInterface.OnSessionUpdated = ()=>{this.Events.emit("sessionUpdated")}
+        this.CloudXInterface.SessionChanged = (session)=>{this.Events.emit("sessionChanged", session)}
+        this.CloudXInterface.UserUpdated = (user)=>{this.Events.emit("userUpdated", user)}
+        this.CloudXInterface.MembershipsUpdated = (memberships)=>{this.Events.emit("membershipsUpdated", memberships)}
+        this.CloudXInterface.GroupUpdated = (group)=>{this.Events.emit("groupUpdated", group)}
+        this.CloudXInterface.GroupMemberUpdated = (groupMember)=>{this.Events.emit("groupMemberUpdated", groupMember)}
+        this.CloudXInterface.Messages.onMessageReceived = (message)=>{this.Events.emit("messageReceived", message)}
+        this.CloudXInterface.Messages.messageCountChanged = (count)=>{this.Events.emit("messageCountChanged", count)}
+        this.CloudXInterface.Friends.FriendAdded = (friend)=>{this.Events.emit("friendAdded", friend)}
+        this.CloudXInterface.Friends.FriendUpdated = (friend)=>{this.Events.emit("friendUpdated", friend)}
+        this.CloudXInterface.Friends.FriendRemoved = (friend)=>{this.Events.emit("friendRemoved", friend)}
+        this.CloudXInterface.Friends.FriendRequestCountChanged = (count)=>{this.Events.emit("friendRequestCountChanged", count)}
+        this.CloudXInterface.Friends.FriendsChanged = ()=>{this.Events.emit("friendsChanged")}
+        //this.Interval = setInterval(this.CloudXInterface.Update,1000)
         this.Events.on("login",()=>{
-            
+            clearInterval(this.Interval)
+            this.Interval = setInterval(this.Update.bind(this),1000)
+            this.emit("login")
         })
         this.Events.on("logout",()=>{
-            
+            this.CloudXInterface.Friends.FriendAdded = (friend)=>{this.Events.emit("friendAdded", friend)}
+        this.CloudXInterface.Friends.FriendUpdated = (friend)=>{this.Events.emit("friendUpdated", friend)}
+        this.CloudXInterface.Friends.FriendRemoved = (friend)=>{this.Events.emit("friendRemoved", friend)}
+        this.CloudXInterface.Friends.FriendRequestCountChanged = (count)=>{this.Events.emit("friendRequestCountChanged", count)}
+        this.CloudXInterface.Friends.FriendsChanged = ()=>{this.Events.emit("friendsChanged")}
+        this.emit("logout")
         })
-        this.Events.on("sessionUpdated",()=>{
-            
+        this.Events.on("sessionUpdated",(session)=>{
+            this.emit("sessionUpdated",session)
         })
-        this.Events.on("sessionChanged",()=>{
-            
+        this.Events.on("sessionChanged",(session)=>{
+            this.emit("sessionChanged",session)
         })
-        this.Events.on("membershipsUpdated",()=>{
-            
+        this.Events.on("membershipsUpdated",(membership)=>{
+            this.emit("membershipsUpdated",membership)            
         })
-        this.Events.on("groupUpdated",()=>{
-            
+        this.Events.on("groupUpdated",(group)=>{
+            this.emit("groupUpdated",group)
         })
-        this.Events.on("groupMemberUpdated",()=>{
-            
+        this.Events.on("groupMemberUpdated",(member)=>{
+            this.emit("groupMemberUpdated",member)
         })
-        this.Events.on("messageReceived",()=>{
-            
+        this.Events.on("messageReceived",(message)=>{
+            this.emit("messageReceived", message)
+            this.CloudXInterface.MarkMessagesRead([message])
+            console.log(message)
         })
-        this.Events.on("messageCountChanged",()=>{
-            
+        this.Events.on("messageCountChanged",(count)=>{
+            this.emit("messageCountChanged",count)
         })
-        this.Events.on("friendAdded",()=>{
-            
+        this.Events.on("friendAdded",(friend)=>{
+            this.emit("friendAdded",friend)
         })
-        this.Events.on("friendUpdated",()=>{
-            
+        this.Events.on("friendUpdated",(friend)=>{
+            this.emit('friendUpdated',friend)
         })
         this.Events.on("friendRemoved",()=>{
-            
+            this.emit("friendRemoved",friend)
         })
-        this.Events.on("friendRequestCountChanged",()=>{
-            
+        this.Events.on("friendRequestCountChanged",(count)=>{
+            this.emit("friendRequestCountChanged",count)
         })
         this.Events.on("friendsChanged",()=>{
-            
+            this.emit("FriendsChanged")
         })
-        this.Events.on("userUpdated",()=>{
-            
+        this.Events.on("userUpdated",(user)=>{
+            this.emit("userUpdated",user)
         })
-        this.emit("ready")
+        
+        
+    }
+    Update(){
+        this.CloudXInterface.Update()
+    }
+    /**
+     *
+     *
+     * @param {String} UserId Neos User Id to send
+     * @param {String} Message Text to Send
+     * @memberof Neos
+     */
+    SendTextMessage(UserId,Message){
+        this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages)
+        this._UserMessage.SendTextMessage(Message)
     }
 }
-module.exports = {Neos, CloudX}
+module.exports = Neos

@@ -1615,6 +1615,16 @@ class UserProfile {
         this.ShowcaseItems = $b.showcaseItems;
         this.TokenOptOut = $b.tokenOptOut;
     }
+    /**
+     *
+     *
+     * @param {UserProfile} other
+     * @returns
+     * @memberof UserProfile
+     */
+    IsSame(other){
+        return (this.IconUrl == other.IconUrl && this.BackgroundUrl == other.BackgroundUrl && this.TagLine && other.TagLine) //TODO When implimented
+    }
     static MAX_SHOWCASE_ITEMS() {
         return 6
     }
@@ -1674,8 +1684,9 @@ class UserStatus {
      * @memberof UserStatus
      */
     IsSame(other) {
-        if (other == null || this.OnlineStatus != other.OnlineStatus || this.CurrentSessionId != other.currentSessionId)
+        if (other == null || this.OnlineStatus != other.OnlineStatus || this.CurrentSessionId != other.CurrentSessionId)
             return false
+        return true //TODO remove when implimented
         let activeSessions1 = this.ActiveSessions
         let num1 = activeSessions1 != null ? activeSessions1.Count : 0
         let activeSessions2 = this.ActiveSessions
@@ -1806,6 +1817,17 @@ class Friend {
         this.UserStatus = new UserStatus($b.userStatus)
         this.LatestMessageTime = $b.latestMessageTime
         this.Profile = new UserProfile($b.profile)
+    }
+    /**
+     *
+     *
+     * @param {Friend} other
+     * @memberof Friend
+     */
+    IsSame(other){
+        if (this.FriendUserId == other.FriendUserId && this.OwnerId == other.OwnerId && this.FriendUsername == other.FriendUsername && this.IsAccepted == other.IsAccepted && this.FriendStatus == other.FriendStatus && this.LatestMessageTime == other.LatestMessageTime && this.UserStatus.IsSame(other.UserStatus))
+            return true
+        return false        
     }
 }
 class Group {
@@ -2442,7 +2464,12 @@ class CloudXInterface {
     /**
      * 
      */
-    constructor(Events) {
+    constructor(BUS) {
+        this.HttpClient = new HTTP_CLIENT()
+        this.Friends = new FriendManager(this);
+        this.Messages = new MessageManager(this);
+        this.Transactions = new TransactionManager(this);
+
         /** @type List<Membership> */
         this._groupMemberships
         /** @type Dictionary<String, Member> */
@@ -2485,7 +2512,8 @@ class CloudXInterface {
         this.GroupUpdated
         this.GroupMemberUpdated
         //Setup Private Properties
-        this.Events = Events
+        //this.CloudXInterface()
+        this.Events = BUS
         Object.defineProperties(this, {
             _groupMemberships: { value: new List(), writable: true },
             _groupMemberInfos: { value: new Dictionary(), writable: true },
@@ -2498,7 +2526,7 @@ class CloudXInterface {
             _lastServerStatsUpdate: { value: new Date(0), writable: true },
             lockobj: { value: "CloudXLockObj" }
         })
-        this.CloudXInterface()
+        
     }
 
     static CloudEndpoint = new Enumerable([
@@ -2679,7 +2707,9 @@ class CloudXInterface {
             })()
             this._lastServerStatsUpdate = new Date()
         }
+        if (this.Friends)
         this.Friends.Update()
+        if (this.Messages)
         this.Messages.Update()
     }
     HasPotentialAccess(ownerId) {
@@ -2928,9 +2958,9 @@ class CloudXInterface {
             this.CurrentUser = new User()
             this.CurrentUser.Id = this.CurrentSession.UserId
             this.CurrentUser.Username = credentials.Username
-            await this.UpdateCurrentUserInfo()
-            await this.UpdateCurrentUserMemberships()
-            await this.Friends.Update()
+            this.UpdateCurrentUserInfo()
+            this.UpdateCurrentUserMemberships()
+            this.Friends.Update()
             this.OnLogin()
         }
         else throw new Error("Error loging in: " + result.State + "\n" + result.Content)
@@ -2998,7 +3028,6 @@ class CloudXInterface {
         return await this.GetUser(userId)
     }
     Logout(manualLogOut) {
-        this.OnLogout()
         if (this.CurrentSession != null && !this.CurrentSession.RememberMe | manualLogOut) {
             let _userId = this.CurrentSession.UserId
             let _sessionToken = this.CurrentSession.SessionToken
@@ -3011,6 +3040,8 @@ class CloudXInterface {
         this.ClearMemberships()
         this.Friends = new FriendManager(this)
         CloudXInterface.USE_CDN = false
+        
+        this.OnLogout()
     }
     SignHash(hash) {
         return this._cryptoProvider //TODO Cryptography
@@ -3873,7 +3904,7 @@ class FriendManager {
     AddFriend(friend) {
         switch (Type.Get(friend)) {
             case "String":
-                this.AddFriend(new Friend({ 'friendUserId': friend, 'friendUsername': friend.Substr(2), 'friendStatus': "Accepted" }))
+                this.AddFriend(new Friend({ 'id': friend, 'friendUsername': friend.substr(2), 'friendStatus': "Accepted" }))
                 break;
             case "Friend":
                 friend.OwnerId = this.Cloud.CurrentUser.Id;
@@ -3897,11 +3928,6 @@ class FriendManager {
         this.Cloud.UpsertFriend(friend);
         this.AddedOrUpdated(friend)
     }
-    FriendAdded() { }
-    FriendUpdated() { }
-    FriendRemoved() { }
-    FriendsChanged() { }
-    FriendRequestCountChanged() { }
     /**
      *
      *
@@ -3913,16 +3939,21 @@ class FriendManager {
         if (!this.friends.TryGetValue(friend.FriendUserId, old)) {
             this.friends.Add(friend.FriendUserId, friend);
             let friendAdded = this.FriendAdded
-            if (friendAdded != null)
-                friendAdded(friend);
+            if (friendAdded != null){
+                friendAdded(friend);}
+            this._friendsChanged = true
         }
         else {
+            if (!friend.IsSame(old.Out)){
             this.friends.Replace(friend.FriendUserId, friend)
             let friendUpdated = this.FriendUpdated
             if (friendUpdated != null)
                 friendUpdated(friend, old.Out)
+                this._friendsChanged = true
+            }
+            
         }
-        this._friendsChanged = true
+        
     }
     /**
      *
