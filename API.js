@@ -2442,7 +2442,7 @@ class CloudXInterface {
     /**
      * 
      */
-    constructor() {
+    constructor(Events) {
         /** @type List<Membership> */
         this._groupMemberships
         /** @type Dictionary<String, Member> */
@@ -2485,7 +2485,7 @@ class CloudXInterface {
         this.GroupUpdated
         this.GroupMemberUpdated
         //Setup Private Properties
-
+        this.Events = Events
         Object.defineProperties(this, {
             _groupMemberships: { value: new List(), writable: true },
             _groupMemberInfos: { value: new Dictionary(), writable: true },
@@ -2681,7 +2681,6 @@ class CloudXInterface {
         }
         this.Friends.Update()
         this.Messages.Update()
-        return true
     }
     HasPotentialAccess(ownerId) {
         switch (IdUtil.GetOwnerType(ownerId)) {
