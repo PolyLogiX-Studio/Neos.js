@@ -2,7 +2,7 @@
   "name": "neos.js",
   "version": "1.0.0",
   "description": "Neos API",
-  "main": "API.js",
+  "main": "Neos.js",
   "scripts": {
     "test": "exit 0"
   },
