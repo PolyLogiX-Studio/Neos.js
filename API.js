@@ -2246,7 +2246,7 @@ class User {
         this.RegistrationDate = $b.registrationDate
         this.QuotaBytes = $b.quotaBytes
         this.UsedBytes = $b.usedBytes
-        this.isVerified = $b.isVerified
+        this.IsVerified = $b.isVerified
         this.AccountBanExpiration = $b.accountBanExpiration || new Date(0)
         this.PublicBanExpiration = $b.publicBanExpiration || new Date(0)
         this.SpectatorBanExpiration = $b.spectatorBanExpiration || new Date(0)
@@ -2259,7 +2259,7 @@ class User {
         this.NCRDepositAddress = $b.NCRdepositAddress
         this.ReferralId = $b.referralId
         this.ReferrerUserId = $b.referrerUserId
-        this.Profile = $b.profile || new Object()
+        this.Profile = new UserProfile($b.profile)
     }
     get IsAccountBanned() {
         return new Date() < this.AccountBanExpiration
@@ -4091,7 +4091,7 @@ class MessageManager {
                 let flag1 = false
                 for (let message of cloudResult1.Entity) {
                     if (!hashSet.includes(message)) {
-                        if (this.InitialmessagesFetched && message.MessageType == MessageType.CreditTransfer) {
+                        if (this.InitialmessagesFetched && message.MessageType == "CreditTransfer") {
                             let content = message.ExtractContent()
                             let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id
                             let currentUser = this.Cloud.CurrentUser
@@ -4190,7 +4190,7 @@ class MessageManager {
         }
         CreateTextMessage(text) {
             let message = new Message()
-            message.MessageType = MessageType.Text
+            message.MessageType = 'Text'
             message.Content = text
             return message
         }
@@ -4198,7 +4198,7 @@ class MessageManager {
             let message = new Message()
             message.Id = Message.GenerateId()
             message.SendTime = new Date()
-            message.MessageType = MessageType.SessionInvite;
+            message.MessageType = "SessionInvite";
             message.SetContent(sessionInfo)
             return message
         }
@@ -4212,7 +4212,7 @@ class MessageManager {
             message.RecipientId = this.UserId
             message.SenderId = message.OwnerId
             message.SendTime = new Date()
-            message.MessageType = MessageType.CreditTransfer
+            message.MessageType = "CreditTransfer"
             let _transaction = new TransactionMessage()
             _transaction.Token = token
             _transaction.Amount = amount

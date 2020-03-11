@@ -6,6 +6,14 @@ class Events extends EventEmitter{
 class Neos extends EventEmitter {
     constructor(options){
         super()
+        //Setup Options
+        if (!options) options = {}
+        if (options.AutoReadMessages == null) options.AutoReadMessages = true
+        if (!options.OnlineState) options.OnlineState = "Online"
+        if (!options.NeosVersion) options.NeosVersion = "Neos.JS"
+        if (!options.CompatabilityHash) options.CompatabilityHash = "BOT"
+
+
         this.Events = new Events()
         this.CloudX = CloudX
         this.CloudXInterface = new CloudX.Shared.CloudXInterface(this.Events)
@@ -27,6 +35,8 @@ class Neos extends EventEmitter {
         this.CloudXInterface.Friends.FriendRequestCountChanged = (count)=>{this.Events.emit("friendRequestCountChanged", count)}
         this.CloudXInterface.Friends.FriendsChanged = ()=>{this.Events.emit("friendsChanged")}
         //this.Interval = setInterval(this.CloudXInterface.Update,1000)
+        this.lastStatusUpdate = null
+        this.Status = new CloudX.Shared.UserStatus({onlineStatus:options.OnlineState, compatabilityHash:options.CompatabilityHash,neosVersion:options.NeosVersion})
         this.Events.on("login",()=>{
             clearInterval(this.Interval)
             this.Interval = setInterval(this.Update.bind(this),1000)
@@ -57,8 +67,9 @@ class Neos extends EventEmitter {
         })
         this.Events.on("messageReceived",(message)=>{
             this.emit("messageReceived", message)
-            this.CloudXInterface.MarkMessagesRead([message])
-            console.log(message)
+            if (options.AutoReadMessages)
+                this.CloudXInterface.MarkMessagesRead([message])
+            console.log(message.SenderId + ":" + message.Content)
         })
         this.Events.on("messageCountChanged",(count)=>{
             this.emit("messageCountChanged",count)
@@ -86,7 +97,34 @@ class Neos extends EventEmitter {
     }
     Update(){
         this.CloudXInterface.Update()
+        if (!this.CloudXInterface.CurrentUser.Id) return;
+        if (!this.lastStatusUpdate) return this.UpdateStatus();
+        if(this.lastStatusUpdate.getSeconds() > 30) return this.UpdateStatus()
     }
+    UpdateStatus(){
+        this.CloudXInterface.UpdateStatus(this.Status);
+        this.lastStatusUpdate = new Date()
+    }
+    async Login(credential, password, sessionToken, machineId, rememberMe, recoverCode) {
+        return await this.CloudXInterface.Login(credential, password, sessionToken, machineId, rememberMe, recoverCode)
+    }
+    GetFriends(FriendId){}
+    GetFriend(friend){
+
+    }
+    IsFriend(friend){
+
+    }
+    AddFriend(friend){
+
+    }
+    RemoveFriend(friend){
+    }
+    IgnoreRequest(friend){
+
+    }
+    GetUserMessages(UserId){}
+    GetAllUserMessages(){}
     /**
      *
      *
