@@ -11,7 +11,7 @@ neos.SendMessage('U-Neos',"This is a Message!")
 ## Usage
 
 ```sh
-npm install NeosJS
+npm i @bombitmanbomb/neosjs
 ```
 
 ```js

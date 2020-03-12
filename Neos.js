@@ -11,8 +11,8 @@ class Neos extends EventEmitter {
         if (!options) options = {}
         if (options.AutoReadMessages == null) options.AutoReadMessages = true
         if (!options.OnlineState) options.OnlineState = "Online"
-        if (!options.NeosVersion) options.NeosVersion = "Neos.JS"
-        if (!options.CompatabilityHash) options.CompatabilityHash = "BOT"
+        if (!options.NeosVersion) options.NeosVersion = config.main + " " + config.version
+        if (!options.CompatabilityHash) options.CompatabilityHash = config.main + " " + config.version
 
 
         this.Events = new Events()
