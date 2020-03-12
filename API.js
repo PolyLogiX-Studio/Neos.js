@@ -615,7 +615,14 @@ class Dictionary extends Array {
         return true
     }
 }
-
+Number.prototype.TryParseInt = function(num, out){
+    if (!isNaN(parseInt(num))){
+        out.Out = parseInt(num)
+        return true
+    } else {
+        return false
+    }
+}
 Array.prototype.ToList = function () {
     let t = new List()
     for (let item of this) {
@@ -2433,6 +2440,9 @@ class UserTags {
     static get NCC_Silver() {
         return 'ncc silver'
     }
+    static get NeosEast(){
+        return "neos east"
+    }
     static CustomBadge(neosDb, pointFiltering) {
         let str = "custom badge:" + CloudXInterface.NeosDBSignature(neosDb);
         if (pointFiltering)
@@ -2450,7 +2460,15 @@ class UserTags {
     }
 }
 
-
+class ProductInfoHeaderValue {
+    constructor(product, version){
+        this.Product = product
+        this.Version = version
+    }
+    Value(){
+        return this.Product + " " + this.Version
+    }
+}
 
 class CloudResultGeneric extends CloudResult {
 
@@ -2464,11 +2482,8 @@ class CloudXInterface {
     /**
      * 
      */
-    constructor(BUS) {
-        this.HttpClient = new HTTP_CLIENT()
-        this.Friends = new FriendManager(this);
-        this.Messages = new MessageManager(this);
-        this.Transactions = new TransactionManager(this);
+    constructor(BUS, product, version) {
+        this.CloudXInterface(product,version)
 
         /** @type List<Membership> */
         this._groupMemberships
@@ -2499,7 +2514,13 @@ class CloudXInterface {
         /** @type Date */
         this.LastServerUpdate = new Date(0)
         /** @type Date */
-        this.lastServerStateFetch = new Date(0)
+        this.LastServerStateFetch = new Date(0)
+        /** @type Date */
+        this.LastLocalServerResponse = new Date(0)
+        /** @type String */
+        this.UserAgentProduct
+        /** @type String */
+        this.UserAgentVersion
         /** @type FriendManager */
         this.Friends
         /** @type MessageManager */
@@ -2551,7 +2572,7 @@ class CloudXInterface {
     /** @type Func<MemoryStream> */
     static MemoryStreamAllocator;
     static USE_CDN = new Boolean();
-    static CLOUDX_PRODUCTION_NEOS_API = "https://cloudx.azurewebsites.net/";
+    static CLOUDX_PRODUCTION_NEOS_API = "https://www.neosvr-api.com/";
     static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net/";
     static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
     static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
@@ -2573,7 +2594,7 @@ class CloudXInterface {
     static get NEOS_API() {
         switch (CloudXInterface.CLOUD_ENDPOINT) {
             case CloudXInterface.CloudEndpoint.Production:
-                return "https://cloudx.azurewebsites.net/";
+                return "https://www.neosvr-api.com/";
             case CloudXInterface.CloudEndpoint.Staging:
                 return "https://cloudx-staging.azurewebsites.net/";
             case CloudXInterface.CloudEndpoint.Local:
@@ -2612,9 +2633,9 @@ class CloudXInterface {
         return !CloudXInterface.USE_CDN ? "https://cloudxstorage.blob.core.windows.net/" : "https://cloudx.azureedge.net/";
     }
     get ServerStatus() {
-        if (new Date(new Date() - this.lastServerStateFetch).getSeconds() >= 60.0) return ServerStatus.NoInternet
+        if (new Date(new Date() - this.LastServerStateFetch).getSeconds() >= 60.0) return ServerStatus.NoInternet
         if (new Date(new Date() - this.LastServerUpdate).getSeconds() >= 60.0) return ServerStatus.Down
-        return this.ServerResponseTime > 250 ? ServerStatus.Slow : ServerStatus.Good
+        return this.ServerResponseTime > 500 ? ServerStatus.Slow : ServerStatus.Good
     }
     get CurrentUser() {
         return this._currentUser;
@@ -2683,9 +2704,12 @@ class CloudXInterface {
     OnLogin() { }
     OnLogout() { }
     OnSessionUpdated() { }
-    CloudXInterface() {
+    CloudXInterface(UserAgentProduct = "CloudX", UserAgentVersion = "0.0.0.0") {
         this.HttpClient = new HTTP_CLIENT()
         this.Friends = new FriendManager(this);
+        this.UserAgentProduct = UserAgentProduct
+        this.UserAgentVersion = UserAgentVersion
+        this.UserAgent = new ProductInfoHeaderValue(UserAgentProduct, UserAgentVersion)
         this.Messages = new MessageManager(this);
         this.Transactions = new TransactionManager(this);
     }
@@ -2703,7 +2727,7 @@ class CloudXInterface {
                     this.ServerResponseTime = cloudResult.Entity.ResponseTimeMilliseconds
                     this.LastServerUpdate = cloudResult.Entity.LastUpdate;
                 }
-                this.lastServerStateFetch = new Date()
+                this.LastServerStateFetch = new Date()
             })()
             this._lastServerStatsUpdate = new Date()
         }
@@ -2790,7 +2814,8 @@ class CloudXInterface {
         return this.RunRequest((() => {
 
             let request = this.CreateRequest(resource, HttpMethod.Post);
-            this.AddBody(request, entity)
+            if (entity != null)
+                this.AddBody(request, entity)
             return request;
         }), timeout)
     }
@@ -2846,6 +2871,7 @@ class CloudXInterface {
         let request = new HttpRequestMessage(method, CloudXInterface.NEOS_API + resource)
         if (this.CurrentSession != null)
             request.Headers.Authorization = this._currentAuthenticationHeader;
+            request.Headers.UserAgent = this.UserAgent.Value()
         return request
     }
     /**
@@ -3640,6 +3666,14 @@ class CloudXInterface {
      */
     async Ping() {
         return await this.GET("api/testing/ping", new TimeSpan())
+    }
+    NotifyOnlineInstance(machineId){
+        return this.POST("api/stats/instanceOnline/" + machineId, {}, new TimeSpan())
+    }
+    async GetOnlineInstanceCount(machineId) {
+        let cloudResult =  await this.GET("api/stats/onlineInstances/", new TimeSpan())
+        let result = new Out()
+        return !cloudResult.IsOK() || Number.TryParseInt(cloudResult.Content, result) ? -1 : result.Out
     }
     /**
      *

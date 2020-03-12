@@ -1,4 +1,5 @@
 const {CloudX} = require("./API.js")
+const config = require("./package.json")
 const EventEmitter = require("events").EventEmitter
 class Events extends EventEmitter{
     constructor(){super()}
@@ -16,7 +17,7 @@ class Neos extends EventEmitter {
 
         this.Events = new Events()
         this.CloudX = CloudX
-        this.CloudXInterface = new CloudX.Shared.CloudXInterface(this.Events)
+        this.CloudXInterface = new CloudX.Shared.CloudXInterface(this.Events, config.main, config.version)
         this._UserMessage = new CloudX.Shared.MessageManager.UserMessages()
         this._UserMessage.Cloud = this.CloudXInterface
         this.CloudXInterface.OnLogin = ()=>{this.Events.emit('login')}

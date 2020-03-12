@@ -1,8 +1,8 @@
 ﻿// Decompiled with JetBrains decompiler
 // Type: CloudX.Shared.CloudXInterface
 // Assembly: CloudX.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 6223B97A-06A5-46CB-9E10-78604961D6EE
-// Assembly location: J:\D\SteamLibrary\steamapps\common\NeosVR\HeadlessClient\CloudX.Shared.dll
+// MVID: 2635624C-5F24-4EFB-ACD1-7E9C1349B2F5
+// Assembly location: F:\SteamLibrary\steamapps\common\NeosVR\HeadlessClient\CloudX.Shared.dll
 
 using BaseX;
 using CodeX;
@@ -51,7 +51,7 @@ namespace CloudX.Shared
     public static Action ProfilerEndSampleCallback;
     public static Func<MemoryStream> MemoryStreamAllocator;
     public static bool USE_CDN;
-    private const string CLOUDX_PRODUCTION_NEOS_API = "https://cloudx.azurewebsites.net";
+    private const string CLOUDX_PRODUCTION_NEOS_API = "https://www.neosvr-api.com";
     private const string CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net";
     private const string CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
     private const string CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
@@ -63,6 +63,12 @@ namespace CloudX.Shared
     private AuthenticationHeaderValue _currentAuthenticationHeader;
     private DateTime _lastSessionUpdate;
     private DateTime _lastServerStatsUpdate;
+
+    public string UserAgentProduct { get; private set; }
+
+    public string UserAgentVersion { get; private set; }
+
+    public ProductInfoHeaderValue UserAgent { get; private set; }
 
     [Conditional("PROFILE")]
     private void ProfilerBeginSample(string name)
@@ -91,7 +97,7 @@ namespace CloudX.Shared
         switch (CloudXInterface.CLOUD_ENDPOINT)
         {
           case CloudXInterface.CloudEndpoint.Production:
-            return "https://cloudx.azurewebsites.net";
+            return "https://www.neosvr-api.com";
           case CloudXInterface.CloudEndpoint.Staging:
             return "https://cloudx-staging.azurewebsites.net";
           case CloudXInterface.CloudEndpoint.Local:
@@ -179,7 +185,7 @@ namespace CloudX.Shared
           return ServerStatus.NoInternet;
         if ((DateTime.UtcNow - this.LastServerUpdate).TotalSeconds >= 60.0)
           return ServerStatus.Down;
-        return this.ServerResponseTime > 250L ? ServerStatus.Slow : ServerStatus.Good;
+        return this.ServerResponseTime > 500L ? ServerStatus.Slow : ServerStatus.Good;
       }
     }
 
@@ -188,6 +194,8 @@ namespace CloudX.Shared
     public DateTime LastServerUpdate { get; private set; }
 
     public DateTime LastServerStateFetch { get; private set; }
+
+    public DateTime LastLocalServerResponse { get; private set; }
 
     public User CurrentUser
     {
@@ -315,10 +323,13 @@ namespace CloudX.Shared
 
     public TransactionManager Transactions { get; private set; }
 
-    public CloudXInterface()
+    public CloudXInterface(string userAgentProduct = "CloudX", string userAgentVersion = "0.0.0.0")
     {
       this.HttpClient = new HttpClient();
       this.HttpClient.Timeout = Timeout.InfiniteTimeSpan;
+      this.UserAgentProduct = userAgentProduct;
+      this.UserAgentVersion = userAgentVersion;
+      this.UserAgent = new ProductInfoHeaderValue(userAgentProduct, userAgentVersion);
       this.Friends = new FriendManager(this);
       this.Messages = new MessageManager(this);
       this.Transactions = new TransactionManager(this);
@@ -545,7 +556,8 @@ namespace CloudX.Shared
       return this.RunRequest((Func<HttpRequestMessage>) (() =>
       {
         HttpRequestMessage request = this.CreateRequest(resource, HttpMethod.Post);
-        this.AddBody(request, entity);
+        if (entity != null)
+          this.AddBody(request, entity);
         return request;
       }), timeout);
     }
@@ -614,6 +626,7 @@ namespace CloudX.Shared
       HttpRequestMessage httpRequestMessage = new HttpRequestMessage(method, CloudXInterface.NEOS_API + "/" + resource);
       if (this.CurrentSession != null)
         httpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
+      httpRequestMessage.Headers.UserAgent.Add(this.UserAgent);
       return httpRequestMessage;
     }
 
@@ -685,6 +698,8 @@ namespace CloudX.Shared
       string content = (string) null;
       if (result.IsSuccessStatusCode)
       {
+        if (request.RequestUri.OriginalString.Contains(CloudXInterface.NEOS_API))
+          this.LastLocalServerResponse = DateTime.UtcNow;
         if (typeof (T) == typeof (string))
         {
           content = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1822,6 +1837,11 @@ label_21:
       return this.GET("api/testing/ping", new TimeSpan?());
     }
 
+    public Task<CloudResult> NotifyOnlineInstance(string machineId)
+    {
+      return this.POST("api/stats/instanceOnline/" + machineId, (object) null, new TimeSpan?());
+    }
+
     public async Task<CloudResult<ServerStatistics>> GetServerStatistics()
     {
       try
@@ -1848,6 +1868,13 @@ label_21:
     public async Task<int> GetOnlineUserCount()
     {
       CloudResult cloudResult = await this.GET("api/stats/onlineUsers", new TimeSpan?());
+      int result;
+      return !cloudResult.IsOK || !int.TryParse(cloudResult.Content, out result) ? -1 : result;
+    }
+
+    public async Task<int> GetOnlineInstanceCount()
+    {
+      CloudResult cloudResult = await this.GET("api/stats/onlineInstances", new TimeSpan?());
       int result;
       return !cloudResult.IsOK || !int.TryParse(cloudResult.Content, out result) ? -1 : result;
     }
