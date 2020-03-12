@@ -1,6 +1,6 @@
 # NeosJS
 
-
+![npm](https://img.shields.io/npm/v/@bombitmanbomb/neosjs) ![npm](https://img.shields.io/npm/dt/@bombitmanbomb/neosjs) 
 
 > Library for communicating with the NeosAPI
 
@@ -10,9 +10,9 @@ neos.SendMessage('U-Neos',"This is a Message!")
 
 ## Usage
 
-```sh
-npm i @bombitmanbomb/neosjs
-```
+
+>npm i @bombitmanbomb/neosjs
+
 
 ```js
 const Neos = require('NeosJS')
