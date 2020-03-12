@@ -109,9 +109,26 @@ class Neos extends EventEmitter {
     async Login(credential, password, sessionToken, machineId, rememberMe, recoverCode) {
         return await this.CloudXInterface.Login(credential, password, sessionToken, machineId, rememberMe, recoverCode)
     }
-    GetFriends(FriendId){}
-    GetFriend(friend){
-
+    get CurrentUser(){
+        return this.CloudXInterface.CurrentUser
+    }
+    get CurrentSession(){
+        return this.CloudXInterface.CurrentSession
+    }
+    GetUsers(username){
+        return this.CloudXInterface.GetUsers(username)
+    }
+    GetUser(userId){
+        return this.CloudXInterface.GetUser(userId)
+    }
+    GetUserByName(username){
+        return this.CloudXInterface.GetUserByName(username)
+    }
+    GetFriends(userId){
+        return this.CloudXInterface.GetFriends(userId)
+    }
+    GetFriend(friendId){
+        return this.CloudXInterface.Friends.GetFriend(friendId)
     }
     IsFriend(friend){
 
@@ -124,7 +141,18 @@ class Neos extends EventEmitter {
     IgnoreRequest(friend){
 
     }
-    GetUserMessages(UserId){}
+    GetGroup(groupId){
+        return this.CloudXInterface.GetGroup(groupId)
+    }
+    GetGroupMember(groupId, userId){
+        return this.CloudXInterface.GetGroupMember(groupId, userId)
+    }
+    GetGroupMembers(groupId){
+        return this.CloudXInterface.GetGroupMembers(groupId)
+    }
+    GetUserMessages(UserId){
+        return this.CloudXInterface.GetUserMessages(UserId)
+    }
     GetAllUserMessages(){}
     /**
      *
