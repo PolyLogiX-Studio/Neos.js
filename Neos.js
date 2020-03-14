@@ -76,7 +76,7 @@ class Neos extends EventEmitter {
             this.emit("messageReceived", message)
             if (options.AutoReadMessages)
                 this.CloudXInterface.MarkMessagesRead([message])
-            console.log(message.SenderId + ":" + message.Content)
+            //console.log(message.SenderId + ":" + message.Content)
         })
         this.Events.on("messageCountChanged", (count) => {
             this.emit("messageCountChanged", count)
