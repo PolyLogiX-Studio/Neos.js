@@ -45,7 +45,7 @@ class Neos extends EventEmitter {
         this.lastStatusUpdate = null
         this.Status = new CloudX.Shared.UserStatus({ onlineStatus: options.OnlineState, compatabilityHash: options.CompatabilityHash, neosVersion: options.NeosVersion })
         this.Events.on("login", () => {
-            startInterval(options.UpdateInterval)
+            this.startInterval(options.UpdateInterval)
             this.emit("login")
         })
         this.Events.on("logout", () => {
