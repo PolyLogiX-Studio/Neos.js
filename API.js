@@ -3611,7 +3611,7 @@ class CloudXInterface {
         if (fromTime)
             stringBuilder.Append(`&fromTime=${Uri.EscapeDataString(fromTime.toUTCString())}`)
         if (user != null)
-            stringBuilder.Append(`&user=${user}`)
+            stringBuilder.Append(`&user=${Uri.EscapeDataString(user)}`)
         if (unreadOnly)
             stringBuilder.Append("&unread=true")
         return await this.GET(`api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`, new TimeSpan()).then((b) => {
@@ -4425,7 +4425,8 @@ const Util = {
     Dictionary,
     Enumerable,
     HashSet,
-    Uri
+    Uri,
+    Out
 }
 /**
  * @namespace CloudX
