@@ -31,6 +31,73 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 
 ```
 
+## Functions
+
+### `Neos.Login`
+
+<!-- YAML
+added: v1.1.1
+-->
+
+Credential must be a <Username, Email, User-Id>
+
+If there is a session token you must set password to `undefined`
+
+SecretMachineId must be Unique to your system, If there is a session logged in with the same machineId, the older one will be logged out. If this is left `undefined` it will log out All other sessions.
+
+if Recovery Token is NOT `undefined`, and Matched the token on the server, the value set to `password` will become the new account password.
+
+```js
+neos.Login("Credential","Password","[SessionToken]","SecretMachineId",[RememberMe]<Boolean>,"[RecoveryToken]").then((session)=>{
+    //UserSession
+})
+```
+
+### `Neos.Logout`
+
+<!-- YAML
+added: v1.1.1
+-->
+Log out the local user. This will Invalidate the `SessionToken`
+
+```js
+neos.Logout(true)
+```
+
+### `Neos.SendTextMessage`
+
+<!-- YAML
+added: v1.1.1
+-->
+Send a `Message`, As of 1.1.2 a UserId must be supplied
+
+```js
+neos.SendTextMessage("U-UserId","Hey this is a message")
+```
+
+### `Neos.GetStatus`
+
+<!-- YAML
+added: v1.1.1
+-->
+Get a `UserStatus`
+
+```js
+neos.GetStatus("U-Neos").then((status)=>{
+    //User Status
+})
+```
+
+### `Neos.GetMessageHistory`
+
+<!-- YAML
+added: v1.1.1
+-->
+Send a `Message`, As of 1.1.2 a UserId must be supplied
+
+```js
+neos.SendTextMessage("U-UserId","Hey this is a message")
+```
 
 ## Events
 
@@ -39,7 +106,6 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 <!-- YAML
 added: v0.0.1
 -->
-
 
 The `neos` instance will emit a `'login'` event when a new user is assigned via `neos.Login()
 ```js

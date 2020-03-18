@@ -4147,7 +4147,7 @@ class MessageManager {
                 this.InitialmessagesFetched = true;
                 if (!flag1) return;
                 await setTimeout(() => {
-                    cloudResult2 = this.Cloud.UpdateCurrentUserInfo()
+                    let cloudResult2 = this.Cloud.UpdateCurrentUserInfo()
                 }, 10000)
             })
 

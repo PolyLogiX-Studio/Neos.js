@@ -144,6 +144,9 @@ class Neos extends EventEmitter {
     async Login(credential, password, sessionToken, machineId, rememberMe, recoverCode) {
         return await this.CloudXInterface.Login(credential, password, sessionToken, machineId, rememberMe, recoverCode)
     }
+    Logout(manual = true){
+        this.CloudXInterface.Logout(manual)
+    }
     /**
      *
      * Get the Current User
@@ -185,8 +188,8 @@ class Neos extends EventEmitter {
      * @returns 
      * @memberof Neos
      */
-    GetUsers(username) {
-        return this.CloudXInterface.GetUsers(username)
+    async GetUsers(username) {
+        return await this.CloudXInterface.GetUsers(username)
     }
     /**
      *Get a specific User by their UserId
@@ -195,8 +198,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetUser(userId) {
-        return this.CloudXInterface.GetUser(userId)
+    async GetUser(userId) {
+        return await this.CloudXInterface.GetUser(userId)
     }
     /**
      *
@@ -205,8 +208,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetUserByName(username) {
-        return this.CloudXInterface.GetUserByName(username)
+    async GetUserByName(username) {
+        return await this.CloudXInterface.GetUserByName(username)
     }
     /**
      * Get the friends list of a user
@@ -215,8 +218,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetFriends(userId) {
-        return this.CloudXInterface.GetFriends(userId)
+    async GetFriends(userId) {
+        return await this.CloudXInterface.GetFriends(userId)
     }
     /**
      * get a user from your friend list
@@ -226,7 +229,7 @@ class Neos extends EventEmitter {
      * @memberof Neos
      */
     GetFriend(friendId) {
-        return this.CloudXInterface.Friends.GetFriend(friendId)
+        return  this.CloudXInterface.Friends.GetFriend(friendId)
     }
     /**
      * Check if a user is friends
@@ -277,8 +280,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetGroup(groupId) {
-        return this.CloudXInterface.GetGroup(groupId)
+    async GetGroup(groupId) {
+        return await this.CloudXInterface.GetGroup(groupId)
     }
     /**
      *Get a Member from a Group
@@ -288,8 +291,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetGroupMember(groupId, userId) {
-        return this.CloudXInterface.GetGroupMember(groupId, userId)
+    async GetGroupMember(groupId, userId) {
+        return await this.CloudXInterface.GetGroupMember(groupId, userId)
     }
     /**
      *Get the Members of a group
@@ -298,8 +301,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetGroupMembers(groupId) {
-        return this.CloudXInterface.GetGroupMembers(groupId)
+    async GetGroupMembers(groupId) {
+        return await this.CloudXInterface.GetGroupMembers(groupId)
     }
     /**
      *
@@ -308,8 +311,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetUserMessages(UserId) {
-        return this.CloudXInterface.GetUserMessages(UserId)
+    async GetUserMessages(UserId) {
+        return await this.CloudXInterface.GetUserMessages(UserId)
     }
     /**
      *Get all Cached messages
@@ -332,8 +335,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetMessages(fromTime = new Date(0), maxItems = 100, user = null, unreadOnly = false) {
-        return this.CloudXInterface.GetMessages(fromTime, maxItems, user, unreadOnly)
+    async GetMessages(fromTime = new Date(0), maxItems = 100, user = null, unreadOnly = false) {
+        return await this.CloudXInterface.GetMessages(fromTime, maxItems, user, unreadOnly)
     }
     /**
      * Send a Read Reciept, Messages will not show in UnreadMessages query
@@ -365,8 +368,8 @@ class Neos extends EventEmitter {
      * @returns
      * @memberof Neos
      */
-    GetStatus(userId) {
-        return this.CloudXInterface.GetStatus(userId)
+    async GetStatus(userId) {
+        return await this.CloudXInterface.GetStatus(userId)
     }
     /**
      *
