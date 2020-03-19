@@ -19,14 +19,11 @@
 
 # NeosJS
 
-
 > Library for communicating with the NeosAPI
 
 ```js
-neos.SendMessage('U-Neos',"This is a Message!")
+neos.SendTextMessage('U-Neos',"This is a Message!")
 ```
-
-
 
 ## Usage
 
