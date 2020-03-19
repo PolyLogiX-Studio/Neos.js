@@ -15,7 +15,6 @@
   "bugs": {
     "url": "https://github.com/bombitmanbomb/Neos.js/issues"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "homepage": "https://github.com/bombitmanbomb/Neos.js#readme",
   "dependencies": {
     "crypto-js": "^3.3.0",
