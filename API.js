@@ -615,8 +615,8 @@ class Dictionary extends Array {
         return true
     }
 }
-Number.prototype.TryParseInt = function(num, out){
-    if (!isNaN(parseInt(num))){
+Number.prototype.TryParseInt = function (num, out) {
+    if (!isNaN(parseInt(num))) {
         out.Out = parseInt(num)
         return true
     } else {
@@ -1629,7 +1629,7 @@ class UserProfile {
      * @returns
      * @memberof UserProfile
      */
-    IsSame(other){
+    IsSame(other) {
         return (this.IconUrl == other.IconUrl && this.BackgroundUrl == other.BackgroundUrl && this.TagLine && other.TagLine) //TODO When implimented
     }
     static MAX_SHOWCASE_ITEMS() {
@@ -1831,10 +1831,10 @@ class Friend {
      * @param {Friend} other
      * @memberof Friend
      */
-    IsSame(other){
+    IsSame(other) {
         if (this.FriendUserId == other.FriendUserId && this.OwnerId == other.OwnerId && this.FriendUsername == other.FriendUsername && this.IsAccepted == other.IsAccepted && this.FriendStatus == other.FriendStatus && this.LatestMessageTime == other.LatestMessageTime && this.UserStatus.IsSame(other.UserStatus))
             return true
-        return false        
+        return false
     }
 }
 class Group {
@@ -2440,7 +2440,7 @@ class UserTags {
     static get NCC_Silver() {
         return 'ncc silver'
     }
-    static get NeosEast(){
+    static get NeosEast() {
         return "neos east"
     }
     static CustomBadge(neosDb, pointFiltering) {
@@ -2461,11 +2461,11 @@ class UserTags {
 }
 
 class ProductInfoHeaderValue {
-    constructor(product, version){
+    constructor(product, version) {
         this.Product = product
         this.Version = version
     }
-    Value(){
+    Value() {
         return this.Product + " " + this.Version
     }
 }
@@ -2483,7 +2483,7 @@ class CloudXInterface {
      * 
      */
     constructor(BUS, product, version) {
-        this.CloudXInterface(product,version)
+        this.CloudXInterface(product, version)
 
         /** @type List<Membership> */
         this._groupMemberships
@@ -2547,7 +2547,7 @@ class CloudXInterface {
             _lastServerStatsUpdate: { value: new Date(0), writable: true },
             lockobj: { value: "CloudXLockObj" }
         })
-        
+
     }
 
     static CloudEndpoint = new Enumerable([
@@ -2732,9 +2732,9 @@ class CloudXInterface {
             this._lastServerStatsUpdate = new Date()
         }
         if (this.Friends)
-        this.Friends.Update()
+            this.Friends.Update()
         if (this.Messages)
-        this.Messages.Update()
+            this.Messages.Update()
     }
     HasPotentialAccess(ownerId) {
         switch (IdUtil.GetOwnerType(ownerId)) {
@@ -2871,7 +2871,7 @@ class CloudXInterface {
         let request = new HttpRequestMessage(method, CloudXInterface.NEOS_API + resource)
         if (this.CurrentSession != null)
             request.Headers.Authorization = this._currentAuthenticationHeader;
-            request.Headers.UserAgent = this.UserAgent.Value()
+        request.Headers.UserAgent = this.UserAgent.Value()
         return request
     }
     /**
@@ -3066,7 +3066,7 @@ class CloudXInterface {
         this.ClearMemberships()
         this.Friends = new FriendManager(this)
         CloudXInterface.USE_CDN = false
-        
+
         this.OnLogout()
     }
     SignHash(hash) {
@@ -3667,11 +3667,11 @@ class CloudXInterface {
     async Ping() {
         return await this.GET("api/testing/ping", new TimeSpan())
     }
-    NotifyOnlineInstance(machineId){
+    NotifyOnlineInstance(machineId) {
         return this.POST("api/stats/instanceOnline/" + machineId, {}, new TimeSpan())
     }
     async GetOnlineInstanceCount(machineId) {
-        let cloudResult =  await this.GET("api/stats/onlineInstances/", new TimeSpan())
+        let cloudResult = await this.GET("api/stats/onlineInstances/", new TimeSpan())
         let result = new Out()
         return !cloudResult.IsOK() || Number.TryParseInt(cloudResult.Content, result) ? -1 : result.Out
     }
@@ -3973,21 +3973,22 @@ class FriendManager {
         if (!this.friends.TryGetValue(friend.FriendUserId, old)) {
             this.friends.Add(friend.FriendUserId, friend);
             let friendAdded = this.FriendAdded
-            if (friendAdded != null){
-                friendAdded(friend);}
+            if (friendAdded != null) {
+                friendAdded(friend);
+            }
             this._friendsChanged = true
         }
         else {
-            if (!friend.IsSame(old.Out)){
-            this.friends.Replace(friend.FriendUserId, friend)
-            let friendUpdated = this.FriendUpdated
-            if (friendUpdated != null)
-                friendUpdated(friend, old.Out)
+            if (!friend.IsSame(old.Out)) {
+                this.friends.Replace(friend.FriendUserId, friend)
+                let friendUpdated = this.FriendUpdated
+                if (friendUpdated != null)
+                    friendUpdated(friend, old.Out)
                 this._friendsChanged = true
             }
-            
+
         }
-        
+
     }
     /**
      *
@@ -4302,7 +4303,7 @@ class MessageManager {
             if (this._messageIds.includes(message.Id)) return false;
             this.Messages.Add(message)
             this._messageIds.Add(message.Id)
-            if (message.IsReceived && !message.ReadTime != undefined)++this.UnreadCount
+            if (message.IsReceived && !message.ReadTime != undefined) ++this.UnreadCount
             while (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY || this.Messages.length > MessageManager.MAX_UNREAD_HISTORY && (this.Messages[0].IsSent || this.Messages[0].ReadTime != undefined)) {
                 this._messageIds.Remove(this.Messages[0].Id)
                 this.Messages.RemoveAt(0)
@@ -4328,13 +4329,13 @@ class TransactionManager {
     }
     TransactionManager(cloud) {
         this.Cloud = cloud;
-            (async () => { await this.LoadConversionData() })()
+        (async () => { await this.LoadConversionData() })()
     }
     async LoadConversionData() {
         let cloudResult = await this.Cloud.ReadGlobalVariable(TransactionUtil.NCR_CONVERSION_VARIABLE)
         if (cloudResult.IsOK) {
             this.NCRConversionRatio = parseFloat(cloudResult.Entity.value)
-                } else {
+        } else {
             console.error("Error getting conversion ratio. " + cloudResult.State.ToString() + "\n\n" + cloudResult.Content);
         }
     }
