@@ -73,10 +73,9 @@ class Neos extends EventEmitter {
             this.emit("groupMemberUpdated", member)
         })
         this.Events.on("messageReceived", (message) => {
-            this.emit("messageReceived", message)
-            if (options.AutoReadMessages)
+            let read = this.emit("messageReceived", message)
+            if (options.AutoReadMessages && read) // Auto Mark Read & Was Event Caught and read
                 this.CloudXInterface.MarkMessagesRead([message])
-            //console.log(message.SenderId + ":" + message.Content)
         })
         this.Events.on("messageCountChanged", (count) => {
             this.emit("messageCountChanged", count)
