@@ -48,6 +48,20 @@ neos.on("messageReceived",(message)=>{
 neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, MachineID<String>, RememberMe<Boolean>)
 
 ```
+## Options
+
+```js
+const Neos = require("@bombitmanbomb/neosjs")
+const neos = new Neos({UpdateInterval:5000})
+```
+
+| Option            | Type    | Description                                                     |
+| ----------------- | ------- | --------------------------------------------------------------- |
+| AutoReadMessages  | Boolean | Mark Messages as Read when Caught with `.on('messageReceived')` |
+| OnlineState       | String  | Online State: `Offline`, `Invisible`, `Away`, `Busy`, `Online`  |
+| NeosVersion       | String  | Version of Neos to display, Default `NeosJS *Version*`                    |
+| CompatabilityHash | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*`                    |
+| UpdateInterval    | Number  | How Often to update with the cloud, Default `1000`              |
 
 ## Functions
 
