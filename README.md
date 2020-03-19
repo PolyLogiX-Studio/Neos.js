@@ -8,7 +8,7 @@
     <a href="https://discord.gg/bRCvFy9"><img src="https://discordapp.com/api/guilds/571612136036499466/embed.png" alt="Discord server" /></a>
     <a href="https://www.npmjs.com/package/@bombitmanbomb/neosjs"><img src="https://img.shields.io/npm/v/@bombitmanbomb/neosjs.svg?maxAge=3600" alt="NPM version" /></a>
     <a href="https://www.npmjs.com/package/@bombitmanbomb/neosjs"><img src="https://img.shields.io/npm/dt/@bombitmanbomb/neosjs.svg?maxAge=3600" alt="NPM downloads" /></a>
-    <img alt="David" src="https://img.shields.io/david/PolyLogiX-Studio/Neos.js">
+    <img alt="Build" src="https://travis-ci.org/PolyLogiX-Studio/Neos.js.svg?branch=master">
     <a href="https://www.patreon.com/PolyLogiX_VR"><img src="https://img.shields.io/badge/donate-patreon-F96854.svg" alt="Patreon" /></a>
   </p>
   <p>
@@ -55,13 +55,13 @@ const Neos = require("@bombitmanbomb/neosjs")
 const neos = new Neos({UpdateInterval:5000})
 ```
 
-| Option            | Type    | Description                                                     |
-| ----------------- | ------- | --------------------------------------------------------------- |
-| AutoReadMessages  | Boolean | Mark Messages as Read when Caught with `.on('messageReceived')` |
-| OnlineState       | String  | Online State: `Offline`, `Invisible`, `Away`, `Busy`, `Online`  |
+| Option            | Type    | Description                                                               |
+| ----------------- | ------- | ------------------------------------------------------------------------- |
+| AutoReadMessages  | Boolean | Mark Messages as Read when Caught with `.on('messageReceived')`           |
+| OnlineState       | String  | Online State: `Offline`, `Invisible`, `Away`, `Busy`, `Online`            |
 | NeosVersion       | String  | Version of Neos to display, Default `NeosJS *Version*`                    |
-| CompatabilityHash | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*`                    |
-| UpdateInterval    | Number  | How Often to update with the cloud, Default `1000`              |
+| CompatabilityHash | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*` |
+| UpdateInterval    | Number  | How Often to update with the cloud, Default `1000`                        |
 
 ## Functions
 
