@@ -42,7 +42,7 @@ class Neos extends EventEmitter {
         this.CloudXInterface.Friends.FriendRequestCountChanged = (count) => { this.Events.emit("friendRequestCountChanged", count) }
         this.CloudXInterface.Friends.FriendsChanged = () => { this.Events.emit("friendsChanged") }
         //this.Interval = setInterval(this.CloudXInterface.Update,1000)
-        this.lastStatusUpdate = null
+        this.lastStatusUpdate = "No Update"
         this.Status = new CloudX.Shared.UserStatus({ onlineStatus: options.OnlineState, compatabilityHash: options.CompatabilityHash, neosVersion: options.NeosVersion })
         this.Events.on("login", () => {
             this.startInterval(options.UpdateInterval)
@@ -114,8 +114,8 @@ class Neos extends EventEmitter {
     Update() {
         this.CloudXInterface.Update()
         if (!this.CloudXInterface.CurrentUser.Id) return;
-        if (!this.lastStatusUpdate) return this.UpdateStatus();
-        if (this.lastStatusUpdate.getSeconds() > 30) return this.UpdateStatus()
+        if (this.lastStatusUpdate == "No Update") {return this.UpdateStatus();}
+        if (new Date(new Date() - this.lastStatusUpdate).getSeconds() > 30) return this.UpdateStatus()
     }
     /**
      * Update the Neos Account status
@@ -123,8 +123,8 @@ class Neos extends EventEmitter {
      * @memberof Neos
      */
     UpdateStatus() {
-        this.CloudXInterface.UpdateStatus(this.Status);
         this.lastStatusUpdate = new Date()
+        this.CloudXInterface.UpdateStatus(this.Status);
     }
     /**
      *

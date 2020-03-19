@@ -48,13 +48,16 @@ class Task extends Promise {
 }
 const { v4: uuidv4 } = require('uuid')
 const fetch = require('node-fetch')
-const AsyncLock = require('async-lock')
-const Lock = new AsyncLock()
 const fs = require("fs")
 const URI = require('uri-js')
-const path = require("path")
 const SHA256 = require("crypto-js/sha256");
-const { TimeSpan, parse, parseDate, fromSeconds, fromMinutes } = require('timespan')
+class TimeSpan {
+constructor(num){
+    this.msecs = (num!=null?num:0)
+}
+}
+function fromSeconds(num){return num*1000}
+function fromMinutes(num){return num*60000}
 
 /**
  * @template T
@@ -2657,7 +2660,6 @@ class CloudXInterface {
             return
         }
         if (value == this._currentSession) return;
-        //LOCK OBJECT
         if (!this._currentSession) Object.defineProperties(this, { _currentSession: { value: new UserSession(), configurable: true } })
         if (this._currentSession.SessionToken != value.SessionToken) this._lastSessionUpdate = new Date();
         Object.defineProperties(this, { _currentSession: { value: value, configurable: true } })
@@ -2743,23 +2745,19 @@ class CloudXInterface {
             case OwnerType.User:
                 return ownerId == this.CurrentUser.Id
             case OwnerType.Group:
-                return Lock.acquire(this.lockobj, () => { return this.CurrentUserMemberships.Any(m => m.GroupId == ownerId) })
+                return this.CurrentUserMemberships.Any(m => m.GroupId == ownerId) 
             default:
                 return false
         }
     }
     SetMemberships(memberships) {
-        Lock.acquire(this.lockobj, () => {
             this._groupMemberships = memberships
             this.RunMembershipsUpdated()
-        })
     }
     ClearMemberships() {
-        Lock.acquire(this.lockobj, () => {
             if (this._groupMemberships.length == 0) return;
             this._groupMemberships = []
             this.RunMembershipsUpdated()
-        })
     }
     async RunMembershipsUpdated() {
         for (groupMembership of this._groupMemberships) {
@@ -3080,7 +3078,6 @@ class CloudXInterface {
      * @memberof CloudXInterface
      */
     async FetchRecordCached(recordUri, type) {
-        Lock.acquire(this.cachedRecords, () => {
             /** @type Dictionary<Uri, CloudResult> */
             let dictionary = new Out()
             if (!this.cachedRecords.TryGetValue(type, dictionary)) {
@@ -3090,17 +3087,13 @@ class CloudXInterface {
             let cloudResult = new Out()
             if (dictionary.TryGetValue(recordUri, cloudResult))
                 return cloudResult.Out
-
-        })
         let cloudResult1 = await this.FetchRecord(recordUri)
-        Lock.acquire(this.cachedRecords, () => {
             let out = new Out()
             this.cachedRecords.Get(type, out)
             /** @type Dictionary<Uri, CloudResult> */
             let cachedRecord = out.Out
             cachedRecord.Remove(recordUri)
             cachedRecord.Add(recordUri, cloudResult1)
-        })
         return cloudResult1
     }
     FetchRecord(ownerId, recordId) {
@@ -3363,7 +3356,6 @@ class CloudXInterface {
         let groupResult = await group
         /** @type {CloudResult<Member>>} */
         let cloudResult = await memberTask
-        Lock.acquire(this.lockobj, () => {
             if (groupResult.IsOK) {
                 this._groups.Remove(groupId)
                 this._groups.Add(groupId, new Group(groupResult.Entity))
@@ -3379,7 +3371,6 @@ class CloudXInterface {
             if (groupMemberUpdated == null)
                 return
             groupMemberUpdated(cloudResult.Entity)
-        })
     }
     async UpsertSubmission(groupId, ownerId, recordId, feature = false) {
         return await this.PUT("api/groups/" + groupId + "/submissions", new Submission({ groupId, feature, targetRecordId: new RecordId(ownerId, recordId) }, new TimeSpan()))
@@ -3944,9 +3935,7 @@ class FriendManager {
                 friend.OwnerId = this.Cloud.CurrentUser.Id;
                 friend.FriendStatus = "Accepted";
                 this.Cloud.UpsertFriend(friend);
-                Lock.acquire(this._lock, () => {
                     this.AddedOrUpdated(friend)
-                })
                 break;
         }
     }
@@ -4096,13 +4085,11 @@ class MessageManager {
             Object.defineProperties(this, {
                 _unreadCountDirty: { value: false, writable: true }
             })
-            Lock.acquire(this._messagesLock, () => {
                 this.UnreadCount = this._messages.length
                 let messageCountChanged = this.UnreadMessageCountChanged
                 if (messageCountChanged != null) {
                     messageCountChanged(this.UnreadCount)
                 }
-            })
         }
         if (new Date(new Date() - this.lastRequest).getSeconds() < (this._waitingForRequest ? MessageManager.UPDATE_TIMEOUT_SECONDS : MessageManager.UPDATE_PERIOD_SECONDS)) {
             return
@@ -4161,13 +4148,11 @@ class MessageManager {
         })
     }
     Reset() {
-        Lock.acquire(this._messagesLock, () => {
             Object.defineProperties(this, {
                 _messages: { value: new Dictionary(), writable: true }
             })
             this.lastUnreadMessage = new Date()
             this.InitialmessagesFetched = false;
-        })
     }
     GetUserMessages(userId) {
 
@@ -4182,11 +4167,9 @@ class MessageManager {
 
     }
     GetAllUserMessages(list) {
-        Lock.acquire(this._messagesLock, () => {
             for (let message of this._messages) {
                 list.push(message.Value)
             }
-        })
     }
     //event OnMessageReceived
     //event UnreadMessageCounrChange
@@ -4254,9 +4237,7 @@ class MessageManager {
             _transaction.Comment = comment
             _transaction.RecipientId = this.UserId
             message.SetContent(_transaction)
-            Lock.acquire(this._lock, () => {
                 this.Messages.push(message)
-            })
             return message
         }
         async SendMessage(message) {
@@ -4265,9 +4246,7 @@ class MessageManager {
             message.SenderId = this.Cloud.CurrentUser.Id
             message.OwnerId = message.SenderId
             message.SendTime = new Date()
-            Lock.acquire(this._lock, () => {
                 this.Messages.push(message)
-            })
             let friend = this.Manager.Cloud.Friends.GetFriend(message.RecipientId)
             if (friend != null) friend.LatestMessageTime = new Date()
             return await this.Manager.Cloud.SendMessage(message)
@@ -4278,25 +4257,21 @@ class MessageManager {
         async EnsureHistory() {
             if (this._historyLoaded) return;
             let isFirstRequest = false
-            Lock.acquire(this._lock, () => {
                 if (this._historyLoaded) return;
                 if (this._historyLoadTask == null) {
                     isFirstRequest = true
                     this._historyLoadTask = this.Manager.Cloud.GetMessageHistory(this.UserId, MessageManager.MAX_READ_HISTORY)
 
                 }
-            })
             let cloudResult = await this._historyLoadTask
             if (!isFirstRequest) return;
             if (!cloudResult.IsOK) {
                 this._historyLoadTask = null
             } else {
-                Lock.acquire(this._lock, () => {
                     this.Messages = cloudResult.Entity
                     this.Messages.reverse()
                     this.UnreadCount = this.Messages.filter(m => !m.ReadTime != undefined).length
                     this._historyLoaded = true
-                })
             }
         }
         AddMessage(message) {
