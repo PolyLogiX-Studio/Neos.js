@@ -10,7 +10,7 @@ class Neos extends EventEmitter {
      * @param {*} options
      * @memberof Neos
      */
-    
+    static CloudX = CloudX
     constructor(options) {
         super()
         //Setup Options
@@ -20,7 +20,6 @@ class Neos extends EventEmitter {
         if (!options.NeosVersion) options.NeosVersion = config.main + " " + config.version
         if (!options.CompatabilityHash) options.CompatabilityHash = config.main + " " + config.version
         if (!options.UpdateInterval) options.UpdateInterval = 1000
-
         this.Events = new Events()
         this.CloudX = CloudX
         this.CloudXInterface = new CloudX.Shared.CloudXInterface(this.Events, config.main, config.version)
@@ -56,7 +55,6 @@ class Neos extends EventEmitter {
             this.CloudXInterface.Friends.FriendsChanged = () => { this.Events.emit("friendsChanged") }
             this.emit("logout")
         })
-
         this.Events.on("sessionUpdated", (session) => {
             this.emit("sessionUpdated", session)
         })
@@ -98,8 +96,6 @@ class Neos extends EventEmitter {
         this.Events.on("userUpdated", (user) => {
             this.emit("userUpdated", user)
         })
-
-
     }
     startInterval(interval) {
         clearInterval(this.Interval)
