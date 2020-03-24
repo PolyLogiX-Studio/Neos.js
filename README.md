@@ -16,18 +16,17 @@
   </p>
 </div>
 
-
 # NeosJS
 
 > Library for communicating with the NeosAPI
 
 ```js
-neos.SendTextMessage('U-Neos',"This is a Message!")
+neos.SendTextMessage("U-Neos", "This is a Message!");
 ```
 
 ## Usage
 
->npm i @bombitmanbomb/neosjs
+> npm i @bombitmanbomb/neosjs
 
 ```js
 const Neos = require('NeosJS')
@@ -48,11 +47,12 @@ neos.on("messageReceived",(message)=>{
 neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, MachineID<String>, RememberMe<Boolean>)
 
 ```
+
 ## Options
 
 ```js
-const Neos = require("@bombitmanbomb/neosjs")
-const neos = new Neos({UpdateInterval:5000})
+const Neos = require("@bombitmanbomb/neosjs");
+const neos = new Neos({ UpdateInterval: 5000 });
 ```
 
 | Option            | Type    | Description                                                               |
@@ -94,10 +94,11 @@ neos.Login("Credential","Password","[SessionToken]","SecretMachineId",[RememberM
 <!-- YAML
 added: v1.1.1
 -->
+
 Log out the local user. This will Invalidate the `SessionToken`
 
 ```js
-neos.Logout(true)
+neos.Logout(true);
 ```
 
 ### `Neos.SendTextMessage`
@@ -105,10 +106,11 @@ neos.Logout(true)
 <!-- YAML
 added: v1.1.1
 -->
+
 Send a `Message`, As of 1.1.2 a UserId must be supplied
 
 ```js
-neos.SendTextMessage("U-UserId","Hey this is a message")
+neos.SendTextMessage("U-UserId", "Hey this is a message");
 ```
 
 ### `Neos.GetStatus`
@@ -116,12 +118,13 @@ neos.SendTextMessage("U-UserId","Hey this is a message")
 <!-- YAML
 added: v1.1.1
 -->
+
 Get a `UserStatus`
 
 ```js
-neos.GetStatus("U-Neos").then((status)=>{
-    //User Status
-})
+neos.GetStatus("U-Neos").then(status => {
+  //User Status
+});
 ```
 
 ### `Neos.GetMessageHistory`
@@ -129,10 +132,11 @@ neos.GetStatus("U-Neos").then((status)=>{
 <!-- YAML
 added: v1.1.1
 -->
+
 Send a `Message`, As of 1.1.2 a UserId must be supplied
 
 ```js
-neos.SendTextMessage("U-UserId","Hey this is a message")
+neos.SendTextMessage("U-UserId", "Hey this is a message");
 ```
 
 </details>
@@ -155,9 +159,9 @@ added: v0.0.1
 The `neos` instance will emit a `'login'` event when a new user is assigned via `neos.Login()
 
 ```js
-neos.on("login",()=>{
-    console.log(neos.CurrentUser) // Log the current user
-})
+neos.on("login", () => {
+  console.log(neos.CurrentUser); // Log the current user
+});
 ```
 
 </details>
@@ -175,9 +179,9 @@ added: v0.0.1
 The `neos` instance will emit a `'logout'` event **Before** a new user is assigned via `neos.Login()` and on `neos.Logout()`
 
 ```js
-neos.on("logout",()=>{
-    console.log("User Logged Out")
-})
+neos.on("logout", () => {
+  console.log("User Logged Out");
+});
 ```
 
 </details>
@@ -192,13 +196,13 @@ added: v0.0.1
 
 <summary>sessionUpdated</summary>
 
-The `neos` instance will emit a `'sessionUpdated'` event when the user session updates, This includes the Session Token to log in 
+The `neos` instance will emit a `'sessionUpdated'` event when the user session updates, This includes the Session Token to log in
 up to 7 days without the password
 
 ```js
-neos.on("sessionUpdated",(session)=>{
-    console.log(session.SessionToken) // Log the current user Token
-})
+neos.on("sessionUpdated", session => {
+  console.log(session.SessionToken); // Log the current user Token
+});
 ```
 
 </details>
@@ -216,11 +220,10 @@ added: v0.0.1
 The `neos` instance will emit a `'sessionChanged'` event when the user session changes
 
 ```js
-neos.on("sessionChanged",(session)=>{
-    console.log(session.SessionToken) // Log the current user token
-})
+neos.on("sessionChanged", session => {
+  console.log(session.SessionToken); // Log the current user token
+});
 ```
-
 
 </details>
 
@@ -237,11 +240,8 @@ added: v0.0.1
 The `neos` instance will emit a `'groupUpdated'` event when a group state updates
 
 ```js
-neos.on("membershipsUpdated",(membership)=>{
-    
-})
+neos.on("membershipsUpdated", membership => {});
 ```
-
 
 </details>
 
@@ -256,10 +256,9 @@ added: v0.0.1
 <summary>groupUpdated</summary>
 
 The `neos` instance will emit a `'groupUpdated'` event
+
 ```js
-neos.on("groupUpdated",(group)=>{
-    
-})
+neos.on("groupUpdated", group => {});
 ```
 
 </details>
@@ -275,10 +274,11 @@ added: v0.0.1
 <summary>groupMemberUpdated</summary>
 
 The `neos` instance will emit a `'groupMemberUpdated'` event
+
 ```js
-neos.on("groupMemberUpdated",(group)=>{
-    console.log(neos.CurrentUser) // Log the current user
-})
+neos.on("groupMemberUpdated", group => {
+  console.log(neos.CurrentUser); // Log the current user
+});
 ```
 
 </details>
@@ -295,12 +295,11 @@ added: v0.0.1
 The `neos` instance will emit a `'messageReceived'` event when a new message is recieved
 
 ```js
-neos.on("messageReceived",(message)=>{
-    if (message.Content.toLowerCase() == "ping")
-        neos.SendTextMessage(message.SenderId, "Pong")
-})
+neos.on("messageReceived", message => {
+  if (message.Content.toLowerCase() == "ping")
+    neos.SendTextMessage(message.SenderId, "Pong");
+});
 ```
-
 
 </details>
 
@@ -317,11 +316,10 @@ added: v0.0.1
 The `neos` instance will emit a `'messageCountChanged'` event
 
 ```js
-neos.on("messageCountChanged",(count)=>{
-    console.log(count) // # of messages
-})
+neos.on("messageCountChanged", count => {
+  console.log(count); // # of messages
+});
 ```
-
 
 </details>
 
@@ -338,11 +336,10 @@ added: v0.0.1
 The `neos` instance will emit a `'friendAdded'` event when a friend request is sent or recieved
 
 ```js
-neos.on("friendAdded",(friend)=>{
-    console.log(friend);
-})
+neos.on("friendAdded", friend => {
+  console.log(friend);
+});
 ```
-
 
 </details>
 
@@ -359,11 +356,10 @@ added: v0.0.1
 The `neos` instance will emit a `'friendUpdated'` event when a friend request is accepted or a status is changed
 
 ```js
-neos.on("friendUpdated",(friend)=>{
-    console.log(friend);
-})
+neos.on("friendUpdated", friend => {
+  console.log(friend);
+});
 ```
-
 
 </details>
 
@@ -380,11 +376,8 @@ added: v0.0.1
 The `neos` instance will emit a `'friendRemoved'` event
 
 ```js
-neos.on("friendRemoved",(friend)=>{
-   
-})
+neos.on("friendRemoved", friend => {});
 ```
-
 
 </details>
 
@@ -401,9 +394,9 @@ added: v0.0.1
 The `neos` instance will emit a `'friendRequestCountChanged'` event
 
 ```js
-neos.on("friendRequestCountChanged",(count)=>{
-    console.log(count)
-})
+neos.on("friendRequestCountChanged", count => {
+  console.log(count);
+});
 ```
 
 </details>
@@ -421,9 +414,7 @@ added: v0.0.1
 The `neos` instance will emit a `'friendsChanged'` event
 
 ```js
-neos.on("friendsChanged",()=>{
-    
-})
+neos.on("friendsChanged", () => {});
 ```
 
 </details>
@@ -441,9 +432,9 @@ added: v0.0.1
 The `neos` instance will emit a `'userUpdated'` event
 
 ```js
-neos.on("userUpdated",(user)=>{
-    console.log(user)
-})
+neos.on("userUpdated", user => {
+  console.log(user);
+});
 ```
 
 </details>
@@ -469,6 +460,7 @@ neos.on("userUpdated",(user)=>{
 | **SendTime**       | DateTime              | Time the message was Sent |
 | **LastUpdateTime** | DateTime              | Last Fetch                |
 | **ReadTime**       | DateTime \| undefined | Time message was Read     |
+
 </details>
 
 ### Object `User`
