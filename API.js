@@ -36,13 +36,13 @@ class StringBuilder {
  * @template T
  * @class Action
  */
-class Action {}
+class Action { }
 /**
  *
  * @template T
  * @class Task
  */
-class Task extends Promise {}
+class Task extends Promise { }
 const { v4: uuidv4 } = require("uuid");
 const fetch = require("node-fetch");
 const fs = require("fs");
@@ -84,7 +84,7 @@ class AuthenticationHeaderValue {
   }
 }
 class HTTP_CLIENT {
-  constructor() {}
+  constructor() { }
   /**
    *
    * @param {HttpRequestMessage} request
@@ -127,7 +127,7 @@ class Type {
   }
 }
 
-String.prototype.GetHashCode = function() {
+String.prototype.GetHashCode = function () {
   var hash = 0,
     i,
     chr;
@@ -631,7 +631,7 @@ class Dictionary extends Array {
     return true;
   }
 }
-Number.prototype.TryParseInt = function(num, out) {
+Number.prototype.TryParseInt = function (num, out) {
   if (!isNaN(parseInt(num))) {
     out.Out = parseInt(num);
     return true;
@@ -639,22 +639,22 @@ Number.prototype.TryParseInt = function(num, out) {
     return false;
   }
 };
-Array.prototype.ToList = function() {
+Array.prototype.ToList = function () {
   let t = new List();
   for (let item of this) {
     t.Add(item);
   }
   return t;
 };
-String.prototype.noExtension = function() {
+String.prototype.noExtension = function () {
   return this.replace(/\.[^/.]+$/, "");
 };
-String.IsNullOrWhiteSpace = function(str) {
+String.IsNullOrWhiteSpace = function (str) {
   if (!str) return true;
   if (str.trim() == "") return true;
   return false;
 };
-String.IsNullOrEmpty = function(str) {
+String.IsNullOrEmpty = function (str) {
   if (!str) return true;
   if (str == "") return true;
   return false;
@@ -1586,7 +1586,7 @@ class UserPatreonData {
   get CurrentAccountType() {
     if (
       new Date(new Date() - this.LastActivationTime).getSeconds() /
-        (1000 * 3600 * 24) <=
+      (1000 * 3600 * 24) <=
       40.0
     )
       return UserPatreonData.GetAccountType(this.LastPaidPledgeAmount);
@@ -2254,9 +2254,9 @@ class IdUtil {
     name =
       name != null
         ? name
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/[\u{0080}-\u{FFFF}]/gu, "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[\u{0080}-\u{FFFF}]/gu, "")
         : null;
     var stringBuilder = new StringBuilder();
     if (name != null) {
@@ -2399,7 +2399,7 @@ class Visit {
       this.Start.getFullYear() >= 2016 &&
       !(this.Start >= this.End) &&
       (this.End - this.Start).getSeconds() >= this.Duration &&
-        !String.IsNullOrWhiteSpace(this.URL._rawUrl)
+      !String.IsNullOrWhiteSpace(this.URL._rawUrl)
     );
   }
 }
@@ -2545,7 +2545,10 @@ class ProductInfoHeaderValue {
   }
 }
 
-class CloudResultGeneric extends CloudResult {}
+class CloudResultGeneric extends CloudResult { }
+class PolyLogiXOAUTH {
+
+}
 /**
  *
  *
@@ -2557,7 +2560,10 @@ class CloudXInterface {
    */
   constructor(BUS, product, version) {
     this.CloudXInterface(product, version);
-
+    this.oauth = {
+      IsOAUTH:false,
+      Permissions:0
+    }
     /** @type List<Membership> */
     this._groupMemberships;
     /** @type Dictionary<String, Member> */
@@ -2622,7 +2628,7 @@ class CloudXInterface {
     });
   }
 
-  static CloudEndpoint = new Enumerable(["Production", "Staging", "Local"]);
+  static CloudEndpoint = new Enumerable(["Production", "Staging", "Local", "PolyLogiXOAUTH"]);
 
   static DEFAULT_RETRIES = 5;
   static UPLOAD_DEGREE_OF_PARALLELISM = 16;
@@ -2666,6 +2672,8 @@ class CloudXInterface {
         return "https://cloudx-staging.azurewebsites.net/";
       case CloudXInterface.CloudEndpoint.Local:
         return "https://localhost:60612/";
+      case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
+        return "https://oauth.neosdb.net/"
       default:
         throw new Error(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
@@ -2674,6 +2682,7 @@ class CloudXInterface {
   }
   static get NEOS_BLOB() {
     switch (CloudXInterface.CLOUD_ENDPOINT) {
+      case CloudXInterface.CloudEndpoint.PolyLogiXOAUTH:
       case CloudXInterface.CloudEndpoint.Production:
       case CloudXInterface.CloudEndpoint.Staging:
         return CloudXInterface.NEOS_CLOUD_BLOB;
@@ -2748,9 +2757,9 @@ class CloudXInterface {
     this._currentAuthenticationHeader =
       value != null
         ? new AuthenticationHeaderValue(
-            "neos",
-            value.UserId + ":" + value.SessionToken
-          ).Authorization
+          "neos",
+          value.UserId + ":" + value.SessionToken
+        ).Authorization
         : AuthenticationHeaderValue;
     this.OnSessionUpdated();
     try {
@@ -2760,7 +2769,7 @@ class CloudXInterface {
     } catch (error) {
       Error(
         "Exception in SessionChanged: " +
-          (this.CurrentSession.toString() + error.toString()),
+        (this.CurrentSession.toString() + error.toString()),
         true
       );
     }
@@ -2769,22 +2778,22 @@ class CloudXInterface {
     return this._groupMemberships;
   }
   get CurrentUserGroupInfos() {
-    return this._groups.map(function(p) {
+    return this._groups.map(function (p) {
       return p.Value;
     });
   }
   get CurrentUserMemberInfos() {
-    return this._groupMemberInfos.map(function(p) {
+    return this._groupMemberInfos.map(function (p) {
       return p.Value;
     });
   }
   TryGetCurrentUserGroupInfo(groupId) {
-    return this._groups.filter(function(item) {
+    return this._groups.filter(function (item) {
       return item["groupId"] === groupId;
     });
   }
   TryGetCurrentUserGroupMemberInfo(groupId) {
-    return this._groupMemberInfos.filter(function(item) {
+    return this._groupMemberInfos.filter(function (item) {
       return item["groupId"] === groupId;
     });
   }
@@ -2797,9 +2806,9 @@ class CloudXInterface {
       return this._groupMemberInfos[a];
     }
   }
-  OnLogin() {}
-  OnLogout() {}
-  OnSessionUpdated() {}
+  OnLogin() { }
+  OnLogout() { }
+  OnSessionUpdated() { }
   CloudXInterface(UserAgentProduct = "CloudX", UserAgentVersion = "0.0.0.0") {
     this.HttpClient = new HTTP_CLIENT();
     this.Friends = new FriendManager(this);
@@ -2877,8 +2886,8 @@ class CloudXInterface {
       (forceCDN
         ? CloudXInterface.NEOS_ASSETS_CDN
         : forceCloudBlob
-        ? "https://cloudxstorage.blob.core.windows.net/"
-        : CloudXInterface.NEOS_ASSETS) + str3
+          ? "https://cloudxstorage.blob.core.windows.net/"
+          : CloudXInterface.NEOS_ASSETS) + str3
     );
   }
   static FilterNeosURL(assetURL) {
@@ -3060,6 +3069,38 @@ class CloudXInterface {
       return new CloudResult(entity, result.StatusCode, content);
     }
   }
+/**
+ * 
+ * @param {string} credential 
+ * @param {string} token 
+ */
+  async PolyLogiXOAuthLogin(token){
+    this.Logout(false);
+    this.OAuth.IsOAUTH = true
+    let credentials = new LoginCredentials();
+    credentials.sessionToken = token
+    var result = await this.POST(
+      "api/userSessions",
+      credentials,
+      new TimeSpan()
+    );
+    if (result.IsOK) {
+      this.CurrentSession = new UserSession(result.Content);
+      this.CurrentUser = new User();
+      this.CurrentUser.Id = this.CurrentSession.UserId;
+      this.CurrentUser.Username = credentials.Username;
+      this.UpdateCurrentUserInfo();
+      this.UpdateCurrentUserMemberships();
+      this.Friends.Update();
+      this.OnLogin();
+    } else
+      throw new Error(
+        "Error loging in: " + result.State + "\n" + result.Content
+      );
+    return result;
+  
+    
+  }
   /**
    *
    * @param {string} credential
@@ -3079,6 +3120,7 @@ class CloudXInterface {
     recoverCode
   ) {
     this.Logout(false);
+    this.OAuth.IsOAUTH = false
     let credentials = new LoginCredentials();
     credentials.password = password;
     credentials.recoverCode = recoverCode;
@@ -3256,11 +3298,11 @@ class CloudXInterface {
     } else {
       return this.GET(
         "api/" +
-          CloudXInterface.GetOwnerPath(ownerId) +
-          "/" +
-          ownerId +
-          "/records/" +
-          recordId,
+        CloudXInterface.GetOwnerPath(ownerId) +
+        "/" +
+        ownerId +
+        "/records/" +
+        recordId,
         new TimeSpan()
       );
     }
@@ -3278,11 +3320,11 @@ class CloudXInterface {
   FetchRecordAtPath(ownerId, path) {
     return this.GET(
       "api/" +
-        CloudXInterface.GetOwnerPath(ownerId) +
-        "/" +
-        ownerId +
-        "/records/root/" +
-        path,
+      CloudXInterface.GetOwnerPath(ownerId) +
+      "/" +
+      ownerId +
+      "/records/root/" +
+      path,
       new TimeSpan()
     );
   }
@@ -3494,7 +3536,7 @@ class CloudXInterface {
     return await this.WaitForAssetFinishProcessing(cloudResult.Entity);
   }
   EnqueueChunk(baseUrl, fileName, buffer, processingBuffers) {
-    buffer.task = this.RunRequest(() => {}); //TODO Wtf is this
+    buffer.task = this.RunRequest(() => { }); //TODO Wtf is this
   }
   async TakeFinishedBuffer(buffers) {
     //TODO TakeFinishedBuffer
@@ -3524,7 +3566,7 @@ class CloudXInterface {
       if (
         !cloudResult.IsError &&
         cloudResult.Entity.UploadState != UploadState.Uploaded &&
-          cloudResult.Entity.UploadState != UploadState.Failed
+        cloudResult.Entity.UploadState != UploadState.Failed
       )
         await Delay(new TimeSpan(250));
       else break;
@@ -3656,11 +3698,11 @@ class CloudXInterface {
   async UpsertVariableDefinition(definition) {
     return await this.PUT(
       "api/" +
-        CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) +
-        "/" +
-        definition.DefinitionOwnerId +
-        "/vardefs/" +
-        definition.Subpath,
+      CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) +
+      "/" +
+      definition.DefinitionOwnerId +
+      "/vardefs/" +
+      definition.Subpath,
       definition,
       new TimeSpan()
     ).then(b => {
@@ -3699,7 +3741,7 @@ class CloudXInterface {
     }
     return new CloudResult("default", cloudResult.State, cloudResult.Content);
   }
-  SerializationErrorHandeler() {}
+  SerializationErrorHandeler() { }
   /**
    * Write a Variable
    * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
@@ -3714,11 +3756,11 @@ class CloudXInterface {
       return await this.WriteVariable(this.CurrentUser.Id, ownerId, path);
     return await this.PUT(
       "api/" +
-        CloudXInterface.GetOwnerPath(ownerId) +
-        "/" +
-        ownerId +
-        "/vars/" +
-        path,
+      CloudXInterface.GetOwnerPath(ownerId) +
+      "/" +
+      ownerId +
+      "/vars/" +
+      path,
       new CloudVariable({ value: JSON.stringify(value) }, new TimeSpan())
     );
   }
@@ -4121,7 +4163,7 @@ class SearchParameters {
       this.Private != other.Private ||
       this.ByOwner != other.ByOwner ||
       this.OwnerType != other.OwnerType ||
-        this.SubmittedTo != other.SubmittedTo ||
+      this.SubmittedTo != other.SubmittedTo ||
       this.RecordType != other.RecordType
     )
       return false;
@@ -4149,7 +4191,7 @@ class SearchParameters {
         : 1) != 0 ||
       this.SortBy != other.SortBy ||
       this.OnlyFeatured != other.OnlyFeatured ||
-        this.SortDirection != other.SortDirection
+      this.SortDirection != other.SortDirection
     )
       return false;
     this.Normalize();
@@ -4417,7 +4459,7 @@ class FriendManager {
     if (
       this.Cloud.CurrentUser == null ||
       new Date(new Date() - this.lastRequest).getSeconds() <
-        FriendManager.UPDATE_PERIOD_SECONDS
+      FriendManager.UPDATE_PERIOD_SECONDS
     ) {
       return;
     }
@@ -4574,7 +4616,7 @@ class MessageManager {
       Object.defineProperties(this, {
         _messageIds: { value: new List(), writable: false },
         _lock: { value: "MessageManager.UserMessages._lock", writable: false },
-        _historyLoadTask: { value: function() {}, writable: true },
+        _historyLoadTask: { value: function () { }, writable: true },
         _historyLoaded: { value: new Boolean(), writable: true }
       });
     }
@@ -4699,8 +4741,8 @@ class TransactionUtil {
   static NCR_CONVERSION_VARIABLE = "NCR_CONVERSION";
 }
 class StringNumberConversion {
-  static DecimalToBigInt(value) {}
-  static BigIntToDecimal(value) {}
+  static DecimalToBigInt(value) { }
+  static BigIntToDecimal(value) { }
 }
 class TransactionManager {
   constructor(cloud) {
@@ -4721,9 +4763,9 @@ class TransactionManager {
     } else {
       console.error(
         "Error getting conversion ratio. " +
-          cloudResult.State.ToString() +
-          "\n\n" +
-          cloudResult.Content
+        cloudResult.State.ToString() +
+        "\n\n" +
+        cloudResult.Content
       );
     }
   }
@@ -4767,8 +4809,8 @@ class TransactionManager {
     return amount.toString();
   }
 }
-class CryptoHelper {}
-class ComputationLock {}
+class CryptoHelper { }
+class ComputationLock { }
 /**
  * @namespace
  * @memberof CloudX

@@ -208,6 +208,7 @@ class Neos extends EventEmitter {
       rememberMe,
       recoverCode
     );
+    
   }
   Logout(manual = true) {
     this.CloudXInterface.Logout(manual);
@@ -424,6 +425,10 @@ class Neos extends EventEmitter {
     if (this.CloudX.Util.Type.Get(messageIds) == "string")
       messageIds = [messageIds];
     return this.MarkMessagesRead(messageIds);
+  }
+  OAuthLogin(credential, token){
+    
+    this.CloudXInterface.PolyLogiXOAuthLogin(credential, token)
   }
   /**
    *Get History of messages with a user

@@ -467,6 +467,7 @@ neos.on("userUpdated", user => {
 
 <details>
 <summary>User Parameters</summary>
+
 | Parameter                  | Type                  | Description                         |
 | -------------------------- | --------------------- | ----------------------------------- |
 | **Id**                     | String                | Message NeosID                      |
@@ -498,6 +499,7 @@ neos.on("userUpdated", user => {
 
 <details>
 <summary>UserSession Parameters</summary>
+
 | Parameter           | Type     | Description                  |
 | ------------------- | -------- | ---------------------------- |
 | **UserId**          | String   | NeosID                       |
