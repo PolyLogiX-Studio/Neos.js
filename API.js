@@ -2560,7 +2560,7 @@ class CloudXInterface {
    */
   constructor(BUS, product, version) {
     this.CloudXInterface(product, version);
-    this.oauth = {
+    this.OAuth = {
       IsOAUTH:false,
       Permissions:0
     }
