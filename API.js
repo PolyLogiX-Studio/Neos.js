@@ -103,7 +103,6 @@ class HTTP_CLIENT {
       request.Method == "PUT"
     )
       dat.body = request.Content;
-      //console.log("REQUEST",request,dat)
     let response = await fetch(request.RequestUri, dat)
       .then(res => {
         state = res.status;
@@ -2562,8 +2561,8 @@ class CloudXInterface {
   constructor(BUS, product, version) {
     this.CloudXInterface(product, version);
     this.OAuth = {
-      IsOAUTH:false,
-      Permissions:0
+      IsOAUTH: false,
+      Permissions: 0
     }
     /** @type List<Membership> */
     this._groupMemberships;
@@ -2665,10 +2664,10 @@ class CloudXInterface {
     if (endSampleCallback == null) return;
     endSampleCallback();
   }
-  static get CLOUD_ENDPOINT(){
-    if (this.OAuth){
+  static get CLOUD_ENDPOINT() {
+    if (this.OAuth) {
       if (this.OAuth.IsOAuth)
-      return CloudXInterface.CloudEndpoint.PolyLogiXOAuth;
+        return CloudXInterface.CloudEndpoint.PolyLogiXOAuth;
     }
     return CloudXInterface.CloudEndpoint.Production;
   }
@@ -2995,18 +2994,25 @@ class CloudXInterface {
    */
   CreateRequest(resource, method) {
     let Endpoint
-    if (this.OAuth){
+    if (this.OAuth) {
       if (this.OAuth.IsOAUTH)
         Endpoint = CloudXInterface.POLYLOGIX_OAUTH_API + resource
-        else 
+      else
         Endpoint = CloudXInterface.NEOS_API + resource
-    } else {Endpoint = CloudXInterface.NEOS_API + resource}
+    } else { Endpoint = CloudXInterface.NEOS_API + resource }
     let request = new HttpRequestMessage(
       method,
       Endpoint
     );
-    if (this.CurrentSession != null)
+    if (this.CurrentSession != null) {
       request.Headers.Authorization = this._currentAuthenticationHeader;
+
+      if (this.OAuth) {
+        if (this.OAuth.IsOAUTH)
+         if (typeof request.Headers.Authorization=="string")
+          request.Headers.Authorization = "neosdb"+request.Headers.Authorization.substr(4)
+      }
+    }
     request.Headers.UserAgent = this.UserAgent.Value();
     return request;
   }
@@ -3085,18 +3091,20 @@ class CloudXInterface {
       return new CloudResult(entity, result.StatusCode, content);
     }
   }
-/**
- * 
- * @param {string} credential 
- * @param {string} token 
- */
-  async PolyLogiXOAuthLogin(appId, token){
+  /**
+   * 
+   * @param {string} credential 
+   * @param {string} token 
+   */
+  async PolyLogiXOAuthLogin(appId, token) {
     this.Logout(false);
     this.OAuth.IsOAUTH = true
-    //console.log("OAUTH LOGIN")
     let credentials = new LoginCredentials();
     credentials.ownerId = appId
     credentials.sessionToken = token
+    credentials.secretMachineId = uuidv4();
+    credentials.rememberMe = true;
+
     var result = await this.POST(
       "api/userSessions",
       credentials,
@@ -3116,8 +3124,8 @@ class CloudXInterface {
         "Error loging in: " + result.State + "\n" + result.Content
       );
     return result;
-  
-    
+
+
   }
   /**
    *

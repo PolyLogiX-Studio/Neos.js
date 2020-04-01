@@ -14,13 +14,12 @@ class Neos extends EventEmitter {
    * @param {*} options
    * @memberof Neos
    */
-  static get CloudX() {return CloudX};
+  static get CloudX() { return CloudX };
   constructor(options) {
     super();
     //Setup Options
-    console.log(options)
+   
     if (!options) options = {};
-    console.log(options)
     if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
     if (!options.OnlineState) options.OnlineState = "Online";
@@ -30,7 +29,7 @@ class Neos extends EventEmitter {
       options.CompatabilityHash = config.main + " " + config.version;
     if (!options.UpdateInterval) options.UpdateInterval = 1000;
     if (options.Update == null) options.Update = true
-    console.log(options)
+   
     this.Options = options
     this.Events = new Events();
     this.CloudX = CloudX;
@@ -94,8 +93,9 @@ class Neos extends EventEmitter {
       neosVersion: this.Options.NeosVersion
     });
     this.Events.on("login", () => {
-      if (this.Options.Update)
+      if (this.Options.Update) {
         this.startInterval(this.Options.UpdateInterval);
+      }
       this.emit("login");
     });
     this.Events.on("logout", () => {
@@ -221,8 +221,8 @@ class Neos extends EventEmitter {
         recoverCode
       );
   }
-  async OAuthLogin(appId, token) {
-    return await this.CloudXInterface.PolyLogiXOAuthLogin(appId, token)
+  OAuthLogin(appId, token) {
+    return this.CloudXInterface.PolyLogiXOAuthLogin(appId, token)
   }
   Logout(manual = true) {
     this.CloudXInterface.Logout(manual);
