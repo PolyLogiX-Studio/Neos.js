@@ -4739,6 +4739,7 @@ class MessageManager {
 }
 class TransactionUtil {
   static NCR_CONVERSION_VARIABLE = "NCR_CONVERSION";
+  static CDFT_CONVERSION_VARIABLE = "CDFT_CONVERSION";
 }
 class StringNumberConversion {
   static DecimalToBigInt(value) { }
@@ -4746,6 +4747,8 @@ class StringNumberConversion {
 }
 class TransactionManager {
   constructor(cloud) {
+    this.CDFTConversionRatio = null
+    this.NCRConversionRatio = null
     this.TransactionManager(cloud);
   }
   TransactionManager(cloud) {
@@ -4755,54 +4758,92 @@ class TransactionManager {
     })();
   }
   async LoadConversionData() {
-    let cloudResult = await this.Cloud.ReadGlobalVariable(
+    let cloudResult1 = await this.Cloud.ReadGlobalVariable(
       TransactionUtil.NCR_CONVERSION_VARIABLE
     );
-    if (cloudResult.IsOK) {
-      this.NCRConversionRatio = parseFloat(cloudResult.Entity.value);
+    if (cloudResult1.IsOK) {
+      this.NCRConversionRatio = parseFloat(cloudResult1.Entity.value);
     } else {
       console.error(
         "Error getting conversion ratio. " +
-        cloudResult.State.ToString() +
+        cloudResult1.State.ToString() +
         "\n\n" +
-        cloudResult.Content
+        cloudResult1.Content
+      );
+    }
+    let cloudResult2 = await this.Cloud.ReadGlobalVariable(
+      TransactionUtil.CDFT_CONVERSION_VARIABLE
+    );
+    if (cloudResult2.IsOK) {
+      this.CDFTConversionRatio = parseFloat(cloudResult2.Entity.value);
+    } else {
+      console.error(
+        "Error getting conversion ratio. " +
+        cloudResult2.State.ToString() +
+        "\n\n" +
+        cloudResult2.Content
       );
     }
   }
   TryConvert(sourceToken, sourceAmount, targetToken) {
-    if (sourceToken == "USD") {
-      if (targetToken == null || !(targetToken == "NCR")) return new Number();
-      let num = sourceAmount;
-      let ncrConversionRatio = this.NCRConversionRatio;
-      if (!ncrConversionRatio != undefined) return new Number();
-      return new BigInt(num / ncrConversionRatio);
-    }
-    if (!(targetToken == "USD")) return new Number();
-    if (sourceToken != null) {
-      if (!(sourceToken == "NCR")) {
-        if (sourceToken == "KFC") return new Number();
-      } else {
-        let num = sourceAmount;
-        let ncrConversionRatio = this.NCRConversionRatio;
-        if (!ncrConversionRatio) return new Number();
-        return new Number(num * ncrConversionRatio);
+    if (sourceToken == "USD"){
+      switch (targetToken)
+      {
+        case "NCR":
+          let num1 = sourceAmount;
+          let ncrConversionRatio1 = this.NCRConversionRatio;
+          return !ncrConversionRatio1!=null ? new Number() : num1/ncrConversionRatio1
+        case "CDFT":
+          let num2 = sourceAmount;
+          let cdftConversionRatio1 = this.CDFTConversionRatio;
+          return !cdftConversionRatio1!= null ? new Number() : num2 / cdftConversionRatio1;
+        default:
+          return new Number()
       }
     }
-    return new Number();
+    else
+    {
+      if (!(targetToken=="USD"))
+        return new Number()
+      switch (sourceAmount){
+        case "NCR":
+          let num3 = sourceAmount;
+          let ncrConversionRatio2 = this.NCRConversionRatio;
+          return !ncrConversionRatio2!=null?new Number():num4*ncrConversionRatio2;
+        case "CDFT":
+          let num4 = sourceAmount
+          let cdftConversionRatio2 = this.CDFTConversionRatio;
+          return !cdftConversionRatio2!=null?new Number():num4*cdftConversionRatio2;
+        case "KFC":
+          return new Number()
+        default:
+          return new Number()
+      }
+    }
   }
   IsValidToken(token) {
-    return token != null && (token == "NCR" || token == "KFC");
+    switch (token){
+      case "NCR":
+      case "CDFT":
+      case "KFC":
+        return true;
+      default:
+        return false;
+    }
   }
   ToUSD(token, amount) {
-    if (token != null) {
-      if (!(token == "NCR")) {
-        if (token == "KFC") return new Number();
-      } else {
-        if (!this.NCRConversionRatio) return new Number();
-        return new Number(this.NCRConversionRatio * amount);
-      }
+    switch(token){
+      case "NCR":
+        return !this.NCRConversionRatio!=null?new Number():this.NCRConversionRatio*amount;
+      case "CDFT":
+        let cdftConversionRatio = this.CDFTConversionRatio;
+        let num = amount
+        return !cdftConversionRatio!=null?new Number():cdftConversionRatio*num;
+      case 'KFC':
+        return new Number()
+      default:
+        throw new Error("Invalid Token: " + token)
     }
-    throw new Error("Invalid Token: " + token);
   }
   static FormatCurrency(amount) {
     if (!amount) return "N/A";
