@@ -1,4 +1,6 @@
-const { CloudX } = require("./API.js");
+const {
+  CloudX
+} = require("./API.js");
 const config = require("./package.json");
 const EventEmitter = require("events").EventEmitter;
 class Events extends EventEmitter {
@@ -12,11 +14,13 @@ class Neos extends EventEmitter {
    * @param {*} options
    * @memberof Neos
    */
-  static CloudX = CloudX;
+  static get CloudX() { return CloudX };
   constructor(options) {
     super();
     //Setup Options
+   
     if (!options) options = {};
+    if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
     if (!options.OnlineState) options.OnlineState = "Online";
     if (!options.NeosVersion)
@@ -24,6 +28,9 @@ class Neos extends EventEmitter {
     if (!options.CompatabilityHash)
       options.CompatabilityHash = config.main + " " + config.version;
     if (!options.UpdateInterval) options.UpdateInterval = 1000;
+    if (options.Update == null) options.Update = true
+   
+    this.Options = options
     this.Events = new Events();
     this.CloudX = CloudX;
     this.CloudXInterface = new CloudX.Shared.CloudXInterface(
@@ -81,12 +88,14 @@ class Neos extends EventEmitter {
     //this.Interval = setInterval(this.CloudXInterface.Update,1000)
     this.lastStatusUpdate = "No Update";
     this.Status = new CloudX.Shared.UserStatus({
-      onlineStatus: options.OnlineState,
-      compatabilityHash: options.CompatabilityHash,
-      neosVersion: options.NeosVersion
+      onlineStatus: this.Options.OnlineState,
+      compatabilityHash: this.Options.CompatabilityHash,
+      neosVersion: this.Options.NeosVersion
     });
     this.Events.on("login", () => {
-      this.startInterval(options.UpdateInterval);
+      if (this.Options.Update) {
+        this.startInterval(this.Options.UpdateInterval);
+      }
       this.emit("login");
     });
     this.Events.on("logout", () => {
@@ -124,7 +133,7 @@ class Neos extends EventEmitter {
     });
     this.Events.on("messageReceived", message => {
       let read = this.emit("messageReceived", message);
-      if (options.AutoReadMessages && read)
+      if (this.Options.AutoReadMessages && read)
         // Auto Mark Read & Was Event Caught and read
         this.CloudXInterface.MarkMessagesRead([message]);
     });
@@ -200,15 +209,20 @@ class Neos extends EventEmitter {
     rememberMe,
     recoverCode
   ) {
-    return await this.CloudXInterface.Login(
-      credential,
-      password,
-      sessionToken,
-      machineId,
-      rememberMe,
-      recoverCode
-    );
-    
+    if (this.Options.OAuth)
+      return await this.OAuthLogin(credential, password);
+    else
+      return await this.CloudXInterface.Login(
+        credential,
+        password,
+        sessionToken,
+        machineId,
+        rememberMe,
+        recoverCode
+      );
+  }
+  OAuthLogin(appId, token) {
+    return this.CloudXInterface.PolyLogiXOAuthLogin(appId, token)
   }
   Logout(manual = true) {
     this.CloudXInterface.Logout(manual);
@@ -426,8 +440,8 @@ class Neos extends EventEmitter {
       messageIds = [messageIds];
     return this.MarkMessagesRead(messageIds);
   }
-  OAuthLogin(credential, token){
-    
+  OAuthLogin(credential, token) {
+
     this.CloudXInterface.PolyLogiXOAuthLogin(credential, token)
   }
   /**
@@ -457,7 +471,7 @@ class Neos extends EventEmitter {
    * @param {CloudX.Shared.SearchParameters} record
    * @memberof Neos
    */
-  FindRecords(record) {}
+  FindRecords(record) { }
   /**
    *Not yet Implimented
    *
@@ -465,7 +479,7 @@ class Neos extends EventEmitter {
    * @param {*} recordId
    * @memberof Neos
    */
-  FetchRecord(ownerId, recordId) {}
+  FetchRecord(ownerId, recordId) { }
   /**
    *
    *

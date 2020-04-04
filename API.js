@@ -2561,8 +2561,8 @@ class CloudXInterface {
   constructor(BUS, product, version) {
     this.CloudXInterface(product, version);
     this.OAuth = {
-      IsOAUTH:false,
-      Permissions:0
+      IsOAUTH: false,
+      Permissions: 0
     }
     /** @type List<Membership> */
     this._groupMemberships;
@@ -2649,6 +2649,7 @@ class CloudXInterface {
   static USE_CDN = new Boolean();
   static CLOUDX_PRODUCTION_NEOS_API = "https://www.neosvr-api.com/";
   static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net/";
+  static POLYLOGIX_OAUTH_API = "https://neos-oauth.glitch.me/"
   static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
   static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
   static LOCAL_NEOS_API = "http://localhost:60612/";
@@ -2663,7 +2664,14 @@ class CloudXInterface {
     if (endSampleCallback == null) return;
     endSampleCallback();
   }
-  static CLOUD_ENDPOINT = CloudXInterface.CloudEndpoint.Production;
+  static get CLOUD_ENDPOINT() {
+    if (this.OAuth) {
+      if (this.OAuth.IsOAuth)
+        return CloudXInterface.CloudEndpoint.PolyLogiXOAuth;
+    }
+    return CloudXInterface.CloudEndpoint.Production;
+  }
+
   static get NEOS_API() {
     switch (CloudXInterface.CLOUD_ENDPOINT) {
       case CloudXInterface.CloudEndpoint.Production:
@@ -2673,7 +2681,7 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.Local:
         return "https://localhost:60612/";
       case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
-        return "https://oauth.neosdb.net/"
+        return "https://neos-oauth.glitch.me/"
       default:
         throw new Error(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
@@ -2985,12 +2993,26 @@ class CloudXInterface {
    * @returns {HttpRequestMessage}
    */
   CreateRequest(resource, method) {
+    let Endpoint
+    if (this.OAuth) {
+      if (this.OAuth.IsOAUTH)
+        Endpoint = CloudXInterface.POLYLOGIX_OAUTH_API + resource
+      else
+        Endpoint = CloudXInterface.NEOS_API + resource
+    } else { Endpoint = CloudXInterface.NEOS_API + resource }
     let request = new HttpRequestMessage(
       method,
-      CloudXInterface.NEOS_API + resource
+      Endpoint
     );
-    if (this.CurrentSession != null)
+    if (this.CurrentSession != null) {
       request.Headers.Authorization = this._currentAuthenticationHeader;
+
+      if (this.OAuth) {
+        if (this.OAuth.IsOAUTH)
+         if (typeof request.Headers.Authorization=="string")
+          request.Headers.Authorization = "neosdb"+request.Headers.Authorization.substr(4)
+      }
+    }
     request.Headers.UserAgent = this.UserAgent.Value();
     return request;
   }
@@ -3069,16 +3091,20 @@ class CloudXInterface {
       return new CloudResult(entity, result.StatusCode, content);
     }
   }
-/**
- * 
- * @param {string} credential 
- * @param {string} token 
- */
-  async PolyLogiXOAuthLogin(token){
+  /**
+   * 
+   * @param {string} credential 
+   * @param {string} token 
+   */
+  async PolyLogiXOAuthLogin(appId, token) {
     this.Logout(false);
     this.OAuth.IsOAUTH = true
     let credentials = new LoginCredentials();
+    credentials.ownerId = appId
     credentials.sessionToken = token
+    credentials.secretMachineId = uuidv4();
+    credentials.rememberMe = true;
+
     var result = await this.POST(
       "api/userSessions",
       credentials,
@@ -3098,8 +3124,8 @@ class CloudXInterface {
         "Error loging in: " + result.State + "\n" + result.Content
       );
     return result;
-  
-    
+
+
   }
   /**
    *
