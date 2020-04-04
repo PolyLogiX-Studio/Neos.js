@@ -103,6 +103,7 @@ class HTTP_CLIENT {
       request.Method == "PUT"
     )
       dat.body = request.Content;
+    console.log(request)
     let response = await fetch(request.RequestUri, dat)
       .then(res => {
         state = res.status;
@@ -2681,7 +2682,7 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.Local:
         return "https://localhost:60612/";
       case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
-        return "https://neos-oauth.glitch.me/"
+        return "https://oauth.neosdb.net/" // Custom Server
       default:
         throw new Error(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
@@ -2693,7 +2694,6 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.PolyLogiXOAUTH:
       case CloudXInterface.CloudEndpoint.Production:
       case CloudXInterface.CloudEndpoint.Staging:
-        return CloudXInterface.NEOS_CLOUD_BLOB;
       case CloudXInterface.CloudEndpoint.Local:
         return CloudXInterface.NEOS_CLOUD_BLOB;
       default:
@@ -2762,13 +2762,26 @@ class CloudXInterface {
     Object.defineProperties(this, {
       _currentSession: { value: value, configurable: true }
     });
-    this._currentAuthenticationHeader =
+    if (!this.OAuth) this.OAuth = {}
+    //OAUTH
+    if (this.OAuth.IsOAUTH){
+      this._currentAuthenticationHeader =
+      value != null
+        ? new AuthenticationHeaderValue(
+          "Bearer",
+          value.SessionToken
+        ).Authorization
+        : AuthenticationHeaderValue;
+    } else {
+      this._currentAuthenticationHeader =
       value != null
         ? new AuthenticationHeaderValue(
           "neos",
           value.UserId + ":" + value.SessionToken
         ).Authorization
         : AuthenticationHeaderValue;
+    }
+    
     this.OnSessionUpdated();
     try {
       let sessionChanged = this.sessionChanged;
@@ -3006,12 +3019,6 @@ class CloudXInterface {
     );
     if (this.CurrentSession != null) {
       request.Headers.Authorization = this._currentAuthenticationHeader;
-
-      if (this.OAuth) {
-        if (this.OAuth.IsOAUTH)
-         if (typeof request.Headers.Authorization=="string")
-          request.Headers.Authorization = "neosdb"+request.Headers.Authorization.substr(4)
-      }
     }
     request.Headers.UserAgent = this.UserAgent.Value();
     return request;
@@ -3096,11 +3103,11 @@ class CloudXInterface {
    * @param {string} credential 
    * @param {string} token 
    */
-  async PolyLogiXOAuthLogin(appId, token) {
+  async PolyLogiXOAuthLogin(token) {
     this.Logout(false);
     this.OAuth.IsOAUTH = true
     let credentials = new LoginCredentials();
-    credentials.ownerId = appId
+    credentials.ownerId = "OAuth"
     credentials.sessionToken = token
     credentials.secretMachineId = uuidv4();
     credentials.rememberMe = true;

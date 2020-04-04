@@ -160,8 +160,11 @@ class Neos extends EventEmitter {
     });
   }
   startInterval(interval) {
-    clearInterval(this.Interval);
+    this.clearInterval(this.Interval);
     this.Interval = setInterval(this.Update.bind(this), interval);
+  }
+  clearInterval(interval){
+    clearInterval(interval)
   }
   /**
    *
@@ -221,8 +224,8 @@ class Neos extends EventEmitter {
         recoverCode
       );
   }
-  OAuthLogin(appId, token) {
-    return this.CloudXInterface.PolyLogiXOAuthLogin(appId, token)
+  async OAuthLogin(appId, token) {
+    return await this.CloudXInterface.PolyLogiXOAuthLogin(token)
   }
   Logout(manual = true) {
     this.CloudXInterface.Logout(manual);
@@ -439,10 +442,6 @@ class Neos extends EventEmitter {
     if (this.CloudX.Util.Type.Get(messageIds) == "string")
       messageIds = [messageIds];
     return this.MarkMessagesRead(messageIds);
-  }
-  OAuthLogin(credential, token) {
-
-    this.CloudXInterface.PolyLogiXOAuthLogin(credential, token)
   }
   /**
    *Get History of messages with a user
