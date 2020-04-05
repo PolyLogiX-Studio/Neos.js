@@ -2622,7 +2622,7 @@ class CloudXInterface {
       _currentSession: { value: new UserSession(), configurable: true },
       _currentUser: { writable: true },
       _cryptoProvider: { writable: true },
-      _currentAuthenticationHeader: { writable: true },
+      _currentAuthenticationHeader: { value:null,writable: true },
       _lastSessionUpdate: { value: new Date(0), writable: true },
       _lastServerStatsUpdate: { value: new Date(0), writable: true },
       lockobj: { value: "CloudXLockObj" }
@@ -3107,7 +3107,7 @@ class CloudXInterface {
     this.Logout(false);
     this.OAuth.IsOAUTH = true
     let credentials = new LoginCredentials();
-    credentials.ownerId = "OAuth"
+    credentials.userId = "OAuth"
     credentials.sessionToken = token
     credentials.secretMachineId = uuidv4();
     credentials.rememberMe = true;
