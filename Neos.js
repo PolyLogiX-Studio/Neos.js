@@ -224,7 +224,7 @@ class Neos extends EventEmitter {
         recoverCode
       );
   }
-  async OAuthLogin(appId, token) {
+  async OAuthLogin(token) {
     return await this.CloudXInterface.PolyLogiXOAuthLogin(token)
   }
   Logout(manual = true) {
