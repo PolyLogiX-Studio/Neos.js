@@ -103,7 +103,6 @@ class HTTP_CLIENT {
       request.Method == "PUT"
     )
       dat.body = request.Content;
-    console.log(request)
     let response = await fetch(request.RequestUri, dat)
       .then(res => {
         state = res.status;
@@ -2182,7 +2181,7 @@ class RecordUtil {
     if (recordUri.Scheme != "neosrec" || recordUri.Segments.length != 3)
       return false;
     ownerId.Out = recordUri.Segments[1];
-    if (String.IsNullOrEmpty(ownerId)) return false;
+    if (String.IsNullOrEmpty(ownerId.Out)) return false;
     ownerId.Out = ownerId.Out.substr(0, ownerId.Out.length - 1);
     recordId.Out = recordUri.Segments[2];
     return (
@@ -4906,6 +4905,7 @@ const Shared = {
   HttpMethod,
   CloudXInterface,
   RecordUtil,
+  Record,
   IdUtil,
   User,
   SearchParameters,
