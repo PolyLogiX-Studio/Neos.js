@@ -62,6 +62,8 @@ const neos = new Neos({ UpdateInterval: 5000 });
 | NeosVersion       | String  | Version of Neos to display, Default `NeosJS *Version*`                    |
 | CompatabilityHash | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*` |
 | UpdateInterval    | Number  | How Often to update with the cloud, Default `1000`                        |
+| Update            | Boolean | Should the api call for updates, Default True.     |
+| OAuth             | Boolean | Use NeosDB Oauth instead of a login. When true pass Login(token)  |
 
 ## Functions
 
