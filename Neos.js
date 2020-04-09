@@ -99,6 +99,7 @@ class Neos extends EventEmitter {
       this.emit("login");
     });
     this.Events.on("logout", () => {
+      this.clearInterval()
       this.CloudXInterface.Friends.FriendAdded = friend => {
         this.Events.emit("friendAdded", friend);
       };
@@ -163,7 +164,7 @@ class Neos extends EventEmitter {
     this.clearInterval(this.Interval);
     this.Interval = setInterval(this.Update.bind(this), interval);
   }
-  clearInterval(interval){
+  clearInterval(interval = this.Interval){
     clearInterval(interval)
   }
   /**

@@ -3907,9 +3907,10 @@ class CloudXInterface {
    * @memberof CloudXInterface
    * @returns {Promise<CloudResult<List<Friend>>>>}
    */
-  async GetFriends(userId, lastStatusUpdate = null) {
+  async GetFriends(userId, lastStatusUpdate = null, count=0) {
+    if (count>10) return new List();
     if (typeof userId != "string")
-      return await this.GetFriends(this.CurrentUser.Id, userId);
+      return await this.GetFriends(this.CurrentUser.Id, userId, ++count);
     let str = "";
     if (lastStatusUpdate)
       str += "?lastStatusUpdate=" + encodeURI(lastStatusUpdate.toUTCString());
