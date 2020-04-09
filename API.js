@@ -3271,7 +3271,8 @@ class CloudXInterface {
       !this.CurrentSession.RememberMe | manualLogOut
     ) {
       let _userId = this.CurrentSession.UserId;
-      let _sessionToken = this.CurrentSession.SessionToken(async () => {
+      let _sessionToken = this.CurrentSession.SessionToken;
+      (async () => {
         await this.DELETE(
           "api/userSessions/" + _userId + "/" + _sessionToken,
           new TimeSpan()
