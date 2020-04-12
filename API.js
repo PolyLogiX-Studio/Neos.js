@@ -4093,7 +4093,7 @@ class CloudXInterface {
       : result.Out;
   }
   /**
-   *
+   * Fetch Neos Server Statistics
    *
    * @returns {Promise<CloudResult<ServerStatistics>>}
    * @memberof CloudXInterface
