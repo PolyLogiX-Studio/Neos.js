@@ -18,7 +18,7 @@ class Neos extends EventEmitter {
   constructor(options) {
     super();
     //Setup Options
-   
+
     if (!options) options = {};
     if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
@@ -29,7 +29,7 @@ class Neos extends EventEmitter {
       options.CompatabilityHash = config.main + " " + config.version;
     if (!options.UpdateInterval) options.UpdateInterval = 1000;
     if (options.Update == null) options.Update = true
-   
+
     this.Options = options
     this.Events = new Events();
     this.CloudX = CloudX;
@@ -164,7 +164,7 @@ class Neos extends EventEmitter {
     this.clearInterval(this.Interval);
     this.Interval = setInterval(this.Update.bind(this), interval);
   }
-  clearInterval(interval = this.Interval){
+  clearInterval(interval = this.Interval) {
     clearInterval(interval)
   }
   /**
