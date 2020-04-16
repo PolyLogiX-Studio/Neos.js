@@ -36,13 +36,13 @@ class StringBuilder {
  * @template T
  * @class Action
  */
-class Action {}
+class Action { }
 /**
  *
  * @template T
  * @class Task
  */
-class Task extends Promise {}
+class Task extends Promise { }
 const {
   v4: uuidv4
 } = require("uuid");
@@ -88,7 +88,7 @@ class AuthenticationHeaderValue {
   }
 }
 class HTTP_CLIENT {
-  constructor() {}
+  constructor() { }
   /**
    *
    * @param {HttpRequestMessage} request
@@ -495,7 +495,7 @@ class HashSet extends List {
     }
   }
   IsSame(set) {
-    for (item of set) {}
+    for (item of set) { }
   }
 }
 /**
@@ -1409,8 +1409,8 @@ class SessionInfo {
   GetSessionURLs() {
     if (this.SessionURLs != null)
       return this.SessionURLs.filter(str => {
-          return str;
-        })
+        return str;
+      })
         .map(str => new Uri(str))
         .ToList();
     let uriList = new List();
@@ -2266,11 +2266,11 @@ class IdUtil {
   static GenerateId(ownerType, name = null, randomAppend = 0) {
     name =
       name != null ?
-      name
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[\u{0080}-\u{FFFF}]/gu, "") :
-      null;
+        name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[\u{0080}-\u{FFFF}]/gu, "") :
+        null;
     var stringBuilder = new StringBuilder();
     if (name != null) {
       for ( /** @type string */ let c of name) {
@@ -2558,7 +2558,7 @@ class ProductInfoHeaderValue {
   }
 }
 
-class CloudResultGeneric extends CloudResult {}
+class CloudResultGeneric extends CloudResult { }
 class PolyLogiXOAUTH {
 
 }
@@ -2815,19 +2815,19 @@ class CloudXInterface {
     if (this.OAuth.IsOAUTH) {
       this._currentAuthenticationHeader =
         value != null ?
-        new AuthenticationHeaderValue(
-          "Bearer",
-          value.SessionToken
-        ).Authorization :
-        AuthenticationHeaderValue;
+          new AuthenticationHeaderValue(
+            "Bearer",
+            value.SessionToken
+          ).Authorization :
+          AuthenticationHeaderValue;
     } else {
       this._currentAuthenticationHeader =
         value != null ?
-        new AuthenticationHeaderValue(
-          "neos",
-          value.UserId + ":" + value.SessionToken
-        ).Authorization :
-        AuthenticationHeaderValue;
+          new AuthenticationHeaderValue(
+            "neos",
+            value.UserId + ":" + value.SessionToken
+          ).Authorization :
+          AuthenticationHeaderValue;
     }
 
     this.OnSessionUpdated();
@@ -2875,9 +2875,9 @@ class CloudXInterface {
       return this._groupMemberInfos[a];
     }
   }
-  OnLogin() {}
-  OnLogout() {}
-  OnSessionUpdated() {}
+  OnLogin() { }
+  OnLogout() { }
+  OnSessionUpdated() { }
   CloudXInterface(UserAgentProduct = "CloudX", UserAgentVersion = "0.0.0.0") {
     this.HttpClient = new HTTP_CLIENT();
     this.Friends = new FriendManager(this);
@@ -2955,8 +2955,8 @@ class CloudXInterface {
       (forceCDN ?
         CloudXInterface.NEOS_ASSETS_CDN :
         forceCloudBlob ?
-        "https://cloudxstorage.blob.core.windows.net/" :
-        CloudXInterface.NEOS_ASSETS) + str3
+          "https://cloudxstorage.blob.core.windows.net/" :
+          CloudXInterface.NEOS_ASSETS) + str3
     );
   }
   static FilterNeosURL(assetURL) {
@@ -3140,7 +3140,7 @@ class CloudXInterface {
           }
         } catch (error) {
           console.error("Exception deserializing ");
-        } finally {}
+        } finally { }
       }
     } else {
       content = await result.Content;
@@ -3291,8 +3291,8 @@ class CloudXInterface {
           if (
             (patreonData != null ?
               patreonData.IsPatreonSupporter ?
-              1 :
-              0 :
+                1 :
+                0 :
               0) == 0
           ) {
             let tags = this.CurrentUser.Tags;
@@ -3625,7 +3625,7 @@ class CloudXInterface {
     return await this.WaitForAssetFinishProcessing(cloudResult.Entity);
   }
   EnqueueChunk(baseUrl, fileName, buffer, processingBuffers) {
-    buffer.task = this.RunRequest(() => {}); //TODO Wtf is this
+    buffer.task = this.RunRequest(() => { }); //TODO Wtf is this
   }
   async TakeFinishedBuffer(buffers) {
     //TODO TakeFinishedBuffer
@@ -3756,10 +3756,10 @@ class CloudXInterface {
     return await this.PUT(
       "api/groups/" + groupId + "/submissions",
       new Submission({
-          groupId,
-          feature,
-          targetRecordId: new RecordId(ownerId, recordId)
-        },
+        groupId,
+        feature,
+        targetRecordId: new RecordId(ownerId, recordId)
+      },
         new TimeSpan()
       )
     );
@@ -3811,12 +3811,12 @@ class CloudXInterface {
     if (ownerId == "GLOBAL") resource = "api/globalvars/" + path;
     else
       resource =
-      "api/" +
-      CloudXInterface.GetOwnerPath(ownerId) +
-      "/" +
-      ownerId +
-      "/vars/" +
-      path;
+        "api/" +
+        CloudXInterface.GetOwnerPath(ownerId) +
+        "/" +
+        ownerId +
+        "/vars/" +
+        path;
     let cloudResult = await cloudXInterface.GET(resource, new TimeSpan());
     if (cloudResult.IsOK) {
       switch (cloudResult.Entity.Value) {
@@ -3828,12 +3828,12 @@ class CloudXInterface {
             cloudResult.State,
             cloudResult.Content
           );
-          //TODO Deserialize
+        //TODO Deserialize
       }
     }
     return new CloudResult("default", cloudResult.State, cloudResult.Content);
   }
-  SerializationErrorHandeler() {}
+  SerializationErrorHandeler() { }
   /**
    * Write a Variable
    * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
@@ -4270,10 +4270,10 @@ class SearchParameters {
     if (
       (((nullable1 != null) == nullable2) != null ?
         nullable1 != null ?
-        nullable1 != nullable2 ?
-        1 :
-        0 :
-        0 :
+          nullable1 != nullable2 ?
+            1 :
+            0 :
+          0 :
         1) != 0
     )
       return false;
@@ -4282,10 +4282,10 @@ class SearchParameters {
     if (
       (((nullable1 != null) == nullable2) != null ?
         nullable1 != null ?
-        nullable1 != nullable2 ?
-        1 :
-        0 :
-        0 :
+          nullable1 != nullable2 ?
+            1 :
+            0 :
+          0 :
         1) != 0 ||
       this.SortBy != other.SortBy ||
       this.OnlyFeatured != other.OnlyFeatured ||
@@ -4751,7 +4751,7 @@ class MessageManager {
           writable: false
         },
         _historyLoadTask: {
-          value: function () {},
+          value: function () { },
           writable: true
         },
         _historyLoaded: {
@@ -4882,8 +4882,8 @@ class TransactionUtil {
   static CDFT_CONVERSION_VARIABLE = "CDFT_CONVERSION";
 }
 class StringNumberConversion {
-  static DecimalToBigInt(value) {}
-  static BigIntToDecimal(value) {}
+  static DecimalToBigInt(value) { }
+  static BigIntToDecimal(value) { }
 }
 class TransactionManager {
   constructor(cloud) {
@@ -4987,8 +4987,8 @@ class TransactionManager {
     return amount.toString();
   }
 }
-class CryptoHelper {}
-class ComputationLock {}
+class CryptoHelper { }
+class ComputationLock { }
 /**
  * @namespace
  * @memberof CloudX
