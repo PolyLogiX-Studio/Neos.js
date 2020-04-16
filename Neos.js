@@ -14,7 +14,7 @@ class Neos extends EventEmitter {
    * @param {*} options
    * @memberof Neos
    */
-  static get CloudX() { return CloudX };
+  static get CloudX() { return CloudX }
   constructor(options) {
     super();
     //Setup Options
@@ -147,7 +147,7 @@ class Neos extends EventEmitter {
     this.Events.on("friendUpdated", friend => {
       this.emit("friendUpdated", friend);
     });
-    this.Events.on("friendRemoved", () => {
+    this.Events.on("friendRemoved", (friend) => {
       this.emit("friendRemoved", friend);
     });
     this.Events.on("friendRequestCountChanged", count => {
@@ -471,6 +471,7 @@ class Neos extends EventEmitter {
    * @param {CloudX.Shared.SearchParameters} record
    * @memberof Neos
    */
+  // eslint-disable-next-line no-unused-vars
   FindRecords(record) { }
   /**
    *Not yet Implimented
@@ -479,6 +480,8 @@ class Neos extends EventEmitter {
    * @param {*} recordId
    * @memberof Neos
    */
+  
+  // eslint-disable-next-line no-unused-vars
   FetchRecord(ownerId, recordId) { }
   /**
    *

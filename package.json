@@ -21,5 +21,8 @@
     "node-fetch": "^2.6.0",
     "uri-js": "^4.2.2",
     "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
   }
 }
