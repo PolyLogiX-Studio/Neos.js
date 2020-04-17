@@ -40,8 +40,8 @@ class Neos extends EventEmitter {
     );
     this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
     this._UserMessage.Cloud = this.CloudXInterface;
-    this.CloudXInterface.OnLogin = () => {
-      this.Events.emit("login");
+    this.CloudXInterface.OnLogin = (obj) => {
+      this.Events.emit("login", obj);
     };
     this.CloudXInterface.OnLogout = () => {
       this.Events.emit("logout");

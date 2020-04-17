@@ -47,6 +47,7 @@ const {
   v4: uuidv4
 } = require("uuid");
 const fetch = require("node-fetch");
+const Decimal = require("decimal.js");
 const fs = require("fs");
 const URI = require("uri-js");
 const SHA256 = require("crypto-js/sha256");
@@ -3171,7 +3172,7 @@ class CloudXInterface {
       this.CurrentUser = new User();
       this.CurrentUser.Id = this.CurrentSession.UserId;
       this.CurrentUser.Username = credentials.Username;
-      this.UpdateCurrentUserInfo();
+      await this.UpdateCurrentUserInfo();
       this.UpdateCurrentUserMemberships();
       this.Friends.Update();
       this.OnLogin();
@@ -3222,10 +3223,10 @@ class CloudXInterface {
       this.CurrentUser = new User();
       this.CurrentUser.Id = this.CurrentSession.UserId;
       this.CurrentUser.Username = credentials.Username;
-      this.UpdateCurrentUserInfo();
+      await this.UpdateCurrentUserInfo();
       this.UpdateCurrentUserMemberships();
       this.Friends.Update();
-      this.OnLogin();
+      this.OnLogin({CurrentUser:this.CurrentUser,CurrentSession:this.CurrentSession});
     } else
       throw new Error(
         "Error loging in: " + result.State + "\n" + result.Content
@@ -4902,7 +4903,7 @@ class TransactionManager {
       TransactionUtil.NCR_CONVERSION_VARIABLE
     );
     if (cloudResult1.IsOK) {
-      this.NCRConversionRatio = parseFloat(cloudResult1.Entity.value);
+      this.NCRConversionRatio = new Decimal(cloudResult1.Entity.value);
     } else {
       console.error(
         "Error getting conversion ratio. " +
@@ -4915,7 +4916,7 @@ class TransactionManager {
       TransactionUtil.CDFT_CONVERSION_VARIABLE
     );
     if (cloudResult2.IsOK) {
-      this.CDFTConversionRatio = parseFloat(cloudResult2.Entity.value);
+      this.CDFTConversionRatio = new Decimal(cloudResult2.Entity.value);
     } else {
       console.error(
         "Error getting conversion ratio. " +
@@ -4931,11 +4932,11 @@ class TransactionManager {
         case "NCR":
           let num1 = sourceAmount;
           let ncrConversionRatio1 = this.NCRConversionRatio;
-          return !ncrConversionRatio1 != null ? new Number() : num1 / ncrConversionRatio1
+          return !ncrConversionRatio1 != null ? new Decimal() : num1 / ncrConversionRatio1
         case "CDFT":
           let num2 = sourceAmount;
           let cdftConversionRatio1 = this.CDFTConversionRatio;
-          return !cdftConversionRatio1 != null ? new Number() : num2 / cdftConversionRatio1;
+          return !cdftConversionRatio1 != null ? new Decimal() : num2 / cdftConversionRatio1;
         default:
           return new Number()
       }
@@ -4946,11 +4947,11 @@ class TransactionManager {
         case "NCR":
           let num3 = sourceAmount;
           let ncrConversionRatio2 = this.NCRConversionRatio;
-          return !ncrConversionRatio2 != null ? new Number() : num4 * ncrConversionRatio2;
+          return !ncrConversionRatio2 != null ? new Decimal() : num4 * ncrConversionRatio2;
         case "CDFT":
           let num4 = sourceAmount
           let cdftConversionRatio2 = this.CDFTConversionRatio;
-          return !cdftConversionRatio2 != null ? new Number() : num4 * cdftConversionRatio2;
+          return !cdftConversionRatio2 != null ? new Decimal() : num4 * cdftConversionRatio2;
         case "KFC":
           return new Number()
         default:
@@ -4971,11 +4972,11 @@ class TransactionManager {
   ToUSD(token, amount) {
     switch (token) {
       case "NCR":
-        return !this.NCRConversionRatio != null ? new Number() : this.NCRConversionRatio * amount;
+        return !this.NCRConversionRatio != null ? new Decimal() : this.NCRConversionRatio * amount;
       case "CDFT":
         let cdftConversionRatio = this.CDFTConversionRatio;
         let num = amount
-        return !cdftConversionRatio != null ? new Number() : cdftConversionRatio * num;
+        return !cdftConversionRatio != null ? new Decimal() : cdftConversionRatio * num;
       case 'KFC':
         return new Number()
       default:
@@ -5027,7 +5028,8 @@ const Util = {
   Enumerable,
   HashSet,
   Uri,
-  Out
+  Out,
+  Decimal
 };
 /**
  * @namespace CloudX
