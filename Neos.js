@@ -14,11 +14,11 @@ class Neos extends EventEmitter {
    * @param {*} options
    * @memberof Neos
    */
-  static get CloudX() { return CloudX };
+  static get CloudX() { return CloudX }
   constructor(options) {
     super();
     //Setup Options
-   
+
     if (!options) options = {};
     if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
@@ -29,7 +29,7 @@ class Neos extends EventEmitter {
       options.CompatabilityHash = config.main + " " + config.version;
     if (!options.UpdateInterval) options.UpdateInterval = 1000;
     if (options.Update == null) options.Update = true
-   
+
     this.Options = options
     this.Events = new Events();
     this.CloudX = CloudX;
@@ -40,8 +40,8 @@ class Neos extends EventEmitter {
     );
     this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
     this._UserMessage.Cloud = this.CloudXInterface;
-    this.CloudXInterface.OnLogin = () => {
-      this.Events.emit("login");
+    this.CloudXInterface.OnLogin = (obj) => {
+      this.Events.emit("login", obj);
     };
     this.CloudXInterface.OnLogout = () => {
       this.Events.emit("logout");
@@ -147,7 +147,7 @@ class Neos extends EventEmitter {
     this.Events.on("friendUpdated", friend => {
       this.emit("friendUpdated", friend);
     });
-    this.Events.on("friendRemoved", () => {
+    this.Events.on("friendRemoved", (friend) => {
       this.emit("friendRemoved", friend);
     });
     this.Events.on("friendRequestCountChanged", count => {
@@ -164,7 +164,7 @@ class Neos extends EventEmitter {
     this.clearInterval(this.Interval);
     this.Interval = setInterval(this.Update.bind(this), interval);
   }
-  clearInterval(interval = this.Interval){
+  clearInterval(interval = this.Interval) {
     clearInterval(interval)
   }
   /**
@@ -471,6 +471,7 @@ class Neos extends EventEmitter {
    * @param {CloudX.Shared.SearchParameters} record
    * @memberof Neos
    */
+  // eslint-disable-next-line no-unused-vars
   FindRecords(record) { }
   /**
    *Not yet Implimented
@@ -479,6 +480,8 @@ class Neos extends EventEmitter {
    * @param {*} recordId
    * @memberof Neos
    */
+  
+  // eslint-disable-next-line no-unused-vars
   FetchRecord(ownerId, recordId) { }
   /**
    *

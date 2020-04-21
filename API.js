@@ -43,8 +43,11 @@ class Action { }
  * @class Task
  */
 class Task extends Promise { }
-const { v4: uuidv4 } = require("uuid");
+const {
+  v4: uuidv4
+} = require("uuid");
 const fetch = require("node-fetch");
+const Decimal = require("decimal.js");
 const fs = require("fs");
 const URI = require("uri-js");
 const SHA256 = require("crypto-js/sha256");
@@ -53,9 +56,11 @@ class TimeSpan {
     this.msecs = num != null ? num : 0;
   }
 }
+
 function fromSeconds(num) {
   return num * 1000;
 }
+
 function fromMinutes(num) {
   return num * 60000;
 }
@@ -95,7 +100,9 @@ class HTTP_CLIENT {
   async SendAsync(request, token) {
     let state;
     let resHeaders;
-    let dat = { method: request.Method };
+    let dat = {
+      method: request.Method
+    };
     dat.headers = request.Headers;
     if (
       request.Method == "POST" ||
@@ -280,7 +287,10 @@ class Uri {
    * @param {string} url
    */
   set URL(url) {
-    Object.defineProperty(this, "rawUrl", { value: url, enumerable: false });
+    Object.defineProperty(this, "rawUrl", {
+      value: url,
+      enumerable: false
+    });
     this._raw = URI.parse(url);
     let path = this._raw.path.split("/");
     this.Segments = new Array();
@@ -486,8 +496,7 @@ class HashSet extends List {
     }
   }
   IsSame(set) {
-    for (item of set) {
-    }
+    for (item of set) { }
   }
 }
 /**
@@ -515,7 +524,10 @@ class Dictionary extends Array {
       throw new Error(
         "ArgumentException: An element with the same key already exists"
       );
-    this.push({ Key, Value });
+    this.push({
+      Key,
+      Value
+    });
   }
   Replace(key, Value) {
     if (!this.ContainsKey(key)) return false;
@@ -685,7 +697,9 @@ class Char {
  */
 class HttpRequestMessage {
   constructor(method, uri) {
-    this.Headers = { Accept: "application/json" };
+    this.Headers = {
+      Accept: "application/json"
+    };
     this.Content = {};
     this.Method = method;
     this.RequestUri = uri;
@@ -2252,15 +2266,15 @@ class IdUtil {
    */
   static GenerateId(ownerType, name = null, randomAppend = 0) {
     name =
-      name != null
-        ? name
+      name != null ?
+        name
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
-          .replace(/[\u{0080}-\u{FFFF}]/gu, "")
-        : null;
+          .replace(/[\u{0080}-\u{FFFF}]/gu, "") :
+        null;
     var stringBuilder = new StringBuilder();
     if (name != null) {
-      for (/** @type string */ let c of name) {
+      for ( /** @type string */ let c of name) {
         if (Char.IsLetterOrDigit(c)) stringBuilder.Append(c);
         if (Char.IsWhiteSpace(c) || c == "_") stringBuilder.Append("-");
         if (stringBuilder.Length == 20) break;
@@ -2615,18 +2629,45 @@ class CloudXInterface {
     //this.CloudXInterface()
     this.Events = BUS;
     Object.defineProperties(this, {
-      _groupMemberships: { value: new List(), writable: true },
-      _groupMemberInfos: { value: new Dictionary(), writable: true },
-      _groups: { value: new Dictionary(), writable: true },
-      _currentSession: { value: new UserSession(), configurable: true },
-      _currentUser: { writable: true },
-      _cryptoProvider: { writable: true },
-      _currentAuthenticationHeader: { value:null,writable: true },
-      _lastSessionUpdate: { value: new Date(0), writable: true },
-      _lastServerStatsUpdate: { value: new Date(0), writable: true },
-      lockobj: { value: "CloudXLockObj" }
+      _groupMemberships: {
+        value: new List(),
+        writable: true
+      },
+      _groupMemberInfos: {
+        value: new Dictionary(),
+        writable: true
+      },
+      _groups: {
+        value: new Dictionary(),
+        writable: true
+      },
+      _currentSession: {
+        value: new UserSession(),
+        configurable: true
+      },
+      _currentUser: {
+        writable: true
+      },
+      _cryptoProvider: {
+        writable: true
+      },
+      _currentAuthenticationHeader: {
+        value: null,
+        writable: true
+      },
+      _lastSessionUpdate: {
+        value: new Date(0),
+        writable: true
+      },
+      _lastServerStatsUpdate: {
+        value: new Date(0),
+        writable: true
+      },
+      lockobj: {
+        value: "CloudXLockObj"
+      }
     });
-  }
+  };
 
   static CloudEndpoint = new Enumerable(["Production", "Staging", "Local", "PolyLogiXOAUTH"]);
 
@@ -2717,18 +2758,18 @@ class CloudXInterface {
     return "https://cloudx.azureedge.net/install/";
   }
   static get NEOS_CLOUD_BLOB() {
-    return !CloudXInterface.USE_CDN
-      ? "https://cloudxstorage.blob.core.windows.net/"
-      : "https://cloudx.azureedge.net/";
+    return !CloudXInterface.USE_CDN ?
+      "https://cloudxstorage.blob.core.windows.net/" :
+      "https://cloudx.azureedge.net/";
   }
   get ServerStatus() {
     if (new Date(new Date() - this.LastServerStateFetch).getSeconds() >= 60.0)
       return ServerStatus.NoInternet;
     if (new Date(new Date() - this.LastServerUpdate).getSeconds() >= 60.0)
       return ServerStatus.Down;
-    return this.ServerResponseTime > 500
-      ? ServerStatus.Slow
-      : ServerStatus.Good;
+    return this.ServerResponseTime > 500 ?
+      ServerStatus.Slow :
+      ServerStatus.Good;
   }
   get CurrentUser() {
     return this._currentUser;
@@ -2747,40 +2788,49 @@ class CloudXInterface {
   set CurrentSession(value) {
     if (value == null) {
       Object.defineProperties(this, {
-        _currentSession: { value: new UserSession(), configurable: true }
+        _currentSession: {
+          value: new UserSession(),
+          configurable: true
+        }
       });
       return;
     }
     if (value == this._currentSession) return;
     if (!this._currentSession)
       Object.defineProperties(this, {
-        _currentSession: { value: new UserSession(), configurable: true }
+        _currentSession: {
+          value: new UserSession(),
+          configurable: true
+        }
       });
     if (this._currentSession.SessionToken != value.SessionToken)
       this._lastSessionUpdate = new Date();
     Object.defineProperties(this, {
-      _currentSession: { value: value, configurable: true }
+      _currentSession: {
+        value: value,
+        configurable: true
+      }
     });
     if (!this.OAuth) this.OAuth = {}
     //OAUTH
-    if (this.OAuth.IsOAUTH){
+    if (this.OAuth.IsOAUTH) {
       this._currentAuthenticationHeader =
-      value != null
-        ? new AuthenticationHeaderValue(
-          "Bearer",
-          value.SessionToken
-        ).Authorization
-        : AuthenticationHeaderValue;
+        value != null ?
+          new AuthenticationHeaderValue(
+            "Bearer",
+            value.SessionToken
+          ).Authorization :
+          AuthenticationHeaderValue;
     } else {
       this._currentAuthenticationHeader =
-      value != null
-        ? new AuthenticationHeaderValue(
-          "neos",
-          value.UserId + ":" + value.SessionToken
-        ).Authorization
-        : AuthenticationHeaderValue;
+        value != null ?
+          new AuthenticationHeaderValue(
+            "neos",
+            value.UserId + ":" + value.SessionToken
+          ).Authorization :
+          AuthenticationHeaderValue;
     }
-    
+
     this.OnSessionUpdated();
     try {
       let sessionChanged = this.sessionChanged;
@@ -2903,11 +2953,11 @@ class CloudXInterface {
     if (CloudXInterface.IsLegacyNeosDB(neosdb))
       return new Uri("https://neoscloud.blob.core.windows.net/assets/" + str3);
     return new Uri(
-      (forceCDN
-        ? CloudXInterface.NEOS_ASSETS_CDN
-        : forceCloudBlob
-          ? "https://cloudxstorage.blob.core.windows.net/"
-          : CloudXInterface.NEOS_ASSETS) + str3
+      (forceCDN ?
+        CloudXInterface.NEOS_ASSETS_CDN :
+        forceCloudBlob ?
+          "https://cloudxstorage.blob.core.windows.net/" :
+          CloudXInterface.NEOS_ASSETS) + str3
     );
   }
   static FilterNeosURL(assetURL) {
@@ -3011,7 +3061,9 @@ class CloudXInterface {
         Endpoint = CloudXInterface.POLYLOGIX_OAUTH_API + resource
       else
         Endpoint = CloudXInterface.NEOS_API + resource
-    } else { Endpoint = CloudXInterface.NEOS_API + resource }
+    } else {
+      Endpoint = CloudXInterface.NEOS_API + resource
+    }
     let request = new HttpRequestMessage(
       method,
       Endpoint
@@ -3089,8 +3141,7 @@ class CloudXInterface {
           }
         } catch (error) {
           console.error("Exception deserializing ");
-        } finally {
-        }
+        } finally { }
       }
     } else {
       content = await result.Content;
@@ -3121,7 +3172,7 @@ class CloudXInterface {
       this.CurrentUser = new User();
       this.CurrentUser.Id = this.CurrentSession.UserId;
       this.CurrentUser.Username = credentials.Username;
-      this.UpdateCurrentUserInfo();
+      await this.UpdateCurrentUserInfo();
       this.UpdateCurrentUserMemberships();
       this.Friends.Update();
       this.OnLogin();
@@ -3172,10 +3223,10 @@ class CloudXInterface {
       this.CurrentUser = new User();
       this.CurrentUser.Id = this.CurrentSession.UserId;
       this.CurrentUser.Username = credentials.Username;
-      this.UpdateCurrentUserInfo();
+      await this.UpdateCurrentUserInfo();
       this.UpdateCurrentUserMemberships();
       this.Friends.Update();
-      this.OnLogin();
+      this.OnLogin({CurrentUser:this.CurrentUser,CurrentSession:this.CurrentSession});
     } else
       throw new Error(
         "Error loging in: " + result.State + "\n" + result.Content
@@ -3199,7 +3250,11 @@ class CloudXInterface {
     this.Logout(false);
     return await this.POST(
       "/api/users",
-      new User({ username, email, password }),
+      new User({
+        username,
+        email,
+        password
+      }),
       new TimeSpan()
     );
   }
@@ -3213,7 +3268,9 @@ class CloudXInterface {
   async RequestRecoveryCode(email) {
     return await this.POST(
       "/api/users/requestlostpassword",
-      new User({ email }),
+      new User({
+        email
+      }),
       new TimeSpan()
     );
   }
@@ -3233,11 +3290,11 @@ class CloudXInterface {
           let patreonData = this.CurrentUser.PatreonData;
           let num = new Number();
           if (
-            (patreonData != null
-              ? patreonData.IsPatreonSupporter
-                ? 1
-                : 0
-              : 0) == 0
+            (patreonData != null ?
+              patreonData.IsPatreonSupporter ?
+                1 :
+                0 :
+              0) == 0
           ) {
             let tags = this.CurrentUser.Tags;
             num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
@@ -3699,8 +3756,11 @@ class CloudXInterface {
   async UpsertSubmission(groupId, ownerId, recordId, feature = false) {
     return await this.PUT(
       "api/groups/" + groupId + "/submissions",
-      new Submission(
-        { groupId, feature, targetRecordId: new RecordId(ownerId, recordId) },
+      new Submission({
+        groupId,
+        feature,
+        targetRecordId: new RecordId(ownerId, recordId)
+      },
         new TimeSpan()
       )
     );
@@ -3794,7 +3854,9 @@ class CloudXInterface {
       ownerId +
       "/vars/" +
       path,
-      new CloudVariable({ value: JSON.stringify(value) }, new TimeSpan())
+      new CloudVariable({
+        value: JSON.stringify(value)
+      }, new TimeSpan())
     );
   }
   async DeleteVariable(ownerId, path) {
@@ -3907,8 +3969,8 @@ class CloudXInterface {
    * @memberof CloudXInterface
    * @returns {Promise<CloudResult<List<Friend>>>>}
    */
-  async GetFriends(userId, lastStatusUpdate = null, count=0) {
-    if (count>10) return new List();
+  async GetFriends(userId, lastStatusUpdate = null, count = 0) {
+    if (count > 10) return new List();
     if (typeof userId != "string")
       return await this.GetFriends(this.CurrentUser.Id, userId, ++count);
     let str = "";
@@ -4076,8 +4138,7 @@ class CloudXInterface {
   }
   NotifyOnlineInstance(machineId) {
     return this.POST(
-      "api/stats/instanceOnline/" + machineId,
-      {},
+      "api/stats/instanceOnline/" + machineId, {},
       new TimeSpan()
     );
   }
@@ -4088,9 +4149,9 @@ class CloudXInterface {
     );
     let result = new Out();
     return !cloudResult.IsOK() ||
-      Number.TryParseInt(cloudResult.Content, result)
-      ? -1
-      : result.Out;
+      Number.TryParseInt(cloudResult.Content, result) ?
+      -1 :
+      result.Out;
   }
   /**
    * Fetch Neos Server Statistics
@@ -4130,9 +4191,9 @@ class CloudXInterface {
    */
   async GetOnlineUserCount() {
     let cloudResult = await this.GET("api/stats/onlineUsers", new TimeSpan());
-    return !cloudResult.IsOK || !Number.parseInt(cloudResult.Content)
-      ? -1
-      : Number.parseInt(cloudResult.Content);
+    return !cloudResult.IsOK || !Number.parseInt(cloudResult.Content) ?
+      -1 :
+      Number.parseInt(cloudResult.Content);
   }
 }
 class CancellationTokenSource {
@@ -4169,7 +4230,9 @@ class SearchParameters {
     /** @type List<string> */
     this.ExtraSignatures = new List();
     Object.defineProperties(this, {
-      _isNormalized: { value: new Boolean() }
+      _isNormalized: {
+        value: new Boolean()
+      }
     });
   }
   Normalize() {
@@ -4183,7 +4246,9 @@ class SearchParameters {
       if (this.ExtraSignatures.Count == 0) this.ExtraSignatures = null;
     }
     Object.defineProperties(this, {
-      _isNormalized: { value: true }
+      _isNormalized: {
+        value: true
+      }
     });
   }
   /**
@@ -4204,25 +4269,25 @@ class SearchParameters {
     let nullable1 = this.MinDate;
     let nullable2 = other.MinDate;
     if (
-      (((nullable1 != null) == nullable2) != null
-        ? nullable1 != null
-          ? nullable1 != nullable2
-            ? 1
-            : 0
-          : 0
-        : 1) != 0
+      (((nullable1 != null) == nullable2) != null ?
+        nullable1 != null ?
+          nullable1 != nullable2 ?
+            1 :
+            0 :
+          0 :
+        1) != 0
     )
       return false;
     nullable1 = this.MaxDate;
     nullable2 = other.MaxDate;
     if (
-      (((nullable1 != null) == nullable2) != null
-        ? nullable1 != null
-          ? nullable1 != nullable2
-            ? 1
-            : 0
-          : 0
-        : 1) != 0 ||
+      (((nullable1 != null) == nullable2) != null ?
+        nullable1 != null ?
+          nullable1 != nullable2 ?
+            1 :
+            0 :
+          0 :
+        1) != 0 ||
       this.SortBy != other.SortBy ||
       this.OnlyFeatured != other.OnlyFeatured ||
       this.SortDirection != other.SortDirection
@@ -4280,9 +4345,18 @@ class FriendManager {
     /** @type Number */
     this.FriendRequestCount;
     Object.defineProperties(this, {
-      _friendSessions: { value: new Dictionary(), writable: true },
-      _lock: { value: new Object(), writable: false },
-      _friendsChanged: { value: new Boolean(), writable: true }
+      _friendSessions: {
+        value: new Dictionary(),
+        writable: true
+      },
+      _lock: {
+        value: new Object(),
+        writable: false
+      },
+      _friendsChanged: {
+        value: new Boolean(),
+        writable: true
+      }
     });
   }
 
@@ -4520,10 +4594,22 @@ class MessageManager {
     this.InitialmessagesFetched = new Boolean();
     this.UnreadCount = new Number();
     Object.defineProperties(this, {
-      _messagesLock: { value: new Object(), writable: false },
-      _messages: { value: new Dictionary(), writable: true },
-      _unreadCountDirty: { value: new Boolean(), writable: true },
-      _waitingForRequest: { value: new Boolean(), writable: true }
+      _messagesLock: {
+        value: new Object(),
+        writable: false
+      },
+      _messages: {
+        value: new Dictionary(),
+        writable: true
+      },
+      _unreadCountDirty: {
+        value: new Boolean(),
+        writable: true
+      },
+      _waitingForRequest: {
+        value: new Boolean(),
+        writable: true
+      }
     });
   }
   static UPDATE_PERIOD_SECONDS = 1;
@@ -4545,7 +4631,10 @@ class MessageManager {
     }
     if (this._unreadCountDirty) {
       Object.defineProperties(this, {
-        _unreadCountDirty: { value: false, writable: true }
+        _unreadCountDirty: {
+          value: false,
+          writable: true
+        }
       });
       this.UnreadCount = this._messages.length;
       let messageCountChanged = this.UnreadMessageCountChanged;
@@ -4555,9 +4644,9 @@ class MessageManager {
     }
     if (
       new Date(new Date() - this.lastRequest).getSeconds() <
-      (this._waitingForRequest
-        ? MessageManager.UPDATE_TIMEOUT_SECONDS
-        : MessageManager.UPDATE_PERIOD_SECONDS)
+      (this._waitingForRequest ?
+        MessageManager.UPDATE_TIMEOUT_SECONDS :
+        MessageManager.UPDATE_PERIOD_SECONDS)
     ) {
       return;
     }
@@ -4615,12 +4704,18 @@ class MessageManager {
   }
   MarkUnreadCountDirty() {
     Object.defineProperties(this, {
-      _unreadCountDirty: { value: true, writable: true }
+      _unreadCountDirty: {
+        value: true,
+        writable: true
+      }
     });
   }
   Reset() {
     Object.defineProperties(this, {
-      _messages: { value: new Dictionary(), writable: true }
+      _messages: {
+        value: new Dictionary(),
+        writable: true
+      }
     });
     this.lastUnreadMessage = new Date();
     this.InitialmessagesFetched = false;
@@ -4648,10 +4743,22 @@ class MessageManager {
       this.UnreadCount = new Number();
       this.Messages = new List();
       Object.defineProperties(this, {
-        _messageIds: { value: new List(), writable: false },
-        _lock: { value: "MessageManager.UserMessages._lock", writable: false },
-        _historyLoadTask: { value: function () { }, writable: true },
-        _historyLoaded: { value: new Boolean(), writable: true }
+        _messageIds: {
+          value: new List(),
+          writable: false
+        },
+        _lock: {
+          value: "MessageManager.UserMessages._lock",
+          writable: false
+        },
+        _historyLoadTask: {
+          value: function () { },
+          writable: true
+        },
+        _historyLoaded: {
+          value: new Boolean(),
+          writable: true
+        }
       });
     }
     get CloudXInterface() {
@@ -4796,7 +4903,7 @@ class TransactionManager {
       TransactionUtil.NCR_CONVERSION_VARIABLE
     );
     if (cloudResult1.IsOK) {
-      this.NCRConversionRatio = parseFloat(cloudResult1.Entity.value);
+      this.NCRConversionRatio = new Decimal(cloudResult1.Entity.value);
     } else {
       console.error(
         "Error getting conversion ratio. " +
@@ -4809,7 +4916,7 @@ class TransactionManager {
       TransactionUtil.CDFT_CONVERSION_VARIABLE
     );
     if (cloudResult2.IsOK) {
-      this.CDFTConversionRatio = parseFloat(cloudResult2.Entity.value);
+      this.CDFTConversionRatio = new Decimal(cloudResult2.Entity.value);
     } else {
       console.error(
         "Error getting conversion ratio. " +
@@ -4820,34 +4927,31 @@ class TransactionManager {
     }
   }
   TryConvert(sourceToken, sourceAmount, targetToken) {
-    if (sourceToken == "USD"){
-      switch (targetToken)
-      {
+    if (sourceToken == "USD") {
+      switch (targetToken) {
         case "NCR":
           let num1 = sourceAmount;
           let ncrConversionRatio1 = this.NCRConversionRatio;
-          return !ncrConversionRatio1!=null ? new Number() : num1/ncrConversionRatio1
+          return !ncrConversionRatio1 != null ? new Decimal() : num1 / ncrConversionRatio1
         case "CDFT":
           let num2 = sourceAmount;
           let cdftConversionRatio1 = this.CDFTConversionRatio;
-          return !cdftConversionRatio1!= null ? new Number() : num2 / cdftConversionRatio1;
+          return !cdftConversionRatio1 != null ? new Decimal() : num2 / cdftConversionRatio1;
         default:
           return new Number()
       }
-    }
-    else
-    {
-      if (!(targetToken=="USD"))
+    } else {
+      if (!(targetToken == "USD"))
         return new Number()
-      switch (sourceAmount){
+      switch (sourceAmount) {
         case "NCR":
           let num3 = sourceAmount;
           let ncrConversionRatio2 = this.NCRConversionRatio;
-          return !ncrConversionRatio2!=null?new Number():num4*ncrConversionRatio2;
+          return !ncrConversionRatio2 != null ? new Decimal() : num4 * ncrConversionRatio2;
         case "CDFT":
           let num4 = sourceAmount
           let cdftConversionRatio2 = this.CDFTConversionRatio;
-          return !cdftConversionRatio2!=null?new Number():num4*cdftConversionRatio2;
+          return !cdftConversionRatio2 != null ? new Decimal() : num4 * cdftConversionRatio2;
         case "KFC":
           return new Number()
         default:
@@ -4856,7 +4960,7 @@ class TransactionManager {
     }
   }
   IsValidToken(token) {
-    switch (token){
+    switch (token) {
       case "NCR":
       case "CDFT":
       case "KFC":
@@ -4866,13 +4970,13 @@ class TransactionManager {
     }
   }
   ToUSD(token, amount) {
-    switch(token){
+    switch (token) {
       case "NCR":
-        return !this.NCRConversionRatio!=null?new Number():this.NCRConversionRatio*amount;
+        return !this.NCRConversionRatio != null ? new Decimal() : this.NCRConversionRatio * amount;
       case "CDFT":
         let cdftConversionRatio = this.CDFTConversionRatio;
         let num = amount
-        return !cdftConversionRatio!=null?new Number():cdftConversionRatio*num;
+        return !cdftConversionRatio != null ? new Decimal() : cdftConversionRatio * num;
       case 'KFC':
         return new Number()
       default:
@@ -4924,12 +5028,16 @@ const Util = {
   Enumerable,
   HashSet,
   Uri,
-  Out
+  Out,
+  Decimal
 };
 /**
  * @namespace CloudX
  */
-const CloudX = { Shared, Util };
+const CloudX = {
+  Shared,
+  Util
+};
 module.exports = {
   CloudX
 };

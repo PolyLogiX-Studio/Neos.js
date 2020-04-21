@@ -1,0 +1,6 @@
+{
+  "source": "/",
+  "destination": "./docs",
+  "excludes":["./docs/"],
+  "plugins": [{"name": "esdoc-standard-plugin"}]
+}

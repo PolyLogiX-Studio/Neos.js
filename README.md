@@ -32,8 +32,8 @@ neos.SendTextMessage("U-Neos", "This is a Message!");
 const Neos = require('NeosJS')
 const neos = new Neos()
 
-neos.on("login",()=>{
-    console.log(neos.CurrentUser) // Log the current user
+neos.on("login",(obj)=>{
+    console.log(obj.CurrentUser, obj.CurrentSession) // Log the current user and Session
 })
 neos.on("friendAdded",(friend)=>{
     if (friend.FriendStatus == "Requested") {
