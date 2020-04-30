@@ -1,6 +1,13 @@
 const {
   Type
 } = require("./Type")
+
+/**
+ * @template T
+ * @class Enumerable
+ * @extends {Object}
+ * @returns {Enumerable<T>}
+ */
 class Enumerable extends Object {
   /**
    *Creates an instance of Enumerable.

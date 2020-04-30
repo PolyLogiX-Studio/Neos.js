@@ -1,3 +1,6 @@
+const {
+  Type
+} = require("./Type")
 /**
  * Work in Miliseconds
  *
@@ -13,6 +16,18 @@ class TimeSpan {
 
   static fromMinutes(num) {
     return num * 60000;
+  }
+
+  /**
+   *
+   *  Delay by ms
+   * @param {TimeSpan} timespan
+   * @returns {Promise}
+   */
+  static Delay(timespan) {
+    if (Type.Get(timespan) != "TimeSpan")
+      timespan = new TimeSpan(timespan)
+    return new Promise(resolve => setTimeout(resolve, timespan.msecs));
   }
 }
 module.exports = {

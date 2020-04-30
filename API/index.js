@@ -15,18 +15,35 @@ const {AccountType} = require("./AccountType")
 const {List} = require("./List")
 const {Dictionary} = require("./Dictionary")
 const {HashSet} = require("./HashSet")
+const {Char} = require("./Char")
+const {HttpMethod} = require("./HttpMethod")
+const {OnlineStatus} = require("./OnlineStatus")
+const {TransactionType} = require("./TransactionType")
+const {AssetVariantEntityType} = require("./AssetVariantEntityType")
+const {OwnerType} = require("./OwnerType")
+const {FriendStatus} = require("./FriendStatus")
+const {Path} = require("./Path")
+const {AssetUtil} = require("./AssetUtil")
 const CloudX = {
   Shared: {
     AuthenticationHeaderValue,
+    HttpMethod,
+    OnlineStatus,
+    TransactionType,
+    AssetVariantEntityType,
+    OwnerType,
+    FriendStatus,
     CloudResult,
     UserTags,
     HTTP_CLIENT,
     RecordId,
     MessageType,
     ServerStatus,
-    AccountType
+    AccountType,
+    AssetUtil
   },
   Util: {
+    Path,
     StringBuilder,
     TimeSpan,
     Out,
@@ -35,7 +52,8 @@ const CloudX = {
     Enumerable,
     List,
     Dictionary,
-    HashSet
+    HashSet,
+    Char
   }
 }
 module.exports = {

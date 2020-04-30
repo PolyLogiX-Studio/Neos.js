@@ -1,6 +1,7 @@
 const {
   CloudResult
 } = require("./CloudResult")
+const fetch = require("node-fetch");
 /**
  *
  *

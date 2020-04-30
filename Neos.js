@@ -1,7 +1,7 @@
 const {
   CloudX
-} = require("./API.js");
-const config = require("./package.json");
+} = require("./API");
+const config = require("./Config")
 const EventEmitter = require("events").EventEmitter;
 class Events extends EventEmitter {
   constructor() {

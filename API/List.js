@@ -35,6 +35,21 @@ class List extends Array {
     return this.some(action);
   }
   /**
+   *Convert Array to List
+   *
+   * @static
+   * @param {Array} array
+   * @returns List
+   * @memberof List
+   */
+  static ToList(array) {
+    let t = new List();
+    for (let item of array) {
+      t.Add(item);
+    }
+    return t;
+  }
+  /**
    * Concat 2 Lists
    * @param {List} list
    */
@@ -136,4 +151,6 @@ class List extends Array {
     return this.sort(compareFn);
   }
 }
-module.exports = {List}
+module.exports = {
+  List
+}

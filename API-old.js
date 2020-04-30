@@ -7,29 +7,15 @@
  * @requires NPM:uuid
  * @requires NPM:node-fetch
  * @requires NPM:uri-js
+ * @requires NPM:crypto-js/sha256
+ * @requires NPM:decimal.js
  *
  */
-
-/**
- *
- * @template T
- * @class Action
- */
-class Action { }
-/**
- *
- * @template T
- * @class Task
- */
-class Task extends Promise { }
 const {
   v4: uuidv4
 } = require("uuid");
-const fetch = require("node-fetch");
+
 const Decimal = require("decimal.js");
-const fs = require("fs");
-
-const SHA256 = require("crypto-js/sha256");
 
 
 
@@ -40,87 +26,23 @@ const SHA256 = require("crypto-js/sha256");
 
 
 
-/**
- * @template T
- * @class Enumerable
- * @extends {Object}
- * @returns {Enumerable<T>}
- */
 
 
 
 
 
-const TransactionType = new Enumerable([
-  "User2User",
-  "Withdrawal",
-  "Deposit",
-  "Tip"
-]);
-const HttpMethod = new Enumerable({
-  Get: "GET",
-  Put: "PUT",
-  Delete: "DELETE",
-  Post: "POST",
-  Patch: "PATCH"
-});
-const OnlineStatus = new Enumerable([
-  "Offline",
-  "Invisible",
-  "Away",
-  "Busy",
-  "Online"
-]);
-const AssetVariantEntityType = new Enumerable([
-  "BitmapMetadata",
-  "BitmapVariant"
-]);
-const FriendStatus = new Enumerable([
-  "None",
-  "SearchResult",
-  "Requested",
-  "Ignored",
-  "Blocked",
-  "Accepted"
-]);
-const OwnerType = new Enumerable(["Machine", "User", "Group", "INVALID"]);
-/**
- *
- *  Delay by ms
- * @param {TimeSpan} timespan
- * @returns {Promise}
- */
-function Delay(timespan) {
-  return new Promise(resolve => setTimeout(resolve, timespan.msecs));
-}
-
-class Path {
-  static GetExtension(str) {
-    return str.match(/\.[a-zA-Z0-9]+$/)[0];
-  }
-  static GetFileNameWithoutExtension(str) {
-    return str.replace(/\.[^/.]+$/, "");
-  }
-}
 
 
 
 
-Number.prototype.TryParseInt = function (num, out) {
-  if (!isNaN(parseInt(num))) {
-    out.Out = parseInt(num);
-    return true;
-  } else {
-    return false;
-  }
-};
-Array.prototype.ToList = function () {
-  let t = new List();
-  for (let item of this) {
-    t.Add(item);
-  }
-  return t;
-};
+
+
+
+
+
+
+
+
 String.prototype.noExtension = function () {
   return this.replace(/\.[^/.]+$/, "");
 };
@@ -134,24 +56,7 @@ String.IsNullOrEmpty = function (str) {
   if (str == "") return true;
   return false;
 };
-/**
- * Simple class to work with Characters
- *
- * @class Char
- */
-class Char {
-  static IsLetterOrDigit(char) {
-    if (char == null || char == "" || char == " ") return false;
-    if (!isNaN(char)) return true;
-    if (char.toUpperCase() != char.toLowerCase()) return true;
-    return false;
-  }
-  static IsWhiteSpace(char) {
-    if (!char) return false;
-    if (char == " ") return true;
-    return false;
-  }
-}
+
 
 /**
  *
@@ -262,80 +167,7 @@ class AssetUploadData {
     this.UploadState = $b.uploadState;
   }
 }
-class AssetUtil {
-  /**
-   * @readonly
-   * @static
-   * @memberof AssetUtil
-   */
-  static get COMPUTE_VERSION() {
-    return 4;
-  }
-  /**
-   *
-   * @template T
-   * @static
-   * @param {T} file
-   * @memberof AssetUtil
-   */
-  static GenerateHashSignature(file) {
-    if (Type.Get(file) == "String") {
-      let fileStream = fs.readFileSync(file);
-      return AssetUtil.GenerateHashSignature(fileStream);
-    } else {
-      return SHA256(file.toString())
-        .toString()
-        .replace("-", "")
-        .toLowerCase();
-    }
-  }
-  static GenerateURL(signature, extension) {
-    if (!extension.startsWith(".")) extension = "." + extension;
-    return new Uri("neosdb:///" + signature + extension);
-  }
-  /**
-   * @static
-   * @param {Uri} uri
-   * @param {Out<String>} extension
-   * @memberof AssetUtil
-   */
-  static ExtractSignature(uri, extension = new Out()) {
-    if (uri.Scheme != "neosdb") throw new Error("Not a NeosDB URI");
-    let segment = uri.Segments[1];
-    extension.Out = Path.GetExtension(segment);
-    return Path.GetFileNameWithoutExtension(segment);
-  }
-  /**
-   *
-   *
-   * @param {string} signature
-   * @param {string} variant
-   * @memberof AssetUtil
-   */
-  static ComposeIdentifier(signature, variant) {
-    if (String.IsNullOrWhiteSpace(variant)) return signature;
-    return signature + "&" + variant;
-  }
-  /**
-   *
-   *
-   * @static
-   * @param {string} identifier
-   * @param {Out<String>} signature
-   * @param {Out<String>} variant
-   * @memberof AssetUtil
-   */
-  static SplitIdentifier(identifier, signature, variant) {
-    let length = identifier.indexOf("&");
-    if (length >= 0) {
-      variant.Out = identifier.substr(length + 1);
-      signature.Out = identifier.substr(0, length);
-    } else {
-      variant.Out = null;
-      signature.Out = identifier.toLowerCase();
-    }
-  }
-}
+
 class AssetVariantComputationTask {
   /**
    *Creates an instance of AssetVariantComputationTask.
@@ -809,11 +641,11 @@ class SessionInfo {
     let SessionURLs = $b.sessionURLs;
     if (Type.Get(SessionURLs) == "List") this.SessionURLs = SessionURLs;
     if (Type.Get(SessionURLs) == "Array")
-      this.SessionURLs = SessionURLs.ToList();
+      this.SessionURLs = List.ToList(SessionURLs)
     let SessionUsers = $b.sessionUsers;
     if (Type.Get(SessionUsers) == "List") this.SessionUsers = SessionUsers;
     if (Type.Get(SessionUsers) == "Array")
-      this.SessionUsers = SessionUsers.ToList();
+      this.SessionUsers = ToList(SessionUsers);
     this.Thumbnail = $b.thumbnail;
     this.JoinedUsers = $b.joinedUsers;
     this.ActiveUsers = $b.activeUsers;
@@ -833,11 +665,10 @@ class SessionInfo {
    */
   GetSessionURLs() {
     if (this.SessionURLs != null)
-      return this.SessionURLs.filter(str => {
-        return str;
-      })
-        .map(str => new Uri(str))
-        .ToList();
+      return List.ToList(this.SessionURLs.filter(str => {
+          return str;
+        })
+        .map(str => new Uri(str)))
     let uriList = new List();
     if (this.LegacySessionURL != null)
       uriList.Add(new Uri(this.LegacySessionURL));
@@ -1691,11 +1522,11 @@ class IdUtil {
   static GenerateId(ownerType, name = null, randomAppend = 0) {
     name =
       name != null ?
-        name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/[\u{0080}-\u{FFFF}]/gu, "") :
-        null;
+      name
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[\u{0080}-\u{FFFF}]/gu, "") :
+      null;
     var stringBuilder = new StringBuilder();
     if (name != null) {
       for ( /** @type string */ let c of name) {
@@ -1855,7 +1686,7 @@ class ProductInfoHeaderValue {
   }
 }
 
-class CloudResultGeneric extends CloudResult { }
+class CloudResultGeneric extends CloudResult {}
 class PolyLogiXOAUTH {
 
 }
@@ -1935,10 +1766,10 @@ class SearchParameters {
     if (
       (((nullable1 != null) == nullable2) != null ?
         nullable1 != null ?
-          nullable1 != nullable2 ?
-            1 :
-            0 :
-          0 :
+        nullable1 != nullable2 ?
+        1 :
+        0 :
+        0 :
         1) != 0
     )
       return false;
@@ -1947,10 +1778,10 @@ class SearchParameters {
     if (
       (((nullable1 != null) == nullable2) != null ?
         nullable1 != null ?
-          nullable1 != nullable2 ?
-            1 :
-            0 :
-          0 :
+        nullable1 != nullable2 ?
+        1 :
+        0 :
+        0 :
         1) != 0 ||
       this.SortBy != other.SortBy ||
       this.OnlyFeatured != other.OnlyFeatured ||
@@ -2416,7 +2247,7 @@ class MessageManager {
           writable: false
         },
         _historyLoadTask: {
-          value: function () { },
+          value: function () {},
           writable: true
         },
         _historyLoaded: {
@@ -2547,8 +2378,8 @@ class TransactionUtil {
   static CDFT_CONVERSION_VARIABLE = "CDFT_CONVERSION";
 }
 class StringNumberConversion {
-  static DecimalToBigInt(value) { }
-  static BigIntToDecimal(value) { }
+  static DecimalToBigInt(value) {}
+  static BigIntToDecimal(value) {}
 }
 class TransactionManager {
   constructor(cloud) {
@@ -2652,8 +2483,8 @@ class TransactionManager {
     return amount.toString();
   }
 }
-class CryptoHelper { }
-class ComputationLock { }
+class CryptoHelper {}
+class ComputationLock {}
 /**
  * @namespace
  * @memberof CloudX
