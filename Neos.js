@@ -111,6 +111,7 @@ class Neos extends EventEmitter {
     });
     this.Events.on("login", () => {
       if (this.Options.Update) {
+        this.Update()
         this.startInterval(this.Options.UpdateInterval);
       }
       this.emit("login");
@@ -196,7 +197,7 @@ class Neos extends EventEmitter {
     if (this.lastStatusUpdate == "No Update") {
       return this.UpdateStatus();
     }
-    if (new Date(new Date() - this.lastStatusUpdate).getSeconds() > 30)
+    if (new Date(new Date() - this.lastStatusUpdate).getSeconds() > 60)
       return this.UpdateStatus();
   }
   /**
@@ -206,6 +207,7 @@ class Neos extends EventEmitter {
    */
   UpdateStatus() {
     this.lastStatusUpdate = new Date();
+    this.Status.LastStatusChange = new Date()
     this.CloudXInterface.UpdateStatus(this.Status);
   }
   /**
