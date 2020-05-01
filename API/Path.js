@@ -6,4 +6,6 @@ class Path {
     return str.replace(/\.[^/.]+$/, "");
   }
 }
-module.exports = {Path}
+module.exports = {
+  Path
+}

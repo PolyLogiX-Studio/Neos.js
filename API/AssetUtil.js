@@ -1,5 +1,9 @@
-const {Out} = require("./Out")
-const {Path} = require("./Path")
+const {
+  Out
+} = require("./Out")
+const {
+  Path
+} = require("./Path")
 const SHA256 = require("crypto-js/sha256");
 const fs = require("fs")
 class AssetUtil {
@@ -76,4 +80,6 @@ class AssetUtil {
     }
   }
 }
-module.exports = {AssetUtil}
+module.exports = {
+  AssetUtil
+}

@@ -1,6 +1,10 @@
-const {Enumerable} = require("./Enumerable")
+const {
+  Enumerable
+} = require("./Enumerable")
 const AssetVariantEntityType = new Enumerable([
   "BitmapMetadata",
   "BitmapVariant"
 ]);
-module.exports = {AssetVariantEntityType}
+module.exports = {
+  AssetVariantEntityType
+}

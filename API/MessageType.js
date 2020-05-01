@@ -1,4 +1,6 @@
-const {Enumerable} = require("./Enumerable")
+const {
+  Enumerable
+} = require("./Enumerable")
 const MessageType = new Enumerable([
   "Text",
   "Object",

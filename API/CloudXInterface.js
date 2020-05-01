@@ -1749,4 +1749,6 @@ class CloudXInterface {
       Number.parseInt(cloudResult.Content);
   }
 }
-module.exports = {CloudXInterface}
+module.exports = {
+  CloudXInterface
+}

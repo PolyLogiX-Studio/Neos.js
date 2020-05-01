@@ -1,3 +1,17 @@
+/**
+ * @fileoverview NeosVR CloudX.Shared Library in NodeJS
+ *
+ * @author Bitman
+ * @author PolyLogiX Studio
+ *
+ * @requires NPM:uuid
+ * @requires NPM:node-fetch
+ * @requires NPM:uri-js
+ * @requires NPM:crypto-js/sha256
+ * @requires NPM:decimal.js
+ * @requires EventEmitter
+ *
+ */
 const {
   CloudX
 } = require("./API");

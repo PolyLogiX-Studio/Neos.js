@@ -142,4 +142,6 @@ class Dictionary extends Array {
     return true;
   }
 }
-module.exports = {Dictionary}
+module.exports = {
+  Dictionary
+}

@@ -16,4 +16,6 @@ class Char {
     return false;
   }
 }
-module.exports = {Char}
+module.exports = {
+  Char
+}

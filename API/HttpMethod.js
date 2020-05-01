@@ -1,4 +1,6 @@
-const {Enumerable} = require("./Enumerable")
+const {
+  Enumerable
+} = require("./Enumerable")
 const HttpMethod = new Enumerable({
   Get: "GET",
   Put: "PUT",
@@ -6,4 +8,6 @@ const HttpMethod = new Enumerable({
   Post: "POST",
   Patch: "PATCH"
 });
-module.exports = {HttpMethod}
+module.exports = {
+  HttpMethod
+}

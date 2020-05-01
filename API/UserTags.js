@@ -1,5 +1,9 @@
-const {Uri} = require("./Uri")
-const {CloudXInterface} = require("./CloudXInterface")
+const {
+  Uri
+} = require("./Uri")
+const {
+  CloudXInterface
+} = require("./CloudXInterface")
 class UserTags {
   static get NeosTeam() {
     return "neos team";

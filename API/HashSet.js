@@ -1,5 +1,9 @@
-const {Type} = require("./Type")
-const {List} = require("./List")
+const {
+  Type
+} = require("./Type")
+const {
+  List
+} = require("./List")
 /**
  *
  *
@@ -31,7 +35,9 @@ class HashSet extends List {
     }
   }
   IsSame(set) {
-    for (item of set) { }
+    for (item of set) {}
   }
 }
-module.exports = { HashSet}
+module.exports = {
+  HashSet
+}

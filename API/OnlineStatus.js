@@ -1,4 +1,6 @@
-const {Enumerable} = require("./Enumerable")
+const {
+  Enumerable
+} = require("./Enumerable")
 const OnlineStatus = new Enumerable([
   "Offline",
   "Invisible",
@@ -6,4 +8,6 @@ const OnlineStatus = new Enumerable([
   "Busy",
   "Online"
 ]);
-module.exports = {OnlineStatus}
+module.exports = {
+  OnlineStatus
+}

@@ -1,4 +1,6 @@
-const {Enumerable} = require("./Enumerable")
+const {
+  Enumerable
+} = require("./Enumerable")
 const FriendStatus = new Enumerable([
   "None",
   "SearchResult",
@@ -7,4 +9,6 @@ const FriendStatus = new Enumerable([
   "Blocked",
   "Accepted"
 ]);
-module.exports = {FriendStatus}
+module.exports = {
+  FriendStatus
+}

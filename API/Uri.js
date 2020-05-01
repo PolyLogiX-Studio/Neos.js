@@ -1,4 +1,7 @@
 const URI = require("uri-js");
+String.prototype.noExtension = function () {
+  return this.replace(/\.[^/.]+$/, "");
+};
 class Uri {
   /**
    *Creates an instance of Uri.
