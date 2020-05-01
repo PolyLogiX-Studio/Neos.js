@@ -19,4 +19,6 @@ class AssetInfo {
     this.CountsAgainstMemberQuota = $b.bytes || new Boolean();
   }
 }
-module.exports = {AssetInfo}
+module.exports = {
+  AssetInfo
+}

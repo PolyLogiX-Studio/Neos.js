@@ -1,9 +1,21 @@
-const {IRecord} = require("./IRecord")
-const {IdUtil} = require("./IdUtil")
-const {HashSet} = require("./HashSet")
-const {List} = require("./List")
-const {RecordHelper} = require("./RecordHelper")
-const {OwnerType} = require("./OwnerType")
+const {
+  IRecord
+} = require("./IRecord")
+const {
+  IdUtil
+} = require("./IdUtil")
+const {
+  HashSet
+} = require("./HashSet")
+const {
+  List
+} = require("./List")
+const {
+  RecordHelper
+} = require("./RecordHelper")
+const {
+  OwnerType
+} = require("./OwnerType")
 class Record extends IRecord {
   constructor($b) {
     if (!$b) $b = {};
@@ -57,4 +69,6 @@ class Record extends IRecord {
     this.LastModifyingMachineId = null;
   }
 }
-module.exports = {Record}
+module.exports = {
+  Record
+}

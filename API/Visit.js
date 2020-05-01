@@ -24,4 +24,6 @@ class Visit {
     );
   }
 }
-module.exports={Visit}
+module.exports = {
+  Visit
+}

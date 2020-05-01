@@ -12,4 +12,6 @@ class UserSession {
     return new Date() > this.SessionExpire;
   }
 }
-module.exports = {UserSession}
+module.exports = {
+  UserSession
+}

@@ -1,4 +1,6 @@
 class ComputationLock {
 
 }
-module.exports = {ComputationLock}
+module.exports = {
+  ComputationLock
+}

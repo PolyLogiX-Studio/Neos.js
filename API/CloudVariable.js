@@ -14,4 +14,6 @@ class CloudVariable {
     CloudVariable.GetDefinitionPath(this.Path, ownerId, subpath);
   }
 }
-module.exports = {CloudVariable}
+module.exports = {
+  CloudVariable
+}

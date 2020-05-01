@@ -20,4 +20,6 @@ class CloudMessage {
     }
   }
 }
-module.exports = {CloudMessage}
+module.exports = {
+  CloudMessage
+}

@@ -1,4 +1,3 @@
-
 class TransactionMessage {
   /**
    *Creates an instance of TransactionMessage.
@@ -20,4 +19,6 @@ class TransactionMessage {
     this.TransactionType = $b.transactionType || null;
   }
 }
-module.exports = {TransactionMessage}
+module.exports = {
+  TransactionMessage
+}

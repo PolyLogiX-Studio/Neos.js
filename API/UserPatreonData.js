@@ -1,5 +1,9 @@
-const {AccountType} = require("./AccountType")
-const {NeosAccount} = require("./NeosAccount")
+const {
+  AccountType
+} = require("./AccountType")
+const {
+  NeosAccount
+} = require("./NeosAccount")
 class UserPatreonData {
   constructor($b) {
     if (!$b) $b = {};
@@ -114,4 +118,6 @@ class UserPatreonData {
     );
   }
 }
-module.exports = {UserPatreonData}
+module.exports = {
+  UserPatreonData
+}

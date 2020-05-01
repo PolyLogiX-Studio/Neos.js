@@ -1,2 +1,4 @@
-class CryptoHelper{}
-module.exports = {CryptoHelper}
+class CryptoHelper {}
+module.exports = {
+  CryptoHelper
+}

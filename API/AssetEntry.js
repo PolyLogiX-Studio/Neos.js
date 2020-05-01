@@ -16,7 +16,7 @@ class AssetEntry {
     this.Entry = $b.entry || null;
     this.ComputeLock = $b.computeLock || null;
   }
-    /**
+  /**
    *
    * @public
    * @memberof AssetEntry
@@ -31,4 +31,6 @@ class AssetEntry {
     this.OwnerId = "A-" + value;
   }
 }
-  module.exports = {AssetEntry}
+module.exports = {
+  AssetEntry
+}

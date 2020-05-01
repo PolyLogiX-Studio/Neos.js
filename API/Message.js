@@ -33,4 +33,6 @@ class Message {
     return this.ReadTime !== undefined;
   }
 }
-module.exports = {Message}
+module.exports = {
+  Message
+}

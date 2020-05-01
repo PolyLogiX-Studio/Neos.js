@@ -1,6 +1,10 @@
-const {HashSet} = require("./HashSet")
-const {List} = require("./List")
- class IRecord {
+const {
+  HashSet
+} = require("./HashSet")
+const {
+  List
+} = require("./List")
+class IRecord {
   constructor() {
     this.RecordId = new String();
     this.OwnerId = new String();
@@ -27,4 +31,6 @@ const {List} = require("./List")
     this.NeosDBManifest = new List();
   }
 }
-module.exports = {IRecord}
+module.exports = {
+  IRecord
+}

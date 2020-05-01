@@ -25,4 +25,6 @@ class CloudVariableDefinition {
     );
   }
 }
-module.exports = {CloudVariableDefinition}
+module.exports = {
+  CloudVariableDefinition
+}

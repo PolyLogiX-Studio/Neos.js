@@ -77,20 +77,48 @@ const {
 const {
   AssetUtil
 } = require("./AssetUtil")
-const {CloudXInterface} = require("./CloudXInterface")
-const {MessageManager} = require("./MessageManager")
-const {FriendManager} = require("./FriendManager")
-const {Endpoints} = require("./Endpoints")
-const {Group} = require("./Group")
-const {RecordUtil} = require("./RecordUtil")
-const {Record} = require("./Record")
-const {IdUtil} = require("./IdUtil")
-const {User} = require("./User")
-const {SearchParameters} = require ("./SearchParameters")
-const {Message} = require("./Message")
-const {NeosSession} = require("./NeosSession")
-const {UserStatus} = require("./UserStatus")
-const {TransactionManager} = require("./TransactionManager")
+const {
+  CloudXInterface
+} = require("./CloudXInterface")
+const {
+  MessageManager
+} = require("./MessageManager")
+const {
+  FriendManager
+} = require("./FriendManager")
+const {
+  Endpoints
+} = require("./Endpoints")
+const {
+  Group
+} = require("./Group")
+const {
+  RecordUtil
+} = require("./RecordUtil")
+const {
+  Record
+} = require("./Record")
+const {
+  IdUtil
+} = require("./IdUtil")
+const {
+  User
+} = require("./User")
+const {
+  SearchParameters
+} = require("./SearchParameters")
+const {
+  Message
+} = require("./Message")
+const {
+  NeosSession
+} = require("./NeosSession")
+const {
+  UserStatus
+} = require("./UserStatus")
+const {
+  TransactionManager
+} = require("./TransactionManager")
 const CloudX = {
   Shared: {
     FriendManager,
@@ -98,29 +126,30 @@ const CloudX = {
     OwnerType,
     AuthenticationHeaderValue,
     UserTags,
-    OnlineStatus,RecordId,
+    OnlineStatus,
+    RecordId,
     AccountType,
-  AssetUtil,
-  AssetVariantEntityType,
-  CloudResult,
-  CloudXInterface,
-  Endpoints,
-  Group,
-  ServerStatus,
-  MessageType,
-  TransactionType,
-  HttpMethod,
-  CloudXInterface,
-  RecordUtil,
-  Record,
-  IdUtil,
-  User,
-  SearchParameters,
-  MessageManager,
-  Message,
-  NeosSession,
-  UserStatus,
-  TransactionManager
+    AssetUtil,
+    AssetVariantEntityType,
+    CloudResult,
+    CloudXInterface,
+    Endpoints,
+    Group,
+    ServerStatus,
+    MessageType,
+    TransactionType,
+    HttpMethod,
+    CloudXInterface,
+    RecordUtil,
+    Record,
+    IdUtil,
+    User,
+    SearchParameters,
+    MessageManager,
+    Message,
+    NeosSession,
+    UserStatus,
+    TransactionManager
   },
   Util: {
     Path,

@@ -66,4 +66,6 @@ class UserStatus {
     });
   }
 }
-module.exports = {UserStatus}
+module.exports = {
+  UserStatus
+}

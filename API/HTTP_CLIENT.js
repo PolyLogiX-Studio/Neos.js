@@ -35,9 +35,14 @@ class HTTP_CLIENT {
         resHeaders = res.headers;
         return res.text().then(body => {
           try {
+            if (body == null || body == "") return {}
             return JSON.parse(body);
           } catch (error) {
-            return body;
+            console.log("ERROR")
+            console.error(error)
+            return {
+              response: body
+            };
           }
         });
       })

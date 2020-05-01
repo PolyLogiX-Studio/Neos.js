@@ -1,5 +1,9 @@
-const {UserStatus} = require("./UserStatus")
-const {UserProfile} = require("./UserProfile")
+const {
+  UserStatus
+} = require("./UserStatus")
+const {
+  UserProfile
+} = require("./UserProfile")
 class Friend {
   /**
    *Creates an instance of Friend.
@@ -37,4 +41,6 @@ class Friend {
     return false;
   }
 }
-module.exports = {Friend}
+module.exports = {
+  Friend
+}

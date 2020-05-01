@@ -6,4 +6,6 @@ class CancellationTokenSource {
     this.Token = uuidv4();
   }
 }
-module.exports = {CancellationTokenSource}
+module.exports = {
+  CancellationTokenSource
+}

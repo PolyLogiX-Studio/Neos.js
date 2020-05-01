@@ -1,4 +1,3 @@
-
 class Group {
   constructor($b) {
     if (!$b) $b = {};
@@ -9,4 +8,6 @@ class Group {
     this.UsedBytes = $b.usedBytes || new Number();
   }
 }
-module.exports = {Group}
+module.exports = {
+  Group
+}

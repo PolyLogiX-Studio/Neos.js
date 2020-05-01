@@ -1,4 +1,3 @@
-
 class SessionUser {
   constructor($b) {
     if (!$b) $b = {};
@@ -12,4 +11,6 @@ class SessionUser {
     return false;
   }
 }
-module.exports = {SessionUser}
+module.exports = {
+  SessionUser
+}

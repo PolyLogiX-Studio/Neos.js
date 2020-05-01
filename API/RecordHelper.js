@@ -1,4 +1,6 @@
-const {RecordUtil} = require("./RecordUtil")
+const {
+  RecordUtil
+} = require("./RecordUtil")
 class RecordHelper {
   static IsSameVersion(record, other) {
     if (
@@ -67,4 +69,6 @@ class RecordHelper {
     return record;
   }
 }
-module.exports = {RecordHelper}
+module.exports = {
+  RecordHelper
+}

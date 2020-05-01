@@ -1,4 +1,3 @@
-
 class NeosSession {
   constructor($b) {
     if (!$b) $b = {};
@@ -23,4 +22,6 @@ class NeosSession {
     this.Peripherals = $b.peripherals || new String();
   }
 }
-module.exports = {NeosSession}
+module.exports = {
+  NeosSession
+}

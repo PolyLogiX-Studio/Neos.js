@@ -14,4 +14,6 @@ class ThumbnailInfo {
     this.Key = $b.key || null;
   }
 }
-module.exports = {ThumbnailInfo}
+module.exports = {
+  ThumbnailInfo
+}

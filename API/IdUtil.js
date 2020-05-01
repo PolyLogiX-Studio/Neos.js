@@ -1,6 +1,12 @@
-const {StringBuilder} = require("./StringBuilder")
-const {Char} = require("./Char")
-const {OwnerType} = require("./OwnerType")
+const {
+  StringBuilder
+} = require("./StringBuilder")
+const {
+  Char
+} = require("./Char")
+const {
+  OwnerType
+} = require("./OwnerType")
 /**
  *
  * @static
@@ -69,4 +75,6 @@ class IdUtil {
     return stringBuilder.toString();
   }
 }
-module.exports = {IdUtil}
+module.exports = {
+  IdUtil
+}

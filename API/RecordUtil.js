@@ -1,6 +1,12 @@
-const {Out} = require("./Out")
-const {StringBuilder} = require("./StringBuilder")
-const {Uri} = require("./Uri")
+const {
+  Out
+} = require("./Out")
+const {
+  StringBuilder
+} = require("./StringBuilder")
+const {
+  Uri
+} = require("./Uri")
 const {
   v4: uuidv4
 } = require("uuid");
@@ -102,4 +108,6 @@ class RecordUtil {
     return "R-" + uuidv4();
   }
 }
-module.exports = {RecordUtil}
+module.exports = {
+  RecordUtil
+}

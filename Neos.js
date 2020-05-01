@@ -15,7 +15,7 @@
 const {
   CloudX
 } = require("./API");
-const config = require("./Config")
+const config = require("./package.json")
 const EventEmitter = require("events").EventEmitter;
 class Events extends EventEmitter {
   constructor() {
@@ -28,7 +28,9 @@ class Neos extends EventEmitter {
    * @param {*} options
    * @memberof Neos
    */
-  static get CloudX() { return CloudX }
+  static get CloudX() {
+    return CloudX
+  }
   constructor(options) {
     super();
     //Setup Options
@@ -103,8 +105,9 @@ class Neos extends EventEmitter {
     this.lastStatusUpdate = "No Update";
     this.Status = new CloudX.Shared.UserStatus({
       onlineStatus: this.Options.OnlineState,
-      compatabilityHash: this.Options.CompatabilityHash,
-      neosVersion: this.Options.NeosVersion
+      compatibilityHash: this.Options.CompatabilityHash,
+      neosVersion: this.Options.NeosVersion,
+      lastStatusChange: new Date()
     });
     this.Events.on("login", () => {
       if (this.Options.Update) {
@@ -486,7 +489,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   // eslint-disable-next-line no-unused-vars
-  FindRecords(record) { }
+  FindRecords(record) {}
   /**
    *Not yet Implimented
    *
@@ -494,9 +497,9 @@ class Neos extends EventEmitter {
    * @param {*} recordId
    * @memberof Neos
    */
-  
+
   // eslint-disable-next-line no-unused-vars
-  FetchRecord(ownerId, recordId) { }
+  FetchRecord(ownerId, recordId) {}
   /**
    *
    *
@@ -509,4 +512,7 @@ class Neos extends EventEmitter {
     this._UserMessage.SendTextMessage(Message);
   }
 }
+
+
+
 module.exports = Neos;

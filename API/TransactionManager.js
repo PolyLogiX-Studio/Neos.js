@@ -1,5 +1,7 @@
 const Decimal = require("decimal.js");
-const {TransactionUtil} = require("./TransactionUtil")
+const {
+  TransactionUtil
+} = require("./TransactionUtil")
 class TransactionManager {
   constructor(cloud) {
     this.CDFTConversionRatio = null
@@ -102,4 +104,6 @@ class TransactionManager {
     return amount.toString();
   }
 }
-module.exports = {TransactionManager}
+module.exports = {
+  TransactionManager
+}

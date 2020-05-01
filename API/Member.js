@@ -7,4 +7,6 @@ class Member {
     this.UsedBytes = $b.usedBytes || new Number();
   }
 }
-module.exports = {Member}
+module.exports = {
+  Member
+}

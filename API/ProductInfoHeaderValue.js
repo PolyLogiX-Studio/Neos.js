@@ -1,4 +1,3 @@
-
 class ProductInfoHeaderValue {
   constructor(product, version) {
     this.Product = product;
@@ -8,4 +7,6 @@ class ProductInfoHeaderValue {
     return this.Product + " " + this.Version;
   }
 }
-module.exports = {ProductInfoHeaderValue}
+module.exports = {
+  ProductInfoHeaderValue
+}

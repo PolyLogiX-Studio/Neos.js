@@ -1,4 +1,6 @@
-const {OwnerType} = require("./OwnerType")
+const {
+  OwnerType
+} = require("./OwnerType")
 class SearchParameters {
   constructor($b) {
     if (!$b) $b = {};
@@ -116,4 +118,6 @@ class SearchParameters {
     return true;
   }
 }
-module.exports = {SearchParameters}
+module.exports = {
+  SearchParameters
+}

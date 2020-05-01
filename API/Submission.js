@@ -1,4 +1,3 @@
-
 class Submission {
   constructor($b) {
     if (!$b) $b = {};
@@ -12,4 +11,6 @@ class Submission {
     this.FeaturedTimestamp = $b.featuredTimestamp;
   }
 }
-module.exports = {Submission}
+module.exports = {
+  Submission
+}

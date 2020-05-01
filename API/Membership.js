@@ -6,4 +6,6 @@ class Membership {
     this.GroupName = $b.groupName || new String();
   }
 }
-module.exports = {Membership}
+module.exports = {
+  Membership
+}

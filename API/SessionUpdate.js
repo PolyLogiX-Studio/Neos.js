@@ -16,4 +16,6 @@ class SessionUpdate {
     this.RemovedSessions = $b.removedSessions;
   }
 }
-module.exports = {SessionUpdate}
+module.exports = {
+  SessionUpdate
+}

@@ -79,7 +79,6 @@ const {
 const {
   UserSession
 } = require("./UserSession")
-console.log(Object.keys(require('module')._cache))
 /**
  *
  *
@@ -723,7 +722,7 @@ class CloudXInterface {
       if (result == null) {
         console.error(`Exception running `);
         request = null;
-        await Delay(new TimeSpan(delay));
+        await TimeSpan.Delay(new TimeSpan(delay));
         delay += 250;
       }
       return result; //BYPASS
@@ -832,7 +831,7 @@ class CloudXInterface {
       this.CurrentUser.Id = this.CurrentSession.UserId;
       this.CurrentUser.Username = credentials.Username;
       await this.UpdateCurrentUserInfo();
-      this.UpdateCurrentUserMemberships();
+      await this.UpdateCurrentUserMemberships();
       this.Friends.Update();
       this.OnLogin({
         CurrentUser: this.CurrentUser,
@@ -908,9 +907,9 @@ class CloudXInterface {
               0) == 0
           ) {
             let tags = this.CurrentUser.Tags;
-            if (tags.size>0)
-             num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
-             else num = 0;
+            if (tags.size > 0)
+              num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
+            else num = 0;
           } else num = 1;
           CloudXInterface.USE_CDN = num != 0;
         }
@@ -1155,7 +1154,7 @@ class CloudXInterface {
     let _signedUserId = this.CurrentUser.Id;
     let numArray = CloudXInterface.storageUpdateDelays;
     for (index = 0; index < numArray.length; index++) {
-      await Delay(TimeSpan.fromSeconds(numArray[index]));
+      await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
       if (this.CurrentUser.Id != _signedUserId) return;
       if (ownerType == OwnerType.User) {
         cloudResult = await this.UpdateCurrentUserInfo();
@@ -1271,7 +1270,7 @@ class CloudXInterface {
         cloudResult.Entity.UploadState != UploadState.Uploaded &&
         cloudResult.Entity.UploadState != UploadState.Failed
       )
-        await Delay(new TimeSpan(250));
+        await TimeSpan.Delay(new TimeSpan(250));
       else break;
     }
     return cloudResult;

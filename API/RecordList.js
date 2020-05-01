@@ -11,4 +11,6 @@ class RecordList {
     return this.Name + "-" + this.Page.toString();
   }
 }
-module.exports = {RecordList}
+module.exports = {
+  RecordList
+}

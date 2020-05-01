@@ -45,4 +45,6 @@ class RSAParametersData {
     return new RSAParametersData(data);
   }
 }
-module.exports = {RSAParametersData}
+module.exports = {
+  RSAParametersData
+}

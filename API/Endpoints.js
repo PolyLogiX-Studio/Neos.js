@@ -1,4 +1,3 @@
-
 class Endpoints {
   static CLOUDX_NEOS_API = "https://cloudx.azurewebsites.net";
   static CLOUDX_NEOS_BLOB =
@@ -6,4 +5,6 @@ class Endpoints {
   static CLOUDX_NEOS_THUMBNAILS =
     "https://cloudxstorage.blob.core.windows.net/thumbnails/";
 }
-module.exports = {Endpoints}
+module.exports = {
+  Endpoints
+}
