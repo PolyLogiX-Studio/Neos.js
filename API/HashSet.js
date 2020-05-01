@@ -22,7 +22,7 @@ class HashSet extends List {
     if (!$b) $b = [];
     switch (Type.Get($b)) {
       case "Array":
-        $b = $b.ToList();
+        $b = List.ToList($b);
       case "List":
         super();
         this.AddRange($b);

@@ -1,6 +1,7 @@
 const {Type} = require("./Type")
 const {Out} = require("./Out")
-
+const {Dictionary} = require("./Dictionary")
+const {SessionAccessLevel} = require("./SessionAccessLevel")
 class FriendManager {
   static UPDATE_PERIOD_SECONDS = 5;
   constructor(cloud) {

@@ -14,6 +14,45 @@ const {
   Type
 } = require("./Type");
 const {
+  TimeSpan
+} = require("./TimeSpan")
+const {
+  HttpMethod
+} = require("./HttpMethod")
+const {
+  HttpRequestMessage
+} = require("./HttpRequestMessage")
+const {
+  HttpResponseMessage
+} = require("./HttpResponseMessage")
+const {
+  CancellationTokenSource
+} = require("./CancellationTokenSource")
+const {
+  CloudResult
+} = require("./CloudResult")
+const {
+  LoginCredentials
+} = require("./LoginCredentials")
+const {
+  AuthenticationHeaderValue
+} = require("./AuthenticationHeaderValue")
+const {
+  User
+} = require("./User")
+const {
+  Friend
+} = require("./Friend")
+const {
+  Message
+} = require("./Message")
+const {
+  ServerStatistics
+} = require("./ServerStatistics")
+const {
+  UserTags
+} = require("./UserTags")
+const {
   Out
 } = require("./Out");
 const {
@@ -22,6 +61,25 @@ const {
 const {
   v4: uuidv4
 } = require("uuid");
+const {
+  HTTP_CLIENT
+} = require("./HTTP_CLIENT")
+const {
+  FriendManager
+} = require("./FriendManager")
+const {
+  MessageManager
+} = require("./MessageManager")
+const {
+  TransactionManager
+} = require("./TransactionManager")
+const {
+  ProductInfoHeaderValue
+} = require("./ProductInfoHeaderValue")
+const {
+  UserSession
+} = require("./UserSession")
+console.log(Object.keys(require('module')._cache))
 /**
  *
  *
@@ -850,7 +908,9 @@ class CloudXInterface {
               0) == 0
           ) {
             let tags = this.CurrentUser.Tags;
-            num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
+            if (tags.size>0)
+             num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
+             else num = 0;
           } else num = 1;
           CloudXInterface.USE_CDN = num != 0;
         }
@@ -1733,6 +1793,7 @@ class CloudXInterface {
         }
       );
     } catch (error) {
+      console.error(error)
       return null;
     }
   }

@@ -77,21 +77,33 @@ const {
 const {
   AssetUtil
 } = require("./AssetUtil")
+const {CloudXInterface} = require("./CloudXInterface")
+const {MessageManager} = require("./MessageManager")
+const {FriendManager} = require("./FriendManager")
+const {Endpoints} = require("./Endpoints")
+const {Group} = require("./Group")
+const {RecordUtil} = require("./RecordUtil")
+const {Record} = require("./Record")
+const {IdUtil} = require("./IdUtil")
+const {User} = require("./User")
+const {SearchParameters} = require ("./SearchParameters")
+const {Message} = require("./Message")
+const {NeosSession} = require("./NeosSession")
+const {UserStatus} = require("./UserStatus")
+const {TransactionManager} = require("./TransactionManager")
 const CloudX = {
   Shared: {
+    FriendManager,
     FriendStatus,
     OwnerType,
     AuthenticationHeaderValue,
     UserTags,
     OnlineStatus,RecordId,
     AccountType,
-  AssetMetadataRequest,
   AssetUtil,
   AssetVariantEntityType,
   CloudResult,
   CloudXInterface,
-  ComputationLock,
-  CryptoHelper,
   Endpoints,
   Group,
   ServerStatus,

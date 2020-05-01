@@ -2,6 +2,8 @@ const {Message} = require("./Message")
 const {TransactionMessage} = require("./TransactionMessage")
 const {Dictionary} = require("./Dictionary")
 const {List} = require("./List")
+const {HashSet} = require("./HashSet")
+const {Out} = require("./Out")
 class MessageManager {
   constructor(cloud) {
     this.lastRequest;
