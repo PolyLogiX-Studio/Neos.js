@@ -20,6 +20,7 @@ class FriendManager {
     this._friendSessions;
     /** @type Date */
     this.lastStatusUpdate = new Date(0);
+    this.initialFetch = false
     /** @type Date */
     this.lastRequest = new Date(0);
     /** @type boolean */
@@ -256,6 +257,10 @@ class FriendManager {
       return;
     }
     this.lastRequest = new Date();
+    if (!this.initialFetch){
+      this.lastStatusUpdate = null
+      this.initialFetch = true
+    }
     this.Cloud.GetFriends(this.lastStatusUpdate).then(friends => {
       if (friends.IsError) {
         return;
