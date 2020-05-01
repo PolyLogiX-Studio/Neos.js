@@ -29,7 +29,7 @@ neos.SendTextMessage("U-Neos", "This is a Message!");
 > npm i @bombitmanbomb/neosjs
 
 ```js
-const Neos = require('NeosJS')
+const Neos = require('@bombitmanbomb/neosjs')
 const neos = new Neos()
 
 neos.on("login",(obj)=>{
