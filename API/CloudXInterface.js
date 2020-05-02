@@ -8,11 +8,20 @@ const {
   List
 } = require("./List");
 const {
+  SessionInfo
+} = require("./SessionInfo")
+const {
   Dictionary
 } = require("./Dictionary");
 const {
   Type
 } = require("./Type");
+const {
+  IdUtil
+} = require("./IdUtil")
+const {
+  OwnerType
+} = require("./OwnerType")
 const {
   TimeSpan
 } = require("./TimeSpan")
