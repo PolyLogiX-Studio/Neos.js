@@ -10,6 +10,7 @@ const {
 const {
   SessionAccessLevel
 } = require("./SessionAccessLevel")
+const {Friend} = require("./Friend");
 class FriendManager {
   static UPDATE_PERIOD_SECONDS = 5;
   constructor(cloud) {
