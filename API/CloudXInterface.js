@@ -4,6 +4,7 @@ const {
 const {
   StringBuilder
 } = require("./StringBuilder");
+const {RecordUtil} = require("./RecordUtil")
 const {
   List
 } = require("./List");
