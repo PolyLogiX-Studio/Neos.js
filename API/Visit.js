@@ -6,14 +6,14 @@ String.IsNullOrWhiteSpace = function (str) {
 class Visit {
   constructor($b) {
     if (!$b) $b = {};
-    this.URL = $b.url || new Uri();
-    this.UserId = $b.userId || new String();
-    this.NeosSessionID = $b.neosSessionID || new String();
-    this.RecordVersion = $b.recordVersion || new Number();
-    this.Duration = $b.duration || new Number();
-    this.Start = $b.start || new Date();
-    this.End = $b.end || new Date();
-    this.Referal = $b.referal || new String();
+    this.URL = $b.url ?? new Uri();
+    this.UserId = $b.userId ?? new String();
+    this.NeosSessionID = $b.neosSessionID ?? new String();
+    this.RecordVersion = $b.recordVersion ?? new Number();
+    this.Duration = $b.duration ?? new Number();
+    this.Start = $b.start ?? new Date();
+    this.End = $b.end ?? new Date();
+    this.Referal = $b.referal ?? new String();
   }
   get IsValid() {
     return (

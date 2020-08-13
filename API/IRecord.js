@@ -5,30 +5,31 @@ const {
   List
 } = require("./List")
 class IRecord {
-  constructor() {
-    this.RecordId = new String();
-    this.OwnerId = new String();
-    this.URL = new String();
-    this.GlobalVersion = new Number();
-    this.Localversion = new Number();
-    this.LastModifyingUserId = new String();
-    this.LastModifyingMachineId = new String();
-    this.Name = new String();
-    this.OwnerName = new String();
-    this.Description = new String();
-    this.RecordType = new String();
-    this.Tags = new HashSet();
-    this.Path = new String();
-    this.ThumbnailURI = new String();
-    this.IsPublic = new Boolean();
-    this.IsForPatreons = new Boolean();
-    this.IsListed = new Boolean();
-    this.Visits = new Number();
-    this.Rating = new Number();
-    this.FirstPublishTime = new Date();
-    this.CreationTime = new Date();
-    this.LastModificationTime = new Date();
-    this.NeosDBManifest = new List();
+  constructor($b) {
+    if (!$b) $b = {};
+    this.RecordId = $b.recordId ?? new String();
+    this.OwnerId = $b.ownerId ?? new String();
+    this.URL = $b.url ?? new String();
+    this.GlobalVersion = $b.globalVersion ?? new Number();
+    this.Localversion = $b.localVersion ?? new Number();
+    this.LastModifyingUserId = $b.lastModifyingUserId ?? new String();
+    this.LastModifyingMachineId = $b.lastModifyingMachineId ?? new String();
+    this.Name = $b.name ?? new String();
+    this.OwnerName = $b.ownerName ?? new String();
+    this.Description = $b.description ?? new String();
+    this.RecordType = $b.recordType ?? new String();
+    this.Tags = $b.tags ?? new HashSet();
+    this.Path = $b.path ?? new String();
+    this.ThumbnailURI = $b.thumbnailUri ?? new String();
+    this.IsPublic = $b.isPublic ?? new Boolean();
+    this.IsForPatreons = $b.isForPatreons ?? new Boolean();
+    this.IsListed = $b.isListed ?? new Boolean();
+    this.Visits = $b.visits ?? new Number();
+    this.Rating = $b.rating ?? new Number();
+    this.FirstPublishTime = $b.firstPublishTime ?? new Date();
+    this.CreationTime = $b.creationTime ?? new Date();
+    this.LastModificationTime = $b.lastModificationTime ?? new Date();
+    this.NeosDBManifest = $b.neosDBManifest ?? new List();
   }
 }
 module.exports = {
