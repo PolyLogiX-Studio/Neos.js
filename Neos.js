@@ -233,7 +233,7 @@ class Neos extends EventEmitter {
     recoverCode
   ) {
     if (this.Options.OAuth)
-      return await this.OAuthLogin(credential, password);
+      return await this.OAuthLogin(credential, password /* Machine ID */);
     else
       return await this.CloudXInterface.Login(
         credential,

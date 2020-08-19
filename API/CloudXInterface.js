@@ -216,7 +216,7 @@ class CloudXInterface {
   static USE_CDN = new Boolean();
   static CLOUDX_PRODUCTION_NEOS_API = "https://www.neosvr-api.com/";
   static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net/";
-  static POLYLOGIX_OAUTH_API = "https://neos-oauth.glitch.me/"
+  static POLYLOGIX_OAUTH_API = "https://www.polylogix.studio/api/_NeosOAuth/"
   static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
   static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
   static LOCAL_NEOS_API = "http://localhost:60612/";
@@ -770,15 +770,15 @@ class CloudXInterface {
    * @param {string} credential 
    * @param {string} token 
    */
-  async PolyLogiXOAuthLogin(token) {
+  async PolyLogiXOAuthLogin(token,machineId) {
     this.Logout(false);
     this.OAuth.IsOAUTH = true
     let credentials = new LoginCredentials();
     credentials.userId = "OAuth"
     credentials.sessionToken = token
-    credentials.secretMachineId = uuidv4();
+    credentials.secretMachineId = machineId ?? uuidv4();
     credentials.rememberMe = true;
-
+  
     var result = await this.POST(
       "api/userSessions",
       credentials,
@@ -798,8 +798,6 @@ class CloudXInterface {
         "Error loging in: " + result.State + "\n" + result.Content
       );
     return result;
-
-
   }
   /**
    *
