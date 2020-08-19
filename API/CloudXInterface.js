@@ -4,7 +4,7 @@ const {
 const {
   StringBuilder
 } = require("./StringBuilder");
-const {RecordUtil} = require("./RecordUtil")
+const { RecordUtil } = require("./RecordUtil")
 const {
   List
 } = require("./List");
@@ -380,20 +380,20 @@ class CloudXInterface {
       //Use the OAuth Schema
       this._currentAuthenticationHeader =
         value != null ?
-        new AuthenticationHeaderValue(
-          "Bearer",
-          value.SessionToken
-        ).Authorization :
-        AuthenticationHeaderValue;
+          new AuthenticationHeaderValue(
+            "Bearer",
+            value.SessionToken
+          ).Authorization :
+          AuthenticationHeaderValue;
     } else {
       //Use the Neos Schema
       this._currentAuthenticationHeader =
         value != null ?
-        new AuthenticationHeaderValue(
-          "neos",
-          value.UserId + ":" + value.SessionToken
-        ).Authorization :
-        AuthenticationHeaderValue;
+          new AuthenticationHeaderValue(
+            "neos",
+            value.UserId + ":" + value.SessionToken
+          ).Authorization :
+          AuthenticationHeaderValue;
     }
     //Call Event
     this.OnSessionUpdated();
@@ -452,19 +452,19 @@ class CloudXInterface {
    *
    * @memberof CloudXInterface
    */
-  OnLogin() {}
+  OnLogin() { }
   /**
    * Redefineable Function for Hooks
    *
    * @memberof CloudXInterface
    */
-  OnLogout() {}
+  OnLogout() { }
   /**
    * Redefineable Function for Hooks
    *
    * @memberof CloudXInterface
    */
-  OnSessionUpdated() {}
+  OnSessionUpdated() { }
   /**
    * Initializing Function, Setup local managers
    * @param {String} UserAgentProduct Agent ie. NeosJS
@@ -573,8 +573,8 @@ class CloudXInterface {
       (forceCDN ?
         CloudXInterface.NEOS_ASSETS_CDN :
         forceCloudBlob ?
-        "https://cloudxstorage.blob.core.windows.net/" :
-        CloudXInterface.NEOS_ASSETS) + str3
+          "https://cloudxstorage.blob.core.windows.net/" :
+          CloudXInterface.NEOS_ASSETS) + str3
     );
   }
   static FilterNeosURL(assetURL) {
@@ -758,7 +758,7 @@ class CloudXInterface {
           }
         } catch (error) {
           console.error("Exception deserializing ");
-        } finally {}
+        } finally { }
       }
     } else {
       content = await result.Content;
@@ -770,7 +770,7 @@ class CloudXInterface {
    * @param {string} credential 
    * @param {string} token 
    */
-  async PolyLogiXOAuthLogin(token,machineId) {
+  async PolyLogiXOAuthLogin(token, machineId) {
     this.Logout(false);
     this.OAuth.IsOAUTH = true
     let credentials = new LoginCredentials();
@@ -778,7 +778,7 @@ class CloudXInterface {
     credentials.sessionToken = token
     credentials.secretMachineId = machineId ?? uuidv4();
     credentials.rememberMe = true;
-  
+
     var result = await this.POST(
       "api/userSessions",
       credentials,
@@ -910,8 +910,8 @@ class CloudXInterface {
           if (
             (patreonData != null ?
               patreonData.IsPatreonSupporter ?
-              1 :
-              0 :
+                1 :
+                0 :
               0) == 0
           ) {
             let tags = this.CurrentUser.Tags;
@@ -1246,7 +1246,7 @@ class CloudXInterface {
     return await this.WaitForAssetFinishProcessing(cloudResult.Entity);
   }
   EnqueueChunk(baseUrl, fileName, buffer, processingBuffers) {
-    buffer.task = this.RunRequest(() => {}); //TODO Wtf is this
+    buffer.task = this.RunRequest(() => { }); //TODO Wtf is this
   }
   async TakeFinishedBuffer(buffers) {
     //TODO TakeFinishedBuffer
@@ -1377,10 +1377,10 @@ class CloudXInterface {
     return await this.PUT(
       "api/groups/" + groupId + "/submissions",
       new Submission({
-          groupId,
-          feature,
-          targetRecordId: new RecordId(ownerId, recordId)
-        },
+        groupId,
+        feature,
+        targetRecordId: new RecordId(ownerId, recordId)
+      },
         new TimeSpan()
       )
     );
@@ -1432,12 +1432,12 @@ class CloudXInterface {
     if (ownerId == "GLOBAL") resource = "api/globalvars/" + path;
     else
       resource =
-      "api/" +
-      CloudXInterface.GetOwnerPath(ownerId) +
-      "/" +
-      ownerId +
-      "/vars/" +
-      path;
+        "api/" +
+        CloudXInterface.GetOwnerPath(ownerId) +
+        "/" +
+        ownerId +
+        "/vars/" +
+        path;
     let cloudResult = await cloudXInterface.GET(resource, new TimeSpan());
     if (cloudResult.IsOK) {
       switch (cloudResult.Entity.Value) {
@@ -1449,12 +1449,12 @@ class CloudXInterface {
             cloudResult.State,
             cloudResult.Content
           );
-          //TODO Deserialize
+        //TODO Deserialize
       }
     }
     return new CloudResult("default", cloudResult.State, cloudResult.Content);
   }
-  SerializationErrorHandeler() {}
+  SerializationErrorHandeler() { }
   /**
    * Write a Variable
    * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
@@ -1655,6 +1655,13 @@ class CloudXInterface {
       message,
       new TimeSpan()
     );
+  }
+  async SendTransaction(transaction) {
+    return this.POST("api/transactions/" + transaction.Token, transaction, new TimeSpan())
+  }
+  async RequestDepositAddress()
+  {
+    return this.GET("api/users/" + this.CurrentUser.Id + "/despositAddress", new TimeSpan());
   }
   /**
    * Return all unread messages

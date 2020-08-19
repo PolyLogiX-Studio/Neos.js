@@ -13,10 +13,12 @@ class TransactionMessage {
   constructor($b) {
     if (!$b) $b = {};
     this.Token = $b.token;
-    this.RecipientId = $b.recipientId;
+    this.FromUserId = $b.fromUserId;
+    this.ToUserId = $b.toUserId;
     this.Amount = $b.amount;
     this.Comment = $b.comment;
     this.TransactionType = $b.transactionType || null;
+    this.Anonymous = $b.anonymous
   }
 }
 module.exports = {
