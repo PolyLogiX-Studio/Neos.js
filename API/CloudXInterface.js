@@ -1539,6 +1539,9 @@ class CloudXInterface {
       return b;
     });
   }
+  async GetRandomExitMessage(){
+    return (await this.GET("api/exitMessage", new TimeSpan()).Entity)
+  }
   /**
    * Update the User Status
    * -If not userId is supplied, uses Current User, Refer to Examples
