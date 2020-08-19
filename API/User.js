@@ -18,19 +18,19 @@ class User {
     if (!$b) $b = {};
     this.Id = $b.id;
     this.Username = $b.username;
-    this.Email = $b.email ?? undefined;
+    this.Email = $b.email || undefined;
     this.RegistrationDate = $b.registrationDate;
     this.QuotaBytes = $b.quotaBytes;
     this.UsedBytes = $b.usedBytes;
     this.IsVerified = $b.isVerified;
-    this.AccountBanExpiration = $b.accountBanExpiration ?? new Date(0);
-    this.PublicBanExpiration = $b.publicBanExpiration ?? new Date(0);
-    this.SpectatorBanExpiration = $b.spectatorBanExpiration ?? new Date(0);
-    this.MuteBanExpiration = $b.muteBanExpiration ?? new Date(0);
+    this.AccountBanExpiration = $b.accountBanExpiration || new Date(0);
+    this.PublicBanExpiration = $b.publicBanExpiration || new Date(0);
+    this.SpectatorBanExpiration = $b.spectatorBanExpiration || new Date(0);
+    this.MuteBanExpiration = $b.muteBanExpiration || new Date(0);
     this.Password = $b.password;
     this.RecoverCode = $b.recoverCode;
-    this.Tags = new HashSet($b.tags) ?? null;
-    this.PatreonData = new UserPatreonData($b.patreonData) ?? null;
+    this.Tags = new HashSet($b.tags) || null;
+    this.PatreonData = new UserPatreonData($b.patreonData) || null;
     this.Credits = $b.credits;
     this.NCRDepositAddress = $b.NCRdepositAddress;
     this.ReferralId = $b.referralId;
@@ -55,7 +55,7 @@ class User {
   }
   get AccountName() {
     return (
-      this.PatreonData.AccountName ??
+      this.PatreonData.AccountName ||
       NeosAccount.AccountName(AccountType.Normal)
     );
   }

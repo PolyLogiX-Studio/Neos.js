@@ -776,7 +776,7 @@ class CloudXInterface {
     let credentials = new LoginCredentials();
     credentials.userId = "OAuth"
     credentials.sessionToken = token
-    credentials.secretMachineId = machineId ?? uuidv4();
+    credentials.secretMachineId = machineId || uuidv4();
     credentials.rememberMe = true;
 
     var result = await this.POST(

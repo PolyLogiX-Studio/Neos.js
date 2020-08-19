@@ -11,10 +11,10 @@ class AssetEntry {
    */
   constructor($b) {
     if (!$b) $b = {};
-    this.id = $b.id ?? new String();
-    this.OwnerId = $b.ownerId ?? new String();
-    this.Entry = $b.entry ?? null;
-    this.ComputeLock = $b.computeLock ?? null;
+    this.id = $b.id || new String();
+    this.OwnerId = $b.ownerId || new String();
+    this.Entry = $b.entry || null;
+    this.ComputeLock = $b.computeLock || null;
   }
   /**
    *

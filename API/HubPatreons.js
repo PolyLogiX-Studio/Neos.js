@@ -16,8 +16,8 @@ class HubPatreons {
     if (!$b) $b = {};
     this.MAX_NAMES = 400;
     this.MAX_PICTURES = 50;
-    this.PatreonNames = $b["patreon-names"] ?? new List();
-    this.PatreonPictures = $b["patreon-pictures"] ?? new List();
+    this.PatreonNames = $b["patreon-names"] || new List();
+    this.PatreonPictures = $b["patreon-pictures"] || new List();
   }
 }
 module.exports = {

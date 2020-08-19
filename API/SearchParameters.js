@@ -9,7 +9,7 @@ class SearchParameters {
     /** @type string */
     this.ByOwner = $b.byOwner;
     /** @type OwnerType */
-    this.OwnerType = $b.ownerType ?? OwnerType.User;
+    this.OwnerType = $b.ownerType || OwnerType.User;
     /** @type string */
     this.SubmittedTo = $b.submittedTo;
     /** @type boolean */

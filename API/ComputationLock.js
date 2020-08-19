@@ -4,8 +4,8 @@ const {
 class ComputationLock {
   constructor($b){
     if (!$b) $b = {};
-    this.Token = $b.token ?? new String();
-    this.ExpireTimestamp = $b.timestamp ?? new Date()
+    this.Token = $b.token || new String();
+    this.ExpireTimestamp = $b.timestamp || new Date()
   }
   get IsLocked() {
     return !(this.Token == ""||this.Token == null) && new Date() > this.ExpireTimestamp

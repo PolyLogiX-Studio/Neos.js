@@ -29,7 +29,7 @@ class UserPatreonData {
    * @memberof UserPatreonData
    */
   set LastPlusActivationTime(value) {
-    this.LastActivationTime = value ?? this.LastActivationTime;
+    this.LastActivationTime = value || this.LastActivationTime;
   }
   get LastPlusActivationTime() {
     return this.LastActivationTime;

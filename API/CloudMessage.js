@@ -10,11 +10,11 @@ class CloudMessage {
    */
   constructor($b) {
     if (!$b) $b = {};
-    this.Message = $b.Message ?? new String();
+    this.Message = $b.Message || new String();
   }
   static ExtractMessage(content) {
     try {
-      return content.Message ?? content;
+      return content.Message || content;
     } catch (err) {
       return content;
     }

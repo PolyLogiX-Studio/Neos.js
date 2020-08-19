@@ -21,7 +21,7 @@ class AssetDiff {
     this.Hash = $b.hash;
     this.Bytes = $b.bytes;
     this.State = $b.state;
-    this.IsUploaded = $b.isUploaded ?? new Boolean();
+    this.IsUploaded = $b.isUploaded || new Boolean();
     /**@type {Enumerable<String>} */
     this.Diff = new Enumerable(["Added", "Unchanged", "Removed"]);
   }
