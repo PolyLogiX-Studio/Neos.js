@@ -316,9 +316,9 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   get ServerStatus() {
-    if (new Date(new Date() - this.LastServerStateFetch).getSeconds() >= 60.0)
+    if (new Date(new Date() - this.LastServerStateFetch).getTime()/1000 >= 60.0)
       return ServerStatus.NoInternet;
-    if (new Date(new Date() - this.LastServerUpdate).getSeconds() >= 60.0)
+    if (new Date(new Date() - this.LastServerUpdate).getTime()/1000 >= 60.0)
       return ServerStatus.Down;
     return this.ServerResponseTime > 500 ?
       ServerStatus.Slow :
@@ -490,14 +490,14 @@ class CloudXInterface {
   Update() {
     if (this.CurrentSession != null) {
       if (
-        new Date(new Date() - this._lastSessionUpdate).getSeconds() >= 3600.0
+        new Date(new Date() - this._lastSessionUpdate).getTime()/1000 >= 3600.0
       ) {
         this.ExtendSession();
         this._lastSessionUpdate = new Date();
       }
     }
     if (
-      new Date(new Date() - this._lastServerStatsUpdate).getSeconds() >= 10.0
+      new Date(new Date() - this._lastServerStatsUpdate).getTime()/1000 >= 10.0
     ) {
       (async () => {
         let cloudResult = await this.GetServerStatistics();

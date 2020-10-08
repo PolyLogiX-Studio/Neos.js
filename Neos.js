@@ -197,7 +197,7 @@ class Neos extends EventEmitter {
     if (this.lastStatusUpdate == "No Update") {
       return this.UpdateStatus();
     }
-    if (new Date(new Date() - this.lastStatusUpdate).getSeconds() > 60)
+    if (new Date(new Date() - this.lastStatusUpdate).getTime()/1000 > 60)
       return this.UpdateStatus();
   }
   /**
