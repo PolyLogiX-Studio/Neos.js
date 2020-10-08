@@ -40,6 +40,7 @@ class Neos extends EventEmitter {
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
     if (!options.OnlineState) options.OnlineState = "Online";
     if (!options.OnlineState) options.OnlineState = undefined;
+    if (!options.StatusInterval) options.StatusInterval = 60;
     if (!options.NeosVersion)
       options.NeosVersion = config.main + " " + config.version;
     if (!options.CompatabilityHash)
@@ -198,7 +199,7 @@ class Neos extends EventEmitter {
     if (this.lastStatusUpdate == "No Update") {
       return this.UpdateStatus();
     }
-    if (new Date(new Date() - this.lastStatusUpdate).getTime()/1000 > 60)
+    if (new Date(new Date() - this.lastStatusUpdate).getTime()/1000 > this.Options.StatusInterval)
       return this.UpdateStatus();
   }
   /**
