@@ -45,7 +45,7 @@ class Record extends IRecord {
     this.Rating = $b.rating || new Number();
     this.Submissions = $b.submissions || new List();
     this.Manifest = new List();
-    this.NeosDBManifest = $b.neosDbManidest || new List();
+    this.NeosDBManifest = $b.neosDbManifest || new List();
   }
   get URL() {
     return RecordHelper.GetUrl(this);

@@ -26,4 +26,4 @@ class Visit {
 }
 module.exports = {
   Visit
-}
+}0
