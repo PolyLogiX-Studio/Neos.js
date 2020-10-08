@@ -1,6 +1,6 @@
 {
   "name": "@bombitmanbomb/neosjs",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "Neos API",
   "main": "Neos.js",
   "scripts": {
@@ -18,9 +18,9 @@
   "homepage": "https://github.com/bombitmanbomb/Neos.js#readme",
   "dependencies": {
     "crypto-js": "^3.3.0",
-    "decimal.js": "^10.2.0",
-    "node-fetch": "^2.6.0",
-    "uri-js": "^4.2.2",
+    "decimal.js": "^10.2.1",
+    "node-fetch": "^2.6.1",
+    "uri-js": "^4.4.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
