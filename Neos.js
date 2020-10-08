@@ -207,6 +207,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   UpdateStatus() {
+    this.emit("statusUpdate")
     this.lastStatusUpdate = new Date();
     this.Status.LastStatusChange = new Date()
     this.CloudXInterface.UpdateStatus(this.Status);
