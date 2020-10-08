@@ -39,6 +39,7 @@ class Neos extends EventEmitter {
     if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
     if (!options.OnlineState) options.OnlineState = "Online";
+    if (!options.OnlineState) options.OnlineState = undefined;
     if (!options.NeosVersion)
       options.NeosVersion = config.main + " " + config.version;
     if (!options.CompatabilityHash)

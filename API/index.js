@@ -122,6 +122,9 @@ const {
 const {
   CreditTransaction
 } = require("./CreditTransaction")
+const {
+  SessionInfo
+} = require("./SessionInfo")
 const CloudX = {
   Shared: {
     FriendManager,
@@ -153,7 +156,8 @@ const CloudX = {
     NeosSession,
     UserStatus,
     TransactionManager,
-    CreditTransaction
+    CreditTransaction,
+    SessionInfo
   },
   Util: {
     Path,
