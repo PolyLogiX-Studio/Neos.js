@@ -1,0 +1,67 @@
+class EventQueue {
+  constructor(CommandHandler) {
+    this.CommandHandler = CommandHandler //Refrence Parent
+    this.Queue = []
+    this.Interval = setInterval(this.RunQueue(), 1000)
+  }
+  Add(Command, Sender, Args, Handler) {
+    this.Queue.push({
+      Command,
+      Sender,
+      Args,
+      Handler
+    })
+  }
+  RunQueue() {
+    if (this.Queue.length > 0) {
+      let Command = this.Queue.slice()
+      this.CommandHandler[Command.Command].Run(Command.Sender, Command.Args, Command.Handler)
+    }
+  }
+}
+class CommandHandler {
+  constructor(NeosJS, NeosVR) {
+    this.Neos = NeosJS
+    this.NeosVR = NeosVR
+    this.Commands = {}
+    this.Queue = new EventQueue(this)
+  }
+  Run(Message) {
+    if (Message.SenderId == this.Neos.CurrentUser.Id) return false
+    let args = message.Content.split(" ");
+    let Command = args.shift()
+    if (this.Commands[Command]) {
+      this.Queue.Add(Command, Message.SenderId, args, new Handler(this.Neos, Message.SenderId))
+    } else {
+      return false
+    }
+
+  }
+  Add(command, cb, whitelist) {
+    if (typeof cb != 'function') throw new Error("Command must pass ('command', Function)")
+    this.Commands[command] = new Command(cb, whitelist, this)
+  }
+}
+class Handler {
+  constructor(Neos, Sender) {
+    this.Neos = Neos
+    this.Sender = Sender
+  }
+  Reply(Message) {
+    this.Neos.SendTextMessage(Sender, Message)
+  }
+
+}
+class Command {
+  constructor(cb, whitelist) {
+    this.script = cb
+    this.whitelist = whitelist
+  }
+  Run(Sender, Args, Handler) {
+    if (this.whitelist && !~this.whitelist.indexOf(Sender)) return false
+    this.script(Handler, Sender, Args)
+    //Command Code
+  }
+}
+
+module.exports = CommandHandler
