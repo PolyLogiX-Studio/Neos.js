@@ -516,6 +516,21 @@ class Neos extends EventEmitter {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
     this._UserMessage.SendTextMessage(Message);
   }
+  SendTransaction(UserId, Message) {
+    this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
+    this._UserMessage.SendTextMessage(Message);
+  }
+  SendObject(UserId, Message) {
+    this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
+    this._UserMessage.SendTextMessage(Message);
+  }
+  SendInvite(UserId, Message) {
+    this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
+    this._UserMessage.SendTextMessage(Message);
+  }
+  JoinSession(){}
+  LeaveSession(){}
+  
 }
 
 

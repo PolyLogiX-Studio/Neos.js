@@ -25,6 +25,45 @@
 neos.SendTextMessage("U-Neos", "This is a Message!");
 ```
 
+<details>
+
+<summary>Table of Contents</summary>
+
+- [NeosJS](#neosjs)
+  - [Usage](#usage)
+  - [Options](#options)
+  - [Functions](#functions)
+    - [`Neos.Login`](#neoslogin)
+    - [`Neos.Logout`](#neoslogout)
+    - [`Neos.SendTextMessage`](#neossendtextmessage)
+    - [`Neos.GetStatus`](#neosgetstatus)
+    - [`Neos.GetMessageHistory`](#neosgetmessagehistory)
+  - [Events](#events)
+    - [Event: `'login'`](#event-login)
+    - [Event: `'logout'`](#event-logout)
+    - [Event: `'sessionUpdated'`](#event-sessionupdated)
+    - [Event: `'sessionChanged'`](#event-sessionchanged)
+    - [Event: `'membershipsUpdated'`](#event-membershipsupdated)
+    - [Event: `'groupUpdated'`](#event-groupupdated)
+    - [Event: `'groupMemberUpdated'`](#event-groupmemberupdated)
+    - [Event: `'messageReceived'`](#event-messagereceived)
+    - [Event: `'messageCountChanged'`](#event-messagecountchanged)
+    - [Event: `'friendAdded'`](#event-friendadded)
+    - [Event: `'friendUpdated'`](#event-friendupdated)
+    - [Event: `'friendRemoved'`](#event-friendremoved)
+    - [Event: `'friendRequestCountChanged'`](#event-friendrequestcountchanged)
+    - [Event: `'friendsChanged'`](#event-friendschanged)
+    - [Event: `'userUpdated'`](#event-userupdated)
+  - [Data](#data)
+    - [Object `Message`](#object-message)
+    - [Object `User`](#object-user)
+    - [Object `UserSession`](#object-usersession)
+  - [Changelog](#changelog)
+  - [Contributing](#contributing)
+  - [License](#license)
+
+</details>
+
 ## Usage
 
 > npm i @bombitmanbomb/neosjs
@@ -67,10 +106,6 @@ const neos = new Neos({ UpdateInterval: 5000 });
 | OAuth             | Boolean | Use NeosDB Oauth instead of a login. When true pass Login(token)  |
 
 ## Functions
-
-<details>
-
-<summary>Functions</summary>
 
 ### `Neos.Login`
 
@@ -142,22 +177,14 @@ Send a `Message`, As of 1.1.2 a UserId must be supplied
 neos.SendTextMessage("U-UserId", "Hey this is a message");
 ```
 
-</details>
 
 ## Events
-
-<details>
-
-<summary>Events</summary>
 
 ### Event: `'login'`
 
 <!-- YAML
 added: v0.0.1
 -->
-<details>
-
-<summary>login</summary>
 
 The `neos` instance will emit a `'login'` event when a new user is assigned via `neos.Login()
 
@@ -167,17 +194,11 @@ neos.on("login", () => {
 });
 ```
 
-</details>
-
 ### Event: `'logout'`
 
 <!-- YAML
 added: v0.0.1
 -->
-
-<details>
-
-<summary>logout</summary>
 
 The `neos` instance will emit a `'logout'` event **Before** a new user is assigned via `neos.Login()` and on `neos.Logout()`
 
@@ -187,7 +208,6 @@ neos.on("logout", () => {
 });
 ```
 
-</details>
 
 ### Event: `'sessionUpdated'`
 
@@ -195,9 +215,6 @@ neos.on("logout", () => {
 added: v0.0.1
 -->
 
-<details>
-
-<summary>sessionUpdated</summary>
 
 The `neos` instance will emit a `'sessionUpdated'` event when the user session updates, This includes the Session Token to log in
 up to 7 days without the password
@@ -208,7 +225,6 @@ neos.on("sessionUpdated", session => {
 });
 ```
 
-</details>
 
 ### Event: `'sessionChanged'`
 
@@ -216,9 +232,6 @@ neos.on("sessionUpdated", session => {
 added: v0.0.1
 -->
 
-<details>
-
-<summary>sessionChanged</summary>
 
 The `neos` instance will emit a `'sessionChanged'` event when the user session changes
 
@@ -228,7 +241,6 @@ neos.on("sessionChanged", session => {
 });
 ```
 
-</details>
 
 ### Event: `'membershipsUpdated'`
 
@@ -236,17 +248,12 @@ neos.on("sessionChanged", session => {
 added: v0.0.1
 -->
 
-<details>
-
-<summary>groupUpdated</summary>
-
 The `neos` instance will emit a `'groupUpdated'` event when a group state updates
 
 ```js
 neos.on("membershipsUpdated", membership => {});
 ```
 
-</details>
 
 ### Event: `'groupUpdated'`
 
@@ -254,9 +261,6 @@ neos.on("membershipsUpdated", membership => {});
 added: v0.0.1
 -->
 
-<details>
-
-<summary>groupUpdated</summary>
 
 The `neos` instance will emit a `'groupUpdated'` event
 
@@ -264,7 +268,7 @@ The `neos` instance will emit a `'groupUpdated'` event
 neos.on("groupUpdated", group => {});
 ```
 
-</details>
+
 
 ### Event: `'groupMemberUpdated'`
 
@@ -272,9 +276,6 @@ neos.on("groupUpdated", group => {});
 added: v0.0.1
 -->
 
-<details>
-
-<summary>groupMemberUpdated</summary>
 
 The `neos` instance will emit a `'groupMemberUpdated'` event
 
@@ -284,7 +285,7 @@ neos.on("groupMemberUpdated", group => {
 });
 ```
 
-</details>
+
 
 ### Event: `'messageReceived'`
 
@@ -292,8 +293,6 @@ neos.on("groupMemberUpdated", group => {
 added: v0.0.1
 -->
 
-<details>
-<summary>messageReceived</summary>
 
 The `neos` instance will emit a `'messageReceived'` event when a new message is recieved
 
@@ -304,7 +303,6 @@ neos.on("messageReceived", message => {
 });
 ```
 
-</details>
 
 ### Event: `'messageCountChanged'`
 
@@ -312,9 +310,6 @@ neos.on("messageReceived", message => {
 added: v0.0.1
 -->
 
-<details>
-
-<summary>messageCountChanged</summary>
 
 The `neos` instance will emit a `'messageCountChanged'` event
 
@@ -324,17 +319,13 @@ neos.on("messageCountChanged", count => {
 });
 ```
 
-</details>
-
 ### Event: `'friendAdded'`
 
 <!-- YAML
 added: v0.0.1
 -->
 
-<details>
 
-<summary>friendAdded</summary>
 
 The `neos` instance will emit a `'friendAdded'` event when a friend request is sent or recieved
 
@@ -344,7 +335,6 @@ neos.on("friendAdded", friend => {
 });
 ```
 
-</details>
 
 ### Event: `'friendUpdated'`
 
@@ -352,9 +342,6 @@ neos.on("friendAdded", friend => {
 added: v0.0.1
 -->
 
-<details>
-
-<summary>friendUpdated</summary>
 
 The `neos` instance will emit a `'friendUpdated'` event when a friend request is accepted or a status is changed
 
@@ -364,7 +351,6 @@ neos.on("friendUpdated", friend => {
 });
 ```
 
-</details>
 
 ### Event: `'friendRemoved'`
 
@@ -372,9 +358,6 @@ neos.on("friendUpdated", friend => {
 added: v0.0.1
 -->
 
-<details>
-
-<summary>friendRemoved</summary>
 
 The `neos` instance will emit a `'friendRemoved'` event
 
@@ -382,7 +365,6 @@ The `neos` instance will emit a `'friendRemoved'` event
 neos.on("friendRemoved", friend => {});
 ```
 
-</details>
 
 ### Event: `'friendRequestCountChanged'`
 
@@ -390,9 +372,6 @@ neos.on("friendRemoved", friend => {});
 added: v0.0.1
 -->
 
-<details>
-
-<summary>friendRequestCountChanged</summary>
 
 The `neos` instance will emit a `'friendRequestCountChanged'` event
 
@@ -402,17 +381,11 @@ neos.on("friendRequestCountChanged", count => {
 });
 ```
 
-</details>
-
 ### Event: `'friendsChanged'`
 
 <!-- YAML
 added: v0.0.1
 -->
-
-<details>
-
-<summary>friendsChanged</summary>
 
 The `neos` instance will emit a `'friendsChanged'` event
 
@@ -420,17 +393,12 @@ The `neos` instance will emit a `'friendsChanged'` event
 neos.on("friendsChanged", () => {});
 ```
 
-</details>
 
 ### Event: `'userUpdated'`
 
 <!-- YAML
 added: v0.0.1
 -->
-
-<details>
-
-<summary>userUpdated</summary>
 
 The `neos` instance will emit a `'userUpdated'` event
 
@@ -440,17 +408,9 @@ neos.on("userUpdated", user => {
 });
 ```
 
-</details>
-
-</details>
-
 ## Data
 
 ### Object `Message`
-
-<details>
-
-<summary>Message Parameters</summary>
 
 | Parameter          | Type                  | Description               |
 | ------------------ | --------------------- | ------------------------- |
@@ -464,12 +424,9 @@ neos.on("userUpdated", user => {
 | **LastUpdateTime** | DateTime              | Last Fetch                |
 | **ReadTime**       | DateTime \| undefined | Time message was Read     |
 
-</details>
 
 ### Object `User`
 
-<details>
-<summary>User Parameters</summary>
 
 | Parameter                  | Type                  | Description                         |
 | -------------------------- | --------------------- | ----------------------------------- |
@@ -496,12 +453,9 @@ neos.on("userUpdated", user => {
 - \*Requires Authoriation, Private
 - \*\*Can't be fetched.
 
-</details>
 
 ### Object `UserSession`
 
-<details>
-<summary>UserSession Parameters</summary>
 
 | Parameter           | Type     | Description                  |
 | ------------------- | -------- | ---------------------------- |
@@ -512,8 +466,6 @@ neos.on("userUpdated", user => {
 | **SecretMachineId** | String   | Local Machine ID             |
 | **RememberMe**      | Boolean  | Allow Token 7 days           |
 | **`get` IsExpired** | Boolean  | Is the token Expired         |
-
-</details>
 
 ## Changelog
 
