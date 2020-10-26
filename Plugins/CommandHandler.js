@@ -2,7 +2,7 @@ class EventQueue {
   constructor(CommandHandler) {
     this.CommandHandler = CommandHandler //Refrence Parent
     this.Queue = []
-    this.Interval = setInterval(this.RunQueue(), 1000)
+    //this.Interval = setInterval(this.RunQueue, 500)
   }
   Add(Command, Sender, Args, Handler) {
     this.Queue.push({
@@ -10,13 +10,14 @@ class EventQueue {
       Sender,
       Args,
       Handler
-    })
+    });
+    this.RunQueue() // Disable Queue Interval for now
   }
   RunQueue() {
-    if (this.Queue.length > 0) {
+    if (this.Queue.length==0) return true
       let Command = this.Queue.slice()
       this.CommandHandler[Command.Command].Run(Command.Sender, Command.Args, Command.Handler)
-    }
+    
   }
 }
 class CommandHandler {
