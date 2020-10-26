@@ -1,6 +1,6 @@
 {
   "name": "@bombitmanbomb/neosjs",
-  "version": "1.5.4",
+  "version": "1.5.9",
   "description": "Neos API",
   "main": "Neos.js",
   "scripts": {
