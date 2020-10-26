@@ -35,9 +35,9 @@ class CommandHandler {
     let args = Message.Content.split(" ");
     let Command = args.shift()
     if (this.Commands[Command]) {
-      this.Queue.Add(Command, Message.SenderId, args, new Handler(this, Message.SenderId))
+      this.Queue.Add(Command, Message.SenderId, args, new Handler(this.Neos, Message.SenderId))
     } else {
-      return this.SendTextMessage(Message.SenderId, "Invalid Command")
+      return this.Neos.SendTextMessage(Message.SenderId, "Invalid Command")
     }
 
   }
