@@ -29,12 +29,12 @@ class CommandHandler {
   }
   Run(Message) {
     if (Message.SenderId == this.Neos.CurrentUser.Id) return false
-    let args = message.Content.split(" ");
+    let args = Message.Content.split(" ");
     let Command = args.shift()
     if (this.Commands[Command]) {
       this.Queue.Add(Command, Message.SenderId, args, new Handler(this.Neos, Message.SenderId))
     } else {
-      return false
+      return this.Neos.SendTextMessage(Message.SenderId, "Invalid Command")
     }
 
   }
