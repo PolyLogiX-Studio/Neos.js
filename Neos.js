@@ -56,6 +56,7 @@ class Neos extends EventEmitter {
       config.main,
       config.version
     );
+    this.CloudXInterface.NeosJS = this
     this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
     this._UserMessage.Cloud = this.CloudXInterface;
     this.CloudXInterface.OnLogin = (obj) => {
