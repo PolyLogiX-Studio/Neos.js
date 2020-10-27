@@ -481,7 +481,7 @@ Command.Add("/send", (Handler, Sender, Args) => {
   var message = Args.join(" ") // Join remaining arguments with Spaces
   Neos.SendTextMessage(user, message);
   Handler.Reply("Message Sent");
-})
+}, ["U-bombitmanbomb"]) // Only U-bombitmanbomb can run this command, Can pass a function as long as value returned is an Array
 Neos.Login(/* Creds */);
 ```
 
@@ -494,7 +494,7 @@ Add a new Command to the Interpreter
 Syntax
 
 ```js
-Command.add(String Command,Function CommandScript, ?Array Whitelist);
+Command.Add(String Command,Function CommandScript, ?Array Whitelist);
 ```
 
 #### `Command.Run`
