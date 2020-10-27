@@ -66,6 +66,8 @@ neos.SendTextMessage('U-Neos', 'This is a Message!');
     - [`CommandHandler` Functions](#commandhandler-functions)
       - [`Command.Add`](#commandadd)
       - [`Command.Run`](#commandrun)
+  - [Plugin `HeadlessInterface`](#plugin-headlessinterface)
+    - [HeadlessInterface Function `Send`](#headlessinterface-function-send)
 
 </details>
 
@@ -467,7 +469,7 @@ Add Commands Effortlessly
 const NEOS = require('@bombitmanbomb/neosjs');
 const CommandHandler = require('@bombitmanbomb/neosjs/Plugins/CommandHandler');
 const Neos = new NEOS(); // Create Neos Client
-const Command = new CommandHandler(Neos, "Invalid Command"); // Pass Neos client and [Error Message] (Optional)
+const Command = new CommandHandler(Neos, 'Invalid Command'); // Pass Neos client and [Error Message] (Optional)
 Neos.on('messageReceived', Command.Run); // Route messages to the Command Handler Directly (Shorthand).
 
 Command.Add('/commands', (Handler, Sender, Args) => {
@@ -475,13 +477,17 @@ Command.Add('/commands', (Handler, Sender, Args) => {
   Handler.Reply(Object.keys(Command.Commands).sort().join('<br>')); // Reply to command in Neos a list of all Commands
 });
 Command.Add('/ping', (Handler) => Handler.Reply('pong!'));
-Command.Add("/send", (Handler, Sender, Args) => {
-  if (!Args.length>=2) return Handler.Reply("Syntax: /send U-Id Message"); // Invalid Syntax
-  var user = Args.shift() // Pull first argument (User)
-  var message = Args.join(" ") // Join remaining arguments with Spaces
-  Neos.SendTextMessage(user, message);
-  Handler.Reply("Message Sent");
-}, ["U-bombitmanbomb"]) // Only U-bombitmanbomb can run this command, Can pass a function as long as value returned is an Array
+Command.Add(
+  '/send',
+  (Handler, Sender, Args) => {
+    if (!Args.length >= 2) return Handler.Reply('Syntax: /send U-Id Message'); // Invalid Syntax
+    var user = Args.shift(); // Pull first argument (User)
+    var message = Args.join(' '); // Join remaining arguments with Spaces
+    Neos.SendTextMessage(user, message);
+    Handler.Reply('Message Sent');
+  },
+  ['U-bombitmanbomb']
+); // Only U-bombitmanbomb can run this command, Can pass a function as long as value returned is an Array
 Neos.Login(/* Creds */);
 ```
 
@@ -516,4 +522,52 @@ Command.Run(
   Date LastUpdateTime,
   Date ReadTime
 });
+```
+
+## Plugin `HeadlessInterface`
+
+Interface with a Headless Client
+Example uses Command Plugin to run commands on the server
+
+```js
+const HeadlessInterface = require("@bombitmanbomb/neosjs/Plugins/HeadlessInterface");
+const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/HeadlessInterface");
+const NEOS = require("@bombitmanbomb/neosjs");
+const Neos = new NEOS({StatusInterval:0}); // Disable Status Updates - Can conflict with the Headless Status
+const Command = new CommandHandler(Neos);
+Neos.on("messageReceived", Command.Run); // Shorthand Hook
+
+var Headless;
+//Linux
+Headless = new HeadlessInterface("/root/.steam/SteamApps/common/NeosVR/") // Pass Path to Neos Folder OR child_process.spawn() of Headless
+//Default on Windows
+Headless = new HeadlessInterface("C:/Program Files (x86)/Steam/SteamApps/common/NeosVR/HeadlessClient","C:/Program Files (x86)/Steam/SteamApps/common/NeosVR/HeadlessClient/Config/Config.json")
+//You can also pass a custom Config location, Default Location used is /Config/Config.json
+
+//Command will run anything after /run as if it's a command typed in the console
+Command.Add("/run",(Handler, Sender, Args)=>{
+  Headless.Send(Args.join(" ")).then((response)=>{
+    Handler.Reply(response); // Response from Headless Client
+  });
+},["U-bombitmanbomb"]); // Only run for user U-bombitmanbomb
+
+//Command will invite the user to the session
+Command.Add("/inviteme", async (Handler, Sender, Args)=>{
+  let CloudResult = await Neos.GetUser(Sender);
+  Headless.Send(`invite ${CloudResult.Content.username}`).then((response) => {
+    Handler.Reply(response) // Invite Sent if Friends
+  });
+});
+
+Neos.Login("User","Pass",null,"Unique Id"); // Must pass a Unique Machine ID or it can log out the Headless Client
+}
+```
+
+### HeadlessInterface Function `Send`
+
+Send a Command to the HeadlessClient
+Returns a Promise with the Response
+
+```js
+Headless.Send("invite bombitmanbomb").then((response)=>console.log(response)) // Invite Sent
 ```
