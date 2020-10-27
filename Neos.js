@@ -39,7 +39,6 @@ class Neos extends EventEmitter {
     if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
     if (!options.OnlineState) options.OnlineState = "Online";
-    if (!options.OnlineState) options.OnlineState = undefined;
     if (!options.StatusInterval) options.StatusInterval = 60;
     if (!options.NeosVersion)
       options.NeosVersion = config.main + " " + config.version;
@@ -197,11 +196,10 @@ class Neos extends EventEmitter {
   Update() {
     this.CloudXInterface.Update();
     if (!this.CloudXInterface.CurrentUser.Id) return;
-    if (this.lastStatusUpdate == "No Update") {
-      return this.UpdateStatus();
+    if (this.Options.StatusInterval != null) {
+      if (new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 > this.Options.StatusInterval || this.lastStatusUpdate == "No Update" )
+        return this.UpdateStatus();
     }
-    if (new Date(new Date() - this.lastStatusUpdate).getTime()/1000 > this.Options.StatusInterval)
-      return this.UpdateStatus();
   }
   /**
    * Update the Neos Account status
@@ -495,7 +493,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   // eslint-disable-next-line no-unused-vars
-  FindRecords(record) {}
+  FindRecords(record) { }
   /**
    *Not yet Implimented
    *
@@ -505,7 +503,7 @@ class Neos extends EventEmitter {
    */
 
   // eslint-disable-next-line no-unused-vars
-  FetchRecord(ownerId, recordId) {}
+  FetchRecord(ownerId, recordId) { }
   /**
    *
    *
@@ -529,9 +527,9 @@ class Neos extends EventEmitter {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
     this._UserMessage.SendTextMessage(Message);
   }
-  JoinSession(){}
-  LeaveSession(){}
-  
+  JoinSession() { }
+  LeaveSession() { }
+
 }
 
 

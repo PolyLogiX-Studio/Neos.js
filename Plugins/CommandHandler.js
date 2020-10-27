@@ -15,11 +15,11 @@ class EventQueue {
     this.RunQueue() // Disable Queue Interval for now
   }
   RunQueue() {
-    if (this.Queue.length==0) return true
+    if (this.Queue.length == 0) return true
 
-      let Command = this.Queue.shift()
-      this.CommandHandler.Commands[Command.Command].Run(Command.Sender, Command.Args, Command.Handler)
-    
+    let Command = this.Queue.shift()
+    this.CommandHandler.Commands[Command.Command].Run(Command.Sender, Command.Args, Command.Handler)
+
   }
 }
 class CommandHandler {
@@ -32,7 +32,7 @@ class CommandHandler {
   }
   Run(Message) {
     var context
-    if (this instanceof CommandHandler) {context = this} else {context = this.CommandHandler}
+    if (this instanceof CommandHandler) { context = this } else { context = this.CommandHandler }
     if (Message.SenderId == context.Neos.CurrentUser.Id) return false
     let args = Message.Content.split(" ");
     let Command = args.shift()
@@ -41,11 +41,10 @@ class CommandHandler {
     } else {
       return context.Neos.SendTextMessage(Message.SenderId, "Invalid Command")
     }
-
   }
   Add(command, cb, whitelist) {
     var context
-    if (this instanceof CommandHandler) {context = this} else {context = this.CommandHandler}
+    if (this instanceof CommandHandler) { context = this } else { context = this.CommandHandler }
     if (typeof cb != 'function') throw new Error("Command must pass ('command', Function)")
     context.Commands[command] = new Command(cb, whitelist, context)
   }
