@@ -39,7 +39,7 @@ class Neos extends EventEmitter {
     if (options.OAuth == null) options.OAuth = false
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
     if (!options.OnlineState) options.OnlineState = "Online";
-    if (!options.StatusInterval) options.StatusInterval = 60;
+    if (options.StatusInterval == null) options.StatusInterval = 60;
     if (!options.NeosVersion)
       options.NeosVersion = config.main + " " + config.version;
     if (!options.CompatabilityHash)
@@ -196,7 +196,7 @@ class Neos extends EventEmitter {
   Update() {
     this.CloudXInterface.Update();
     if (!this.CloudXInterface.CurrentUser.Id) return;
-    if (this.Options.StatusInterval != null) {
+    if (this.Options.StatusInterval != null && this.Options.StatusInterval != 0) {
       if (new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 > this.Options.StatusInterval || this.lastStatusUpdate == "No Update" )
         return this.UpdateStatus();
     }
