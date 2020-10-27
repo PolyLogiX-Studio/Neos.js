@@ -5,6 +5,15 @@ class EventQueue {
     this.Queue = []
     //this.Interval = setInterval(this.RunQueue, 500)
   }
+  /**
+   *
+   *
+   * @param {*} Command
+   * @param {*} Sender
+   * @param {*} Args
+   * @param {*} Handler
+   * @memberof EventQueue
+   */
   Add(Command, Sender, Args, Handler) {
     this.Queue.push({
       Command,
@@ -14,6 +23,12 @@ class EventQueue {
     });
     this.RunQueue() // Disable Queue Interval for now
   }
+  /**
+   *
+   *
+   * @returns
+   * @memberof EventQueue
+   */
   RunQueue() {
     if (this.Queue.length == 0) return true
 
@@ -22,14 +37,24 @@ class EventQueue {
 
   }
 }
+/**
+ * A Plugin for Neos.js to add Command Functionality to Bots
+ * @class CommandHandler
+ */
 class CommandHandler {
-  constructor(NeosJS, NeosVR) {
+  constructor(NeosJS, Invalid = "Invalid Command") {
     this.Neos = NeosJS
+    this.Invalid = Invalid
     this.Neos.CommandHandler = this
-    this.NeosVR = NeosVR
     this.Commands = {}
     this.Queue = new EventQueue(this)
   }
+  /**
+   * Run a Message for Commands
+   *
+   * @param {{Id,OwnerId,RecipientId,SenderId,MessageType,Content,SendTime,LastUpdateTime,ReadTime}} Message
+   * @memberof CommandHandler
+   */
   Run(Message) {
     var context
     if (this instanceof CommandHandler) { context = this } else { context = this.CommandHandler }
@@ -39,9 +64,17 @@ class CommandHandler {
     if (context.Commands[Command]) {
       context.Queue.Add(Command, Message.SenderId, args, new Handler(context.Neos, Message.SenderId))
     } else {
-      return context.Neos.SendTextMessage(Message.SenderId, "Invalid Command")
+      context.Neos.SendTextMessage(Message.SenderId, context.Invalid)
     }
   }
+  /**
+   * Add a Command
+   *
+   * @param {String} command
+   * @param {Function} cb
+   * @param {Array<String>} whitelist
+   * @memberof CommandHandler
+   */
   Add(command, cb, whitelist) {
     var context
     if (this instanceof CommandHandler) { context = this } else { context = this.CommandHandler }
@@ -49,21 +82,46 @@ class CommandHandler {
     context.Commands[command] = new Command(cb, whitelist, context)
   }
 }
+/**
+ *
+ *
+ * @class Handler
+ */
 class Handler {
   constructor(Neos, Sender) {
     this.Neos = Neos
     this.Sender = Sender
   }
+  /**
+   *
+   *
+   * @param {*} Message
+   * @memberof Handler
+   */
   Reply(Message) {
     this.Neos.SendTextMessage(this.Sender, Message)
   }
 
 }
+/**
+ *
+ *
+ * @class Command
+ */
 class Command {
   constructor(cb, whitelist) {
     this.script = cb
     this.whitelist = whitelist
   }
+  /**
+   *
+   *
+   * @param {*} Sender
+   * @param {*} Args
+   * @param {*} Handler
+   * @returns
+   * @memberof Command
+   */
   Run(Sender, Args, Handler) {
     if (this.whitelist && !~this.whitelist.indexOf(Sender)) return false
     this.script(Handler, Sender, Args)
