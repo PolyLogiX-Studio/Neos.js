@@ -88,6 +88,13 @@ class CommandHandler {
  * @class Handler
  */
 class Handler {
+
+  /**
+   *Creates an instance of Handler.
+   * @param {Object} Neos
+   * @param {String} Sender
+   * @memberof Handler
+   */
   constructor(Neos, Sender) {
     this.Neos = Neos
     this.Sender = Sender
@@ -109,6 +116,13 @@ class Handler {
  * @class Command
  */
 class Command {
+
+  /**
+   *Creates an instance of Command.
+   * @param {Function} cb
+   * @param {Array<String>} whitelist
+   * @memberof Command
+   */
   constructor(cb, whitelist) {
     this.script = cb
     this.whitelist = whitelist
@@ -116,9 +130,9 @@ class Command {
   /**
    *
    *
-   * @param {*} Sender
-   * @param {*} Args
-   * @param {*} Handler
+   * @param {String} Sender
+   * @param {Array<String>} Args
+   * @param {Handler} Handler
    * @returns
    * @memberof Command
    */

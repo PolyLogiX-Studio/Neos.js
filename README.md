@@ -22,7 +22,7 @@
 > Library for communicating with the NeosAPI
 
 ```js
-neos.SendTextMessage("U-Neos", "This is a Message!");
+neos.SendTextMessage('U-Neos', 'This is a Message!');
 ```
 
 <details>
@@ -61,6 +61,11 @@ neos.SendTextMessage("U-Neos", "This is a Message!");
   - [Changelog](#changelog)
   - [Contributing](#contributing)
   - [License](#license)
+- [Plugins](#plugins)
+  - [Plugin: `CommandHandler`](#plugin-commandhandler)
+    - [`CommandHandler` Functions](#commandhandler-functions)
+      - [`Command.Add`](#commandadd)
+      - [`Command.Run`](#commandrun)
 
 </details>
 
@@ -91,7 +96,7 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 ## Options
 
 ```js
-const Neos = require("@bombitmanbomb/neosjs");
+const Neos = require('@bombitmanbomb/neosjs');
 const neos = new Neos({ UpdateInterval: 5000 });
 ```
 
@@ -102,8 +107,8 @@ const neos = new Neos({ UpdateInterval: 5000 });
 | NeosVersion       | String  | Version of Neos to display, Default `NeosJS *Version*`                    |
 | CompatabilityHash | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*` |
 | UpdateInterval    | Number  | How Often to update with the cloud, Default `1000`                        |
-| Update            | Boolean | Should the api call for updates, Default True.     |
-| OAuth             | Boolean | Use NeosDB Oauth instead of a login. When true pass Login(token)  |
+| Update            | Boolean | Should the api call for updates, Default True.                            |
+| OAuth             | Boolean | Use NeosDB Oauth instead of a login. When true pass Login(token)          |
 
 ## Functions
 
@@ -148,7 +153,7 @@ added: v1.1.1
 Send a `Message`, As of 1.1.2 a UserId must be supplied
 
 ```js
-neos.SendTextMessage("U-UserId", "Hey this is a message");
+neos.SendTextMessage('U-UserId', 'Hey this is a message');
 ```
 
 ### `Neos.GetStatus`
@@ -160,7 +165,7 @@ added: v1.1.1
 Get a `UserStatus`
 
 ```js
-neos.GetStatus("U-Neos").then(status => {
+neos.GetStatus('U-Neos').then((status) => {
   //User Status
 });
 ```
@@ -174,9 +179,8 @@ added: v1.1.1
 Send a `Message`, As of 1.1.2 a UserId must be supplied
 
 ```js
-neos.SendTextMessage("U-UserId", "Hey this is a message");
+neos.SendTextMessage('U-UserId', 'Hey this is a message');
 ```
-
 
 ## Events
 
@@ -189,7 +193,7 @@ added: v0.0.1
 The `neos` instance will emit a `'login'` event when a new user is assigned via `neos.Login()
 
 ```js
-neos.on("login", () => {
+neos.on('login', () => {
   console.log(neos.CurrentUser); // Log the current user
 });
 ```
@@ -203,11 +207,10 @@ added: v0.0.1
 The `neos` instance will emit a `'logout'` event **Before** a new user is assigned via `neos.Login()` and on `neos.Logout()`
 
 ```js
-neos.on("logout", () => {
-  console.log("User Logged Out");
+neos.on('logout', () => {
+  console.log('User Logged Out');
 });
 ```
-
 
 ### Event: `'sessionUpdated'`
 
@@ -215,16 +218,14 @@ neos.on("logout", () => {
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'sessionUpdated'` event when the user session updates, This includes the Session Token to log in
 up to 7 days without the password
 
 ```js
-neos.on("sessionUpdated", session => {
+neos.on('sessionUpdated', (session) => {
   console.log(session.SessionToken); // Log the current user Token
 });
 ```
-
 
 ### Event: `'sessionChanged'`
 
@@ -232,15 +233,13 @@ neos.on("sessionUpdated", session => {
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'sessionChanged'` event when the user session changes
 
 ```js
-neos.on("sessionChanged", session => {
+neos.on('sessionChanged', (session) => {
   console.log(session.SessionToken); // Log the current user token
 });
 ```
-
 
 ### Event: `'membershipsUpdated'`
 
@@ -251,9 +250,8 @@ added: v0.0.1
 The `neos` instance will emit a `'groupUpdated'` event when a group state updates
 
 ```js
-neos.on("membershipsUpdated", membership => {});
+neos.on('membershipsUpdated', (membership) => {});
 ```
-
 
 ### Event: `'groupUpdated'`
 
@@ -261,14 +259,11 @@ neos.on("membershipsUpdated", membership => {});
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'groupUpdated'` event
 
 ```js
-neos.on("groupUpdated", group => {});
+neos.on('groupUpdated', (group) => {});
 ```
-
-
 
 ### Event: `'groupMemberUpdated'`
 
@@ -276,16 +271,13 @@ neos.on("groupUpdated", group => {});
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'groupMemberUpdated'` event
 
 ```js
-neos.on("groupMemberUpdated", group => {
+neos.on('groupMemberUpdated', (group) => {
   console.log(neos.CurrentUser); // Log the current user
 });
 ```
-
-
 
 ### Event: `'messageReceived'`
 
@@ -293,16 +285,14 @@ neos.on("groupMemberUpdated", group => {
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'messageReceived'` event when a new message is recieved
 
 ```js
-neos.on("messageReceived", message => {
-  if (message.Content.toLowerCase() == "ping")
-    neos.SendTextMessage(message.SenderId, "Pong");
+neos.on('messageReceived', (message) => {
+  if (message.Content.toLowerCase() == 'ping')
+    neos.SendTextMessage(message.SenderId, 'Pong');
 });
 ```
-
 
 ### Event: `'messageCountChanged'`
 
@@ -310,11 +300,10 @@ neos.on("messageReceived", message => {
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'messageCountChanged'` event
 
 ```js
-neos.on("messageCountChanged", count => {
+neos.on('messageCountChanged', (count) => {
   console.log(count); // # of messages
 });
 ```
@@ -325,16 +314,13 @@ neos.on("messageCountChanged", count => {
 added: v0.0.1
 -->
 
-
-
 The `neos` instance will emit a `'friendAdded'` event when a friend request is sent or recieved
 
 ```js
-neos.on("friendAdded", friend => {
+neos.on('friendAdded', (friend) => {
   console.log(friend);
 });
 ```
-
 
 ### Event: `'friendUpdated'`
 
@@ -342,15 +328,13 @@ neos.on("friendAdded", friend => {
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'friendUpdated'` event when a friend request is accepted or a status is changed
 
 ```js
-neos.on("friendUpdated", friend => {
+neos.on('friendUpdated', (friend) => {
   console.log(friend);
 });
 ```
-
 
 ### Event: `'friendRemoved'`
 
@@ -358,13 +342,11 @@ neos.on("friendUpdated", friend => {
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'friendRemoved'` event
 
 ```js
-neos.on("friendRemoved", friend => {});
+neos.on('friendRemoved', (friend) => {});
 ```
-
 
 ### Event: `'friendRequestCountChanged'`
 
@@ -372,11 +354,10 @@ neos.on("friendRemoved", friend => {});
 added: v0.0.1
 -->
 
-
 The `neos` instance will emit a `'friendRequestCountChanged'` event
 
 ```js
-neos.on("friendRequestCountChanged", count => {
+neos.on('friendRequestCountChanged', (count) => {
   console.log(count);
 });
 ```
@@ -390,9 +371,8 @@ added: v0.0.1
 The `neos` instance will emit a `'friendsChanged'` event
 
 ```js
-neos.on("friendsChanged", () => {});
+neos.on('friendsChanged', () => {});
 ```
-
 
 ### Event: `'userUpdated'`
 
@@ -403,7 +383,7 @@ added: v0.0.1
 The `neos` instance will emit a `'userUpdated'` event
 
 ```js
-neos.on("userUpdated", user => {
+neos.on('userUpdated', (user) => {
   console.log(user);
 });
 ```
@@ -424,9 +404,7 @@ neos.on("userUpdated", user => {
 | **LastUpdateTime** | DateTime              | Last Fetch                |
 | **ReadTime**       | DateTime \| undefined | Time message was Read     |
 
-
 ### Object `User`
-
 
 | Parameter                  | Type                  | Description                         |
 | -------------------------- | --------------------- | ----------------------------------- |
@@ -441,7 +419,7 @@ neos.on("userUpdated", user => {
 | **PublicBanExpiration**    | DateTime              | Time message was Read               |
 | **SpectatorBanExpiration** | DateTime              | Time message was Read               |
 | **MuteBanExpiration**      | DateTime              | Time message was Read               |
-| **`Password**`**           | String                | Time message was Read               |
+| **`Password**`\*\*         | String                | Time message was Read               |
 | **RecoveryCode**           | String                | Time message was Read               |
 | **Tags**                   | DateTime \| undefined | Time message was Read               |
 | **PatreonData**            | `UserPatreonData`     | Patreon Info; see `UserPatreonData` |
@@ -453,9 +431,7 @@ neos.on("userUpdated", user => {
 - \*Requires Authoriation, Private
 - \*\*Can't be fetched.
 
-
 ### Object `UserSession`
-
 
 | Parameter           | Type     | Description                  |
 | ------------------- | -------- | ---------------------------- |
@@ -478,3 +454,66 @@ Before creating an issue, please ensure that it hasn't already been reported/sug
 ## License
 
 MIT - [bombitmanbomb :cactus:](https://github.com/bombitmanbomb)
+
+# Plugins
+
+Tools to make Development Easier.
+
+## Plugin: `CommandHandler`
+
+Add Commands Effortlessly
+
+```js
+const NEOS = require('@bombitmanbomb/neosjs');
+const CommandHandler = require('@bombitmanbomb/neosjs/Plugins/CommandHandler');
+const Neos = new NEOS(); // Create Neos Client
+const Command = new CommandHandler(Neos, "Invalid Command"); // Pass Neos client and [Error Message] (Optional)
+Neos.on('messageReceived', Command.Run); // Route messages to the Command Handler Directly (Shorthand).
+
+Command.Add('/commands', (Handler, Sender, Args) => {
+  console.log(Sender + ':' + Args.join('_')); // U-bombitmanbomb:/commands Any_Text_After
+  Handler.Reply(Object.keys(Command.Commands).sort().join('<br>')); // Reply to command in Neos a list of all Commands
+});
+Command.Add('/ping', (Handler) => Handler.Reply('pong!'));
+Command.Add("/send", (Handler, Sender, Args) => {
+  if (!Args.length>=2) return Handler.Reply("Syntax: /send U-Id Message"); // Invalid Syntax
+  var user = Args.shift() // Pull first argument (User)
+  var message = Args.join(" ") // Join remaining arguments with Spaces
+  Neos.SendTextMessage(user, message);
+  Handler.Reply("Message Sent");
+})
+Neos.Login(/* Creds */);
+```
+
+### `CommandHandler` Functions
+
+#### `Command.Add`
+
+Add a new Command to the Interpreter
+
+Syntax
+
+```js
+Command.add(String Command,Function CommandScript, ?Array Whitelist);
+```
+
+#### `Command.Run`
+
+Pass a message to the Interpreter
+
+Syntax
+
+```js
+Command.Run(
+{
+  String Id,
+  String OwnerId,
+  String RecipientId,
+  String SenderId,
+  String MessageType,
+  String Content,
+  String SendTime,
+  Date LastUpdateTime,
+  Date ReadTime
+});
+```
