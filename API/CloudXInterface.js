@@ -1770,6 +1770,7 @@ class CloudXInterface {
       b => new SessionInfo(b.Entity)
     );
   }
+
   /**
    *
    *
