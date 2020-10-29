@@ -1,7 +1,6 @@
 class RecordList {
   constructor($b) {
     if (!$b) $b = {};
-    this._Id = $b.id;
     this.OwnerId = b.ownerId;
     this.Name = $b.name;
     this.Page = $b.page;

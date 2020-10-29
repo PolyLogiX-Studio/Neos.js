@@ -123,10 +123,18 @@ const {
   CreditTransaction
 } = require("./CreditTransaction")
 const {
+  SearchQueryParser
+} = require("./SearchQueryParser")
+const {
+  SearchResults
+} = require("./SearchResults")
+const {
   SessionInfo
 } = require("./SessionInfo")
 const CloudX = {
   Shared: {
+    SearchResults,
+    SearchQueryParser,
     FriendManager,
     FriendStatus,
     OwnerType,

@@ -46,6 +46,7 @@ class List extends Array {
    */
   static ToList(array) {
     let t = new List();
+    if (!array || Type.Get(array) == 'List') return t
     for (let item of array) {
       t.Add(item);
     }
@@ -116,7 +117,7 @@ class List extends Array {
    */
   Remove(iValue) {
     var iIndex = this.indexOf(iValue);
-    if (iIndex > -1) {
+    if (~iIndex) {
       this.RemoveAt(iIndex);
     }
     return iIndex;
