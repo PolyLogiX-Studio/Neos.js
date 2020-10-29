@@ -3,8 +3,8 @@ const {
   v4: uuidv4
 } = require('uuid');
 const NEOS = require("../Neos");
-const Neos = new NEOS();
-const Neos2 = new NEOS()
+const Neos = new NEOS({updateInterval:2});
+const Neos2 = new NEOS({updateInterval:2})
 const CommandHandler = require("../Plugins/CommandHandler");
 const CommandExtended = require("../Plugins/CommandExtended");
 
@@ -64,7 +64,6 @@ const TEST = {
       } catch (e) {}
       return process.exit(0)
     }
-    console.log(test)
     test()
   }
 }
