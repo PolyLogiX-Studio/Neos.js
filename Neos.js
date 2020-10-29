@@ -511,17 +511,17 @@ class Neos extends EventEmitter {
    * @param {String} Message Text to Send
    * @memberof Neos
    */
-  SendTextMessage(UserId, Message) {
+  async SendTextMessage(UserId, Message) {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
-    this._UserMessage.SendTextMessage(Message);
+    return this._UserMessage.SendTextMessage(Message);
   }
-  SendTransaction(UserId, Message) {
+  async SendTransaction(UserId, Message) {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
-    this._UserMessage.SendTextMessage(Message);
+    return this._UserMessage.SendTextMessage(Message);
   }
-  SendObject(UserId, Message) {
+  async SendObject(UserId, Message) {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
-    this._UserMessage.SendTextMessage(Message);
+    return this._UserMessage.SendTextMessage(Message);
   }
   SendInvite(UserId, Message) {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
