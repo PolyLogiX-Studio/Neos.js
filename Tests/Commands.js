@@ -3,8 +3,12 @@ const {
   v4: uuidv4
 } = require('uuid');
 const NEOS = require("../Neos");
-const Neos = new NEOS({updateInterval:2});
-const Neos2 = new NEOS({updateInterval:2})
+const Neos = new NEOS({
+  updateInterval: 2
+});
+const Neos2 = new NEOS({
+  updateInterval: 2
+})
 const CommandHandler = require("../Plugins/CommandHandler");
 const CommandExtended = require("../Plugins/CommandExtended");
 
@@ -23,19 +27,27 @@ Neos.on("login", () => {
 
 // TESTER ACCOUNT
 Neos2.on("login", () => {
-  TEST.Test()
   console.log(process.env.NEOS_LOGIN_SECOND + " Logged in")
+
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/test").then(() => {
+    Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/commands").then(() => {
+      Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/help ping").then(() => {
+        Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/ping")
+      })
+    })
+  })
+
+
 })
 
 Neos2.on("messageReceived", (m) => {
   if (m.SenderId != process.env.NEOS_LOGIN) return
   console.log(m.SenderId + ":" + m.Content)
-  TEST.Next()
 })
 setTimeout(() => Neos2.Login(process.env.NEOS_LOGIN_SECOND, process.env.NEOS_PASSWORD_SECOND, undefined, uuidv4() /* Machine ID */ ), 2000)
 setTimeout(() => {
-  process.exit(1)
-}, 25000);
+  process.exit(0)
+}, 30000);
 process.on('SIGINT', function () {
   try {
     console.log("Logging Out All Accounts")
@@ -44,31 +56,3 @@ process.on('SIGINT', function () {
   } catch (e) {}
   process.exit(0);
 });
-const TEST = {
-  tests:[],
-  Create(test){
-    this.tests.push(test)
-  },
-  Test()  {
-    let test = this.tests.shift()
-    test()
-  },
-  Next(){
-    console.log("Next Test")
-    var test = this.tests.shift()
-    if (!test){
-      try {
-        console.log("Logging Out All Accounts")
-        Neos.Logout(true);
-        Neos2.Logout(true)
-      } catch (e) {}
-      return process.exit(0)
-    }
-    test()
-  }
-}
-
-TEST.Create(()=>{console.log("Send /test");Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/test")})
-TEST.Create(()=>{console.log("Send /commands");Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/commands")})
-TEST.Create(()=>{console.log("Send /help ping");Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/help ping")})
-TEST.Create(()=>{console.log("Send /ping");Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/ping")})

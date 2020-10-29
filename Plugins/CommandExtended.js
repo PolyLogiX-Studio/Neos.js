@@ -2,11 +2,11 @@ class CommandExtended {
   constructor(CommandHandler, Options ) {
     this.Options = {}
     this.Options.Prefix = Options.Prefix || "/"
-    this.Options.EnableHelp = Options.EnableHelp || "help"
-    this.Options.CommandList = Options.CommandList || "commands"
+    this.Options.HelpCommand = Options.HelpCommand || "help"
+    this.Options.CommandsCommand = Options.CommandsCommand || "commands"
+    CommandHandler.CommandHandlerExtended = this
     this.CommandHandler = CommandHandler
-    this.CommandHandler.CommandHandlerExtended = this
-    this.Help = {}
+    this.HelpData = {}
   }
   Add(Command, Script, Help, Whitelist) {
     var context
@@ -25,6 +25,7 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended
     }
+    context.CommandHandler.Neos.SendTextMessage(Message.SenderId, "Command Coming Soon")
   }
   Commands(Message){
     var context
@@ -33,6 +34,7 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended
     }
+    context.CommandHandler.Neos.SendTextMessage(Message.SenderId, "Command Coming Soon")
   }
   Run(Message) {
     var context
@@ -42,11 +44,11 @@ class CommandExtended {
       context = this.CommandHandler.CommandHandlerExtended
     }
     if (Message.MessageType != "Text") return context.CommandHandler.Neos.SendTextMessage(Message.SenderId, "I am only configured to handle Text messages.")
-    switch (Message.Content.split()[0].toLowerCase()) {
-      case context.Options.Prefix + context.Options.EnableHelp:
+    switch (Message.Content.trim().split(' ')[0].toLowerCase()) {
+      case context.Options.Prefix + context.Options.HelpCommand:
         context.Help(Message)
         break
-      case context.Options.Prefix + context.Options.CommandList:
+      case context.Options.Prefix + context.Options.CommandsCommand:
         context.Commands(Message)
         break
       default:
