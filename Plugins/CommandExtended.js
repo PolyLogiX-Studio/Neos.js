@@ -1,5 +1,5 @@
 class CommandExtended {
-  constructor(CommandHandler, Options) {
+  constructor(CommandHandler, Options = {}) {
     this.Options = {};
     this.Options.Prefix = Options.Prefix || '/';
     this.Options.HelpCommand = Options.HelpCommand || 'help';
