@@ -128,11 +128,15 @@ class CommandHelper {
     this.CommandExtended = CommandHandlerExtended;
     this.CommandHandler = this.CommandExtended.CommandHandler;
     this.Commands = this.CommandHandler.Commands;
-    this.Generate()
+    this.Generate();
   }
   GetPage(index = 0) {
-    this.Generate()
-    return util.format(this.CommandPages[index], Number(index) + 1, this.CommandPages.length)
+    this.Generate();
+    return util.format(
+      this.CommandPages[index],
+      Number(index) + 1,
+      this.CommandPages.length
+    );
   }
   Generate() {
     if (!this.Commands) return false;
@@ -146,21 +150,28 @@ class CommandHelper {
       this.CommandExtended.Options.Prefix +
         this.CommandExtended.Options.CommandsCommand
     );
-    Commands.sort()
+    Commands.sort();
 
-    let commands = 0
-      //Build List
-    let CurrentPage = new String()
-    for (let command of Commands){
-      if (command.length + CurrentPage.length > CommandHelper.MSG_LENGTH_MAX || commands + 1 > CommandHelper.CMD_PER_PAGE){
-        commands = 0
-        CurrentPage += "<br>Page %d - %d"
-        this.CommandPages.push(CurrentPage)
-        CurrentPage = new String()
-        continue
+    let commands = 0;
+    //Build List
+    let CurrentPage = new String();
+    for (let command of Commands) {
+      if (
+        command.length + CurrentPage.length > CommandHelper.MSG_LENGTH_MAX ||
+        commands + 1 > CommandHelper.CMD_PER_PAGE
+      ) {
+        commands = 0;
+        CurrentPage += '<br>Page %d - %d';
+        this.CommandPages.push(CurrentPage);
+        CurrentPage = new String();
+        continue;
       }
-      CurrentPage += command + "<br>"
-      commands++
+      CurrentPage += command + '<br>';
+      commands++;
+    }
+    if (CurrentPage != new String()) {
+      CurrentPage += '<br>Page %d - %d';
+      this.CommandPages.push(CurrentPage);
     }
   }
 }
