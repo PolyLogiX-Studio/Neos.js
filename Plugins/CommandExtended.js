@@ -12,7 +12,7 @@ class CommandExtended {
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
     this.HelpData = {
-      undefined: this.Options.HelpDefault,
+      undefined: new HelpObject(this.Options.HelpDefault),
       get null() {
         return this[undefined];
       },
