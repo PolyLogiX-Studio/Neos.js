@@ -5,7 +5,7 @@
   "main": "Neos.js",
   "scripts": {
     "test": "npm run testCommands",
-    "testCommands": "node Tests/Commands.js"
+    "testCommands": "node Tests/Commands.js --unhandled-rejections=strict"
   },
   "repository": {
     "type": "git",
