@@ -4,9 +4,19 @@ class CommandExtended {
     this.Options.Prefix = Options.Prefix || '/';
     this.Options.HelpCommand = Options.HelpCommand || 'help';
     this.Options.CommandsCommand = Options.CommandsCommand || 'commands';
+    this.Options.HelpDefault = this.Options.CommandsCommand
+      ? `'Get a list of commands with ${
+          this.Options.Prefix + this.Options.CommandsCommand
+        }.`
+      : 'No Help Available, Contact the Bot Owner';
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
-    this.HelpData = {};
+    this.HelpData = {
+      undefined: this.Options.HelpDefault,
+      get null() {
+        return this[undefined];
+      },
+    };
   }
   Add(Command, Script, Help, Whitelist) {
     var context;
@@ -65,12 +75,12 @@ class CommandExtended {
     let prefix = context.Options.Prefix;
     let commandData = Message.Content.trim().split(' ');
     commandData.shift(); // remove Help from the command
-    let Index = commandData.shift() || 0;
+    let Index = commandData.shift() || 1;
     if (!context.CommandListInfo)
       context.CommandListInfo = new CommandHelper(context);
     return context.CommandHandler.Neos.SendTextMessage(
       Message.SenderId,
-      context.CommandListInfo.GetPage(Index)
+      context.CommandListInfo.GetPage(new Number(Index) - 1)
     );
   }
   Run(Message) {
@@ -130,11 +140,13 @@ class CommandHelper {
     this.Commands = this.CommandHandler.Commands;
     this.Generate();
   }
-  GetPage(index = 0) {
+  GetPage(index = 1) {
     this.Generate();
     return util.format(
-      this.CommandPages[index],
-      Number(index) + 1,
+      this.CommandPages[
+        Math.max(Math.min(index - 1, this.CommandPages.length), 0)
+      ],
+      index + 1,
       this.CommandPages.length
     );
   }

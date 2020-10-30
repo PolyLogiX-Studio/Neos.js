@@ -559,6 +559,7 @@ Neos.Login(/* credentials */);
 #### `CommandExtended.Add`
 
 Add a new Command to the Interpreter
+Do not add a command prefix
 
 Syntax
 
