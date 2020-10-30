@@ -62,9 +62,15 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended;
     }
-    context.CommandHandler.Neos.SendTextMessage(
+    let prefix = context.Options.Prefix;
+    let commandData = Message.Content.trim().split(' ');
+    commandData.shift(); // remove Help from the command
+    let Index = commandData.shift() || 0;
+    if (!context.CommandListInfo)
+      context.CommandListInfo = new CommandHelper(context);
+    return context.CommandHandler.Neos.SendTextMessage(
       Message.SenderId,
-      'Command Coming Soon'
+      context.CommandListInfo.GetPage(Index)
     );
   }
   Run(Message) {
@@ -112,6 +118,50 @@ class HelpObject {
         Object.keys(this.HelpData).join(', ');
 
     return help;
+  }
+}
+const util = require('util');
+class CommandHelper {
+  static MSG_LENGTH_MAX = 105;
+  static CMD_PER_PAGE = 6;
+  constructor(CommandHandlerExtended) {
+    this.CommandExtended = CommandHandlerExtended;
+    this.CommandHandler = this.CommandExtended.CommandHandler;
+    this.Commands = this.CommandHandler.Commands;
+    this.Generate()
+  }
+  GetPage(index = 0) {
+    this.Generate()
+    return util.format(this.CommandPages[index], Number(index) + 1, this.CommandPages.length)
+  }
+  Generate() {
+    if (!this.Commands) return false;
+    this.CommandPages = new Array();
+    let Commands = Object.keys(this.Commands);
+    Commands.push(
+      this.CommandExtended.Options.Prefix +
+        this.CommandExtended.Options.HelpCommand
+    );
+    Commands.push(
+      this.CommandExtended.Options.Prefix +
+        this.CommandExtended.Options.CommandsCommand
+    );
+    Commands.sort()
+
+    let commands = 0
+      //Build List
+    let CurrentPage = new String()
+    for (let command of Commands){
+      if (command.length + CurrentPage.length > CommandHelper.MSG_LENGTH_MAX || commands + 1 > CommandHelper.CMD_PER_PAGE){
+        commands = 0
+        CurrentPage += "<br>Page %d - %d"
+        this.CommandPages.push(CurrentPage)
+        CurrentPage = new String()
+        continue
+      }
+      CurrentPage += command + "<br>"
+      commands++
+    }
   }
 }
 module.exports = CommandExtended;

@@ -1,10 +1,10 @@
 {
   "name": "@bombitmanbomb/neosjs",
-  "version": "1.5.21",
+  "version": "1.5.23",
   "description": "Neos API",
   "main": "Neos.js",
   "scripts": {
-    "test": "exit 0",
+    "test": "npm run testCommands",
     "testCommands": "node Tests/Commands.js --unhandled-rejections=strict"
   },
   "repository": {
