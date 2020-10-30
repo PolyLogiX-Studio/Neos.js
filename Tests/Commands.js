@@ -19,7 +19,20 @@ const Commands = new CommandExtended(
   Options
 );
 Commands.Add('ping', (h) => h.Reply('pong!'), 'Ping Pong!');
-
+Commands.Add(
+  'test',
+  (h, s, a) => {
+    if (a.length == 0) return h.Reply('Not enough Arguments');
+    return h.Reply(a.join('_'));
+  },
+  {
+    index: 'Join arguments with Underscore',
+    usage: 'Usage: test ...args',
+    test: function (args) {
+      return 'Test usage: Join ' + args.join(' ') + ' with underscores.';
+    },
+  }
+);
 Neos.on('messageReceived', Commands.Run);
 Neos.Login(
   process.env.NEOS_LOGIN,
@@ -29,17 +42,54 @@ Neos.Login(
 );
 Neos.on('login', () => {
   console.log(process.env.NEOS_LOGIN + ' Logged in');
+  Neos.AddFriend(process.env.NEOS_LOGIN_SECOND); // Ensure Friends
 });
 
 // TESTER ACCOUNT
 Neos2.on('login', () => {
   console.log(process.env.NEOS_LOGIN_SECOND + ' Logged in');
-  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/test').then(() => {
-    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/commands').then(() => {
-      Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help ping').then(() => {
-        Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/ping');
-      });
-    });
+  Neos2.AddFriend(process.env.NEOS_LOGIN); // Ensure Friends
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help ping').then(() => {
+    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help ping usage').then(
+      () => {
+        Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help test').then(() => {
+          Neos2.SendTextMessage(
+            process.env.NEOS_LOGIN,
+            '/help test usage'
+          ).then(() => {
+            Neos2.SendTextMessage(
+              process.env.NEOS_LOGIN,
+              '/help test test with args'
+            ).then(() => {
+              Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/ping').then(
+                () => {
+                  Neos2.SendTextMessage(
+                    process.env.NEOS_LOGIN,
+                    '/test with args'
+                  ).then(() => {
+                    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/test').then(
+                      () => {
+                        Neos2.SendTextMessage(
+                          process.env.NEOS_LOGIN,
+                          '/help test Invalid'
+                        ).then(() => {
+                          Neos2.SendTextMessage(
+                            process.env.NEOS_LOGIN,
+                            '/Invalid command'
+                          ).then(() => {
+                            console.log('All Commands Sent');
+                          });
+                        });
+                      }
+                    );
+                  });
+                }
+              );
+            });
+          });
+        });
+      }
+    );
   });
 });
 
@@ -56,7 +106,7 @@ setTimeout(
       uuidv4() /* Machine ID */
     ),
   2000
-);
+); // Offset Login to prevent 429 error
 setTimeout(() => {
   process.exit(0);
 }, 30000);

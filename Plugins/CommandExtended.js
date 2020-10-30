@@ -20,19 +20,40 @@ class CommandExtended {
       Script,
       Whitelist
     );
-    context.Help[Command] = new HelpObject(Command, Help);
+    context.HelpData[Command] = new HelpObject(Help);
   }
-  Help(Message) {
+  async Help(Message) {
     var context;
     if (this instanceof CommandExtended) {
       context = this;
     } else {
       context = this.CommandHandler.CommandHandlerExtended;
     }
-    context.CommandHandler.Neos.SendTextMessage(
-      Message.SenderId,
-      'Command Coming Soon'
-    );
+    let prefix = context.Options.Prefix;
+    let commandData = Message.Content.trim().split(' ');
+    commandData.shift(); // remove Help from the command
+    let Command = commandData.shift();
+    let Args = commandData;
+    let helpObject = context.HelpData[Command];
+    if (helpObject == null)
+      return context.CommandHandler.Neos.SendTextMessage(
+        Message.SenderId,
+        'No Help Available'
+      );
+
+    let Help = helpObject.GetHelp(Args.shift());
+    switch (typeof Help) {
+      case 'function':
+        return context.CommandHandler.Neos.SendTextMessage(
+          Message.SenderId,
+          await Help(Args)
+        );
+      case 'string':
+        return context.CommandHandler.Neos.SendTextMessage(
+          Message.SenderId,
+          Help
+        );
+    }
   }
   Commands(Message) {
     var context;
@@ -71,6 +92,26 @@ class CommandExtended {
   }
 }
 class HelpObject {
-  constructor() {}
+  constructor(help) {
+    this.HelpData = {};
+    if (typeof help == 'string') {
+      this.HelpData['index'] = help;
+      this.HelpData['usage'] = 'Usage Not Available';
+      return this;
+    }
+    for (let index in help)
+      this.HelpData[index.trim().replace(' ', '_')] = help[index];
+    return this;
+  }
+  GetHelp(index) {
+    if (index == null) index = 'index';
+    let help = this.HelpData[index];
+    if (help == null)
+      help =
+        'Additional Argument Required: ' +
+        Object.keys(this.HelpData).join(', ');
+
+    return help;
+  }
 }
 module.exports = CommandExtended;

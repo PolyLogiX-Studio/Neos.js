@@ -64,8 +64,12 @@ neos.SendTextMessage('U-Neos', 'This is a Message!');
 - [Plugins](#plugins)
   - [Plugin: `CommandHandler`](#plugin-commandhandler)
     - [`CommandHandler` Functions](#commandhandler-functions)
-      - [`Command.Add`](#commandadd)
-      - [`Command.Run`](#commandrun)
+      - [`CommandHandler.Add`](#commandhandleradd)
+      - [`CommandHandler.Run`](#commandhandlerrun)
+  - [Plugin `CommandExtended`](#plugin-commandextended)
+    - [`CommandExtended` Functions](#commandextended-functions)
+      - [`CommandExtended.Add`](#commandextendedadd)
+      - [`CommandExtended.Run`](#commandextendedrun)
   - [Plugin `HeadlessInterface`](#plugin-headlessinterface)
     - [HeadlessInterface Function `Send`](#headlessinterface-function-send)
 
@@ -102,15 +106,15 @@ const Neos = require('@bombitmanbomb/neosjs');
 const neos = new Neos({ UpdateInterval: 5000 });
 ```
 
-| Option            | Type    | Description                                                               |
-| ----------------- | ------- | ------------------------------------------------------------------------- |
-| AutoReadMessages  | Boolean | Mark Messages as Read when Caught with `.on('messageReceived')`           |
-| OnlineState       | String  | Online State: `Offline`, `Invisible`, `Away`, `Busy`, `Online`            |
-| NeosVersion       | String  | Version of Neos to display, Default `NeosJS *Version*`                    |
-| CompatabilityHash | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*` |
-| UpdateInterval    | Number  | How Often to update with the cloud, Default `1000`                        |
-| Update            | Boolean | Should the api call for updates, Default True.                            |
-| OAuth             | Boolean | Use NeosDB Oauth instead of a login. When true pass Login(token)          |
+| Option               | Type    | Description                                                                   |
+| -------------------- | ------- | ----------------------------------------------------------------------------- |
+| AutoReadMessages     | Boolean | Mark Messages as Read when Caught with `.on('messageReceived')`               |
+| OnlineState          | String  | Online State: `Offline`, `Invisible`, `Away`, `Busy`, `Online`                |
+| NeosVersion          | String  | Version of Neos to display, Default `NeosJS *Version*`                        |
+| CompatabilityHash    | String  | Compatability Hash to show Version Difference, Default `NeosJS *Version*`     |
+| UpdateInterval       | Number  | How Often to update internal data with the cloud, Default `1000` milliseconds |
+| StatusUpdateInterval | Number  | How Often to update your Status with the cloud, Default `60` seconds          |
+| Update               | Boolean | Should the api call for updates, Default True.                                |
 
 ## Functions
 
@@ -493,7 +497,7 @@ Neos.Login(/* Creds */);
 
 ### `CommandHandler` Functions
 
-#### `Command.Add`
+#### `CommandHandler.Add`
 
 Add a new Command to the Interpreter
 
@@ -503,7 +507,66 @@ Syntax
 Command.Add(String Command,Function CommandScript, ?Array Whitelist);
 ```
 
-#### `Command.Run`
+#### `CommandHandler.Run`
+
+Pass a message to the Interpreter
+
+Syntax
+
+```js
+Command.Run(
+{
+  String Id,
+  String OwnerId,
+  String RecipientId,
+  String SenderId,
+  String MessageType,
+  String Content,
+  String SendTime,
+  Date LastUpdateTime,
+  Date ReadTime
+});
+```
+
+## Plugin `CommandExtended`
+
+Extended Functionality for CommandHandler
+
+```js
+const NEOS = require('@bombitmanbomb/neosjs');
+const Neos = new NEOS();
+const CommandHandler = require('@bombitmanbomb/neosjs/Plugins/CommandHandler');
+const CommandExtended = require('@bombitmanbomb/neosjs/Plugins/CommandExtended');
+const Command = new CommandExtended(new CommandHandler(Neos), {
+  Prefix: '/',
+  HelpCommand: 'help',
+  CommandsCommand: 'commands',
+});
+Command.Add('Ping', (h) => h.Reply('pong!'), 'Ping the bot');
+Command.Add('Example', (h, s, a) => h.Reply(a.join('_')), {
+  index: 'Join arguments with Underscore',
+  usage: 'Example [...]',
+  argsExample: function (args) {
+    return 'join ' + args.join(' ') + ' as ' + args.join('_');
+  },
+});
+Neos.on('messageReceived', Command.Run);
+Neos.Login(/* credentials */);
+```
+
+### `CommandExtended` Functions
+
+#### `CommandExtended.Add`
+
+Add a new Command to the Interpreter
+
+Syntax
+
+```js
+Command.Add(String Command,Function CommandScript, (String|Object{String|Function}) Help, ?Array[String] Whitelist);
+```
+
+#### `CommandExtended.Run`
 
 Pass a message to the Interpreter
 
@@ -569,5 +632,5 @@ Send a Command to the HeadlessClient
 Returns a Promise with the Response
 
 ```js
-Headless.Send("invite bombitmanbomb").then((response)=>console.log(response)) // Invite Sent
+Headless.Send('invite bombitmanbomb').then((response) => console.log(response)); // Invite Sent
 ```
