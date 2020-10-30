@@ -24,5 +24,5 @@ class RecordPreprocessStatus {
   }
 }
 module.exports = {
-  RecordPreprocessStatus
-}
+  RecordPreprocessStatus,
+};

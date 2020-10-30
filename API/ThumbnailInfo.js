@@ -15,5 +15,5 @@ class ThumbnailInfo {
   }
 }
 module.exports = {
-  ThumbnailInfo
-}
+  ThumbnailInfo,
+};

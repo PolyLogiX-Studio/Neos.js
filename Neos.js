@@ -12,11 +12,9 @@
  * @requires EventEmitter
  *
  */
-const {
-  CloudX
-} = require("./API");
-const config = require("./package.json")
-const EventEmitter = require("events").EventEmitter;
+const { CloudX } = require('./API');
+const config = require('./package.json');
+const EventEmitter = require('events').EventEmitter;
 class Events extends EventEmitter {
   constructor() {
     super();
@@ -29,25 +27,25 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   static get CloudX() {
-    return CloudX
+    return CloudX;
   }
   constructor(options) {
     super();
     //Setup Options
 
     if (!options) options = {};
-    if (options.OAuth == null) options.OAuth = false
+    if (options.OAuth == null) options.OAuth = false;
     if (options.AutoReadMessages == null) options.AutoReadMessages = true;
-    if (!options.OnlineState) options.OnlineState = "Online";
+    if (!options.OnlineState) options.OnlineState = 'Online';
     if (options.StatusInterval == null) options.StatusInterval = 60;
     if (!options.NeosVersion)
-      options.NeosVersion = config.main + " " + config.version;
+      options.NeosVersion = config.main + ' ' + config.version;
     if (!options.CompatabilityHash)
-      options.CompatabilityHash = config.main + " " + config.version;
+      options.CompatabilityHash = config.main + ' ' + config.version;
     if (!options.UpdateInterval) options.UpdateInterval = 1000;
-    if (options.Update == null) options.Update = true
+    if (options.Update == null) options.Update = true;
 
-    this.Options = options
+    this.Options = options;
     this.Events = new Events();
     this.CloudX = CloudX;
     this.CloudXInterface = new CloudX.Shared.CloudXInterface(
@@ -55,129 +53,129 @@ class Neos extends EventEmitter {
       config.main,
       config.version
     );
-    this.CloudXInterface.NeosJS = this
+    this.CloudXInterface.NeosJS = this;
     this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
     this._UserMessage.Cloud = this.CloudXInterface;
     this.CloudXInterface.OnLogin = (obj) => {
-      this.Events.emit("login", obj);
+      this.Events.emit('login', obj);
     };
     this.CloudXInterface.OnLogout = () => {
-      this.Events.emit("logout");
+      this.Events.emit('logout');
     };
     this.CloudXInterface.OnSessionUpdated = () => {
-      this.Events.emit("sessionUpdated");
+      this.Events.emit('sessionUpdated');
     };
-    this.CloudXInterface.SessionChanged = session => {
-      this.Events.emit("sessionChanged", session);
+    this.CloudXInterface.SessionChanged = (session) => {
+      this.Events.emit('sessionChanged', session);
     };
-    this.CloudXInterface.UserUpdated = user => {
-      this.Events.emit("userUpdated", user);
+    this.CloudXInterface.UserUpdated = (user) => {
+      this.Events.emit('userUpdated', user);
     };
-    this.CloudXInterface.MembershipsUpdated = memberships => {
-      this.Events.emit("membershipsUpdated", memberships);
+    this.CloudXInterface.MembershipsUpdated = (memberships) => {
+      this.Events.emit('membershipsUpdated', memberships);
     };
-    this.CloudXInterface.GroupUpdated = group => {
-      this.Events.emit("groupUpdated", group);
+    this.CloudXInterface.GroupUpdated = (group) => {
+      this.Events.emit('groupUpdated', group);
     };
-    this.CloudXInterface.GroupMemberUpdated = groupMember => {
-      this.Events.emit("groupMemberUpdated", groupMember);
+    this.CloudXInterface.GroupMemberUpdated = (groupMember) => {
+      this.Events.emit('groupMemberUpdated', groupMember);
     };
-    this.CloudXInterface.Messages.onMessageReceived = message => {
-      this.Events.emit("messageReceived", message);
+    this.CloudXInterface.Messages.onMessageReceived = (message) => {
+      this.Events.emit('messageReceived', message);
     };
-    this.CloudXInterface.Messages.messageCountChanged = count => {
-      this.Events.emit("messageCountChanged", count);
+    this.CloudXInterface.Messages.messageCountChanged = (count) => {
+      this.Events.emit('messageCountChanged', count);
     };
-    this.CloudXInterface.Friends.FriendAdded = friend => {
-      this.Events.emit("friendAdded", friend);
+    this.CloudXInterface.Friends.FriendAdded = (friend) => {
+      this.Events.emit('friendAdded', friend);
     };
-    this.CloudXInterface.Friends.FriendUpdated = friend => {
-      this.Events.emit("friendUpdated", friend);
+    this.CloudXInterface.Friends.FriendUpdated = (friend) => {
+      this.Events.emit('friendUpdated', friend);
     };
-    this.CloudXInterface.Friends.FriendRemoved = friend => {
-      this.Events.emit("friendRemoved", friend);
+    this.CloudXInterface.Friends.FriendRemoved = (friend) => {
+      this.Events.emit('friendRemoved', friend);
     };
-    this.CloudXInterface.Friends.FriendRequestCountChanged = count => {
-      this.Events.emit("friendRequestCountChanged", count);
+    this.CloudXInterface.Friends.FriendRequestCountChanged = (count) => {
+      this.Events.emit('friendRequestCountChanged', count);
     };
     this.CloudXInterface.Friends.FriendsChanged = () => {
-      this.Events.emit("friendsChanged");
+      this.Events.emit('friendsChanged');
     };
     //this.Interval = setInterval(this.CloudXInterface.Update,1000)
-    this.lastStatusUpdate = "No Update";
+    this.lastStatusUpdate = 'No Update';
     this.Status = new CloudX.Shared.UserStatus({
       onlineStatus: this.Options.OnlineState,
       compatibilityHash: this.Options.CompatabilityHash,
       neosVersion: this.Options.NeosVersion,
-      lastStatusChange: new Date()
+      lastStatusChange: new Date(),
     });
-    this.Events.on("login", () => {
+    this.Events.on('login', () => {
       if (this.Options.Update) {
-        this.Update()
+        this.Update();
         this.startInterval(this.Options.UpdateInterval);
       }
-      this.emit("login");
+      this.emit('login');
     });
-    this.Events.on("logout", () => {
-      this.clearInterval()
-      this.CloudXInterface.Friends.FriendAdded = friend => {
-        this.Events.emit("friendAdded", friend);
+    this.Events.on('logout', () => {
+      this.clearInterval();
+      this.CloudXInterface.Friends.FriendAdded = (friend) => {
+        this.Events.emit('friendAdded', friend);
       };
-      this.CloudXInterface.Friends.FriendUpdated = friend => {
-        this.Events.emit("friendUpdated", friend);
+      this.CloudXInterface.Friends.FriendUpdated = (friend) => {
+        this.Events.emit('friendUpdated', friend);
       };
-      this.CloudXInterface.Friends.FriendRemoved = friend => {
-        this.Events.emit("friendRemoved", friend);
+      this.CloudXInterface.Friends.FriendRemoved = (friend) => {
+        this.Events.emit('friendRemoved', friend);
       };
-      this.CloudXInterface.Friends.FriendRequestCountChanged = count => {
-        this.Events.emit("friendRequestCountChanged", count);
+      this.CloudXInterface.Friends.FriendRequestCountChanged = (count) => {
+        this.Events.emit('friendRequestCountChanged', count);
       };
       this.CloudXInterface.Friends.FriendsChanged = () => {
-        this.Events.emit("friendsChanged");
+        this.Events.emit('friendsChanged');
       };
-      this.emit("logout");
+      this.emit('logout');
     });
-    this.Events.on("sessionUpdated", session => {
-      this.emit("sessionUpdated", session);
+    this.Events.on('sessionUpdated', (session) => {
+      this.emit('sessionUpdated', session);
     });
-    this.Events.on("sessionChanged", session => {
-      this.emit("sessionChanged", session);
+    this.Events.on('sessionChanged', (session) => {
+      this.emit('sessionChanged', session);
     });
-    this.Events.on("membershipsUpdated", membership => {
-      this.emit("membershipsUpdated", membership);
+    this.Events.on('membershipsUpdated', (membership) => {
+      this.emit('membershipsUpdated', membership);
     });
-    this.Events.on("groupUpdated", group => {
-      this.emit("groupUpdated", group);
+    this.Events.on('groupUpdated', (group) => {
+      this.emit('groupUpdated', group);
     });
-    this.Events.on("groupMemberUpdated", member => {
-      this.emit("groupMemberUpdated", member);
+    this.Events.on('groupMemberUpdated', (member) => {
+      this.emit('groupMemberUpdated', member);
     });
-    this.Events.on("messageReceived", message => {
-      let read = this.emit("messageReceived", message);
+    this.Events.on('messageReceived', (message) => {
+      let read = this.emit('messageReceived', message);
       if (this.Options.AutoReadMessages && read)
         // Auto Mark Read & Was Event Caught and read
         this.CloudXInterface.MarkMessagesRead([message]);
     });
-    this.Events.on("messageCountChanged", count => {
-      this.emit("messageCountChanged", count);
+    this.Events.on('messageCountChanged', (count) => {
+      this.emit('messageCountChanged', count);
     });
-    this.Events.on("friendAdded", friend => {
-      this.emit("friendAdded", friend);
+    this.Events.on('friendAdded', (friend) => {
+      this.emit('friendAdded', friend);
     });
-    this.Events.on("friendUpdated", friend => {
-      this.emit("friendUpdated", friend);
+    this.Events.on('friendUpdated', (friend) => {
+      this.emit('friendUpdated', friend);
     });
-    this.Events.on("friendRemoved", (friend) => {
-      this.emit("friendRemoved", friend);
+    this.Events.on('friendRemoved', (friend) => {
+      this.emit('friendRemoved', friend);
     });
-    this.Events.on("friendRequestCountChanged", count => {
-      this.emit("friendRequestCountChanged", count);
+    this.Events.on('friendRequestCountChanged', (count) => {
+      this.emit('friendRequestCountChanged', count);
     });
-    this.Events.on("friendsChanged", () => {
-      this.emit("FriendsChanged");
+    this.Events.on('friendsChanged', () => {
+      this.emit('FriendsChanged');
     });
-    this.Events.on("userUpdated", user => {
-      this.emit("userUpdated", user);
+    this.Events.on('userUpdated', (user) => {
+      this.emit('userUpdated', user);
     });
   }
   startInterval(interval) {
@@ -185,7 +183,7 @@ class Neos extends EventEmitter {
     this.Interval = setInterval(this.Update.bind(this), interval);
   }
   clearInterval(interval = this.Interval) {
-    clearInterval(interval)
+    clearInterval(interval);
   }
   /**
    *
@@ -196,8 +194,15 @@ class Neos extends EventEmitter {
   Update() {
     this.CloudXInterface.Update();
     if (!this.CloudXInterface.CurrentUser.Id) return;
-    if (this.Options.StatusInterval != null && this.Options.StatusInterval != 0) {
-      if (new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 > this.Options.StatusInterval || this.lastStatusUpdate == "No Update" )
+    if (
+      this.Options.StatusInterval != null &&
+      this.Options.StatusInterval != 0
+    ) {
+      if (
+        new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 >
+          this.Options.StatusInterval ||
+        this.lastStatusUpdate == 'No Update'
+      )
         return this.UpdateStatus();
     }
   }
@@ -207,9 +212,9 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   UpdateStatus() {
-    this.emit("statusUpdate")
+    this.emit('statusUpdate');
     this.lastStatusUpdate = new Date();
-    this.Status.LastStatusChange = new Date()
+    this.Status.LastStatusChange = new Date();
     this.CloudXInterface.UpdateStatus(this.Status);
   }
   /**
@@ -247,7 +252,7 @@ class Neos extends EventEmitter {
       );
   }
   async OAuthLogin(token) {
-    return await this.CloudXInterface.PolyLogiXOAuthLogin(token)
+    return await this.CloudXInterface.PolyLogiXOAuthLogin(token);
   }
   Logout(manual = true) {
     this.CloudXInterface.Logout(manual);
@@ -461,7 +466,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   MarkMessagesRead(messageIds) {
-    if (this.CloudX.Util.Type.Get(messageIds) == "string")
+    if (this.CloudX.Util.Type.Get(messageIds) == 'string')
       messageIds = [messageIds];
     return this.MarkMessagesRead(messageIds);
   }
@@ -493,7 +498,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
   // eslint-disable-next-line no-unused-vars
-  FindRecords(record) { }
+  FindRecords(record) {}
   /**
    *Not yet Implimented
    *
@@ -503,7 +508,7 @@ class Neos extends EventEmitter {
    */
 
   // eslint-disable-next-line no-unused-vars
-  FetchRecord(ownerId, recordId) { }
+  FetchRecord(ownerId, recordId) {}
   /**
    *
    *
@@ -527,11 +532,8 @@ class Neos extends EventEmitter {
     this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
     this._UserMessage.SendTextMessage(Message);
   }
-  JoinSession() { }
-  LeaveSession() { }
-
+  JoinSession() {}
+  LeaveSession() {}
 }
-
-
 
 module.exports = Neos;

@@ -12,11 +12,10 @@ class CloudResult {
    * @memberof CloudResult
    */
   constructor(entity = undefined, state, content, resHeaders) {
-
     this.CloudResult(state, content, resHeaders, entity);
   }
   ToString() {
-    return "CloudResult - State: " + this.State + " Content: " + this.Content;
+    return 'CloudResult - State: ' + this.State + ' Content: ' + this.Content;
   }
   /**
    * @param {HttpStatusCode} state
@@ -72,5 +71,5 @@ class CloudResult {
   }
 }
 module.exports = {
-  CloudResult
-}
+  CloudResult,
+};

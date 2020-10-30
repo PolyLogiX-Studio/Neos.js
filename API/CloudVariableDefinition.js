@@ -26,5 +26,5 @@ class CloudVariableDefinition {
   }
 }
 module.exports = {
-  CloudVariableDefinition
-}
+  CloudVariableDefinition,
+};

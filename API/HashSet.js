@@ -1,9 +1,5 @@
-const {
-  Type
-} = require("./Type")
-const {
-  List
-} = require("./List")
+const { Type } = require('./Type');
+const { List } = require('./List');
 /**
  *
  *
@@ -21,23 +17,24 @@ class HashSet extends List {
   constructor($b) {
     if (!$b) $b = [];
     switch (Type.Get($b)) {
-      case "Array":
+      case 'Array':
         $b = List.ToList($b);
-      case "List":
+      case 'List':
         super();
         this.AddRange($b);
         break;
-      case "Number":
+      case 'Number':
         super($b);
         break;
       default:
-        throw new Error("ArgumentException: Expected <Array, List, Number>");
+        throw new Error('ArgumentException: Expected <Array, List, Number>');
     }
   }
   IsSame(set) {
-    for (item of set) {}
+    for (item of set) {
+    }
   }
 }
 module.exports = {
-  HashSet
-}
+  HashSet,
+};

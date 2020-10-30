@@ -7,5 +7,5 @@ class Membership {
   }
 }
 module.exports = {
-  Membership
-}
+  Membership,
+};

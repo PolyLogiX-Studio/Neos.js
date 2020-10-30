@@ -1,18 +1,8 @@
-const {
-  NeosAccount
-} = require("./NeosAccount");
-const {
-  UserPatreonData
-} = require("./UserPatreonData");
-const {
-  HashSet
-} = require("./HashSet");
-const {
-  AccountType
-} = require("./AccountType")
-const {
-  UserProfile
-} = require("./UserProfile")
+const { NeosAccount } = require('./NeosAccount');
+const { UserPatreonData } = require('./UserPatreonData');
+const { HashSet } = require('./HashSet');
+const { AccountType } = require('./AccountType');
+const { UserProfile } = require('./UserProfile');
 class User {
   constructor($b) {
     if (!$b) $b = {};
@@ -68,5 +58,5 @@ class User {
   }
 }
 module.exports = {
-  User
-}
+  User,
+};

@@ -17,5 +17,5 @@ class SessionUpdate {
   }
 }
 module.exports = {
-  SessionUpdate
-}
+  SessionUpdate,
+};

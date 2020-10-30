@@ -3,9 +3,9 @@ class Path {
     return str.match(/\.[a-zA-Z0-9]+$/)[0];
   }
   static GetFileNameWithoutExtension(str) {
-    return str.replace(/\.[^/.]+$/, "");
+    return str.replace(/\.[^/.]+$/, '');
   }
 }
 module.exports = {
-  Path
-}
+  Path,
+};

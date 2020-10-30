@@ -20,5 +20,5 @@ class AssetInfo {
   }
 }
 module.exports = {
-  AssetInfo
-}
+  AssetInfo,
+};

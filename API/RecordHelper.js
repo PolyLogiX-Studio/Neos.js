@@ -1,6 +1,4 @@
-const {
-  RecordUtil
-} = require("./RecordUtil")
+const { RecordUtil } = require('./RecordUtil');
 class RecordHelper {
   static IsSameVersion(record, other) {
     if (
@@ -63,12 +61,12 @@ class RecordHelper {
     let ownerId = [];
     let recordId = [];
     if (!RecordUtil.ExtractRecordID(url, ownerId, recordId))
-      throw new Exception("Invalid Record URL");
+      throw new Exception('Invalid Record URL');
     record.OwnerId = ownerId.Out;
     record.RecordId = recordId.Out;
     return record;
   }
 }
 module.exports = {
-  RecordHelper
-}
+  RecordHelper,
+};

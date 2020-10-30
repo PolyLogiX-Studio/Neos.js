@@ -6,7 +6,7 @@ class CloudVariable {
     this.Value = $b.value;
   }
   static GetDefinitionPath(path, ownerId, subpath) {
-    let length = path.indexOf(".");
+    let length = path.indexOf('.');
     ownerId.Out = path.substring(0, length);
     subpath.Out = path.substring(length + 1);
   }
@@ -15,5 +15,5 @@ class CloudVariable {
   }
 }
 module.exports = {
-  CloudVariable
-}
+  CloudVariable,
+};

@@ -1,21 +1,9 @@
-const {
-  Message
-} = require("./Message")
-const {
-  TransactionMessage
-} = require("./TransactionMessage")
-const {
-  Dictionary
-} = require("./Dictionary")
-const {
-  List
-} = require("./List")
-const {
-  HashSet
-} = require("./HashSet")
-const {
-  Out
-} = require("./Out")
+const { Message } = require('./Message');
+const { TransactionMessage } = require('./TransactionMessage');
+const { Dictionary } = require('./Dictionary');
+const { List } = require('./List');
+const { HashSet } = require('./HashSet');
+const { Out } = require('./Out');
 class MessageManager {
   constructor(cloud) {
     this.lastRequest;
@@ -26,20 +14,20 @@ class MessageManager {
     Object.defineProperties(this, {
       _messagesLock: {
         value: new Object(),
-        writable: false
+        writable: false,
       },
       _messages: {
         value: new Dictionary(),
-        writable: true
+        writable: true,
       },
       _unreadCountDirty: {
         value: new Boolean(),
-        writable: true
+        writable: true,
       },
       _waitingForRequest: {
         value: new Boolean(),
-        writable: true
-      }
+        writable: true,
+      },
     });
   }
   static UPDATE_PERIOD_SECONDS = 1;
@@ -63,8 +51,8 @@ class MessageManager {
       Object.defineProperties(this, {
         _unreadCountDirty: {
           value: false,
-          writable: true
-        }
+          writable: true,
+        },
       });
       this.UnreadCount = this._messages.length;
       let messageCountChanged = this.UnreadMessageCountChanged;
@@ -74,9 +62,9 @@ class MessageManager {
     }
     if (
       new Date(new Date() - this.lastRequest).getSeconds() <
-      (this._waitingForRequest ?
-        MessageManager.UPDATE_TIMEOUT_SECONDS :
-        MessageManager.UPDATE_PERIOD_SECONDS)
+      (this._waitingForRequest
+        ? MessageManager.UPDATE_TIMEOUT_SECONDS
+        : MessageManager.UPDATE_PERIOD_SECONDS)
     ) {
       return;
     }
@@ -85,7 +73,7 @@ class MessageManager {
     (async () => {
       let cloudResult1 = await this.Cloud.GetUnreadMessages(
         this.lastUnreadMessage
-      ).then(async cloudResult1 => {
+      ).then(async (cloudResult1) => {
         this._waitingForRequest = false;
         if (!cloudResult1.IsOK) {
           return;
@@ -103,7 +91,7 @@ class MessageManager {
           if (!hashSet.includes(message)) {
             if (
               this.InitialmessagesFetched &&
-              message.MessageType == "CreditTransfer"
+              message.MessageType == 'CreditTransfer'
             ) {
               let content = message.ExtractContent();
               let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id;
@@ -136,16 +124,16 @@ class MessageManager {
     Object.defineProperties(this, {
       _unreadCountDirty: {
         value: true,
-        writable: true
-      }
+        writable: true,
+      },
     });
   }
   Reset() {
     Object.defineProperties(this, {
       _messages: {
         value: new Dictionary(),
-        writable: true
-      }
+        writable: true,
+      },
     });
     this.lastUnreadMessage = new Date();
     this.InitialmessagesFetched = false;
@@ -175,20 +163,20 @@ class MessageManager {
       Object.defineProperties(this, {
         _messageIds: {
           value: new List(),
-          writable: false
+          writable: false,
         },
         _lock: {
-          value: "MessageManager.UserMessages._lock",
-          writable: false
+          value: 'MessageManager.UserMessages._lock',
+          writable: false,
         },
         _historyLoadTask: {
           value: function () {},
-          writable: true
+          writable: true,
         },
         _historyLoaded: {
           value: new Boolean(),
-          writable: true
-        }
+          writable: true,
+        },
       });
     }
     get CloudXInterface() {
@@ -216,7 +204,7 @@ class MessageManager {
     }
     CreateTextMessage(text) {
       let message = new Message();
-      message.MessageType = "Text";
+      message.MessageType = 'Text';
       message.Content = text;
       return message;
     }
@@ -224,7 +212,7 @@ class MessageManager {
       let message = new Message();
       message.Id = Message.GenerateId();
       message.SendTime = new Date();
-      message.MessageType = "SessionInvite";
+      message.MessageType = 'SessionInvite';
       message.SetContent(sessionInfo);
       return message;
     }
@@ -238,7 +226,7 @@ class MessageManager {
       message.RecipientId = this.UserId;
       message.SenderId = message.OwnerId;
       message.SendTime = new Date();
-      message.MessageType = "CreditTransfer";
+      message.MessageType = 'CreditTransfer';
       let _transaction = new TransactionMessage();
       _transaction.Token = token;
       _transaction.Amount = amount;
@@ -281,7 +269,7 @@ class MessageManager {
         this.Messages = cloudResult.Entity;
         this.Messages.reverse();
         this.UnreadCount = this.Messages.filter(
-          m => !m.ReadTime != undefined
+          (m) => !m.ReadTime != undefined
         ).length;
         this._historyLoaded = true;
       }
@@ -308,5 +296,5 @@ class MessageManager {
   };
 }
 module.exports = {
-  MessageManager
-}
+  MessageManager,
+};

@@ -13,5 +13,5 @@ class UserSession {
   }
 }
 module.exports = {
-  UserSession
-}
+  UserSession,
+};

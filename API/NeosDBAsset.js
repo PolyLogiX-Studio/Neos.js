@@ -14,5 +14,5 @@ class NeosDBAsset {
   }
 }
 module.exports = {
-  NeosDBAsset
-}
+  NeosDBAsset,
+};

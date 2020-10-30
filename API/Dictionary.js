@@ -1,6 +1,4 @@
-const {
-  Out
-} = require("./Out")
+const { Out } = require('./Out');
 /**
  *
  *
@@ -24,11 +22,11 @@ class Dictionary extends Array {
   Add(Key, Value) {
     if (this.ContainsKey(Key))
       throw new Error(
-        "ArgumentException: An element with the same key already exists"
+        'ArgumentException: An element with the same key already exists'
       );
     this.push({
       Key,
-      Value
+      Value,
     });
   }
   Replace(key, Value) {
@@ -146,5 +144,5 @@ class Dictionary extends Array {
   }
 }
 module.exports = {
-  Dictionary
-}
+  Dictionary,
+};

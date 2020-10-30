@@ -1,6 +1,4 @@
-const {
-  Enumerable
-} = require("./Enumerable")
+const { Enumerable } = require('./Enumerable');
 /**
  *
  * @class AssetDiff
@@ -23,9 +21,9 @@ class AssetDiff {
     this.State = $b.state;
     this.IsUploaded = $b.isUploaded || new Boolean();
     /**@type {Enumerable<String>} */
-    this.Diff = new Enumerable(["Added", "Unchanged", "Removed"]);
+    this.Diff = new Enumerable(['Added', 'Unchanged', 'Removed']);
   }
 }
 module.exports = {
-  AssetDiff
-}
+  AssetDiff,
+};

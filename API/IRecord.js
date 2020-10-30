@@ -1,9 +1,5 @@
-const {
-  HashSet
-} = require("./HashSet")
-const {
-  List
-} = require("./List")
+const { HashSet } = require('./HashSet');
+const { List } = require('./List');
 class IRecord {
   constructor($b) {
     if (!$b) $b = {};
@@ -33,5 +29,5 @@ class IRecord {
   }
 }
 module.exports = {
-  IRecord
-}
+  IRecord,
+};

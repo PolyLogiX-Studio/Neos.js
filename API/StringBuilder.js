@@ -13,22 +13,22 @@ class StringBuilder {
   Insert(pos, str) {
     this.String.splice(pos, 0, str);
   }
-  ToString(){
-    return this.toString()
+  ToString() {
+    return this.toString();
   }
   toString() {
-    return this.String.join("");
+    return this.String.join('');
   }
   get Length() {
     return this.String.length;
   }
-  Remove(startIndex, length){
-    this.String.splice(startIndex,length);
+  Remove(startIndex, length) {
+    this.String.splice(startIndex, length);
   }
-  Clear(){
-    this.String = []
+  Clear() {
+    this.String = [];
   }
 }
 module.exports = {
-  StringBuilder
-}
+  StringBuilder,
+};

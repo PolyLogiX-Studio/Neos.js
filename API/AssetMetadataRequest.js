@@ -4,5 +4,5 @@ class AssetMetadataRequest {
   }
 }
 module.exports = {
-  AssetMetadataRequest
-}
+  AssetMetadataRequest,
+};

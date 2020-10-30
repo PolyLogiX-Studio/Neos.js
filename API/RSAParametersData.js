@@ -46,5 +46,5 @@ class RSAParametersData {
   }
 }
 module.exports = {
-  RSAParametersData
-}
+  RSAParametersData,
+};

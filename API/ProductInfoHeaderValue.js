@@ -4,9 +4,9 @@ class ProductInfoHeaderValue {
     this.Version = version;
   }
   Value() {
-    return this.Product + " " + this.Version;
+    return this.Product + ' ' + this.Version;
   }
 }
 module.exports = {
-  ProductInfoHeaderValue
-}
+  ProductInfoHeaderValue,
+};

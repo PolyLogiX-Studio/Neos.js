@@ -1,8 +1,8 @@
 class EventQueue {
   constructor(CommandHandler) {
-    this.CommandHandler = CommandHandler //Refrence Parent
+    this.CommandHandler = CommandHandler; //Refrence Parent
 
-    this.Queue = []
+    this.Queue = [];
     //this.Interval = setInterval(this.RunQueue, 500)
   }
   /**
@@ -19,9 +19,9 @@ class EventQueue {
       Command,
       Sender,
       Args,
-      Handler
+      Handler,
     });
-    this.RunQueue() // Disable Queue Interval for now
+    this.RunQueue(); // Disable Queue Interval for now
   }
   /**
    *
@@ -30,11 +30,14 @@ class EventQueue {
    * @memberof EventQueue
    */
   RunQueue() {
-    if (this.Queue.length == 0) return true
+    if (this.Queue.length == 0) return true;
 
-    let Command = this.Queue.shift()
-    this.CommandHandler.Commands[Command.Command].Run(Command.Sender, Command.Args, Command.Handler)
-
+    let Command = this.Queue.shift();
+    this.CommandHandler.Commands[Command.Command].Run(
+      Command.Sender,
+      Command.Args,
+      Command.Handler
+    );
   }
 }
 /**
@@ -42,12 +45,12 @@ class EventQueue {
  * @class CommandHandler
  */
 class CommandHandler {
-  constructor(NeosJS, Invalid = "Invalid Command") {
-    this.Neos = NeosJS
-    this.Invalid = Invalid
-    this.Neos.CommandHandler = this
-    this.Commands = {}
-    this.Queue = new EventQueue(this)
+  constructor(NeosJS, Invalid = 'Invalid Command') {
+    this.Neos = NeosJS;
+    this.Invalid = Invalid;
+    this.Neos.CommandHandler = this;
+    this.Commands = {};
+    this.Queue = new EventQueue(this);
   }
   /**
    * Run a Message for Commands
@@ -56,15 +59,24 @@ class CommandHandler {
    * @memberof CommandHandler
    */
   Run(Message) {
-    var context
-    if (this instanceof CommandHandler) { context = this } else { context = this.CommandHandler }
-    if (Message.SenderId == context.Neos.CurrentUser.Id) return false
-    let args = Message.Content.split(" ");
-    let Command = args.shift()
-    if (context.Commands[Command]) {
-      context.Queue.Add(Command, Message.SenderId, args, new Handler(context.Neos, Message.SenderId))
+    var context;
+    if (this instanceof CommandHandler) {
+      context = this;
     } else {
-      context.Neos.SendTextMessage(Message.SenderId, context.Invalid)
+      context = this.CommandHandler;
+    }
+    if (Message.SenderId == context.Neos.CurrentUser.Id) return false;
+    let args = Message.Content.split(' ');
+    let Command = args.shift();
+    if (context.Commands[Command]) {
+      context.Queue.Add(
+        Command,
+        Message.SenderId,
+        args,
+        new Handler(context.Neos, Message.SenderId)
+      );
+    } else {
+      context.Neos.SendTextMessage(Message.SenderId, context.Invalid);
     }
   }
   /**
@@ -76,10 +88,15 @@ class CommandHandler {
    * @memberof CommandHandler
    */
   Add(command, cb, whitelist) {
-    var context
-    if (this instanceof CommandHandler) { context = this } else { context = this.CommandHandler }
-    if (typeof cb != 'function') throw new Error("Command must pass ('command', Function)")
-    context.Commands[command] = new Command(cb, whitelist, context)
+    var context;
+    if (this instanceof CommandHandler) {
+      context = this;
+    } else {
+      context = this.CommandHandler;
+    }
+    if (typeof cb != 'function')
+      throw new Error("Command must pass ('command', Function)");
+    context.Commands[command] = new Command(cb, whitelist, context);
   }
 }
 /**
@@ -88,7 +105,6 @@ class CommandHandler {
  * @class Handler
  */
 class Handler {
-
   /**
    *Creates an instance of Handler.
    * @param {Object} Neos
@@ -96,8 +112,8 @@ class Handler {
    * @memberof Handler
    */
   constructor(Neos, Sender) {
-    this.Neos = Neos
-    this.Sender = Sender
+    this.Neos = Neos;
+    this.Sender = Sender;
   }
   /**
    *
@@ -106,9 +122,8 @@ class Handler {
    * @memberof Handler
    */
   Reply(Message) {
-    this.Neos.SendTextMessage(this.Sender, Message)
+    this.Neos.SendTextMessage(this.Sender, Message);
   }
-
 }
 /**
  *
@@ -116,7 +131,6 @@ class Handler {
  * @class Command
  */
 class Command {
-
   /**
    *Creates an instance of Command.
    * @param {Function} cb
@@ -124,8 +138,8 @@ class Command {
    * @memberof Command
    */
   constructor(cb, whitelist) {
-    this.script = cb
-    this.whitelist = whitelist
+    this.script = cb;
+    this.whitelist = whitelist;
   }
   /**
    *
@@ -137,10 +151,10 @@ class Command {
    * @memberof Command
    */
   Run(Sender, Args, Handler) {
-    if (this.whitelist && !~this.whitelist.indexOf(Sender)) return false
-    this.script(Handler, Sender, Args)
+    if (this.whitelist && !~this.whitelist.indexOf(Sender)) return false;
+    this.script(Handler, Sender, Args);
     //Command Code
   }
 }
 
-module.exports = CommandHandler
+module.exports = CommandHandler;

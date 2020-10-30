@@ -12,5 +12,5 @@ class Submission {
   }
 }
 module.exports = {
-  Submission
-}
+  Submission,
+};

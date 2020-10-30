@@ -22,5 +22,5 @@ class RecordInfo {
   }
 }
 module.exports = {
-  RecordInfo
-}
+  RecordInfo,
+};

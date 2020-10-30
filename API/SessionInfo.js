@@ -1,9 +1,5 @@
-const {
-  List
-} = require("./List")
-const {
-  Type
-} = require("./Type")
+const { List } = require('./List');
+const { Type } = require('./Type');
 class SessionInfo {
   /**
    *Creates an instance of SessionInfo.
@@ -47,12 +43,12 @@ class SessionInfo {
     this.HeadlessHost = $b.headlessHost;
     this.LegacySessionURL = $b.url || null; //LEGACY
     let SessionURLs = $b.sessionURLs;
-    if (Type.Get(SessionURLs) == "List") this.SessionURLs = SessionURLs;
-    if (Type.Get(SessionURLs) == "Array")
-      this.SessionURLs = List.ToList(SessionURLs)
+    if (Type.Get(SessionURLs) == 'List') this.SessionURLs = SessionURLs;
+    if (Type.Get(SessionURLs) == 'Array')
+      this.SessionURLs = List.ToList(SessionURLs);
     let SessionUsers = $b.sessionUsers;
-    if (Type.Get(SessionUsers) == "List") this.SessionUsers = SessionUsers;
-    if (Type.Get(SessionUsers) == "Array")
+    if (Type.Get(SessionUsers) == 'List') this.SessionUsers = SessionUsers;
+    if (Type.Get(SessionUsers) == 'Array')
       this.SessionUsers = List.ToList(SessionUsers);
     this.Thumbnail = $b.thumbnail;
     this.JoinedUsers = $b.joinedUsers;
@@ -73,10 +69,11 @@ class SessionInfo {
    */
   GetSessionURLs() {
     if (this.SessionURLs != null)
-      return List.ToList(this.SessionURLs.filter(str => {
+      return List.ToList(
+        this.SessionURLs.filter((str) => {
           return str;
-        })
-        .map(str => new Uri(str)))
+        }).map((str) => new Uri(str))
+      );
     let uriList = new List();
     if (this.LegacySessionURL != null)
       uriList.Add(new Uri(this.LegacySessionURL));
@@ -116,5 +113,5 @@ class SessionInfo {
   }
 }
 module.exports = {
-  SessionInfo
-}
+  SessionInfo,
+};

@@ -1,12 +1,5 @@
-const {
-  Enumerable
-} = require("./Enumerable")
-const ServerStatus = new Enumerable([
-  "Good",
-  "Slow",
-  "Down",
-  "NoInternet"
-]);
+const { Enumerable } = require('./Enumerable');
+const ServerStatus = new Enumerable(['Good', 'Slow', 'Down', 'NoInternet']);
 module.exports = {
-  ServerStatus
-}
+  ServerStatus,
+};

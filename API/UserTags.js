@@ -1,67 +1,63 @@
-const {
-  Uri
-} = require("./Uri")
-const {
-  CloudXInterface
-} = require("./CloudXInterface")
+const { Uri } = require('./Uri');
+const { CloudXInterface } = require('./CloudXInterface');
 class UserTags {
   static get NeosTeam() {
-    return "neos team";
+    return 'neos team';
   }
   static get NeosAdmin() {
-    return "neos admin";
+    return 'neos admin';
   }
   static get NeosModerator() {
-    return "neos moderator";
+    return 'neos moderator';
   }
   static get NeosCommunityManager() {
-    return "neos community manager";
+    return 'neos community manager';
   }
   static get DiagnoseRecordSync() {
-    return "diagnose record sync";
+    return 'diagnose record sync';
   }
   static get HearingImpaired() {
-    return "hearing impaired";
+    return 'hearing impaired';
   }
   static get Potato() {
-    return "potato";
+    return 'potato';
   }
   static get Coffee() {
-    return "coffee";
+    return 'coffee';
   }
   static get Java() {
-    return "java";
+    return 'java';
   }
   static get NCC_Participant() {
-    return "ncc participant";
+    return 'ncc participant';
   }
   static get NCC_Diamond() {
-    return "ncc diamond";
+    return 'ncc diamond';
   }
   static get NCC_Gold() {
-    return "ncc gold";
+    return 'ncc gold';
   }
   static get NCC_Silver() {
-    return "ncc silver";
+    return 'ncc silver';
   }
   static get NeosEast() {
-    return "neos east";
+    return 'neos east';
   }
   static CustomBadge(neosDb, pointFiltering) {
-    let str = "custom badge:" + CloudXInterface.NeosDBSignature(neosDb);
-    if (pointFiltering) str += ".point";
+    let str = 'custom badge:' + CloudXInterface.NeosDBSignature(neosDb);
+    if (pointFiltering) str += '.point';
     return str;
   }
   static GetCustomBadge(badge, pointFiltering) {
-    if (!badge.startsWith("custom badge:")) {
+    if (!badge.startsWith('custom badge:')) {
       pointFiltering.Out = false;
       return null;
     }
-    badge = badge.substr("custom badge:".length).trim();
-    pointFiltering = badge.includes(".point");
-    return new Uri("neosdb:///" + badge.trim());
+    badge = badge.substr('custom badge:'.length).trim();
+    pointFiltering = badge.includes('.point');
+    return new Uri('neosdb:///' + badge.trim());
   }
 }
 module.exports = {
-  UserTags
-}
+  UserTags,
+};

@@ -12,5 +12,5 @@ class SessionUser {
   }
 }
 module.exports = {
-  SessionUser
-}
+  SessionUser,
+};

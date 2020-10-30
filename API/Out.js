@@ -15,5 +15,5 @@ class Out {
   }
 }
 module.exports = {
-  Out
-}
+  Out,
+};

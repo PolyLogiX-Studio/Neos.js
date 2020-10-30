@@ -1,6 +1,4 @@
-const {
-  Type
-} = require("./Type")
+const { Type } = require('./Type');
 /**
  * Unordered List
  *
@@ -46,7 +44,7 @@ class List extends Array {
    */
   static ToList(array) {
     let t = new List();
-    if (!array || Type.Get(array) == 'List') return t
+    if (!array || Type.Get(array) == 'List') return t;
     for (let item of array) {
       t.Add(item);
     }
@@ -57,9 +55,9 @@ class List extends Array {
    * @param {List} list
    */
   AddRange(list) {
-    if (list == null) throw new Error("ArgumentNullException");
-    if (!(Type.Get(list) == "List"))
-      throw new Error("AddRange: Expected type List");
+    if (list == null) throw new Error('ArgumentNullException');
+    if (!(Type.Get(list) == 'List'))
+      throw new Error('AddRange: Expected type List');
     for (var item of list) {
       this.Add(item);
     }
@@ -155,5 +153,5 @@ class List extends Array {
   }
 }
 module.exports = {
-  List
-}
+  List,
+};

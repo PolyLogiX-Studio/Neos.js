@@ -1,23 +1,15 @@
-const {
-  Out
-} = require("./Out")
-const {
-  StringBuilder
-} = require("./StringBuilder")
-const {
-  Uri
-} = require("./Uri")
-const {
-  v4: uuidv4
-} = require("uuid");
+const { Out } = require('./Out');
+const { StringBuilder } = require('./StringBuilder');
+const { Uri } = require('./Uri');
+const { v4: uuidv4 } = require('uuid');
 String.IsNullOrWhiteSpace = function (str) {
   if (!str) return true;
-  if (str.trim() == "") return true;
+  if (str.trim() == '') return true;
   return false;
 };
 String.IsNullOrEmpty = function (str) {
   if (!str) return true;
-  if (str == "") return true;
+  if (str == '') return true;
   return false;
 };
 /**
@@ -36,7 +28,7 @@ class RecordUtil {
    * @memberof RecordUtil
    */
   static GenerateUri(ownerId, recordId) {
-    return new Uri("neosrec:///" + ownerId + "/" + recordId);
+    return new Uri('neosrec:///' + ownerId + '/' + recordId);
   }
   /**
    *
@@ -49,8 +41,8 @@ class RecordUtil {
   static IsValidRecordID(recordId) {
     return (
       !String.IsNullOrWhiteSpace(recordId) &&
-      recordId.startsWith("R-") &&
-      recordId.length > "R-".length
+      recordId.startsWith('R-') &&
+      recordId.length > 'R-'.length
     );
   }
   /**
@@ -66,7 +58,7 @@ class RecordUtil {
     ownerId.Out = null;
     recordId.Out = null;
     if (recordUri == null) return false;
-    if (recordUri.Scheme != "neosrec" || recordUri.Segments.length != 3)
+    if (recordUri.Scheme != 'neosrec' || recordUri.Segments.length != 3)
       return false;
     ownerId.Out = recordUri.Segments[1];
     if (String.IsNullOrEmpty(ownerId.Out)) return false;
@@ -91,7 +83,7 @@ class RecordUtil {
     recordPath.Out = null;
     if (
       recordUri == null ||
-      recordUri.Scheme != "neosrec" ||
+      recordUri.Scheme != 'neosrec' ||
       recordUri.Segments.length < 3
     )
       return false;
@@ -105,9 +97,9 @@ class RecordUtil {
     return true;
   }
   static GenerateRecordID() {
-    return "R-" + uuidv4();
+    return 'R-' + uuidv4();
   }
 }
 module.exports = {
-  RecordUtil
-}
+  RecordUtil,
+};

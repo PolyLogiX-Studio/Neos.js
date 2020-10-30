@@ -1,6 +1,4 @@
-const {
-  Enumerable
-} = require("./Enumerable")
+const { Enumerable } = require('./Enumerable');
 class ChildRecordDiff {
   /**
    *Creates an instance of ChildRecordDiff.
@@ -19,9 +17,9 @@ class ChildRecordDiff {
     this.ParentRecord = $b.parentRecord;
     this.RecordInfo = $b.recordInfo;
     /** @template Enumerable<string> */
-    this.RecordInfoOperation = new Enumerable(["Upsert", "Remove"]);
+    this.RecordInfoOperation = new Enumerable(['Upsert', 'Remove']);
   }
 }
 module.exports = {
-  ChildRecordDiff
-}
+  ChildRecordDiff,
+};

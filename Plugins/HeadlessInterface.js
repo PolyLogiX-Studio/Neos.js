@@ -1,7 +1,5 @@
-const {
-  EventEmitter
-} = require("events")
-const path = require("path")
+const { EventEmitter } = require('events');
+const path = require('path');
 class HeadlessInterface {
   constructor(headlessPath, configPath) {
     if (typeof headlessPath == 'string') {
@@ -9,11 +7,15 @@ class HeadlessInterface {
         //Windows
         this.NeosVR = require('child_process').spawn(
           path.join(headlessPath, 'Neos.exe'),
-          ['--config', configPath?configPath:path.join(headlessPath, 'Config/Config.json')],
+          [
+            '--config',
+            configPath
+              ? configPath
+              : path.join(headlessPath, 'Config/Config.json'),
+          ],
           {
             windowsHide: true,
-            cwd:
-              headlessPath /* Folder to Neos Headless For Binaries*/,
+            cwd: headlessPath /* Folder to Neos Headless For Binaries*/,
           }
         );
       } else {
@@ -23,25 +25,30 @@ class HeadlessInterface {
           [
             path.join(headlessPath, 'Neos.exe'),
             '--config',
-            configPath?configPath:path.join(headlessPath, '/Config/Config.json'),
+            configPath
+              ? configPath
+              : path.join(headlessPath, '/Config/Config.json'),
           ],
           {
             windowsHide: true,
-            cwd:
-              headlessPath /* Folder to Neos Headless For Binaries*/,
+            cwd: headlessPath /* Folder to Neos Headless For Binaries*/,
           }
         );
       }
     } else {
-      this.NeosVR = headlessPath
+      this.NeosVR = headlessPath;
     }
-    this.Events = new EventEmitter()
-    this.NeosVR.stdout.on('data', (data) => this.Events.emit('HeadlessResponse', data.toString()))
+    this.Events = new EventEmitter();
+    this.NeosVR.stdout.on('data', (data) =>
+      this.Events.emit('HeadlessResponse', data.toString())
+    );
   }
   Send(text) {
-    let response = new Promise((Resolve) => this.Events.on('HeadlessResponse', Resolve))
-    this.NeosVR.stdin.write(text + "\n")
-    return response
+    let response = new Promise((Resolve) =>
+      this.Events.on('HeadlessResponse', Resolve)
+    );
+    this.NeosVR.stdin.write(text + '\n');
+    return response;
   }
 }
-module.exports = HeadlessInterface
+module.exports = HeadlessInterface;

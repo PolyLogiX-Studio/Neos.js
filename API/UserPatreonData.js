@@ -1,9 +1,5 @@
-const {
-  AccountType
-} = require("./AccountType")
-const {
-  NeosAccount
-} = require("./NeosAccount")
+const { AccountType } = require('./AccountType');
+const { NeosAccount } = require('./NeosAccount');
 class UserPatreonData {
   constructor($b) {
     if (!$b) $b = {};
@@ -61,7 +57,7 @@ class UserPatreonData {
   get CurrentAccountType() {
     if (
       new Date(new Date() - this.LastActivationTime).getSeconds() /
-      (1000 * 3600 * 24) <=
+        (1000 * 3600 * 24) <=
       40.0
     )
       return UserPatreonData.GetAccountType(this.LastPaidPledgeAmount);
@@ -119,5 +115,5 @@ class UserPatreonData {
   }
 }
 module.exports = {
-  UserPatreonData
-}
+  UserPatreonData,
+};

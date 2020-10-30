@@ -47,9 +47,9 @@ class UserProfile {
    * @memberof UserProfile
    */
   AcceptsToken(token) {
-    return this.TokenOptOut == null || !this.TokenOptOut.Any(s => s == token);
+    return this.TokenOptOut == null || !this.TokenOptOut.Any((s) => s == token);
   }
 }
 module.exports = {
-  UserProfile
-}
+  UserProfile,
+};

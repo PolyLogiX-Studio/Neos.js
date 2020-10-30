@@ -18,9 +18,9 @@ class TransactionMessage {
     this.Amount = $b.amount;
     this.Comment = $b.comment;
     this.TransactionType = $b.transactionType || null;
-    this.Anonymous = $b.anonymous
+    this.Anonymous = $b.anonymous;
   }
 }
 module.exports = {
-  TransactionMessage
-}
+  TransactionMessage,
+};

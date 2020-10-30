@@ -54,5 +54,5 @@ class RecordId {
   }
 }
 module.exports = {
-  RecordId
-}
+  RecordId,
+};

@@ -16,5 +16,5 @@ class License {
   }
 }
 module.exports = {
-  License
-}
+  License,
+};

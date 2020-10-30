@@ -17,5 +17,5 @@ class ExternalQueueObject {
   }
 }
 module.exports = {
-  ExternalQueueObject
-}
+  ExternalQueueObject,
+};

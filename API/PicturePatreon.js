@@ -25,5 +25,5 @@ class PicturePatreon {
   }
 }
 module.exports = {
-  PicturePatreon
-}
+  PicturePatreon,
+};

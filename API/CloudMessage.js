@@ -21,5 +21,5 @@ class CloudMessage {
   }
 }
 module.exports = {
-  CloudMessage
-}
+  CloudMessage,
+};

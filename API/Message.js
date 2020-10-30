@@ -1,6 +1,4 @@
-const {
-  v4: uuidv4
-} = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 class Message {
   constructor($b) {
     if (!$b) $b = {};
@@ -15,7 +13,7 @@ class Message {
     this.ReadTime = $b.readTime;
   }
   static GenerateId() {
-    return "MSG-" + uuidv4();
+    return 'MSG-' + uuidv4();
   }
   ExtractContent() {
     return JSON.parse(this.Content);
@@ -34,5 +32,5 @@ class Message {
   }
 }
 module.exports = {
-  Message
-}
+  Message,
+};

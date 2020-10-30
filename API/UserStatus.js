@@ -24,7 +24,7 @@ class UserStatus {
   get CurrentSession() {
     let activeSessions = this.ActiveSessions;
     if (activeSessions == null) return null;
-    return activeSessions.find(s => s.SessionId == this.CurrentSessionId);
+    return activeSessions.find((s) => s.SessionId == this.CurrentSessionId);
   }
   /**
    *
@@ -67,5 +67,5 @@ class UserStatus {
   }
 }
 module.exports = {
-  UserStatus
-}
+  UserStatus,
+};

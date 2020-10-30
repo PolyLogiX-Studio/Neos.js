@@ -1,21 +1,9 @@
-const {
-  IRecord
-} = require("./IRecord")
-const {
-  IdUtil
-} = require("./IdUtil")
-const {
-  HashSet
-} = require("./HashSet")
-const {
-  List
-} = require("./List")
-const {
-  RecordHelper
-} = require("./RecordHelper")
-const {
-  OwnerType
-} = require("./OwnerType")
+const { IRecord } = require('./IRecord');
+const { IdUtil } = require('./IdUtil');
+const { HashSet } = require('./HashSet');
+const { List } = require('./List');
+const { RecordHelper } = require('./RecordHelper');
+const { OwnerType } = require('./OwnerType');
 class Record extends IRecord {
   constructor($b) {
     if (!$b) $b = {};
@@ -54,7 +42,7 @@ class Record extends IRecord {
     return RecordHelper.SetUrl(this, value);
   }
   static IsValidId(recordId) {
-    return recordId.startsWith("R-");
+    return recordId.startsWith('R-');
   }
   get IsValidOwnerId() {
     return IdUtil.GetOwnerType(this.OwnerName) != OwnerType.INVALID;
@@ -70,5 +58,5 @@ class Record extends IRecord {
   }
 }
 module.exports = {
-  Record
-}
+  Record,
+};

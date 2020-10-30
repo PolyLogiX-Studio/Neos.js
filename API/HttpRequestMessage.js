@@ -6,7 +6,7 @@
 class HttpRequestMessage {
   constructor(method, uri) {
     this.Headers = {
-      Accept: "application/json"
+      Accept: 'application/json',
     };
     this.Content = {};
     this.Method = method;
@@ -14,5 +14,5 @@ class HttpRequestMessage {
   }
 }
 module.exports = {
-  HttpRequestMessage
-}
+  HttpRequestMessage,
+};

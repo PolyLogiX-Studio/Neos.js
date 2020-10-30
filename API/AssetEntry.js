@@ -22,15 +22,15 @@ class AssetEntry {
    * @memberof AssetEntry
    */
   get AssetHash() {
-    if (this.OwnerId == null || !this.OwnerId.startsWith("A-")) {
-      console.error("OwnerId is invalid, cannot extract asset hash from it");
+    if (this.OwnerId == null || !this.OwnerId.startsWith('A-')) {
+      console.error('OwnerId is invalid, cannot extract asset hash from it');
     }
-    return this.OwnerId.substring("A-".length);
+    return this.OwnerId.substring('A-'.length);
   }
   set AssetHash(value) {
-    this.OwnerId = "A-" + value;
+    this.OwnerId = 'A-' + value;
   }
 }
 module.exports = {
-  AssetEntry
-}
+  AssetEntry,
+};

@@ -1,6 +1,4 @@
-const {
-  AccountType
-} = require("./AccountType")
+const { AccountType } = require('./AccountType');
 class NeosAccount {
   /**
    *
@@ -33,7 +31,7 @@ class NeosAccount {
       case AccountType.Anorak:
         return num * 500;
       default:
-        throw new Error("Invalid AccountType: " + type);
+        throw new Error('Invalid AccountType: ' + type);
     }
   }
   /**
@@ -47,27 +45,27 @@ class NeosAccount {
   static AccountName(type) {
     switch (type) {
       case AccountType.Normal:
-        return "Standard Account";
+        return 'Standard Account';
       case AccountType.AgentSmith:
-        return "Agent Smith";
+        return 'Agent Smith';
       case AccountType.BladeRunner:
-        return "Blade Runner";
+        return 'Blade Runner';
       case AccountType.Gunter:
-        return "Gunter";
+        return 'Gunter';
       case AccountType.Neuromancer:
-        return "Neuromancer";
+        return 'Neuromancer';
       case AccountType.Architect:
-        return "Architect";
+        return 'Architect';
       case AccountType.Curator:
-        return "Curator";
+        return 'Curator';
       case AccountType.Level144:
-        return "Level 144";
+        return 'Level 144';
       case AccountType.Level250:
-        return "Level 250";
+        return 'Level 250';
       case AccountType.Anorak:
-        return "Anorak";
+        return 'Anorak';
       default:
-        return "Unknown Account Type";
+        return 'Unknown Account Type';
     }
   }
   /**
@@ -102,7 +100,7 @@ class NeosAccount {
       case AccountType.Anorak:
         return num * 2400;
       default:
-        throw new Error("Invalid AccountType: " + type);
+        throw new Error('Invalid AccountType: ' + type);
     }
   }
   /**
@@ -128,10 +126,10 @@ class NeosAccount {
       case AccountType.Anorak:
         return true;
       default:
-        throw new Error("Invalid AccountType: " + type);
+        throw new Error('Invalid AccountType: ' + type);
     }
   }
 }
 module.exports = {
-  NeosAccount
-}
+  NeosAccount,
+};

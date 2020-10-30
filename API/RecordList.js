@@ -7,9 +7,9 @@ class RecordList {
     this.Records = $b.records; //TYPE Record
   }
   get Id() {
-    return this.Name + "-" + this.Page.toString();
+    return this.Name + '-' + this.Page.toString();
   }
 }
 module.exports = {
-  RecordList
-}
+  RecordList,
+};

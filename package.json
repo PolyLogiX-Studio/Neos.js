@@ -4,7 +4,7 @@
   "description": "Neos API",
   "main": "Neos.js",
   "scripts": {
-    "test":"npm run testCommands",
+    "test": "npm run testCommands",
     "testCommands": "node Tests/Commands.js"
   },
   "repository": {

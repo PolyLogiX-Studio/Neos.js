@@ -1,11 +1,7 @@
-const {
-  Out
-} = require("./Out")
-const {
-  Path
-} = require("./Path")
-const SHA256 = require("crypto-js/sha256");
-const fs = require("fs")
+const { Out } = require('./Out');
+const { Path } = require('./Path');
+const SHA256 = require('crypto-js/sha256');
+const fs = require('fs');
 class AssetUtil {
   /**
    * @readonly
@@ -23,19 +19,16 @@ class AssetUtil {
    * @memberof AssetUtil
    */
   static GenerateHashSignature(file) {
-    if (Type.Get(file) == "String") {
+    if (Type.Get(file) == 'String') {
       let fileStream = fs.readFileSync(file);
       return AssetUtil.GenerateHashSignature(fileStream);
     } else {
-      return SHA256(file.toString())
-        .toString()
-        .replace("-", "")
-        .toLowerCase();
+      return SHA256(file.toString()).toString().replace('-', '').toLowerCase();
     }
   }
   static GenerateURL(signature, extension) {
-    if (!extension.startsWith(".")) extension = "." + extension;
-    return new Uri("neosdb:///" + signature + extension);
+    if (!extension.startsWith('.')) extension = '.' + extension;
+    return new Uri('neosdb:///' + signature + extension);
   }
   /**
    * @static
@@ -44,7 +37,7 @@ class AssetUtil {
    * @memberof AssetUtil
    */
   static ExtractSignature(uri, extension = new Out()) {
-    if (uri.Scheme != "neosdb") throw new Error("Not a NeosDB URI");
+    if (uri.Scheme != 'neosdb') throw new Error('Not a NeosDB URI');
     let segment = uri.Segments[1];
     extension.Out = Path.GetExtension(segment);
     return Path.GetFileNameWithoutExtension(segment);
@@ -58,7 +51,7 @@ class AssetUtil {
    */
   static ComposeIdentifier(signature, variant) {
     if (String.IsNullOrWhiteSpace(variant)) return signature;
-    return signature + "&" + variant;
+    return signature + '&' + variant;
   }
   /**
    *
@@ -70,7 +63,7 @@ class AssetUtil {
    * @memberof AssetUtil
    */
   static SplitIdentifier(identifier, signature, variant) {
-    let length = identifier.indexOf("&");
+    let length = identifier.indexOf('&');
     if (length >= 0) {
       variant.Out = identifier.substr(length + 1);
       signature.Out = identifier.substr(0, length);
@@ -81,5 +74,5 @@ class AssetUtil {
   }
 }
 module.exports = {
-  AssetUtil
-}
+  AssetUtil,
+};

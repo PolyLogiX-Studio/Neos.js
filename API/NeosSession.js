@@ -23,5 +23,5 @@ class NeosSession {
   }
 }
 module.exports = {
-  NeosSession
-}
+  NeosSession,
+};

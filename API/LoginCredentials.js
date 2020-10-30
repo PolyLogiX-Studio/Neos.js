@@ -1,6 +1,4 @@
-const {
-  CryptoHelper
-} = require("./CryptoHelper")
+const { CryptoHelper } = require('./CryptoHelper');
 class LoginCredentials {
   /**
    *Creates an instance of LoginCredentials.
@@ -42,5 +40,5 @@ class LoginCredentials {
   }
 }
 module.exports = {
-  LoginCredentials
-}
+  LoginCredentials,
+};

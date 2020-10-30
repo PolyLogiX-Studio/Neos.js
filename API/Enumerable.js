@@ -1,6 +1,4 @@
-const {
-  Type
-} = require("./Type")
+const { Type } = require('./Type');
 
 /**
  * @template T
@@ -16,26 +14,26 @@ class Enumerable extends Object {
    * @memberof Enumerable
    */
   constructor($b) {
-    if ($b == null) throw new Error("No Data Given");
+    if ($b == null) throw new Error('No Data Given');
     super();
     let keys;
     let i;
     switch (Type.Get($b)) {
-      case "Array":
-      case "List":
+      case 'Array':
+      case 'List':
         keys = $b;
         for (i = 0; i < keys.length; i++) {
           this[keys[i]] = i;
         }
         break;
-      case "Object":
+      case 'Object':
         keys = Object.keys($b);
         for (i = 0; i < keys.length; i++) {
           this[keys[i]] = $b[[keys[i]]];
         }
         break;
       default:
-        throw new Error("Invalid Data, Expected type: <Array, List, Object>");
+        throw new Error('Invalid Data, Expected type: <Array, List, Object>');
     }
     Object.freeze(this);
   }
@@ -52,13 +50,13 @@ class Enumerable extends Object {
 
   FromEnum(Enum) {
     let keys = Object.keys(Enum).shift();
-    if (Enum > keys.length) throw new Error("Bounds Exceeded");
+    if (Enum > keys.length) throw new Error('Bounds Exceeded');
     for (let i = 0; i < keys.length; i++) {
       if (this[keys[i]] == Enum) return keys[i];
     }
-    throw new Error("Value not Found");
+    throw new Error('Value not Found');
   }
 }
 module.exports = {
-  Enumerable
-}
+  Enumerable,
+};

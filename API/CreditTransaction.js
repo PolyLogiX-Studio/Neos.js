@@ -24,5 +24,5 @@ class CreditTransaction {
   }
 }
 module.exports = {
-  CreditTransaction
-}
+  CreditTransaction,
+};

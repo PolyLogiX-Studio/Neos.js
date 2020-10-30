@@ -11,5 +11,5 @@ class HttpResponseMessage {
   }
 }
 module.exports = {
-  HttpResponseMessage
-}
+  HttpResponseMessage,
+};
