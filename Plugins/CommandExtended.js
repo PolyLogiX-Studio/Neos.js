@@ -5,7 +5,7 @@ class CommandExtended {
     this.Options.HelpCommand = Options.HelpCommand || 'help';
     this.Options.CommandsCommand = Options.CommandsCommand || 'commands';
     this.Options.HelpDefault = this.Options.CommandsCommand
-      ? `'Get a list of commands with ${
+      ? `Get a list of commands with ${
           this.Options.Prefix + this.Options.CommandsCommand
         }.`
       : 'No Help Available, Contact the Bot Owner';
@@ -17,6 +17,18 @@ class CommandExtended {
         return this[undefined];
       },
     };
+    if (this.Options.CommandsCommand)
+      this.HelpData[this.Options.CommandsCommand] = new HelpObject({
+        index: 'Get a list of commands',
+        usage: `${this.Options.Prefix + this.Options.CommandsCommand} [Page]`,
+      });
+    if (this.Options.HelpCommand)
+      this.HelpData[this.Options.HelpCommand] = new HelpObject({
+        index: 'Get help for a command',
+        usage: `${
+          this.Options.Prefix + this.Options.HelpCommand
+        } Command [Help Page (index, usage, ...)]`,
+      });
   }
   Add(Command, Script, Help, Whitelist) {
     var context;
@@ -76,11 +88,16 @@ class CommandExtended {
     let commandData = Message.Content.trim().split(' ');
     commandData.shift(); // remove Help from the command
     let Index = commandData.shift() || 1;
+    if (Number.isNaN(Number(Index)))
+      return context.CommandHandler.Neos.SendTextMessage(
+        Message.SenderId,
+        'Invalid Argument, Expecter Integer, got String'
+      );
     if (!context.CommandListInfo)
       context.CommandListInfo = new CommandHelper(context);
     return context.CommandHandler.Neos.SendTextMessage(
       Message.SenderId,
-      context.CommandListInfo.GetPage(new Number(Index) - 1)
+      context.CommandListInfo.GetPage(Math.floor(new Number(Index)))
     );
   }
   Run(Message) {
@@ -141,12 +158,14 @@ class CommandHelper {
     this.Generate();
   }
   GetPage(index = 1) {
-    this.Generate();
+    if (!this.CommandPages) this.Generate();
+    if (index < 1) index = 1;
+    let page = index - 1;
+    if (index > this.CommandPages.length || index < 1)
+      return `Invalid Page: ${index}, Pages Available: ${this.CommandPages.length}`;
     return util.format(
-      this.CommandPages[
-        Math.max(Math.min(index - 1, this.CommandPages.length), 0)
-      ],
-      index + 1,
+      this.CommandPages[page],
+      page + 1,
       this.CommandPages.length
     );
   }
@@ -185,6 +204,7 @@ class CommandHelper {
       CurrentPage += '<br>Page %d - %d';
       this.CommandPages.push(CurrentPage);
     }
+    console.log('Generate', this);
   }
 }
 module.exports = CommandExtended;

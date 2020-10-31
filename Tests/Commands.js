@@ -69,9 +69,15 @@ Neos.on('login', () => {
 Neos2.on('login', () => {
   console.log(process.env.NEOS_LOGIN_SECOND + ' Logged in');
   Neos2.AddFriend(process.env.NEOS_LOGIN); // Ensure Friends
-  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help ping');
   Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/commands');
-  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/commands 2');
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/commands 5');
+  setTimeout(()=>{
+    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help help');
+    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help commands');
+    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help');
+    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help help usage');
+  },2000)
+  
 });
 
 Neos2.on('messageReceived', (m) => {
