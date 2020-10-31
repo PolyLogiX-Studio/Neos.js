@@ -20,6 +20,8 @@
 
 # NeosJS
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/57ea6a99444740ab8e88006c5ae91798)](https://app.codacy.com/gh/PolyLogiX-Studio/Neos.js?utm_source=github.com&utm_medium=referral&utm_content=PolyLogiX-Studio/Neos.js&utm_campaign=Badge_Grade)
+
 > Library for communicating with the NeosAPI
 
 ```js
