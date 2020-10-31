@@ -1674,6 +1674,7 @@ class CloudXInterface {
       `api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`,
       new TimeSpan()
     ).then((b) => {
+      if (!b.Entity) return b
       let a = new List();
       for (let item of b.Entity) a.Add(new Message(item));
       b.Content = a;

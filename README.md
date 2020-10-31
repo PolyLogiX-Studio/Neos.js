@@ -11,6 +11,7 @@
     <img alt="Build" src="https://travis-ci.com/PolyLogiX-Studio/Neos.js.svg?branch=master">
     <a href='https://coveralls.io/github/PolyLogiX-Studio/Neos.js?branch=master'><img src='https://coveralls.io/repos/github/PolyLogiX-Studio/Neos.js/badge.svg?branch=master' alt='Coverage Status' /></a>
     <a href="https://www.patreon.com/PolyLogiX_VR"><img src="https://img.shields.io/badge/donate-patreon-F96854.svg" alt="Patreon" /></a>
+    <a href="https://ko-fi.com/N4N418QV5"><img src="https://www.ko-fi.com/img/githubbutton_sm.svg" alt="Ko-Fi" /></a>
   </p>
   <p>
     <a href="https://nodei.co/npm/@bombitmanbomb/neosjs"><img src="https://nodei.co/npm/@bombitmanbomb/neosjs.png?downloads=true&stars=true" alt="npm installnfo" /></a>
