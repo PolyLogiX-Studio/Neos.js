@@ -1,8 +1,25 @@
+/**
+ * @private
+ * @param {{Reply:(Message:String)}} [Handler] Send a reply to the Sender
+ * @param {String} [Sender] U-ID of the user who triggered the command
+ * @param {Array<String>} [Args] Arguments to the Command
+ */
+function HandlerCallback(Handler, Sender, Args) {}
+
+/**
+ *
+ */
 class CommandExtended {
+  /**
+   *
+   * @param {Object} CommandHandler
+   * @param {*} Options
+   */
   constructor(CommandHandler, Options = {}) {
     this.Options = {};
     this.Options.Prefix = Options.Prefix || '/';
     this.Options.HelpCommand = Options.HelpCommand || 'help';
+    this.Options.UsageCommand = Options.UsageCommand || 'usage';
     this.Options.CommandsCommand = Options.CommandsCommand || 'commands';
     this.Options.HelpDefault = this.Options.CommandsCommand
       ? `Get a list of commands with ${
@@ -29,7 +46,22 @@ class CommandExtended {
           this.Options.Prefix + this.Options.HelpCommand
         } Command [Help Page (index, usage, ...)]`,
       });
+    if (this.Options.UsageCommand)
+      this.HelpData[this.Options.UsageCommand] = new HelpObject({
+        index: 'Get usage for a command',
+        usage: `${
+          this.Options.Prefix + this.Options.UsageCommand
+        } Command [Help Arguments?]`,
+      });
   }
+
+  /**
+   * Add a new Command Hook
+   * @param {String} Command Command
+   * @param {HandlerCallback} Script Script to run on command call
+   * @param {String | {index:String|Function,usage:String|Function,HelpIndex:String|Function}} [Help] Help Info
+   * @param {Array<String>} [Whitelist] Users allowed to run the command
+   */
   Add(Command, Script, Help, Whitelist) {
     var context;
     if (this instanceof CommandExtended) {
@@ -44,6 +76,26 @@ class CommandExtended {
     );
     context.HelpData[Command] = new HelpObject(Help);
   }
+
+  /**
+   * Set help of a command, Will overwrite any previous indexes
+   * @param {String} Command Command to set Index for
+   * @param {String | {index:String|Function,usage:String|Function,HelpIndex:String|Function}} Help Help Info
+   */
+  SetHelp(Command, Help) {
+    var context;
+    if (this instanceof CommandExtended) {
+      context = this;
+    } else {
+      context = this.CommandHandler.CommandHandlerExtended;
+    }
+    context.HelpData[Command] = new HelpObject(Help);
+  }
+
+  /**
+   * @private
+   * @param {*} Message
+   */
   async Help(Message) {
     var context;
     if (this instanceof CommandExtended) {
@@ -77,6 +129,48 @@ class CommandExtended {
         );
     }
   }
+
+  /**
+   * @private
+   * @param {*} Message
+   */
+  async Usage(Message) {
+    var context;
+    if (this instanceof CommandExtended) {
+      context = this;
+    } else {
+      context = this.CommandHandler.CommandHandlerExtended;
+    }
+    let commandData = Message.Content.trim().split(' ');
+    commandData.shift(); // remove Usage from the command
+    let Command = commandData.shift();
+    let Args = commandData;
+    let helpObject = context.HelpData[Command];
+    if (helpObject == null)
+      return context.CommandHandler.Neos.SendTextMessage(
+        Message.SenderId,
+        'Command ' + Command + ' Not Found'
+      );
+
+    let Help = helpObject.GetHelp('usage');
+    switch (typeof Help) {
+      case 'function':
+        return context.CommandHandler.Neos.SendTextMessage(
+          Message.SenderId,
+          await Help(Args)
+        );
+      case 'string':
+        return context.CommandHandler.Neos.SendTextMessage(
+          Message.SenderId,
+          Help
+        );
+    }
+  }
+
+  /**
+   * @private
+   * @param {*} Message
+   */
   Commands(Message) {
     var context;
     if (this instanceof CommandExtended) {
@@ -100,6 +194,11 @@ class CommandExtended {
       context.CommandListInfo.GetPage(Math.floor(new Number(Index)))
     );
   }
+
+  /**
+   * Parse and run the given message object
+   * @param {*} Message
+   */
   Run(Message) {
     var context;
     if (this instanceof CommandExtended) {
@@ -118,6 +217,9 @@ class CommandExtended {
         break;
       case context.Options.Prefix + context.Options.CommandsCommand:
         context.Commands(Message);
+        break;
+      case context.Options.Prefix + context.Options.UsageCommand:
+        context.Usage(Message);
         break;
       default:
         context.CommandHandler.Run(Message);
@@ -181,6 +283,10 @@ class CommandHelper {
       this.CommandExtended.Options.Prefix +
         this.CommandExtended.Options.CommandsCommand
     );
+    Commands.push(
+      this.CommandExtended.Options.Prefix +
+        this.CommandExtended.Options.UsageCommand
+    );
     Commands.sort();
 
     let commands = 0;
@@ -204,7 +310,6 @@ class CommandHelper {
       CurrentPage += '<br>Page %d - %d';
       this.CommandPages.push(CurrentPage);
     }
-    console.log('Generate', this);
   }
 }
 module.exports = CommandExtended;

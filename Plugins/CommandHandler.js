@@ -1,3 +1,12 @@
+/**
+ * @private
+ * @param {{Reply:(Message:String)}} [Handler] Send a reply to the Sender
+ * @param {String} [Sender] U-ID of the user who triggered the command
+ * @param {Array<String>} [Args] Arguments to the Command
+ */
+function HandlerCallback(Handler, Sender, Args) {}
+
+
 class EventQueue {
   constructor(CommandHandler) {
     this.CommandHandler = CommandHandler; //Refrence Parent
@@ -83,8 +92,8 @@ class CommandHandler {
    * Add a Command
    *
    * @param {String} command
-   * @param {Function} cb
-   * @param {Array<String>} whitelist
+   * @param {HandlerCallback} cb
+   * @param {Array<String>} [whitelist]
    * @memberof CommandHandler
    */
   Add(command, cb, whitelist) {

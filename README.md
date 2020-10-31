@@ -70,6 +70,7 @@ neos.SendTextMessage('U-Neos', 'This is a Message!');
     - [`CommandExtended` Functions](#commandextended-functions)
       - [`CommandExtended.Add`](#commandextendedadd)
       - [`CommandExtended.Run`](#commandextendedrun)
+      - [`CommandExtended.SetHelp`](#commandextendedsethelp)
   - [Plugin `HeadlessInterface`](#plugin-headlessinterface)
     - [HeadlessInterface Function `Send`](#headlessinterface-function-send)
 
@@ -541,6 +542,7 @@ const Command = new CommandExtended(new CommandHandler(Neos), {
   Prefix: '/',
   HelpCommand: 'help',
   CommandsCommand: 'commands',
+  UsageCommand: 'usage',
 });
 Command.Add('Ping', (h) => h.Reply('pong!'), 'Ping the bot');
 Command.Add('Example', (h, s, a) => h.Reply(a.join('_')), {
@@ -564,7 +566,7 @@ Do not add a command prefix
 Syntax
 
 ```js
-Command.Add(String Command,Function CommandScript, (String|Object{String|Function}) Help, ?Array[String] Whitelist);
+Command.Add(String Command,Function CommandScript, (String|Object{HelpIndex:(String|Function)}) Help, ?Array[String] Whitelist);
 ```
 
 #### `CommandExtended.Run`
@@ -586,6 +588,19 @@ Command.Run(
   Date LastUpdateTime,
   Date ReadTime
 });
+```
+
+#### `CommandExtended.SetHelp`
+
+Set the help object for a command
+
+Syntax
+
+```js
+Command.SetHelp(
+  String Command,
+  (String|Object) Help
+);
 ```
 
 ## Plugin `HeadlessInterface`

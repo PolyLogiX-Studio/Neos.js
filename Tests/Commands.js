@@ -30,27 +30,6 @@ const TestHelp = {
   },
 };
 Commands.Add('ping', (h) => h.Reply('pong!'), 'Ping Pong!');
-Commands.Add('test', TestFunction, TestHelp);
-Commands.Add('test1', TestFunction, TestHelp);
-Commands.Add('test2', TestFunction, TestHelp);
-Commands.Add('test3', TestFunction, TestHelp);
-Commands.Add('test4', TestFunction, TestHelp);
-Commands.Add('test5', TestFunction, TestHelp);
-Commands.Add('test6', TestFunction, TestHelp);
-Commands.Add('test7', TestFunction, TestHelp);
-Commands.Add('test8', TestFunction, TestHelp);
-Commands.Add('test9', TestFunction, TestHelp);
-Commands.Add('test10', TestFunction, TestHelp);
-Commands.Add('test11', TestFunction, TestHelp);
-Commands.Add('test12', TestFunction, TestHelp);
-Commands.Add('test13', TestFunction, TestHelp);
-Commands.Add('test14', TestFunction, TestHelp);
-Commands.Add('test15', TestFunction, TestHelp);
-Commands.Add('test16', TestFunction, TestHelp);
-Commands.Add('test17', TestFunction, TestHelp);
-Commands.Add('test18', TestFunction, TestHelp);
-Commands.Add('test19', TestFunction, TestHelp);
-Commands.Add('test20', TestFunction, TestHelp);
 
 Neos.on('messageReceived', Commands.Run);
 Neos.Login(
@@ -69,15 +48,10 @@ Neos.on('login', () => {
 Neos2.on('login', () => {
   console.log(process.env.NEOS_LOGIN_SECOND + ' Logged in');
   Neos2.AddFriend(process.env.NEOS_LOGIN); // Ensure Friends
-  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/commands');
-  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/commands 5');
-  setTimeout(()=>{
-    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help help');
-    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help commands');
-    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help');
-    Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/help help usage');
-  },2000)
-  
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/usage commands');
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/usage usage');
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/usage hdfkjdfhkjsd');
+  Neos2.SendTextMessage(process.env.NEOS_LOGIN, '/usage help');
 });
 
 Neos2.on('messageReceived', (m) => {
