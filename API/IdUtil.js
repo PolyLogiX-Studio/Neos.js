@@ -1,7 +1,7 @@
 const { StringBuilder } = require("./StringBuilder");
 const { Char } = require("./Char");
 const { OwnerType } = require("./OwnerType");
-const { uuidv4: v4 } = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 /**
  *
  * @static
@@ -45,10 +45,10 @@ class IdUtil {
 			for (/** @type string */ let c of name) {
 				if (Char.IsLetterOrDigit(c)) stringBuilder.Append(c);
 				if (Char.IsWhiteSpace(c) || c == "_") stringBuilder.Append("-");
-				if (stringBuilder.Length == 20) break;
+				if (stringBuilder.Length === 20) break;
 			}
 		}
-		if (stringBuilder.Length == 0 || randomAppend > 0) {
+		if (stringBuilder.Length === 0 || randomAppend > 0) {
 			if (stringBuilder.Length > 0) stringBuilder.Append("-");
 			let str = uuidv4();
 			if (randomAppend > 0) str = str.substr(0, randomAppend);

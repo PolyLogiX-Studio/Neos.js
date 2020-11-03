@@ -32,7 +32,7 @@ class RSAParametersData {
    */
 	static RSAParametersData(rsa) {
 		let rsaParametersData = new RSAParametersData(rsa);
-		rsaParametersData.D = rsaParametersData.D;
+		//rsaParametersData.D = rsaParametersData.D;
 		return rsaParametersData;
 	}
 	/**

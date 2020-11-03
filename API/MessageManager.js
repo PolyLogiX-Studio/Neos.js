@@ -188,7 +188,7 @@ class MessageManager {
     }
     MarkAllRead() {
       let ids = null;
-      if (this.UnreadCount == 0) return;
+      if (this.UnreadCount === 0) return;
       ids = new Array();
       for (let message of this.Messages) {
         if (!message.IsSent && !(message.ReadTime != undefined)) {

@@ -73,32 +73,32 @@ class NeosAccount {
    *
    * @static
    * @param {AccountType} type
-   * @returns {Number}
+   * @returns {BigInt}
    * @memberof NeosAccount
    */
 	static StorageBytes(type) {
-		var num = 1073741824;
+		var num = BigInt("1073741824n");
 		switch (type) {
 		case AccountType.Normal:
 			return num;
 		case AccountType.AgentSmith:
-			return num * 5;
+			return num * BigInt("5n");
 		case AccountType.BladeRunner:
-			return num * 25;
+			return num * BigInt("25n");
 		case AccountType.Gunter:
-			return num * 50;
+			return num * BigInt("50n");
 		case AccountType.Neuromancer:
-			return num * 100;
+			return num * BigInt("100n");
 		case AccountType.Architect:
-			return num * 150;
+			return num * BigInt("150n");
 		case AccountType.Curator:
-			return num * 300;
+			return num * BigInt("300n");
 		case AccountType.Level144:
-			return num * 600;
+			return num * BigInt("600n");
 		case AccountType.Level250:
-			return num * 1200;
+			return num * BigInt("1200n");
 		case AccountType.Anorak:
-			return num * 2400;
+			return num * BigInt("2400n");
 		default:
 			throw new Error("Invalid AccountType: " + type);
 		}

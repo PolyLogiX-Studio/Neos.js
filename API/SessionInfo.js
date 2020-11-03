@@ -86,7 +86,7 @@ class SessionInfo {
    * @memberof SessionInfo
    */
 	get HasEnded() {
-		if (this.SessionURLs == null || this.SessionURLs.length == 0)
+		if (this.SessionURLs == null || this.SessionURLs.length === 0)
 			return this.LegacySessionURL == null;
 		return false;
 	}

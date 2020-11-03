@@ -196,7 +196,7 @@ class Neos extends EventEmitter {
 		if (!this.CloudXInterface.CurrentUser.Id) return;
 		if (
 			this.Options.StatusInterval != null &&
-      this.Options.StatusInterval != 0
+      this.Options.StatusInterval !== 0
 		) {
 			if (
 				new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 >

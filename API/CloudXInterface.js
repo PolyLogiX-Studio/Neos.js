@@ -858,7 +858,7 @@ class CloudXInterface {
               ? patreonData.IsPatreonSupporter
                 ? 1
                 : 0
-              : 0) == 0
+              : 0) === 0
           ) {
             let tags = this.CurrentUser.Tags;
             if (tags.size > 0)
@@ -866,7 +866,7 @@ class CloudXInterface {
                 tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
             else num = 0;
           } else num = 1;
-          CloudXInterface.USE_CDN = num != 0;
+          CloudXInterface.USE_CDN = num !== 0;
         }
         return user;
     }
