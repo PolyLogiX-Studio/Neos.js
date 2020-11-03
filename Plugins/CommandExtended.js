@@ -29,6 +29,7 @@ class CommandExtended {
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
     this.CommandHandler.Handler.prototype.Usage = function () {
+      console.log(this)
       this.Reply(this.Extra.GetHelp("usage"));
     };
     this.HelpData = {
