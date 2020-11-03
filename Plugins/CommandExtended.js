@@ -28,8 +28,19 @@ class CommandExtended {
       : "No Help Available, Contact the Bot Owner";
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
-    this.CommandHandler.Handler.prototype.Usage = function () {
-      this.Reply(this.Extra.GetHelp("usage"));
+    this.CommandHandler.Handler.prototype.Usage = function (Args) {
+      let help = this.Extra.GetHelp("usage");
+      this.Reply(
+        typeof help === "function"
+          ? help(Args)
+          : help || "Improper Usage: No Usage Available"
+      );
+    };
+    this.CommandHandler.Handler.prototype.Help = function (index, Args) {
+      let help = this.Extra.GetHelp(index);
+      this.Reply(
+        typeof help === "function" ? help(Args) : help || "No Help Available"
+      );
     };
     this.HelpData = {
       undefined: new HelpObject(this.Options.HelpDefault),
@@ -225,8 +236,12 @@ class CommandExtended {
         context.Usage(Message);
         break;
       default:
-        console.log(context)
-        let CONTEXT = context.HelpData[Message.Content.trim().split(" ")[0]];
+        let CONTEXT =
+          context.HelpData[
+            Message.Content.trim()
+              .split(" ")[0]
+              .substring(context.Options.Prefix.length)
+          ];
         context.CommandHandler.Run(Message, CONTEXT);
     }
   }

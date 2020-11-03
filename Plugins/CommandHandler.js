@@ -28,7 +28,7 @@ class EventQueue {
 			Sender,
 			Args,
 			Handler,
-			Extra
+			Extra,
 		});
 		this.RunQueue(); // Disable Queue Interval for now
 	}
@@ -56,7 +56,7 @@ class EventQueue {
  */
 class CommandHandler {
 	constructor(NeosJS, Invalid = "Invalid Command") {
-		this.Handler = Handler
+		this.Handler = Handler;
 		this.Neos = NeosJS;
 		this.Invalid = Invalid;
 		this.Neos.CommandHandler = this;
@@ -116,14 +116,11 @@ class CommandHandler {
  * @class Handler
  */
 class Handler {
-	
-
-
 	constructor(Neos, Context, Message, Extra) {
 		this.Neos = Neos;
 		this.Message = Message;
-		this.Context = Context
-		this.Extra = Extra // Modding Support Extra Variable Passthrough
+		this.Context = Context;
+		this.Extra = Extra; // Modding Support Extra Variable Passthrough
 	}
 	/**
    *

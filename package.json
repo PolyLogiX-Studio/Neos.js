@@ -1,12 +1,12 @@
 {
   "name": "@bombitmanbomb/neosjs",
-  "version": "1.6.8",
+  "version": "1.6.10",
   "description": "Neos API",
   "main": "Neos.js",
   "scripts": {
     "test": "npm run testCommands",
     "testCommands": "node Tests/Commands.js --unhandled-rejections=strict",
-    "testHeadless":"node Tests/Headless.js --unhandled-rejections=strict",
+    "testHeadless": "node Tests/Headless.js --unhandled-rejections=strict",
     "lint": "prettier --write . && eslint --fix ."
   },
   "repository": {
