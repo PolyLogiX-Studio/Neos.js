@@ -160,9 +160,9 @@ class Command {
    * @returns
    * @memberof Command
    */
-	Run(Sender, Args, Handler) {
+	Run(Sender, Args, Handler, Extra) {
 		if (this.whitelist && !~this.whitelist.indexOf(Sender)) return false;
-		this.script(Handler, Sender, Args);
+		this.script(Handler, Sender, Args, Extra);
 		//Command Code
 	}
 }
