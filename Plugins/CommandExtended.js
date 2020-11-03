@@ -300,7 +300,7 @@ class CommandHelper {
         commands = 0;
         CurrentPage += "<br>Page %d - %d";
         this.CommandPages.push(CurrentPage);
-        CurrentPage = new String();
+        CurrentPage = command + "<br>";
         continue;
       }
       CurrentPage += command + "<br>";
