@@ -120,7 +120,7 @@ class CommandExtended {
       case "function":
         return context.CommandHandler.Neos.SendTextMessage(
           Message.SenderId,
-          await Help(Args)
+          await Help(Args, this)
         );
       case "string":
         return context.CommandHandler.Neos.SendTextMessage(

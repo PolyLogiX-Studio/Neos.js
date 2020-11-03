@@ -30,7 +30,7 @@ const TestHelp = {
 	},
 };
 Commands.Add("ping", (h) => h.Reply("pong!"), "Ping Pong!");
-Commands.Add("ping2", (h) => h.Reply("pong!"), "Ping Pong!");
+Commands.Add("TestHelp", (h) => h.Reply("pong!"), TestHelp);
 Commands.Add("ping3", (h) => h.Reply("pong!"), "Ping Pong!");
 Commands.Add("ping4", (h) => h.Reply("pong!"), "Ping Pong!");
 
@@ -52,7 +52,7 @@ Neos2.on("login", () => {
 	console.log(process.env.NEOS_LOGIN_SECOND + " Logged in");
 	Neos2.AddFriend(process.env.NEOS_LOGIN); // Ensure Friends
 	Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/usage commands");
-	Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/usage usage");
+	Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/usage TestHelp test");
 	Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/usage hdfkjdfhkjsd");
 	Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/usage help");
 	Neos2.SendTextMessage(process.env.NEOS_LOGIN, "/commands");
