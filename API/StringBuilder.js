@@ -8,10 +8,13 @@ class StringBuilder {
 		this.String = [];
 	}
 	Append(str) {
-		this.String.push(str);
+		for (let char of str) this.String.push(char);
 	}
 	Insert(pos, str) {
 		this.String.splice(pos, 0, str);
+	}
+	Set(pos, char) {
+		this.String[pos] = char;
 	}
 	ToString() {
 		return this.toString();

@@ -130,6 +130,14 @@ class CloudXInterface {
       _cryptoProvider: {
         writable: true,
       },
+      _storageDirty: {
+        value: new Dictionary(),
+        writable: true,
+      },
+      _updatingStorage: {
+        value: new Dictionary(),
+        writable: true,
+      },
       _currentAuthenticationHeader: {
         value: null,
         writable: true,
@@ -179,6 +187,7 @@ class CloudXInterface {
   static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
   static LOCAL_NEOS_API = "http://localhost:60612/";
   static LOCAL_NEOS_BLOB = "http://127.0.0.1:10000/devstoreaccount1/";
+  static CLOUDX_NEOS_VIDEO_CDN = "https://cloudx-video.azureedge.net/";
   ProfilerBeginSample(name) {
     let beginSampleCallback = CloudXInterface.ProfilerBeginSampleCallback;
     if (beginSampleCallback == null) return;
@@ -260,6 +269,9 @@ class CloudXInterface {
   }
   static get NEOS_INSTALL() {
     return "https://cloudx.azureedge.net/install/";
+  }
+  static get NEOS_ASSETS_VIDEO_CDN() {
+    return "https://cloudx-video.azureedge.net/assets/";
   }
   static get NEOS_CLOUD_BLOB() {
     return !CloudXInterface.USE_CDN
@@ -477,6 +489,13 @@ class CloudXInterface {
     }
     if (this.Friends) this.Friends.Update();
     if (this.Messages) this.Messages.Update();
+    for (let keyValuePair of this._storageDirty) {
+      if (this._updatingStorage.TryAdd(keyValuePair.Key, true)) {
+        let _ownerId = keyValuePair.Key(async () => {
+          await this.UpdateStorage(_ownerId);
+        })();
+      }
+    }
   }
   /**
    *
@@ -729,40 +748,6 @@ class CloudXInterface {
       return new CloudResult(entity, result.StatusCode, content);
     }
     */
-  }
-  /**
-   *
-   * @param {string} credential
-   * @param {string} token
-   */
-  async PolyLogiXOAuthLogin(token, machineId) {
-    this.Logout(false);
-    this.OAuth.IsOAUTH = true;
-    let credentials = new LoginCredentials();
-    credentials.userId = "OAuth";
-    credentials.sessionToken = token;
-    credentials.secretMachineId = machineId || uuidv4();
-    credentials.rememberMe = true;
-
-    var result = await this.POST(
-      "api/userSessions",
-      credentials,
-      new TimeSpan()
-    );
-    if (result.IsOK) {
-      this.CurrentSession = new UserSession(result.Content);
-      this.CurrentUser = new User();
-      this.CurrentUser.Id = this.CurrentSession.UserId;
-      this.CurrentUser.Username = credentials.Username;
-      await this.UpdateCurrentUserInfo();
-      this.UpdateCurrentUserMemberships();
-      this.Friends.Update();
-      this.OnLogin();
-    } else
-      return this.onError(
-        "Error loging in: " + result.State + "\n" + result.Content
-      );
-    return result;
   }
   /**
    *
@@ -1112,7 +1097,7 @@ class CloudXInterface {
       "api/users/" + ownerId + "/records/" + recordId,
       new TimeSpan()
     );
-    await this.UpdateStorage(ownerId);
+    this.MarkStorageDirty(ownerId);
     return result;
   }
   AddTag(ownerId, recordId, tag) {
@@ -1133,21 +1118,28 @@ class CloudXInterface {
         return this.onError("Invalid record owner");
     }
   }
+  MarkStorageDirty(ownerId) {
+    this._storageDirty.TryAdd(ownerId, true);
+  }
   async UpdateStorage(ownerId) {
-    if (this.CurrentUser == null) return;
-    let ownerType = IdUtil.GetOwnerType(ownerId);
-    let _signedUserId = this.CurrentUser.Id;
-    let numArray = CloudXInterface.storageUpdateDelays;
-    for (let index = 0; index < numArray.length; index++) {
-      await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
-      if (this.CurrentUser.Id !== _signedUserId) return;
-      if (ownerType === OwnerType.User) {
-        let cloudResult = await this.UpdateCurrentUserInfo();
-      } else {
-        await this.UpdateGroupInfo(ownerId);
+    if (this.CurrentUser != null) {
+      let ownerType = IdUtil.GetOwnerType(ownerId);
+      let _signedUserId = this.CurrentUser.Id;
+      let numArray = CloudXInterface.storageUpdateDelays;
+      for (let index = 0; index < numArray.length; index++) {
+        await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
+        if (!(this.CurrentUser.Id !== _signedUserId)) {
+          if (ownerType === OwnerType.User) {
+            let cloudResult = await this.UpdateCurrentUserInfo();
+          } else {
+            await this.UpdateGroupInfo(ownerId);
+          }
+        } else break;
       }
+      numArray = null;
+      _signedUserId = null;
     }
-    numArray = null;
+    this._updatingStorage.TryRemove(ownerId, []);
   }
   async FetchGlobalAssetInfo(hash) {
     return await this.GET("api/assets/" + hash.toLowerCase(), new TimeSpan());
@@ -1743,8 +1735,71 @@ class CloudXInterface {
    */
   async GetSession(sessionId) {
     return await this.GET("api/sessions/" + sessionId, new TimeSpan()).then(
-      (b) => new SessionInfo(b.Entity)
+      (b) => {
+        let Entity = new SessionInfo(b.Entity);
+        b.Content = Entity;
+        return b;
+      }
     );
+  }
+
+  /**
+   * Get a list of sessions
+   * @param {Date} updateSince
+   * @param {Boolean} includeEnded
+   * @param {String} compatibilityHash
+   * @param {String} name
+   * @param {String} universeId
+   * @param {String} hostName
+   * @param {String} hostId
+   * @param {Number} minActiveUsers
+   * @param {Boolean} includeEmptyHeadless
+   * @returns {Promise<CloudResult<List<Sessioninfo>>>}
+   */
+  async GetSessions(
+    updateSince = null,
+    includeEnded = false,
+    compatibilityHash = null,
+    name = null,
+    universeId = null,
+    hostName = null,
+    hostId = null,
+    minActiveUsers = null,
+    includeEmptyHeadless = true
+  ) {
+    let stringBuilder1 = new StringBuilder();
+    if (updateSince) {
+      let str =
+        "&updatedSince=" + Uri.EscapeDataString(updateSince.toISOString());
+      stringBuilder1.Append(str);
+    }
+    if (includeEnded) stringBuilder1.Append("&includeEnded=true");
+    if (!String.IsNullOrWhiteSpace(compatibilityHash))
+      stringBuilder1.Append(
+        "&compatibilityHash=" + Uri.EscapeDataString(compatibilityHash)
+      );
+    if (!String.IsNullOrWhiteSpace(name))
+      stringBuilder1.Append("&name=" + Uri.EscapeDataString(name));
+    if (!String.IsNullOrWhiteSpace(universeId))
+      stringBuilder1.Append("&universeId=" + Uri.EscapeDataString(universeId));
+    if (!String.IsNullOrWhiteSpace(hostName))
+      stringBuilder1.Append("&hostName=" + Uri.EscapeDataString(hostName));
+    if (!String.IsNullOrWhiteSpace(hostId))
+      stringBuilder1.Append("&hostId=" + Uri.EscapeDataString(hostId));
+    if (minActiveUsers != null)
+      stringBuilder1.Append("&minActiveUsers=" + minActiveUsers);
+    stringBuilder1.Append(
+      "&includeEmptyHeadless=" + (includeEmptyHeadless ? "true" : "false")
+    );
+    if (stringBuilder1.Length > 0) stringBuilder1.String[0] = "?";
+    let str1 = stringBuilder1.ToString();
+    console.log(str1);
+    return await this.GET("api/sessions" + str1).then((res) => {
+      let Content = new List();
+      for (let item of res.Content) Content.Add(new SessionInfo(item));
+      res.Content = Content;
+      return res;
+    });
   }
 
   /**

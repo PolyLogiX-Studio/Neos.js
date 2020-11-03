@@ -29,6 +29,19 @@ class Dictionary extends Array {
 			Value,
 		});
 	}
+	/**
+   * @param {T} Key
+   * @param {A} Value
+   * @memberof Dictionary
+   */
+	TryAdd(Key, Value) {
+		if (this.ContainsKey(Key)) return false;
+		this.push({
+			Key,
+			Value,
+		});
+		return true;
+	}
 	Replace(key, Value) {
 		if (!this.ContainsKey(key)) return false;
 		for (let object of this) {
@@ -109,6 +122,16 @@ class Dictionary extends Array {
    * @memberof Dictionary
    */
 	Remove(key) {
+		if (!this.ContainsKey(key)) return false;
+		for (let object of this) {
+			if (object.Key === key) {
+				this.RemoveAt(this.indexOf(object));
+				return true;
+			}
+		}
+		return false;
+	}
+	TryRemove(key) {
 		if (!this.ContainsKey(key)) return false;
 		for (let object of this) {
 			if (object.Key === key) {

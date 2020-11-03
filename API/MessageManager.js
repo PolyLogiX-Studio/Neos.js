@@ -10,6 +10,7 @@ class MessageManager {
     this.lastUnreadMessage = null;
     this.Cloud = cloud;
     this.InitialmessagesFetched = new Boolean();
+    this.UnreadCountByUser = new Dictionary();
     this.UnreadCount = new Number();
     Object.defineProperties(this, {
       _messagesLock: {

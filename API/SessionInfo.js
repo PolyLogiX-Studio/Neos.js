@@ -1,6 +1,7 @@
 const { List } = require("./List");
 const { Type } = require("./Type");
 const { Uri } = require("./Uri");
+const { HashSet } = require("./HashSet");
 class SessionInfo {
 	/**
    *Creates an instance of SessionInfo.
@@ -34,7 +35,7 @@ class SessionInfo {
 		if (!$b) $b = {};
 		this.Name = $b.name;
 		this.Description = $b.description;
-		this.Tags = $b.tags;
+		this.Tags = new HashSet($b.tags);
 		this.SessionId = $b.sessionId;
 		this.HostUserId = $b.hostUserId;
 		this.HostMachineId = $b.hostMachineId;
