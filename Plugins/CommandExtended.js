@@ -29,7 +29,6 @@ class CommandExtended {
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
     this.CommandHandler.Handler.prototype.Usage = function () {
-      console.log(this)
       this.Reply(this.Extra.GetHelp("usage"));
     };
     this.HelpData = {
@@ -226,9 +225,9 @@ class CommandExtended {
         context.Usage(Message);
         break;
       default:
+        console.log(context)
         let CONTEXT = context.HelpData[Message.Content.trim().split(" ")[0]];
-        let Extra = CONTEXT;
-        context.CommandHandler.Run(Message, Extra);
+        context.CommandHandler.Run(Message, CONTEXT);
     }
   }
 }
