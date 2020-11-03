@@ -219,7 +219,7 @@ class FriendManager {
       let num;
       num = this.friends.filter((f) => {
         if (f.Value.FriendStatus === "Requested")
-          return f.Value.FriendUserId != this.Cloud.CurrentUser.Id;
+          return f.Value.FriendUserId !== this.Cloud.CurrentUser.Id;
         return false;
       }).length;
       this._friendSessions.Clear();
@@ -235,7 +235,7 @@ class FriendManager {
           }
         }
       }
-      if (num != this.FriendRequestCount) {
+      if (num !== this.FriendRequestCount) {
         this.FriendRequestCount = num;
         let requestCountChanged = this.FriendRequestCountChanged;
         if (requestCountChanged != null)

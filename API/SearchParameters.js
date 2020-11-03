@@ -52,12 +52,12 @@ class SearchParameters {
 		this.ExcludedTags = this.NormalizeTags(this.ExcludedTags);
 		if (this.ExtraSignatures != null) {
 			this.ExtraSignatures.Sort();
-			if (this.ExtraSignatures.Count == 0) this.ExtraSignatures = new List();
+			if (this.ExtraSignatures.Count === 0) this.ExtraSignatures = new List();
 		}
 		this._isNormalized = true;
 	}
 	Equals(other, excludeOffsetAndCount = false) {
-		if (Type.Get(other) != "SearchParameters")
+		if (Type.Get(other) !== "SearchParameters")
 			other = new SearchParameters(other);
 
 		if (
@@ -79,7 +79,7 @@ class SearchParameters {
 						? 1
 						: 0
 					: 0
-				: 1) != 0
+				: 1) !== 0
 		)
 			return false;
 		nullable2 = this.MaxDate;
@@ -91,7 +91,7 @@ class SearchParameters {
 						? 1
 						: 0
 					: 0
-				: 1) != 0 ||
+				: 1) !== 0 ||
       this.SortBy !== other.SortBy ||
       this.OnlyFeatured !== other.OnlyFeatured ||
       this.SortDirection !== other.SortDirection

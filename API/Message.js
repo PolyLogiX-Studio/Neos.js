@@ -28,7 +28,7 @@ class Message {
 		return this.RecipientId === this.OwnerId;
 	}
 	get IsRead() {
-		return this.ReadTime != undefined;
+		return this.ReadTime != null;
 	}
 }
 module.exports = {

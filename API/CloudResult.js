@@ -11,7 +11,7 @@ class CloudResult {
    * @param {*} content
    * @memberof CloudResult
    */
-	constructor(entity = undefined, state, content, resHeaders) {
+	constructor(entity, state, content, resHeaders) {
 		this.CloudResult(state, content, resHeaders, entity);
 	}
 	ToString() {
@@ -54,7 +54,7 @@ class CloudResult {
    * @memberof CloudResult
    */
 	get IsOK() {
-		if (this.State != 200) return this.State == 204;
+		if (this.State !== 200) return this.State === 204;
 		return true;
 	}
 	/**

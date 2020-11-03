@@ -278,8 +278,7 @@ class MessageManager {
       if (this._messageIds.includes(message.Id)) return false;
       this.Messages.Add(message);
       this._messageIds.Add(message.Id);
-      if (message.IsReceived && !message.ReadTime != null)
-        ++this.UnreadCount;
+      if (message.IsReceived && !message.ReadTime != null) ++this.UnreadCount;
       while (
         this.Messages.length > MessageManager.MAX_UNREAD_HISTORY ||
         (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY &&

@@ -45,7 +45,7 @@ class IdUtil {
 		if (name != null) {
 			for (/** @type string */ let c of name) {
 				if (Char.IsLetterOrDigit(c)) stringBuilder.Append(c);
-				if (Char.IsWhiteSpace(c) || c == "_") stringBuilder.Append("-");
+				if (Char.IsWhiteSpace(c) || c === "_") stringBuilder.Append("-");
 				if (stringBuilder.Length === 20) break;
 			}
 		}

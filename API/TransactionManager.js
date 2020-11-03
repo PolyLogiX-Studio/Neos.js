@@ -45,7 +45,7 @@ class TransactionManager {
 		let num2;
 		let num3;
 		let num4;
-		if (sourceToken == "USD") {
+		if (sourceToken === "USD") {
 			switch (targetToken) {
 			case "NCR":
 				num1 = sourceAmount;
@@ -63,7 +63,7 @@ class TransactionManager {
 				return new Number();
 			}
 		} else {
-			if (!(targetToken == "USD")) return new Number();
+			if (!(targetToken === "USD")) return new Number();
 			switch (sourceAmount) {
 			case "NCR":
 				num3 = sourceAmount;

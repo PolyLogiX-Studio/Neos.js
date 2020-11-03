@@ -13,15 +13,15 @@ class CloudVariableDefinition {
 	CanRead(variableOwnerId, readerId) {
 		return (
 			this.AnyoneCanRead ||
-      (this.VariableOwnerCanRead && variableOwnerId == readerId) ||
-      readerId == this.DefinitionOwnerId
+      (this.VariableOwnerCanRead && variableOwnerId === readerId) ||
+      readerId === this.DefinitionOwnerId
 		);
 	}
 	CanWrite(variableOwnerId, writerId) {
 		return (
 			this.AnyoneCanWrite ||
       (this.VariableOwnerCanWrite && variableOwnerId == writerId) ||
-      writerId == this.DefinitionOwnerId
+      writerId === this.DefinitionOwnerId
 		);
 	}
 }

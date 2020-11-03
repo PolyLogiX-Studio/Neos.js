@@ -8,7 +8,7 @@ class User {
 		if (!$b) $b = {};
 		this.Id = $b.id;
 		this.Username = $b.username;
-		this.Email = $b.email || undefined;
+		this.Email = $b.email;
 		this.RegistrationDate = $b.registrationDate;
 		this.QuotaBytes = $b.quotaBytes;
 		this.UsedBytes = $b.usedBytes;
@@ -19,8 +19,8 @@ class User {
 		this.MuteBanExpiration = $b.muteBanExpiration || new Date(0);
 		this.Password = $b.password;
 		this.RecoverCode = $b.recoverCode;
-		this.Tags = new HashSet($b.tags) || null;
-		this.PatreonData = new UserPatreonData($b.patreonData) || null;
+		this.Tags = new HashSet($b.tags);
+		this.PatreonData = new UserPatreonData($b.patreonData);
 		this.Credits = $b.credits;
 		this.NCRDepositAddress = $b.NCRdepositAddress;
 		this.ReferralId = $b.referralId;

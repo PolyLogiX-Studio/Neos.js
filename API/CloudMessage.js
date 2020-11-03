@@ -13,11 +13,7 @@ class CloudMessage {
 		this.Message = $b.Message || new String();
 	}
 	static ExtractMessage(content) {
-		try {
-			return content.Message || content;
-		} catch (err) {
-			return content;
-		}
+		return content.Message || content;
 	}
 }
 module.exports = {

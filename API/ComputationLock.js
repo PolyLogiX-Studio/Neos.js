@@ -7,7 +7,7 @@ class ComputationLock {
 	}
 	get IsLocked() {
 		return (
-			!(this.Token == "" || this.Token == null) &&
+			!(this.Token === "" || this.Token == null) &&
       new Date() > this.ExpireTimestamp
 		);
 	}
@@ -18,12 +18,12 @@ class ComputationLock {
 		return true;
 	}
 	TryExtend(token, duration) {
-		if (token != this.Token) return false;
+		if (token !== this.Token) return false;
 		this.ExpireTimestamp = new Date() + duration;
 		return true;
 	}
 	TryRelease(token) {
-		if (this.Token != token) return false;
+		if (this.Token !== token) return false;
 		this.Token = null;
 		this.ExpireTimestamp = new Date();
 		return true;

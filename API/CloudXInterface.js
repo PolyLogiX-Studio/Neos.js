@@ -31,6 +31,14 @@ const { SearchResults } = require("./SearchResults");
 const { ProductInfoHeaderValue } = require("./ProductInfoHeaderValue");
 const { UserSession } = require("./UserSession");
 const { ServerStatus } = require("./ServerStatus");
+const { Group } = require("./Group");
+const { Member } = require("./Member");
+const { CloudVariableDefinition } = require("./CloudVariableDefinition");
+const { NeosSession } = require("./NeosSession");
+const { UserStatus } = require("./UserStatus");
+const Path = require("path");
+const fs = require("fs");
+const { UploadState } = require("./UploadState");
 /**
  *
  *
@@ -308,7 +316,7 @@ class CloudXInterface {
       });
       return;
     }
-    if (value == this._currentSession) return;
+    if (value === this._currentSession) return;
     if (!this._currentSession)
       Object.defineProperties(this, {
         _currentSession: {
@@ -316,7 +324,7 @@ class CloudXInterface {
           configurable: true,
         },
       });
-    if (this._currentSession.SessionToken != value.SessionToken)
+    if (this._currentSession.SessionToken !== value.SessionToken)
       this._lastSessionUpdate = new Date();
     Object.defineProperties(this, {
       _currentSession: {
@@ -474,7 +482,7 @@ class CloudXInterface {
       case OwnerType.Machine:
         return true;
       case OwnerType.User:
-        return ownerId == this.CurrentUser.Id;
+        return ownerId === this.CurrentUser.Id;
       case OwnerType.Group:
         return this.CurrentUserMemberships.Any((m) => m.GroupId === ownerId);
       default:
@@ -490,7 +498,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   ClearMemberships() {
-    if (this._groupMemberships.length == 0) return;
+    if (this._groupMemberships.length === 0) return;
     this._groupMemberships = new List();
     this.RunMembershipsUpdated();
   }
@@ -529,7 +537,7 @@ class CloudXInterface {
   }
   static FilterNeosURL(assetURL) {
     if (
-      assetURL.Scheme == "neosdb" &&
+      assetURL.Scheme === "neosdb" &&
       assetURL.Segments.length >= 2 &&
       assetURL.Segments.includes(".")
     )
@@ -545,7 +553,7 @@ class CloudXInterface {
     return neosdb.Segments[1].noExtension();
   }
   static NeosDBQuery(neosdb) {
-    if (neosdb.Query == null || neosdb.Query == "") return null;
+    if (neosdb.Query == null || neosdb.Query === "") return null;
     return neosdb.Query.substring(1);
   }
   static NeosThumbnailIdToHttp(id) {
@@ -557,7 +565,7 @@ class CloudXInterface {
     return null;
   }
   static IsLegacyNeosDB(uri) {
-    if (uri.Scheme != "neosdb") return false;
+    if (uri.Scheme !== "neosdb") return false;
     return uri.Segments[1].noExtension().length < 30;
   }
   //473
@@ -676,13 +684,14 @@ class CloudXInterface {
         cancellationToken.Token
       );
       if (result == null) {
-        console.error(`Exception running `);
+        //TODO Error
         request = null;
         await TimeSpan.Delay(new TimeSpan(delay));
         delay += 250;
       }
       return result; //BYPASS
     } while (result == null && remainingRetries-- > 0);
+    /*
     if (result == null) {
       if (exception == null)
         throw new Error("Failed to get response. Exception is null");
@@ -691,7 +700,7 @@ class CloudXInterface {
     let entity;
     let content = null;
     if (result.IsSuccessStatusCode) {
-      if (typeof result.Content == "string") {
+      if (typeof result.Content === "string") {
         content = await result.Content.toString();
         entity = content;
       } else {
@@ -711,6 +720,7 @@ class CloudXInterface {
       content = await result.Content;
       return new CloudResult(entity, result.StatusCode, content);
     }
+    */
   }
   /**
    *
@@ -849,7 +859,7 @@ class CloudXInterface {
         if (
           user.IsOK &&
           this.CurrentUser != null &&
-          this.CurrentUser.Id == entity.id
+          this.CurrentUser.Id === entity.id
         ) {
           this.CurrentUser = entity;
           let patreonData = this.CurrentUser.PatreonData;
@@ -996,8 +1006,8 @@ class CloudXInterface {
   }
   GetRecords(a, b, c) {
     let type = Type.Get(a);
-    if (type == "Array") return this.GetRecordsList(List.ToList(a));
-    if (type == "List") return this.GetRecordsList(a);
+    if (type === "Array") return this.GetRecordsList(List.ToList(a));
+    if (type === "List") return this.GetRecordsList(a);
     return this.GetRecordsFull(a, b, c);
   }
   /**
@@ -1050,7 +1060,10 @@ class CloudXInterface {
     }
     return this.POST(resource, record, new TimeSpan());
   }
+
   GetPreprocessStatus(ownerId, recordId, id) {
+    throw new Error("Not Implimented");
+    /*
     if (!recordId) {
       recordId = ownerId.RecordId;
       id = ownerId.PreprocessId;
@@ -1080,6 +1093,7 @@ class CloudXInterface {
         throw new Error("Invalid record owner");
     }
     return this.GET(resource, record, new TimeSpan());
+    */
   }
   async DeleteRecord(ownerId, recordId) {
     if (!recordId) {
@@ -1119,7 +1133,7 @@ class CloudXInterface {
     for (let index = 0; index < numArray.length; index++) {
       await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
       if (this.CurrentUser.Id != _signedUserId) return;
-      if (ownerType == OwnerType.User) {
+      if (ownerType === OwnerType.User) {
         cloudResult = await this.UpdateCurrentUserInfo();
       } else {
         await this.UpdateGroupInfo(ownerId);
@@ -1230,8 +1244,8 @@ class CloudXInterface {
       cloudResult = await this.GET(baseUrl, new TimeSpan());
       if (
         !cloudResult.IsError &&
-        cloudResult.Entity.UploadState != UploadState.Uploaded &&
-        cloudResult.Entity.UploadState != UploadState.Failed
+        cloudResult.Entity.UploadState !== UploadState.Uploaded &&
+        cloudResult.Entity.UploadState !== UploadState.Failed
       )
         await TimeSpan.Delay(new TimeSpan(250));
       else break;
@@ -1385,7 +1399,7 @@ class CloudXInterface {
     if (!path) return await this.ReadVariable(this.CurrentUser.Id, ownerId);
     let cloudXInterface = this;
     let resource;
-    if (ownerId == "GLOBAL") resource = "api/globalvars/" + path;
+    if (ownerId === "GLOBAL") resource = "api/globalvars/" + path;
     else
       resource =
         "api/" +
@@ -1553,7 +1567,7 @@ class CloudXInterface {
    */
   async GetFriends(userId, lastStatusUpdate = null, count = 0) {
     if (count > 10) return new List();
-    if (typeof userId != "string")
+    if (typeof userId !== "string")
       return await this.GetFriends(this.CurrentUser.Id, userId, ++count);
     let str = "";
     if (lastStatusUpdate)

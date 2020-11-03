@@ -19,10 +19,10 @@ class Record extends IRecord {
 		this.LastModifyingUserId = $b.lastModifyingUserId || new String();
 		this.LastModifyingMachineId = $b.lastModifyingMachineId || new String();
 		this.Name = $b.name || new String();
-		this.Description = $b.description || undefined;
+		this.Description = $b.description || null;
 		this.RecordType = $b.recordType || new String();
 		this.OwnerName = $b.ownerName || new String();
-		this.Tags = $b.tags ? new HashSet($b.tags) : undefined;
+		this.Tags = $b.tags ? new HashSet($b.tags) : new HashSet();
 		this.Path = $b.path || new String();
 		this.ThumbnailURI = $b.thumbnailUri || new String();
 		this.LastModificationTime = $b.lastModificationTime || new Date();

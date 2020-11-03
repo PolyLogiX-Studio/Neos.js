@@ -18,8 +18,8 @@ class UserProfile {
    */
 	IsSame(other) {
 		return (
-			this.IconUrl == other.IconUrl &&
-      this.BackgroundUrl == other.BackgroundUrl &&
+			this.IconUrl === other.IconUrl &&
+      this.BackgroundUrl === other.BackgroundUrl &&
       this.TagLine &&
       other.TagLine
 		); //TODO When implimented
@@ -47,7 +47,9 @@ class UserProfile {
    * @memberof UserProfile
    */
 	AcceptsToken(token) {
-		return this.TokenOptOut == null || !this.TokenOptOut.Any((s) => s == token);
+		return (
+			this.TokenOptOut == null || !this.TokenOptOut.Any((s) => s === token)
+		);
 	}
 }
 module.exports = {

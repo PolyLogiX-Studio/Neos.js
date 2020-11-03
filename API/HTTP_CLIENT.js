@@ -22,9 +22,9 @@ class HTTP_CLIENT {
 		};
 		dat.headers = request.Headers;
 		if (
-			request.Method == "POST" ||
-      request.Method == "PATCH" ||
-      request.Method == "PUT"
+			request.Method === "POST" ||
+      request.Method === "PATCH" ||
+      request.Method === "PUT"
 		)
 			dat.body = request.Content;
 		let response = await fetch(request.RequestUri, dat)
