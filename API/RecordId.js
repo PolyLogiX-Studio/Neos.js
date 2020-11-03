@@ -38,7 +38,7 @@ class RecordId {
    * @memberof RecordId
    */
 	Equals(other) {
-		if (this.Id == other.Id) return this.OwnerId == other.OwnerId;
+		if (this.Id === other.Id) return this.OwnerId === other.OwnerId;
 		return false;
 	}
 	/**

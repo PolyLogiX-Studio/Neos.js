@@ -1240,7 +1240,8 @@ class CloudXInterface {
         assetUpload.Variant
       ) + "/chunks";
     let cloudResult;
-    while (true) {
+    let condition = true;
+    while (condition) {
       cloudResult = await this.GET(baseUrl, new TimeSpan());
       if (
         !cloudResult.IsError &&
@@ -1248,7 +1249,7 @@ class CloudXInterface {
         cloudResult.Entity.UploadState !== UploadState.Failed
       )
         await TimeSpan.Delay(new TimeSpan(250));
-      else break;
+      else condition = false;
     }
     return cloudResult;
   }

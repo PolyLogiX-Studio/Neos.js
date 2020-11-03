@@ -52,7 +52,7 @@ class Enumerable extends Object {
 		let keys = Object.keys(Enum).shift();
 		if (Enum > keys.length) throw new Error("Bounds Exceeded");
 		for (let i = 0; i < keys.length; i++) {
-			if (this[keys[i]] == Enum) return keys[i];
+			if (this[keys[i]] === Enum) return keys[i];
 		}
 		throw new Error("Value not Found");
 	}

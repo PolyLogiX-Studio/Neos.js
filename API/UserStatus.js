@@ -58,8 +58,8 @@ class UserStatus {
 	SortSessions() {
 		if (this.ActiveSessions == null) return;
 		this.ActiveSessions.sort((a, b) => {
-			if (a.SessionId == this.CurrentSessionId) return -1;
-			if (b.SessionId == this.CurrentSessionId) return 1;
+			if (a.SessionId === this.CurrentSessionId) return -1;
+			if (b.SessionId === this.CurrentSessionId) return 1;
 			if (a.AwaySince != null && b.AwaySince != null)
 				return a.AwaySince.toLocaleString().localeCompare(
 					b.AwaySince.toLocaleString()

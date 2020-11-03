@@ -6,8 +6,8 @@ class SessionUser {
 		this.IsPresent = $b.isPresent;
 	}
 	Equals(other) {
-		if (this.Username == other.Username && this.UserID == other.UserID)
-			return this.IsPresent == other.IsPresent;
+		if (this.Username === other.Username && this.UserID === other.UserID)
+			return this.IsPresent === other.IsPresent;
 		return false;
 	}
 }

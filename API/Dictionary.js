@@ -32,7 +32,7 @@ class Dictionary extends Array {
 	Replace(key, Value) {
 		if (!this.ContainsKey(key)) return false;
 		for (let object of this) {
-			if (object.Key == key) {
+			if (object.Key === key) {
 				this[this.indexOf(object)].Value = Value;
 				return true;
 			}
@@ -60,7 +60,7 @@ class Dictionary extends Array {
    */
 	ContainsKey(key) {
 		for (let object of this) {
-			if (object.Key == key) return true;
+			if (object.Key === key) return true;
 		}
 		return false;
 	}
@@ -73,7 +73,7 @@ class Dictionary extends Array {
    */
 	ContainsValue(value) {
 		for (let object of this) {
-			if (object.Value == value) return true;
+			if (object.Value === value) return true;
 		}
 		return false;
 	}
@@ -111,7 +111,7 @@ class Dictionary extends Array {
 	Remove(key) {
 		if (!this.ContainsKey(key)) return false;
 		for (let object of this) {
-			if (object.Key == key) {
+			if (object.Key === key) {
 				this.RemoveAt(this.indexOf(object));
 				return true;
 			}
@@ -124,7 +124,7 @@ class Dictionary extends Array {
 	Get(key, out) {
 		if (!this.ContainsKey(key)) return false;
 		for (let object of this) {
-			if (object.Key == key) {
+			if (object.Key === key) {
 				out.Out = object.Value;
 				return true;
 			}

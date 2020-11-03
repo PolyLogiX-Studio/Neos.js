@@ -44,7 +44,7 @@ class List extends Array {
    */
 	static ToList(array) {
 		let t = new List();
-		if (!array || Type.Get(array) == "List") return t;
+		if (!array || Type.Get(array) === "List") return t;
 		for (let item of array) {
 			t.Add(item);
 		}
@@ -56,7 +56,7 @@ class List extends Array {
    */
 	AddRange(list) {
 		if (list == null) throw new Error("ArgumentNullException");
-		if (!(Type.Get(list) == "List"))
+		if (!(Type.Get(list) === "List"))
 			throw new Error("AddRange: Expected type List");
 		for (var item of list) {
 			this.Add(item);

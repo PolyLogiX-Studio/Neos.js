@@ -21,7 +21,7 @@ class AssetUtil {
    * @memberof AssetUtil
    */
 	static GenerateHashSignature(file) {
-		if (Type.Get(file) == "String") {
+		if (Type.Get(file) === "String") {
 			let fileStream = fs.readFileSync(file);
 			return AssetUtil.GenerateHashSignature(fileStream);
 		} else {

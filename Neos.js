@@ -201,7 +201,7 @@ class Neos extends EventEmitter {
 			if (
 				new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 >
           this.Options.StatusInterval ||
-        this.lastStatusUpdate == "No Update"
+        this.lastStatusUpdate === "No Update"
 			)
 				return this.UpdateStatus();
 		}

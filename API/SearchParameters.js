@@ -73,7 +73,7 @@ class SearchParameters {
 		let nullable1 = this.MinDate;
 		let nullable2 = other.MinDate;
 		if (
-			(((nullable1 != null) == nullable2) != null
+			(((nullable1 != null) === nullable2) != null
 				? nullable1 != null
 					? nullable1 !== nullable2
 						? 1
@@ -85,7 +85,7 @@ class SearchParameters {
 		nullable2 = this.MaxDate;
 		nullable1 = other.MaxDate;
 		if (
-			(((nullable2 != null) == nullable1) != null
+			(((nullable2 != null) === nullable1) != null
 				? nullable2 != null
 					? nullable2 !== nullable1
 						? 1
@@ -109,7 +109,7 @@ class SearchParameters {
 	static ListsEqual(a, b) {
 		let num1 = a != null ? a.Count : 0;
 		let num2 = b != null ? b.Count : 0;
-		if (num1 != num2) return false;
+		if (num1 !== num2) return false;
 		for (let index = 0; index < num1; index++) {
 			if (a[index] !== b[index]) return false;
 		}
