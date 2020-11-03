@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD033 -->
+
 <div align="center">
   <br />
   <p>
