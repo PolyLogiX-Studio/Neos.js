@@ -62,6 +62,9 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.OnLogout = () => {
 			this.Events.emit("logout");
 		};
+		this.CloudXInterface.OnError = (error) => {
+			this.Events.emit("error", error);
+		};
 		this.CloudXInterface.OnSessionUpdated = () => {
 			this.Events.emit("sessionUpdated");
 		};
@@ -134,6 +137,9 @@ class Neos extends EventEmitter {
 				this.Events.emit("friendsChanged");
 			};
 			this.emit("logout");
+		});
+		this.Events.on("error", (error) => {
+			this.emit("error", error);
 		});
 		this.Events.on("sessionUpdated", (session) => {
 			this.emit("sessionUpdated", session);
