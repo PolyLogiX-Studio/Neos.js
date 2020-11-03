@@ -26,7 +26,7 @@
 > Library for communicating with the NeosAPI
 
 ```js
-neos.SendTextMessage('U-Neos', 'This is a Message!');
+neos.SendTextMessage("U-Neos", "This is a Message!");
 ```
 
 <details>
@@ -107,7 +107,7 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 ## Options
 
 ```js
-const Neos = require('@bombitmanbomb/neosjs');
+const Neos = require("@bombitmanbomb/neosjs");
 const neos = new Neos({ UpdateInterval: 5000 });
 ```
 
@@ -164,7 +164,7 @@ added: v1.1.1
 Send a `Message`, As of 1.1.2 a UserId must be supplied
 
 ```js
-neos.SendTextMessage('U-UserId', 'Hey this is a message');
+neos.SendTextMessage("U-UserId", "Hey this is a message");
 ```
 
 ### `Neos.GetStatus`
@@ -176,7 +176,7 @@ added: v1.1.1
 Get a `UserStatus`
 
 ```js
-neos.GetStatus('U-Neos').then((status) => {
+neos.GetStatus("U-Neos").then((status) => {
   //User Status
 });
 ```
@@ -190,7 +190,7 @@ added: v1.1.1
 Send a `Message`, As of 1.1.2 a UserId must be supplied
 
 ```js
-neos.SendTextMessage('U-UserId', 'Hey this is a message');
+neos.SendTextMessage("U-UserId", "Hey this is a message");
 ```
 
 ## Events
@@ -204,7 +204,7 @@ added: v0.0.1
 The `neos` instance will emit a `'login'` event when a new user is assigned via `neos.Login()
 
 ```js
-neos.on('login', () => {
+neos.on("login", () => {
   console.log(neos.CurrentUser); // Log the current user
 });
 ```
@@ -218,8 +218,8 @@ added: v0.0.1
 The `neos` instance will emit a `'logout'` event **Before** a new user is assigned via `neos.Login()` and on `neos.Logout()`
 
 ```js
-neos.on('logout', () => {
-  console.log('User Logged Out');
+neos.on("logout", () => {
+  console.log("User Logged Out");
 });
 ```
 
@@ -233,7 +233,7 @@ The `neos` instance will emit a `'sessionUpdated'` event when the user session u
 up to 7 days without the password
 
 ```js
-neos.on('sessionUpdated', (session) => {
+neos.on("sessionUpdated", (session) => {
   console.log(session.SessionToken); // Log the current user Token
 });
 ```
@@ -247,7 +247,7 @@ added: v0.0.1
 The `neos` instance will emit a `'sessionChanged'` event when the user session changes
 
 ```js
-neos.on('sessionChanged', (session) => {
+neos.on("sessionChanged", (session) => {
   console.log(session.SessionToken); // Log the current user token
 });
 ```
@@ -261,7 +261,7 @@ added: v0.0.1
 The `neos` instance will emit a `'groupUpdated'` event when a group state updates
 
 ```js
-neos.on('membershipsUpdated', (membership) => {});
+neos.on("membershipsUpdated", (membership) => {});
 ```
 
 ### Event: `'groupUpdated'`
@@ -273,7 +273,7 @@ added: v0.0.1
 The `neos` instance will emit a `'groupUpdated'` event
 
 ```js
-neos.on('groupUpdated', (group) => {});
+neos.on("groupUpdated", (group) => {});
 ```
 
 ### Event: `'groupMemberUpdated'`
@@ -285,7 +285,7 @@ added: v0.0.1
 The `neos` instance will emit a `'groupMemberUpdated'` event
 
 ```js
-neos.on('groupMemberUpdated', (group) => {
+neos.on("groupMemberUpdated", (group) => {
   console.log(neos.CurrentUser); // Log the current user
 });
 ```
@@ -299,9 +299,9 @@ added: v0.0.1
 The `neos` instance will emit a `'messageReceived'` event when a new message is recieved
 
 ```js
-neos.on('messageReceived', (message) => {
-  if (message.Content.toLowerCase() == 'ping')
-    neos.SendTextMessage(message.SenderId, 'Pong');
+neos.on("messageReceived", (message) => {
+  if (message.Content.toLowerCase() == "ping")
+    neos.SendTextMessage(message.SenderId, "Pong");
 });
 ```
 
@@ -314,7 +314,7 @@ added: v0.0.1
 The `neos` instance will emit a `'messageCountChanged'` event
 
 ```js
-neos.on('messageCountChanged', (count) => {
+neos.on("messageCountChanged", (count) => {
   console.log(count); // # of messages
 });
 ```
@@ -328,7 +328,7 @@ added: v0.0.1
 The `neos` instance will emit a `'friendAdded'` event when a friend request is sent or recieved
 
 ```js
-neos.on('friendAdded', (friend) => {
+neos.on("friendAdded", (friend) => {
   console.log(friend);
 });
 ```
@@ -342,7 +342,7 @@ added: v0.0.1
 The `neos` instance will emit a `'friendUpdated'` event when a friend request is accepted or a status is changed
 
 ```js
-neos.on('friendUpdated', (friend) => {
+neos.on("friendUpdated", (friend) => {
   console.log(friend);
 });
 ```
@@ -356,7 +356,7 @@ added: v0.0.1
 The `neos` instance will emit a `'friendRemoved'` event
 
 ```js
-neos.on('friendRemoved', (friend) => {});
+neos.on("friendRemoved", (friend) => {});
 ```
 
 ### Event: `'friendRequestCountChanged'`
@@ -368,7 +368,7 @@ added: v0.0.1
 The `neos` instance will emit a `'friendRequestCountChanged'` event
 
 ```js
-neos.on('friendRequestCountChanged', (count) => {
+neos.on("friendRequestCountChanged", (count) => {
   console.log(count);
 });
 ```
@@ -382,7 +382,7 @@ added: v0.0.1
 The `neos` instance will emit a `'friendsChanged'` event
 
 ```js
-neos.on('friendsChanged', () => {});
+neos.on("friendsChanged", () => {});
 ```
 
 ### Event: `'userUpdated'`
@@ -394,7 +394,7 @@ added: v0.0.1
 The `neos` instance will emit a `'userUpdated'` event
 
 ```js
-neos.on('userUpdated', (user) => {
+neos.on("userUpdated", (user) => {
   console.log(user);
 });
 ```
@@ -475,27 +475,27 @@ Tools to make Development Easier.
 Add Commands Effortlessly
 
 ```js
-const NEOS = require('@bombitmanbomb/neosjs');
-const CommandHandler = require('@bombitmanbomb/neosjs/Plugins/CommandHandler');
+const NEOS = require("@bombitmanbomb/neosjs");
+const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler");
 const Neos = new NEOS(); // Create Neos Client
-const Command = new CommandHandler(Neos, 'Invalid Command'); // Pass Neos client and [Error Message] (Optional)
-Neos.on('messageReceived', Command.Run); // Route messages to the Command Handler Directly (Shorthand).
+const Command = new CommandHandler(Neos, "Invalid Command"); // Pass Neos client and [Error Message] (Optional)
+Neos.on("messageReceived", Command.Run); // Route messages to the Command Handler Directly (Shorthand).
 
-Command.Add('/commands', (Handler, Sender, Args) => {
-  console.log(Sender + ':' + Args.join('_')); // U-bombitmanbomb:/commands Any_Text_After
-  Handler.Reply(Object.keys(Command.Commands).sort().join('<br>')); // Reply to command in Neos a list of all Commands
+Command.Add("/commands", (Handler, Sender, Args) => {
+  console.log(Sender + ":" + Args.join("_")); // U-bombitmanbomb:/commands Any_Text_After
+  Handler.Reply(Object.keys(Command.Commands).sort().join("<br>")); // Reply to command in Neos a list of all Commands
 });
-Command.Add('/ping', (Handler) => Handler.Reply('pong!'));
+Command.Add("/ping", (Handler) => Handler.Reply("pong!"));
 Command.Add(
-  '/send',
+  "/send",
   (Handler, Sender, Args) => {
-    if (!Args.length >= 2) return Handler.Reply('Syntax: /send U-Id Message'); // Invalid Syntax
+    if (!Args.length >= 2) return Handler.Reply("Syntax: /send U-Id Message"); // Invalid Syntax
     var user = Args.shift(); // Pull first argument (User)
-    var message = Args.join(' '); // Join remaining arguments with Spaces
+    var message = Args.join(" "); // Join remaining arguments with Spaces
     Neos.SendTextMessage(user, message);
-    Handler.Reply('Message Sent');
+    Handler.Reply("Message Sent");
   },
-  ['U-bombitmanbomb']
+  ["U-bombitmanbomb"]
 ); // Only U-bombitmanbomb can run this command, Can pass a function as long as value returned is an Array
 Neos.Login(/* Creds */);
 ```
@@ -538,25 +538,25 @@ Command.Run(
 Extended Functionality for CommandHandler
 
 ```js
-const NEOS = require('@bombitmanbomb/neosjs');
+const NEOS = require("@bombitmanbomb/neosjs");
 const Neos = new NEOS();
-const CommandHandler = require('@bombitmanbomb/neosjs/Plugins/CommandHandler');
-const CommandExtended = require('@bombitmanbomb/neosjs/Plugins/CommandExtended');
+const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler");
+const CommandExtended = require("@bombitmanbomb/neosjs/Plugins/CommandExtended");
 const Command = new CommandExtended(new CommandHandler(Neos), {
-  Prefix: '/',
-  HelpCommand: 'help',
-  CommandsCommand: 'commands',
-  UsageCommand: 'usage',
+  Prefix: "/",
+  HelpCommand: "help",
+  CommandsCommand: "commands",
+  UsageCommand: "usage",
 });
-Command.Add('Ping', (h) => h.Reply('pong!'), 'Ping the bot');
-Command.Add('Example', (h, s, a) => h.Reply(a.join('_')), {
-  index: 'Join arguments with Underscore',
-  usage: 'Example [...]',
+Command.Add("Ping", (h) => h.Reply("pong!"), "Ping the bot");
+Command.Add("Example", (h, s, a) => h.Reply(a.join("_")), {
+  index: "Join arguments with Underscore",
+  usage: "Example [...]",
   argsExample: function (args) {
-    return 'join ' + args.join(' ') + ' as ' + args.join('_');
+    return "join " + args.join(" ") + " as " + args.join("_");
   },
 });
-Neos.on('messageReceived', Command.Run);
+Neos.on("messageReceived", Command.Run);
 Neos.Login(/* credentials */);
 ```
 
@@ -652,5 +652,5 @@ Send a Command to the HeadlessClient
 Returns a Promise with the Response
 
 ```js
-Headless.Send('invite bombitmanbomb').then((response) => console.log(response)); // Invite Sent
+Headless.Send("invite bombitmanbomb").then((response) => console.log(response)); // Invite Sent
 ```

@@ -1,5 +1,5 @@
 class CreditTransaction {
-  /**
+	/**
    *Creates an instance of CreditTransaction.
    * @param {{
    * token: string,
@@ -12,17 +12,17 @@ class CreditTransaction {
    * }} $b
    * @memberof CreditTransaction
    */
-  constructor($b) {
-    if (!$b) $b = {};
-    this.Token = $b.token;
-    this.FromUserId = $b.fromUserId;
-    this.ToUserId = $b.toUserId;
-    this.Amount = $b.amount;
-    this.Comment = $b.comment;
-    this.TransactionType = $b.transactionType;
-    this.Anonymous = $b.anonymous;
-  }
+	constructor($b) {
+		if (!$b) $b = {};
+		this.Token = $b.token;
+		this.FromUserId = $b.fromUserId;
+		this.ToUserId = $b.toUserId;
+		this.Amount = $b.amount;
+		this.Comment = $b.comment;
+		this.TransactionType = $b.transactionType;
+		this.Anonymous = $b.anonymous;
+	}
 }
 module.exports = {
-  CreditTransaction,
+	CreditTransaction,
 };

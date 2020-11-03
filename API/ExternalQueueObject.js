@@ -1,5 +1,5 @@
 class ExternalQueueObject {
-  /**
+	/**
      *Creates an instance of ExternalQueueObject.
      @template T
      * @param {{
@@ -9,13 +9,13 @@ class ExternalQueueObject {
      * }} $b
      * @memberof ExternalQueueObject
      */
-  constructor($b) {
-    if (!$b) $b = {};
-    this.Id = $b.id;
-    this.PopReceipt = $b.popReceipt;
-    this.Object = $b.object;
-  }
+	constructor($b) {
+		if (!$b) $b = {};
+		this.Id = $b.id;
+		this.PopReceipt = $b.popReceipt;
+		this.Object = $b.object;
+	}
 }
 module.exports = {
-  ExternalQueueObject,
+	ExternalQueueObject,
 };

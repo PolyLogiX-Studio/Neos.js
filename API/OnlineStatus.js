@@ -1,11 +1,11 @@
-const { Enumerable } = require('./Enumerable');
+const { Enumerable } = require("./Enumerable");
 const OnlineStatus = new Enumerable([
-  'Offline',
-  'Invisible',
-  'Away',
-  'Busy',
-  'Online',
+	"Offline",
+	"Invisible",
+	"Away",
+	"Busy",
+	"Online",
 ]);
 module.exports = {
-  OnlineStatus,
+	OnlineStatus,
 };

@@ -1,35 +1,35 @@
-const { Uri } = require('./Uri');
-const { StringBuilder } = require('./StringBuilder');
-const { RecordUtil } = require('./RecordUtil');
-const { List } = require('./List');
-const { SessionInfo } = require('./SessionInfo');
-const { Dictionary } = require('./Dictionary');
-const { Type } = require('./Type');
-const { IdUtil } = require('./IdUtil');
-const { OwnerType } = require('./OwnerType');
-const { TimeSpan } = require('./TimeSpan');
-const { HttpMethod } = require('./HttpMethod');
-const { HttpRequestMessage } = require('./HttpRequestMessage');
-const { HttpResponseMessage } = require('./HttpResponseMessage');
-const { CancellationTokenSource } = require('./CancellationTokenSource');
-const { CloudResult } = require('./CloudResult');
-const { LoginCredentials } = require('./LoginCredentials');
-const { AuthenticationHeaderValue } = require('./AuthenticationHeaderValue');
-const { User } = require('./User');
-const { Friend } = require('./Friend');
-const { Message } = require('./Message');
-const { ServerStatistics } = require('./ServerStatistics');
-const { UserTags } = require('./UserTags');
-const { Out } = require('./Out');
-const { Enumerable } = require('./Enumerable');
-const { v4: uuidv4 } = require('uuid');
-const { HTTP_CLIENT } = require('./HTTP_CLIENT');
-const { FriendManager } = require('./FriendManager');
-const { MessageManager } = require('./MessageManager');
-const { TransactionManager } = require('./TransactionManager');
-const { SearchResults } = require('./SearchResults');
-const { ProductInfoHeaderValue } = require('./ProductInfoHeaderValue');
-const { UserSession } = require('./UserSession');
+const { Uri } = require("./Uri");
+const { StringBuilder } = require("./StringBuilder");
+const { RecordUtil } = require("./RecordUtil");
+const { List } = require("./List");
+const { SessionInfo } = require("./SessionInfo");
+const { Dictionary } = require("./Dictionary");
+const { Type } = require("./Type");
+const { IdUtil } = require("./IdUtil");
+const { OwnerType } = require("./OwnerType");
+const { TimeSpan } = require("./TimeSpan");
+const { HttpMethod } = require("./HttpMethod");
+const { HttpRequestMessage } = require("./HttpRequestMessage");
+const { HttpResponseMessage } = require("./HttpResponseMessage");
+const { CancellationTokenSource } = require("./CancellationTokenSource");
+const { CloudResult } = require("./CloudResult");
+const { LoginCredentials } = require("./LoginCredentials");
+const { AuthenticationHeaderValue } = require("./AuthenticationHeaderValue");
+const { User } = require("./User");
+const { Friend } = require("./Friend");
+const { Message } = require("./Message");
+const { ServerStatistics } = require("./ServerStatistics");
+const { UserTags } = require("./UserTags");
+const { Out } = require("./Out");
+const { Enumerable } = require("./Enumerable");
+const { v4: uuidv4 } = require("uuid");
+const { HTTP_CLIENT } = require("./HTTP_CLIENT");
+const { FriendManager } = require("./FriendManager");
+const { MessageManager } = require("./MessageManager");
+const { TransactionManager } = require("./TransactionManager");
+const { SearchResults } = require("./SearchResults");
+const { ProductInfoHeaderValue } = require("./ProductInfoHeaderValue");
+const { UserSession } = require("./UserSession");
 /**
  *
  *
@@ -131,16 +131,16 @@ class CloudXInterface {
         writable: true,
       },
       lockobj: {
-        value: 'CloudXLockObj',
+        value: "CloudXLockObj",
       },
     });
   }
 
   static CloudEndpoint = new Enumerable([
-    'Production',
-    'Staging',
-    'Local',
-    'PolyLogiXOAUTH',
+    "Production",
+    "Staging",
+    "Local",
+    "PolyLogiXOAUTH",
   ]);
 
   static DEFAULT_RETRIES = 5;
@@ -149,7 +149,7 @@ class CloudXInterface {
   static storageUpdateDelays = [1, 5, 15, 30];
   static get JSON_MEDIA_TYPE() {
     return {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
   }
   static SESSION_EXTEND_INTERVAL = 3600;
@@ -160,13 +160,13 @@ class CloudXInterface {
   /** @type Func<MemoryStream> */
   static MemoryStreamAllocator;
   static USE_CDN = new Boolean();
-  static CLOUDX_PRODUCTION_NEOS_API = 'https://www.neosvr-api.com/';
-  static CLOUDX_STAGING_NEOS_API = 'https://cloudx-staging.azurewebsites.net/';
-  static POLYLOGIX_OAUTH_API = 'https://www.polylogix.studio/api/_NeosOAuth/';
-  static CLOUDX_NEOS_BLOB = 'https://cloudxstorage.blob.core.windows.net/';
-  static CLOUDX_NEOS_CDN = 'https://cloudx.azureedge.net/';
-  static LOCAL_NEOS_API = 'http://localhost:60612/';
-  static LOCAL_NEOS_BLOB = 'http://127.0.0.1:10000/devstoreaccount1/';
+  static CLOUDX_PRODUCTION_NEOS_API = "https://www.neosvr-api.com/";
+  static CLOUDX_STAGING_NEOS_API = "https://cloudx-staging.azurewebsites.net/";
+  static POLYLOGIX_OAUTH_API = "https://www.polylogix.studio/api/_NeosOAuth/";
+  static CLOUDX_NEOS_BLOB = "https://cloudxstorage.blob.core.windows.net/";
+  static CLOUDX_NEOS_CDN = "https://cloudx.azureedge.net/";
+  static LOCAL_NEOS_API = "http://localhost:60612/";
+  static LOCAL_NEOS_BLOB = "http://127.0.0.1:10000/devstoreaccount1/";
   ProfilerBeginSample(name) {
     let beginSampleCallback = CloudXInterface.ProfilerBeginSampleCallback;
     if (beginSampleCallback == null) return;
@@ -188,16 +188,16 @@ class CloudXInterface {
   static get NEOS_API() {
     switch (CloudXInterface.CLOUD_ENDPOINT) {
       case CloudXInterface.CloudEndpoint.Production:
-        return 'https://www.neosvr-api.com/';
+        return "https://www.neosvr-api.com/";
       case CloudXInterface.CloudEndpoint.Staging:
-        return 'https://cloudx-staging.azurewebsites.net/';
+        return "https://cloudx-staging.azurewebsites.net/";
       case CloudXInterface.CloudEndpoint.Local:
-        return 'https://localhost:60612/';
+        return "https://localhost:60612/";
       case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
-        return 'https://oauth.neosdb.net/'; // Custom Server
+        return "https://oauth.neosdb.net/"; // Custom Server
       default:
         throw new Error(
-          'Invalid Endpoint: ' + CloudXInterface.CLOUD_ENDPOINT.toString()
+          "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
         );
     }
   }
@@ -217,7 +217,7 @@ class CloudXInterface {
         return CloudXInterface.NEOS_CLOUD_BLOB;
       default:
         throw new Error(
-          'Invalid Endpoint: ' + CloudXInterface.CLOUD_ENDPOINT.toString()
+          "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
         );
     }
   }
@@ -229,7 +229,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   static get NEOS_ASSETS() {
-    return CloudXInterface.NEOS_BLOB + 'assets/';
+    return CloudXInterface.NEOS_BLOB + "assets/";
   }
   /**
    * Get the Neos CDN server
@@ -239,21 +239,21 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   static get NEOS_ASSETS_CDN() {
-    return 'https://cloudx.azureedge.net/assets/';
+    return "https://cloudx.azureedge.net/assets/";
   }
   static get NEOS_ASSETS_BLOB() {
-    return 'https://cloudxstorage.blob.core.windows.net/assets/';
+    return "https://cloudxstorage.blob.core.windows.net/assets/";
   }
   static get NEOS_THUMBNAILS() {
-    return 'https://cloudxstorage.blob.core.windows.net/thumbnails/';
+    return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
   }
   static get NEOS_INSTALL() {
-    return 'https://cloudx.azureedge.net/install/';
+    return "https://cloudx.azureedge.net/install/";
   }
   static get NEOS_CLOUD_BLOB() {
     return !CloudXInterface.USE_CDN
-      ? 'https://cloudxstorage.blob.core.windows.net/'
-      : 'https://cloudx.azureedge.net/';
+      ? "https://cloudxstorage.blob.core.windows.net/"
+      : "https://cloudx.azureedge.net/";
   }
   /**
    * Recalculate Server Ping and Response Time
@@ -329,7 +329,7 @@ class CloudXInterface {
       //Use the OAuth Schema
       this._currentAuthenticationHeader =
         value != null
-          ? new AuthenticationHeaderValue('Bearer', value.SessionToken)
+          ? new AuthenticationHeaderValue("Bearer", value.SessionToken)
               .Authorization
           : AuthenticationHeaderValue;
     } else {
@@ -337,8 +337,8 @@ class CloudXInterface {
       this._currentAuthenticationHeader =
         value != null
           ? new AuthenticationHeaderValue(
-              'neos',
-              value.UserId + ':' + value.SessionToken
+              "neos",
+              value.UserId + ":" + value.SessionToken
             ).Authorization
           : AuthenticationHeaderValue;
     }
@@ -350,7 +350,7 @@ class CloudXInterface {
       sessionChanged(this._currentSession);
     } catch (error) {
       Error(
-        'Exception in SessionChanged: ' +
+        "Exception in SessionChanged: " +
           (this.CurrentSession.toString() + error.toString()),
         true
       );
@@ -377,12 +377,12 @@ class CloudXInterface {
   }
   TryGetCurrentUserGroupInfo(groupId) {
     return this._groups.filter(function (item) {
-      return item['groupId'] === groupId;
+      return item["groupId"] === groupId;
     });
   }
   TryGetCurrentUserGroupMemberInfo(groupId) {
     return this._groupMemberInfos.filter(function (item) {
-      return item['groupId'] === groupId;
+      return item["groupId"] === groupId;
     });
   }
   IsCurrentUserMemberOfGroup(groupId) {
@@ -417,7 +417,7 @@ class CloudXInterface {
    * @param {String} UserAgentProduct Agent ie. NeosJS
    * @param {String} UserAgentVersion Version ie v1.5.6
    */
-  CloudXInterface(UserAgentProduct = 'CloudX', UserAgentVersion = '0.0.0.0') {
+  CloudXInterface(UserAgentProduct = "CloudX", UserAgentVersion = "0.0.0.0") {
     this.HttpClient = new HTTP_CLIENT();
     this.Friends = new FriendManager(this);
     this.UserAgentProduct = UserAgentProduct;
@@ -515,25 +515,25 @@ class CloudXInterface {
     let str1 = CloudXInterface.NeosDBSignature(neosdb);
     let str2 = CloudXInterface.NeosDBQuery(neosdb);
     let str3 = str1;
-    if (str2 != null) str3 = str3 + '/' + str2;
+    if (str2 != null) str3 = str3 + "/" + str2;
     if (CloudXInterface.IsLegacyNeosDB(neosdb))
-      return new Uri('https://neoscloud.blob.core.windows.net/assets/' + str3);
+      return new Uri("https://neoscloud.blob.core.windows.net/assets/" + str3);
     return new Uri(
       (forceCDN
         ? CloudXInterface.NEOS_ASSETS_CDN
         : forceCloudBlob
-        ? 'https://cloudxstorage.blob.core.windows.net/'
+        ? "https://cloudxstorage.blob.core.windows.net/"
         : CloudXInterface.NEOS_ASSETS) + str3
     );
   }
   static FilterNeosURL(assetURL) {
     if (
-      assetURL.Scheme == 'neosdb' &&
+      assetURL.Scheme == "neosdb" &&
       assetURL.Segments.length >= 2 &&
-      assetURL.Segments.includes('.')
+      assetURL.Segments.includes(".")
     )
       return (assetURL = new Uri(
-        'neosdb:///' + assetURL.Segments[1].noExtension() + assetURL.Query
+        "neosdb:///" + assetURL.Segments[1].noExtension() + assetURL.Query
       ));
     return assetURL;
   }
@@ -544,7 +544,7 @@ class CloudXInterface {
     return neosdb.Segments[1].noExtension();
   }
   static NeosDBQuery(neosdb) {
-    if (neosdb.Query == null || neosdb.Query == '') return null;
+    if (neosdb.Query == null || neosdb.Query == "") return null;
     return neosdb.Query.substring(1);
   }
   static NeosThumbnailIdToHttp(id) {
@@ -556,7 +556,7 @@ class CloudXInterface {
     return null;
   }
   static IsLegacyNeosDB(uri) {
-    if (uri.Scheme != 'neosdb') return false;
+    if (uri.Scheme != "neosdb") return false;
     return uri.Segments[1].noExtension().length < 30;
   }
   //473
@@ -644,8 +644,8 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   AddBody(message, entity) {
-    message.Headers['Content-Type'] =
-      CloudXInterface.JSON_MEDIA_TYPE['Content-Type'];
+    message.Headers["Content-Type"] =
+      CloudXInterface.JSON_MEDIA_TYPE["Content-Type"];
     if (entity) message.Content = JSON.stringify(entity);
   }
 
@@ -684,25 +684,25 @@ class CloudXInterface {
     } while (result == null && remainingRetries-- > 0);
     if (result == null) {
       if (exception == null)
-        throw new Error('Failed to get response. Exception is null');
+        throw new Error("Failed to get response. Exception is null");
       throw new Error(exception);
     }
     let entity;
     let content = null;
     if (result.IsSuccessStatusCode) {
-      if (typeof result.Content == 'string') {
+      if (typeof result.Content == "string") {
         content = await result.Content.toString();
         entity = content;
       } else {
         try {
-          let contentLength = result.Headers['content-length'];
+          let contentLength = result.Headers["content-length"];
           let num = 0;
           if (contentLength > num && contentLength != null) {
             let responseStream = await result.Content.toString();
             entity = await JSON.parse(responseStream);
           }
         } catch (error) {
-          console.error('Exception deserializing ');
+          console.error("Exception deserializing ");
         } finally {
         }
       }
@@ -720,13 +720,13 @@ class CloudXInterface {
     this.Logout(false);
     this.OAuth.IsOAUTH = true;
     let credentials = new LoginCredentials();
-    credentials.userId = 'OAuth';
+    credentials.userId = "OAuth";
     credentials.sessionToken = token;
     credentials.secretMachineId = machineId || uuidv4();
     credentials.rememberMe = true;
 
     var result = await this.POST(
-      'api/userSessions',
+      "api/userSessions",
       credentials,
       new TimeSpan()
     );
@@ -741,7 +741,7 @@ class CloudXInterface {
       this.OnLogin();
     } else
       throw new Error(
-        'Error loging in: ' + result.State + '\n' + result.Content
+        "Error loging in: " + result.State + "\n" + result.Content
       );
     return result;
   }
@@ -771,11 +771,11 @@ class CloudXInterface {
     credentials.sessionToken = sessionToken;
     credentials.secretMachineId = secretMachineId;
     credentials.rememberMe = rememberMe;
-    if (credential.startsWith('U-')) credentials.ownerId = credential;
-    else if (credential.includes('@')) credentials.email = credential;
+    if (credential.startsWith("U-")) credentials.ownerId = credential;
+    else if (credential.includes("@")) credentials.email = credential;
     else credentials.username = credential;
     var result = await this.POST(
-      'api/userSessions',
+      "api/userSessions",
       credentials,
       new TimeSpan()
     );
@@ -793,12 +793,12 @@ class CloudXInterface {
       });
     } else
       throw new Error(
-        'Error loging in: ' + result.State + '\n' + result.Content
+        "Error loging in: " + result.State + "\n" + result.Content
       );
     return result;
   }
   async ExtendSession() {
-    return await this.PATCH('api/userSessions', {}, new TimeSpan());
+    return await this.PATCH("api/userSessions", {}, new TimeSpan());
   }
 
   /**
@@ -813,7 +813,7 @@ class CloudXInterface {
   async Register(username, email, password) {
     this.Logout(false);
     return await this.POST(
-      '/api/users',
+      "/api/users",
       new User({
         username,
         email,
@@ -831,7 +831,7 @@ class CloudXInterface {
    */
   async RequestRecoveryCode(email) {
     return await this.POST(
-      '/api/users/requestlostpassword',
+      "/api/users/requestlostpassword",
       new User({
         email,
       }),
@@ -841,7 +841,7 @@ class CloudXInterface {
   async UpdateCurrentUserInfo() {
     switch (this.CurrentUser.Id) {
       case null:
-        throw new Error('No current user!');
+        throw new Error("No current user!");
       default:
         let user = await this.GetUser(this.CurrentUser.Id);
         let entity = user.Entity;
@@ -872,17 +872,17 @@ class CloudXInterface {
     }
   }
   async GetUser(userId) {
-    return await this.GET('api/users/' + userId, new TimeSpan());
+    return await this.GET("api/users/" + userId, new TimeSpan());
   }
   async GetUserByName(username) {
     return await this.GET(
-      'api/users/' + username + '?byUsername=true',
+      "api/users/" + username + "?byUsername=true",
       new TimeSpan()
     );
   }
   async GetUsers(searchName) {
     return await this.GET(
-      'api/users?name=' + Uri.EscapeDataString(searchName),
+      "api/users?name=" + Uri.EscapeDataString(searchName),
       new TimeSpan()
     );
   }
@@ -898,7 +898,7 @@ class CloudXInterface {
       let _sessionToken = this.CurrentSession.SessionToken;
       (async () => {
         await this.DELETE(
-          'api/userSessions/' + _userId + '/' + _sessionToken,
+          "api/userSessions/" + _userId + "/" + _sessionToken,
           new TimeSpan()
         );
       })();
@@ -951,14 +951,14 @@ class CloudXInterface {
       let recordPath = new Out();
       if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
         return this.FetchRecordAtPath(ownerId.Out, recordPath.Out);
-      throw new Error('Uri is not a record URI');
+      throw new Error("Uri is not a record URI");
     } else {
       return this.GET(
-        'api/' +
+        "api/" +
           CloudXInterface.GetOwnerPath(ownerId) +
-          '/' +
+          "/" +
           ownerId +
-          '/records/' +
+          "/records/" +
           recordId,
         new TimeSpan()
       );
@@ -972,15 +972,15 @@ class CloudXInterface {
     var recordPath = [];
     if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
       return this.FetchRecordAtPath(ownerId.Out, recordPath.Out);
-    throw new Error('Uri is not a record URI');
+    throw new Error("Uri is not a record URI");
   }
   FetchRecordAtPath(ownerId, path) {
     return this.GET(
-      'api/' +
+      "api/" +
         CloudXInterface.GetOwnerPath(ownerId) +
-        '/' +
+        "/" +
         ownerId +
-        '/records/root/' +
+        "/records/root/" +
         path,
       new TimeSpan()
     );
@@ -988,15 +988,15 @@ class CloudXInterface {
   GetRecordsList(ids) {}
   GetRecordsFull(ownerId, tag = null, path = null) {
     let ownerPath = CloudXInterface.GetOwnerPath(ownerId);
-    let str = '';
-    if (tag != null) str = '?tag=' + Uri.EscapeDataString(tag);
-    if (path != null) str = '?path=' + Uri.EscapeDataString(path);
-    return this.GET('api/' + ownerPath + '/' + ownerId + '/records' + str);
+    let str = "";
+    if (tag != null) str = "?tag=" + Uri.EscapeDataString(tag);
+    if (path != null) str = "?path=" + Uri.EscapeDataString(path);
+    return this.GET("api/" + ownerPath + "/" + ownerId + "/records" + str);
   }
   GetRecords(a, b, c) {
     let type = Type.Get(a);
-    if (type == 'Array') return this.GetRecordsList(List.ToList(a));
-    if (type == 'List') return this.GetRecordsList(a);
+    if (type == "Array") return this.GetRecordsList(List.ToList(a));
+    if (type == "List") return this.GetRecordsList(a);
     return this.GetRecordsFull(a, b, c);
   }
   /**
@@ -1007,21 +1007,21 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   FindRecords(search) {
-    return this.POST('/api/records/pagedSearch', search, new TimeSpan());
+    return this.POST("/api/records/pagedSearch", search, new TimeSpan());
   }
   UpsertRecord(record) {
     let resource;
     switch (IdUtil.GetOwnerType(record.OwnerId)) {
       case OwnerType.User:
         resource =
-          'api/users/' + record.OwnerId + '/records/' + record.RecordId;
+          "api/users/" + record.OwnerId + "/records/" + record.RecordId;
         break;
       case OwnerType.Group:
         resource =
-          'api/groups/' + record.OwnerId + '/records/' + record.RecordId;
+          "api/groups/" + record.OwnerId + "/records/" + record.RecordId;
         break;
       default:
-        throw new Error('Invalid record owner');
+        throw new Error("Invalid record owner");
     }
     return this.PUT(resource, record, new TimeSpan());
   }
@@ -1030,22 +1030,22 @@ class CloudXInterface {
     switch (IdUtil.GetOwnerType(record.OwnerId)) {
       case OwnerType.User:
         resource =
-          'api/users/' +
+          "api/users/" +
           record.OwnerId +
-          '/records/' +
+          "/records/" +
           record.RecordId +
-          '/preprocess';
+          "/preprocess";
         break;
       case OwnerType.Group:
         resource =
-          'api/groups/' +
+          "api/groups/" +
           record.OwnerId +
-          '/records/' +
+          "/records/" +
           record.RecordId +
-          '/preprocess';
+          "/preprocess";
         break;
       default:
-        throw new Error('Invalid record owner');
+        throw new Error("Invalid record owner");
     }
     return this.POST(resource, record, new TimeSpan());
   }
@@ -1059,24 +1059,24 @@ class CloudXInterface {
     switch (IdUtil.GetOwnerType(record.OwnerId)) {
       case OwnerType.User:
         resource =
-          'api/users/' +
+          "api/users/" +
           record.OwnerId +
-          '/records/' +
+          "/records/" +
           record.RecordId +
-          '/preprocess/' +
+          "/preprocess/" +
           id;
         break;
       case OwnerType.Group:
         resource =
-          'api/groups/' +
+          "api/groups/" +
           record.OwnerId +
-          '/records/' +
+          "/records/" +
           record.RecordId +
-          '/preprocess/' +
+          "/preprocess/" +
           id;
         break;
       default:
-        throw new Error('Invalid record owner');
+        throw new Error("Invalid record owner");
     }
     return this.GET(resource, record, new TimeSpan());
   }
@@ -1086,7 +1086,7 @@ class CloudXInterface {
       ownerId = ownerId.OwnerId;
     }
     let result = await this.DELETE(
-      'api/users/' + ownerId + '/records/' + recordId,
+      "api/users/" + ownerId + "/records/" + recordId,
       new TimeSpan()
     );
     await this.UpdateStorage(ownerId);
@@ -1096,18 +1096,18 @@ class CloudXInterface {
     switch (IdUtil.GetOwnerType(ownerId)) {
       case OwnerType.User:
         return this.PUT(
-          'api/users/' + ownerId + '/records/' + recordId + '/tags',
+          "api/users/" + ownerId + "/records/" + recordId + "/tags",
           tag,
           new TimeSpan()
         );
       case OwnerType.Group:
         return this.PUT(
-          'api/groups/' + ownerId + '/records/' + recordId + '/tags',
+          "api/groups/" + ownerId + "/records/" + recordId + "/tags",
           tag,
           new TimeSpan()
         );
       default:
-        throw new Error('Invalid record owner');
+        throw new Error("Invalid record owner");
     }
   }
   async UpdateStorage(ownerId) {
@@ -1127,7 +1127,7 @@ class CloudXInterface {
     numArray = null;
   }
   async FetchGlobalAssetInfo(hash) {
-    return await this.GET('api/assets/' + hash.toLowerCase(), new TimeSpan());
+    return await this.GET("api/assets/" + hash.toLowerCase(), new TimeSpan());
   }
   async FetchUserAssetInfo(hash) {
     return await this.FetchAssetInfo(this.CurrentUser.Id, hash);
@@ -1136,47 +1136,47 @@ class CloudXInterface {
     switch (IdUtil.GetOwnerType(ownerId)) {
       case OwnerType.User:
         return await this.GET(
-          'api/users/' + ownerId + '/assets/' + hash,
+          "api/users/" + ownerId + "/assets/" + hash,
           new TimeSpan()
         );
       case OwnerType.Group:
         return await this.GET(
-          'api/groups/' + ownerId + '/assets/' + hash,
+          "api/groups/" + ownerId + "/assets/" + hash,
           new TimeSpan()
         );
       default:
-        throw new Error('Invalid ownerId');
+        throw new Error("Invalid ownerId");
     }
   }
   async RegisterAssetInfo(assetInfo) {
     switch (IdUtil.GetOwnerType(assetInfo.OwnerId)) {
       case OwnerType.User:
         return await this.PUT(
-          'api/users/' + assetInfo.OwnerId + '/assets/' + assetInfo.AssetHash,
+          "api/users/" + assetInfo.OwnerId + "/assets/" + assetInfo.AssetHash,
           assetInfo,
           new TimeSpan()
         );
       case OwnerType.Group:
         return await this.PUT(
-          'api/groups/' + assetInfo.OwnerId + '/assets/' + assetInfo.AssetHash,
+          "api/groups/" + assetInfo.OwnerId + "/assets/" + assetInfo.AssetHash,
           assetInfo,
           new TimeSpan()
         );
       default:
-        throw new Error('Invalid ownerId');
+        throw new Error("Invalid ownerId");
     }
   }
   GetAssetBaseURL(ownerId, hash, variant) {
     hash = hash.toLowerCase();
     let str = hash;
-    if (variant != null) str += '&' + variant;
+    if (variant != null) str += "&" + variant;
     switch (IdUtil.GetOwnerType(ownerId)) {
       case OwnerType.User:
-        return 'api/users/' + ownerId + '/assets/' + str;
+        return "api/users/" + ownerId + "/assets/" + str;
       case OwnerType.Group:
-        return 'api/groups/' + ownerId + '/assets/' + str;
+        return "api/groups/" + ownerId + "/assets/" + str;
       default:
-        throw new Error('Invalid ownerId');
+        throw new Error("Invalid ownerId");
     }
   }
   async UploadAsset(
@@ -1223,7 +1223,7 @@ class CloudXInterface {
         assetUpload.OwnerId,
         assetUpload.Signature,
         assetUpload.Variant
-      ) + '/chunks';
+      ) + "/chunks";
     let cloudResult;
     while (true) {
       cloudResult = await this.GET(baseUrl, new TimeSpan());
@@ -1245,47 +1245,47 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   UploadThumbnail(path) {
-    return this.POST_File('api/thumbnails', path, 'image/webp', null);
+    return this.POST_File("api/thumbnails", path, "image/webp", null);
   }
   ExtendThumbnailLifetime(thumbnail) {
-    return this.PATCH('api/thumbnails', thumbnail, new TimeSpan());
+    return this.PATCH("api/thumbnails", thumbnail, new TimeSpan());
   }
   DeleteThumbnail(thumbnail) {
     return this.DELETE(
-      'api/thumbnails/' + thumbnail.Id + '/' + thumbnail.Key,
+      "api/thumbnails/" + thumbnail.Id + "/" + thumbnail.Key,
       new TimeSpan()
     );
   }
   async GetGroup(groupId) {
-    return await this.GET('api/groups/' + groupId, new TimeSpan());
+    return await this.GET("api/groups/" + groupId, new TimeSpan());
   }
   async GetGroupCaches(groupId) {
     return await this.GetGroup(groupId);
   }
   async CreateGroup(group) {
-    return await this.POST('api/groups', group, new TimeSpan());
+    return await this.POST("api/groups", group, new TimeSpan());
   }
   async AddGroupMember(member) {
     return await this.POST(
-      'api/groups/' + member.GroupId + '/members',
+      "api/groups/" + member.GroupId + "/members",
       member,
       new TimeSpan()
     );
   }
   async DeleteGroupMember(member) {
     return await this.DELETE(
-      'api/groups/' + member.GroupId + '/members/' + member.UserId,
+      "api/groups/" + member.GroupId + "/members/" + member.UserId,
       new TimeSpan()
     );
   }
   async GetGroupMember(groupId, userId) {
     return await this.GET(
-      'api/groups/' + groupId + '/members/' + userId,
+      "api/groups/" + groupId + "/members/" + userId,
       new TimeSpan()
     );
   }
   async GetGroupMembers(groupId) {
-    return await this.GET('api/groups/' + groupId + '/members', new TimeSpan());
+    return await this.GET("api/groups/" + groupId + "/members", new TimeSpan());
   }
   async UpdateCurrentUserMemberships() {
     let groupMemberships = await this.GetUserGroupMemberships();
@@ -1295,7 +1295,7 @@ class CloudXInterface {
   async GetUserGroupMemberships(userId) {
     if (!userId) return await this.GetUserGroupMemberships(this.CurrentUser.Id);
     return await this.GET(
-      'api/users/' + userId + '/memberships',
+      "api/users/" + userId + "/memberships",
       new TimeSpan()
     );
   }
@@ -1329,7 +1329,7 @@ class CloudXInterface {
   }
   async UpsertSubmission(groupId, ownerId, recordId, feature = false) {
     return await this.PUT(
-      'api/groups/' + groupId + '/submissions',
+      "api/groups/" + groupId + "/submissions",
       new Submission(
         {
           groupId,
@@ -1342,18 +1342,18 @@ class CloudXInterface {
   }
   async DeleteSubmission(groupId, submissionId) {
     return await this.DELETE(
-      'api/groups/' + groupId + '/submissions/' + submissionId,
+      "api/groups/" + groupId + "/submissions/" + submissionId,
       new TimeSpan()
     );
   }
   static GetOwnerPath(ownerId) {
     switch (IdUtil.GetOwnerType(ownerId)) {
       case OwnerType.User:
-        return 'users';
+        return "users";
       case OwnerType.Group:
-        return 'groups';
+        return "groups";
       default:
-        throw new Error('Invalid Owner Type: ' + ownerId);
+        throw new Error("Invalid Owner Type: " + ownerId);
     }
   }
   /**
@@ -1365,11 +1365,11 @@ class CloudXInterface {
    */
   async UpsertVariableDefinition(definition) {
     return await this.PUT(
-      'api/' +
+      "api/" +
         CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) +
-        '/' +
+        "/" +
         definition.DefinitionOwnerId +
-        '/vardefs/' +
+        "/vardefs/" +
         definition.Subpath,
       definition,
       new TimeSpan()
@@ -1378,20 +1378,20 @@ class CloudXInterface {
     });
   }
   async ReadGlobalVariable(path) {
-    return await this.ReadVariable('GLOBAL', path);
+    return await this.ReadVariable("GLOBAL", path);
   }
   async ReadVariable(ownerId, path) {
     if (!path) return await this.ReadVariable(this.CurrentUser.Id, ownerId);
     let cloudXInterface = this;
     let resource;
-    if (ownerId == 'GLOBAL') resource = 'api/globalvars/' + path;
+    if (ownerId == "GLOBAL") resource = "api/globalvars/" + path;
     else
       resource =
-        'api/' +
+        "api/" +
         CloudXInterface.GetOwnerPath(ownerId) +
-        '/' +
+        "/" +
         ownerId +
-        '/vars/' +
+        "/vars/" +
         path;
     let cloudResult = await cloudXInterface.GET(resource, new TimeSpan());
     if (cloudResult.IsOK) {
@@ -1400,14 +1400,14 @@ class CloudXInterface {
           break;
         default:
           return new CloudResult(
-            'error',
+            "error",
             cloudResult.State,
             cloudResult.Content
           );
         //TODO Deserialize
       }
     }
-    return new CloudResult('default', cloudResult.State, cloudResult.Content);
+    return new CloudResult("default", cloudResult.State, cloudResult.Content);
   }
   SerializationErrorHandeler() {}
   /**
@@ -1423,11 +1423,11 @@ class CloudXInterface {
     if (!value)
       return await this.WriteVariable(this.CurrentUser.Id, ownerId, path);
     return await this.PUT(
-      'api/' +
+      "api/" +
         CloudXInterface.GetOwnerPath(ownerId) +
-        '/' +
+        "/" +
         ownerId +
-        '/vars/' +
+        "/vars/" +
         path,
       new CloudVariable(
         {
@@ -1440,7 +1440,7 @@ class CloudXInterface {
   async DeleteVariable(ownerId, path) {
     if (!path) return await this.DeleteVariable(this.CurrentUser.Id, ownerId);
     return await this.DELETE(
-      'api/' + CloudXInterface.GetOwnerPath(ownerId) + '/vars/' + path,
+      "api/" + CloudXInterface.GetOwnerPath(ownerId) + "/vars/" + path,
       new TimeSpan()
     );
   }
@@ -1451,7 +1451,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async LogVisit(visit) {
-    return await this.POST('api/visits', visit, new TimeSpan());
+    return await this.POST("api/visits", visit, new TimeSpan());
   }
   /**
    *
@@ -1460,7 +1460,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async CreateNeosSession(session) {
-    return await this.POST('api/neosSessions', session, new TimeSpan()).then(
+    return await this.POST("api/neosSessions", session, new TimeSpan()).then(
       (b) => {
         b.Content = new NeosSession(b.Entity);
         return b;
@@ -1474,7 +1474,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async PatchNeosSession(session) {
-    return await this.PATCH('api/neosSessions', session, new TimeSpan()).then(
+    return await this.PATCH("api/neosSessions", session, new TimeSpan()).then(
       (b) => {
         b.Content = new NeosSession(b.Entity);
         return b;
@@ -1490,7 +1490,7 @@ class CloudXInterface {
    */
   async GetStatus(userId) {
     return await this.GET(
-      'api/users/' + userId + '/status',
+      "api/users/" + userId + "/status",
       new TimeSpan()
     ).then((b) => {
       b.Content = new UserStatus(b.Entity);
@@ -1498,7 +1498,7 @@ class CloudXInterface {
     });
   }
   async GetRandomExitMessage() {
-    return await this.GET('api/exitMessage', new TimeSpan()).Entity;
+    return await this.GET("api/exitMessage", new TimeSpan()).Entity;
   }
   /**
    * Update the User Status
@@ -1515,7 +1515,7 @@ class CloudXInterface {
   async UpdateStatus(userId, status) {
     if (!status) return await this.UpdateStatus(this.CurrentUser.Id, userId);
     return await this.PUT(
-      'api/users/' + userId + '/status',
+      "api/users/" + userId + "/status",
       status,
       new TimeSpan()
     );
@@ -1537,7 +1537,7 @@ class CloudXInterface {
       return await this.UpdateProfile(this.CurrentUser.Id);
     }
     return await this.PUT(
-      'api/users/' + userId + '/profile',
+      "api/users/" + userId + "/profile",
       profile,
       new TimeSpan()
     );
@@ -1552,13 +1552,13 @@ class CloudXInterface {
    */
   async GetFriends(userId, lastStatusUpdate = null, count = 0) {
     if (count > 10) return new List();
-    if (typeof userId != 'string')
+    if (typeof userId != "string")
       return await this.GetFriends(this.CurrentUser.Id, userId, ++count);
-    let str = '';
+    let str = "";
     if (lastStatusUpdate)
-      str += '?lastStatusUpdate=' + encodeURI(lastStatusUpdate.toUTCString());
+      str += "?lastStatusUpdate=" + encodeURI(lastStatusUpdate.toUTCString());
     return await this.GET(
-      'api/users/' + userId + '/friends' + str,
+      "api/users/" + userId + "/friends" + str,
       new TimeSpan()
     ).then((b) => {
       let a = new List();
@@ -1576,11 +1576,11 @@ class CloudXInterface {
    */
   async UpsertFriend(friend) {
     if (String.IsNullOrWhiteSpace(friend.OwnerId))
-      throw new Error('Argument Acception: friend.OwnerId');
+      throw new Error("Argument Acception: friend.OwnerId");
     if (String.IsNullOrWhiteSpace(friend.FriendUserId))
-      throw new Error('Argument Acception: friend.FriendUserId');
+      throw new Error("Argument Acception: friend.FriendUserId");
     return await this.PUT(
-      'api/users/' + friend.OwnerId + '/friends/' + friend.FriendUserId,
+      "api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId,
       friend,
       new TimeSpan()
     );
@@ -1594,11 +1594,11 @@ class CloudXInterface {
    */
   async DeleteFriend(friend) {
     if (String.IsNullOrWhiteSpace(friend.OwnerId))
-      throw new Error('Argument Acception: friend.OwnerId');
+      throw new Error("Argument Acception: friend.OwnerId");
     if (String.IsNullOrWhiteSpace(friend.FriendUserId))
-      throw new Error('Argument Acception: friend.FriendUserId');
+      throw new Error("Argument Acception: friend.FriendUserId");
     return await this.DELETE(
-      'api/users/' + friend.OwnerId + '/friends/' + friend.FriendUserId,
+      "api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId,
       friend,
       new TimeSpan()
     );
@@ -1612,21 +1612,21 @@ class CloudXInterface {
    */
   async SendMessage(message) {
     return await this.POST(
-      'api/users/' + message.RecipientId + '/messages',
+      "api/users/" + message.RecipientId + "/messages",
       message,
       new TimeSpan()
     );
   }
   async SendTransaction(transaction) {
     return this.POST(
-      'api/transactions/' + transaction.Token,
+      "api/transactions/" + transaction.Token,
       transaction,
       new TimeSpan()
     );
   }
   async RequestDepositAddress() {
     return this.GET(
-      'api/users/' + this.CurrentUser.Id + '/despositAddress',
+      "api/users/" + this.CurrentUser.Id + "/despositAddress",
       new TimeSpan()
     );
   }
@@ -1669,12 +1669,12 @@ class CloudXInterface {
       );
     if (user != null)
       stringBuilder.Append(`&user=${Uri.EscapeDataString(user)}`);
-    if (unreadOnly) stringBuilder.Append('&unread=true');
+    if (unreadOnly) stringBuilder.Append("&unread=true");
     return await this.GET(
       `api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`,
       new TimeSpan()
     ).then((b) => {
-      if (!b.Entity) return b
+      if (!b.Entity) return b;
       let a = new List();
       for (let item of b.Entity) a.Add(new Message(item));
       b.Content = a;
@@ -1690,13 +1690,13 @@ class CloudXInterface {
    */
   async MarkMessagesRead(messageIds) {
     switch (messageIds[0].constructor.name) {
-      case 'String':
+      case "String":
         return await this.PATCH(
-          'api/users/' + this.CurrentUser.Id + '/messages',
+          "api/users/" + this.CurrentUser.Id + "/messages",
           messageIds,
           new TimeSpan()
         );
-      case 'Message':
+      case "Message":
         return await this.MarkMessagesRead(messageIds.map((m) => m.Id));
     }
   }
@@ -1708,7 +1708,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async UpdateSessions(update) {
-    return await this.PUT('api/sessions/', update, new TimeSpan());
+    return await this.PUT("api/sessions/", update, new TimeSpan());
   }
   /**
    *
@@ -1718,7 +1718,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async GetSession(sessionId) {
-    return await this.GET('api/sessions/' + sessionId, new TimeSpan()).then(
+    return await this.GET("api/sessions/" + sessionId, new TimeSpan()).then(
       (b) => new SessionInfo(b.Entity)
     );
   }
@@ -1730,18 +1730,18 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async Ping() {
-    return await this.GET('api/testing/ping', new TimeSpan());
+    return await this.GET("api/testing/ping", new TimeSpan());
   }
   NotifyOnlineInstance(machineId) {
     return this.POST(
-      'api/stats/instanceOnline/' + machineId,
+      "api/stats/instanceOnline/" + machineId,
       {},
       new TimeSpan()
     );
   }
   async GetOnlineInstanceCount(machineId) {
     let cloudResult = await this.GET(
-      'api/stats/onlineInstances/',
+      "api/stats/onlineInstances/",
       new TimeSpan()
     );
     let result = new Out();
@@ -1760,13 +1760,13 @@ class CloudXInterface {
     try {
       var request = new HttpRequestMessage(
         HttpMethod.Get,
-        'https://cloudxstorage.blob.core.windows.net/install/ServerResponse'
+        "https://cloudxstorage.blob.core.windows.net/install/ServerResponse"
       );
       return await this.HttpClient.SendAsync(request).then(
         (httpResponseMessage) => {
           if (!httpResponseMessage.IsSuccessStatusCode)
             return new CloudResult(null, httpResponseMessage.StatusCode, null);
-          let contentLength = httpResponseMessage.Headers['content-length'];
+          let contentLength = httpResponseMessage.Headers["content-length"];
           let num = 0;
           if (!(contentLength > num)) return null;
           return new CloudResult(
@@ -1788,7 +1788,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async GetOnlineUserCount() {
-    let cloudResult = await this.GET('api/stats/onlineUsers', new TimeSpan());
+    let cloudResult = await this.GET("api/stats/onlineUsers", new TimeSpan());
     return !cloudResult.IsOK || !Number.parseInt(cloudResult.Content)
       ? -1
       : Number.parseInt(cloudResult.Content);

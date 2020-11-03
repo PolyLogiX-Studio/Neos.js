@@ -1,5 +1,5 @@
 class License {
-  /**
+	/**
    *Creates an instance of License.
    * @param {{
    * licenseGroup: string,
@@ -8,13 +8,13 @@ class License {
    * }} $b
    * @memberof License
    */
-  constructor($b) {
-    if (!$b) $b = {};
-    this.LicenseGroup = $b.licenseGroup;
-    this.LicenseKey = $b.licenseKey;
-    this.PairedMachineUUID = $b.PairedMachineUUID;
-  }
+	constructor($b) {
+		if (!$b) $b = {};
+		this.LicenseGroup = $b.licenseGroup;
+		this.LicenseKey = $b.licenseKey;
+		this.PairedMachineUUID = $b.PairedMachineUUID;
+	}
 }
 module.exports = {
-  License,
+	License,
 };

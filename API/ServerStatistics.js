@@ -1,5 +1,5 @@
 class ServerStatistics {
-  /**
+	/**
    *Creates an instance of ServerStatistics.
    * @param {{
    * lastUpdate: Date,
@@ -7,12 +7,12 @@ class ServerStatistics {
    * }} $b
    * @memberof ServerStatistics
    */
-  constructor($b) {
-    if (!$b) $b = {};
-    this.LastUpdate = $b.lastUpdate;
-    this.ResponseTimeMilliseconds = $b.responseTimeMilliseconds;
-  }
+	constructor($b) {
+		if (!$b) $b = {};
+		this.LastUpdate = $b.lastUpdate;
+		this.ResponseTimeMilliseconds = $b.responseTimeMilliseconds;
+	}
 }
 module.exports = {
-  ServerStatistics,
+	ServerStatistics,
 };

@@ -1,5 +1,5 @@
 class NeosDBAsset {
-  /**
+	/**
    *Creates an instance of NeosDBAsset.
    * @param {{
    * hash: string,
@@ -7,12 +7,12 @@ class NeosDBAsset {
    * }} $b
    * @memberof NeosDBAsset
    */
-  constructor($b) {
-    if (!$b) $b = {};
-    this.Hash = $b.hash;
-    this.Bytes = $b.bytes;
-  }
+	constructor($b) {
+		if (!$b) $b = {};
+		this.Hash = $b.hash;
+		this.Bytes = $b.bytes;
+	}
 }
 module.exports = {
-  NeosDBAsset,
+	NeosDBAsset,
 };

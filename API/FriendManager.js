@@ -1,8 +1,8 @@
-const { Type } = require('./Type');
-const { Out } = require('./Out');
-const { Dictionary } = require('./Dictionary');
-const { SessionAccessLevel } = require('./SessionAccessLevel');
-const { Friend } = require('./Friend');
+const { Type } = require("./Type");
+const { Out } = require("./Out");
+const { Dictionary } = require("./Dictionary");
+const { SessionAccessLevel } = require("./SessionAccessLevel");
+const { Friend } = require("./Friend");
 class FriendManager {
   static UPDATE_PERIOD_SECONDS = 5;
   constructor(cloud) {
@@ -64,12 +64,12 @@ class FriendManager {
    */
   GetFriends(friendId) {
     switch (Type.Get(friendId)) {
-      case 'List':
+      case "List":
         for (let friend of this.friends) {
           friendId.Add(friend.Value);
         }
         break;
-      case 'String':
+      case "String":
         let friend = new Out();
         if (this.friends.TryGetValue(friendId, friend)) return friend.Out;
         return null;
@@ -126,7 +126,7 @@ class FriendManager {
   IsFriend(userId) {
     let friend = new Out();
     if (this.friends.TryGetValue(userId, friend))
-      return friend.Out.FriendStatus == 'Accepted';
+      return friend.Out.FriendStatus == "Accepted";
     return false;
   }
   /**
@@ -137,18 +137,18 @@ class FriendManager {
    */
   AddFriend(friend) {
     switch (Type.Get(friend)) {
-      case 'String':
+      case "String":
         this.AddFriend(
           new Friend({
             id: friend,
             friendUsername: friend.substr(2),
-            friendStatus: 'Accepted',
+            friendStatus: "Accepted",
           })
         );
         break;
-      case 'Friend':
+      case "Friend":
         friend.OwnerId = this.Cloud.CurrentUser.Id;
-        friend.FriendStatus = 'Accepted';
+        friend.FriendStatus = "Accepted";
         this.Cloud.UpsertFriend(friend);
         this.AddedOrUpdated(friend);
         break;
@@ -156,13 +156,13 @@ class FriendManager {
   }
   RemoveFriend(friend) {
     friend.OwnerId = this.Cloud.CurrentUser.Id;
-    friend.FriendStatus = 'Ignored';
+    friend.FriendStatus = "Ignored";
     this.Cloud.DeleteFriend(friend);
     this.Removed(friend);
   }
   IgnoreRequest(friend) {
     friend.OwnerId = this.Cloud.CurrentSession.UserId;
-    friend.FriendStatus = 'Ignored';
+    friend.FriendStatus = "Ignored";
     this.Cloud.UpsertFriend(friend);
     this.AddedOrUpdated(friend);
   }
@@ -216,7 +216,7 @@ class FriendManager {
       this._friendsChanged = false;
       let num;
       num = this.friends.filter((f) => {
-        if (f.Value.FriendStatus == 'Requested')
+        if (f.Value.FriendStatus == "Requested")
           return f.Value.FriendUserId != this.Cloud.CurrentUser.Id;
         return false;
       }).length;

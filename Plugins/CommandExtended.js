@@ -17,15 +17,15 @@ class CommandExtended {
    */
   constructor(CommandHandler, Options = {}) {
     this.Options = {};
-    this.Options.Prefix = Options.Prefix || '/';
-    this.Options.HelpCommand = Options.HelpCommand || 'help';
-    this.Options.UsageCommand = Options.UsageCommand || 'usage';
-    this.Options.CommandsCommand = Options.CommandsCommand || 'commands';
+    this.Options.Prefix = Options.Prefix || "/";
+    this.Options.HelpCommand = Options.HelpCommand || "help";
+    this.Options.UsageCommand = Options.UsageCommand || "usage";
+    this.Options.CommandsCommand = Options.CommandsCommand || "commands";
     this.Options.HelpDefault = this.Options.CommandsCommand
       ? `Get a list of commands with ${
           this.Options.Prefix + this.Options.CommandsCommand
         }.`
-      : 'No Help Available, Contact the Bot Owner';
+      : "No Help Available, Contact the Bot Owner";
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
     this.HelpData = {
@@ -36,19 +36,19 @@ class CommandExtended {
     };
     if (this.Options.CommandsCommand)
       this.HelpData[this.Options.CommandsCommand] = new HelpObject({
-        index: 'Get a list of commands',
+        index: "Get a list of commands",
         usage: `${this.Options.Prefix + this.Options.CommandsCommand} [Page]`,
       });
     if (this.Options.HelpCommand)
       this.HelpData[this.Options.HelpCommand] = new HelpObject({
-        index: 'Get help for a command',
+        index: "Get help for a command",
         usage: `${
           this.Options.Prefix + this.Options.HelpCommand
         } Command [Help Page (index, usage, ...)]`,
       });
     if (this.Options.UsageCommand)
       this.HelpData[this.Options.UsageCommand] = new HelpObject({
-        index: 'Get usage for a command',
+        index: "Get usage for a command",
         usage: `${
           this.Options.Prefix + this.Options.UsageCommand
         } Command [Help Arguments?]`,
@@ -104,7 +104,7 @@ class CommandExtended {
       context = this.CommandHandler.CommandHandlerExtended;
     }
     let prefix = context.Options.Prefix;
-    let commandData = Message.Content.trim().split(' ');
+    let commandData = Message.Content.trim().split(" ");
     commandData.shift(); // remove Help from the command
     let Command = commandData.shift();
     let Args = commandData;
@@ -112,17 +112,17 @@ class CommandExtended {
     if (helpObject == null)
       return context.CommandHandler.Neos.SendTextMessage(
         Message.SenderId,
-        'No Help Available'
+        "No Help Available"
       );
 
     let Help = helpObject.GetHelp(Args.shift());
     switch (typeof Help) {
-      case 'function':
+      case "function":
         return context.CommandHandler.Neos.SendTextMessage(
           Message.SenderId,
           await Help(Args)
         );
-      case 'string':
+      case "string":
         return context.CommandHandler.Neos.SendTextMessage(
           Message.SenderId,
           Help
@@ -141,7 +141,7 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended;
     }
-    let commandData = Message.Content.trim().split(' ');
+    let commandData = Message.Content.trim().split(" ");
     commandData.shift(); // remove Usage from the command
     let Command = commandData.shift();
     let Args = commandData;
@@ -149,17 +149,17 @@ class CommandExtended {
     if (helpObject == null)
       return context.CommandHandler.Neos.SendTextMessage(
         Message.SenderId,
-        'Command ' + Command + ' Not Found'
+        "Command " + Command + " Not Found"
       );
 
-    let Help = helpObject.GetHelp('usage');
+    let Help = helpObject.GetHelp("usage");
     switch (typeof Help) {
-      case 'function':
+      case "function":
         return context.CommandHandler.Neos.SendTextMessage(
           Message.SenderId,
           await Help(Args)
         );
-      case 'string':
+      case "string":
         return context.CommandHandler.Neos.SendTextMessage(
           Message.SenderId,
           Help
@@ -179,13 +179,13 @@ class CommandExtended {
       context = this.CommandHandler.CommandHandlerExtended;
     }
     let prefix = context.Options.Prefix;
-    let commandData = Message.Content.trim().split(' ');
+    let commandData = Message.Content.trim().split(" ");
     commandData.shift(); // remove Help from the command
     let Index = commandData.shift() || 1;
     if (Number.isNaN(Number(Index)))
       return context.CommandHandler.Neos.SendTextMessage(
         Message.SenderId,
-        'Invalid Argument, Expecter Integer, got String'
+        "Invalid Argument, Expecter Integer, got String"
       );
     if (!context.CommandListInfo)
       context.CommandListInfo = new CommandHelper(context);
@@ -206,12 +206,12 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended;
     }
-    if (Message.MessageType != 'Text')
+    if (Message.MessageType != "Text")
       return context.CommandHandler.Neos.SendTextMessage(
         Message.SenderId,
-        'I am only configured to handle Text messages.'
+        "I am only configured to handle Text messages."
       );
-    switch (Message.Content.trim().split(' ')[0].toLowerCase()) {
+    switch (Message.Content.trim().split(" ")[0].toLowerCase()) {
       case context.Options.Prefix + context.Options.HelpCommand:
         context.Help(Message);
         break;
@@ -229,27 +229,27 @@ class CommandExtended {
 class HelpObject {
   constructor(help) {
     this.HelpData = {};
-    if (typeof help == 'string') {
-      this.HelpData['index'] = help;
-      this.HelpData['usage'] = 'Usage Not Available';
+    if (typeof help == "string") {
+      this.HelpData["index"] = help;
+      this.HelpData["usage"] = "Usage Not Available";
       return this;
     }
     for (let index in help)
-      this.HelpData[index.trim().replace(' ', '_')] = help[index];
+      this.HelpData[index.trim().replace(" ", "_")] = help[index];
     return this;
   }
   GetHelp(index) {
-    if (index == null) index = 'index';
+    if (index == null) index = "index";
     let help = this.HelpData[index];
     if (help == null)
       help =
-        'Additional Argument Required: ' +
-        Object.keys(this.HelpData).join(', ');
+        "Additional Argument Required: " +
+        Object.keys(this.HelpData).join(", ");
 
     return help;
   }
 }
-const util = require('util');
+const util = require("util");
 class CommandHelper {
   static MSG_LENGTH_MAX = 105;
   static CMD_PER_PAGE = 6;
@@ -298,16 +298,16 @@ class CommandHelper {
         commands + 1 > CommandHelper.CMD_PER_PAGE
       ) {
         commands = 0;
-        CurrentPage += '<br>Page %d - %d';
+        CurrentPage += "<br>Page %d - %d";
         this.CommandPages.push(CurrentPage);
         CurrentPage = new String();
         continue;
       }
-      CurrentPage += command + '<br>';
+      CurrentPage += command + "<br>";
       commands++;
     }
     if (CurrentPage != new String()) {
-      CurrentPage += '<br>Page %d - %d';
+      CurrentPage += "<br>Page %d - %d";
       this.CommandPages.push(CurrentPage);
     }
   }

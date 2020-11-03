@@ -1,8 +1,8 @@
-const { Enumerable } = require('./Enumerable');
+const { Enumerable } = require("./Enumerable");
 const AssetVariantEntityType = new Enumerable([
-  'BitmapMetadata',
-  'BitmapVariant',
+	"BitmapMetadata",
+	"BitmapVariant",
 ]);
 module.exports = {
-  AssetVariantEntityType,
+	AssetVariantEntityType,
 };

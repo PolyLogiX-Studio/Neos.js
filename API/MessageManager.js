@@ -1,9 +1,9 @@
-const { Message } = require('./Message');
-const { TransactionMessage } = require('./TransactionMessage');
-const { Dictionary } = require('./Dictionary');
-const { List } = require('./List');
-const { HashSet } = require('./HashSet');
-const { Out } = require('./Out');
+const { Message } = require("./Message");
+const { TransactionMessage } = require("./TransactionMessage");
+const { Dictionary } = require("./Dictionary");
+const { List } = require("./List");
+const { HashSet } = require("./HashSet");
+const { Out } = require("./Out");
 class MessageManager {
   constructor(cloud) {
     this.lastRequest;
@@ -91,7 +91,7 @@ class MessageManager {
           if (!hashSet.includes(message)) {
             if (
               this.InitialmessagesFetched &&
-              message.MessageType == 'CreditTransfer'
+              message.MessageType == "CreditTransfer"
             ) {
               let content = message.ExtractContent();
               let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id;
@@ -166,7 +166,7 @@ class MessageManager {
           writable: false,
         },
         _lock: {
-          value: 'MessageManager.UserMessages._lock',
+          value: "MessageManager.UserMessages._lock",
           writable: false,
         },
         _historyLoadTask: {
@@ -204,7 +204,7 @@ class MessageManager {
     }
     CreateTextMessage(text) {
       let message = new Message();
-      message.MessageType = 'Text';
+      message.MessageType = "Text";
       message.Content = text;
       return message;
     }
@@ -212,7 +212,7 @@ class MessageManager {
       let message = new Message();
       message.Id = Message.GenerateId();
       message.SendTime = new Date();
-      message.MessageType = 'SessionInvite';
+      message.MessageType = "SessionInvite";
       message.SetContent(sessionInfo);
       return message;
     }
@@ -226,7 +226,7 @@ class MessageManager {
       message.RecipientId = this.UserId;
       message.SenderId = message.OwnerId;
       message.SendTime = new Date();
-      message.MessageType = 'CreditTransfer';
+      message.MessageType = "CreditTransfer";
       let _transaction = new TransactionMessage();
       _transaction.Token = token;
       _transaction.Amount = amount;
