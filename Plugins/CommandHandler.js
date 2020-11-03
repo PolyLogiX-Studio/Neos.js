@@ -22,12 +22,13 @@ class EventQueue {
    * @param {*} Handler
    * @memberof EventQueue
    */
-	Add(Command, Sender, Args, Handler) {
+	Add(Command, Sender, Args, Handler, Extra) {
 		this.Queue.push({
 			Command,
 			Sender,
 			Args,
 			Handler,
+			Extra
 		});
 		this.RunQueue(); // Disable Queue Interval for now
 	}
@@ -44,7 +45,8 @@ class EventQueue {
 		this.CommandHandler.Commands[Command.Command].Run(
 			Command.Sender,
 			Command.Args,
-			Command.Handler
+			Command.Handler,
+			Command.Extra
 		);
 	}
 }
@@ -54,6 +56,7 @@ class EventQueue {
  */
 class CommandHandler {
 	constructor(NeosJS, Invalid = "Invalid Command") {
+		this.Handler = Handler
 		this.Neos = NeosJS;
 		this.Invalid = Invalid;
 		this.Neos.CommandHandler = this;
@@ -66,7 +69,7 @@ class CommandHandler {
    * @param {{Id,OwnerId,RecipientId,SenderId,MessageType,Content,SendTime,LastUpdateTime,ReadTime}} Message
    * @memberof CommandHandler
    */
-	Run(Message) {
+	Run(Message, Extra) {
 		var context;
 		if (this instanceof CommandHandler) {
 			context = this;
@@ -81,7 +84,7 @@ class CommandHandler {
 				Command,
 				Message.SenderId,
 				args,
-				new Handler(context.Neos, Message.SenderId)
+				new this.Handler(context.Neos, context, Message, Extra)
 			);
 		} else {
 			context.Neos.SendTextMessage(Message.SenderId, context.Invalid);
@@ -113,15 +116,14 @@ class CommandHandler {
  * @class Handler
  */
 class Handler {
-	/**
-   *Creates an instance of Handler.
-   * @param {Object} Neos
-   * @param {String} Sender
-   * @memberof Handler
-   */
-	constructor(Neos, Sender) {
+	
+
+
+	constructor(Neos, Context, Message, Extra) {
 		this.Neos = Neos;
-		this.Sender = Sender;
+		this.Message = Message;
+		this.Context = Context
+		this.Extra = Extra // Modding Support Extra Variable Passthrough
 	}
 	/**
    *
@@ -130,7 +132,7 @@ class Handler {
    * @memberof Handler
    */
 	Reply(Message) {
-		this.Neos.SendTextMessage(this.Sender, Message);
+		this.Neos.SendTextMessage(this.Message.SenderId, Message);
 	}
 }
 /**
