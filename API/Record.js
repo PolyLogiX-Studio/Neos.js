@@ -47,7 +47,7 @@ class Record extends IRecord {
 		return recordId.startsWith("R-");
 	}
 	get IsValidOwnerId() {
-		return IdUtil.GetOwnerType(this.OwnerName) != OwnerType.INVALID;
+		return IdUtil.GetOwnerType(this.OwnerName) !== OwnerType.INVALID;
 	}
 	get IsValidRecordId() {
 		return RecordUtil.IsValidRecordID(this.RecordId);

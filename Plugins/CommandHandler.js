@@ -4,7 +4,8 @@
  * @param {String} [Sender] U-ID of the user who triggered the command
  * @param {Array<String>} [Args] Arguments to the Command
  */
-function HandlerCallback(Handler, Sender, Args) {}
+function HandlerCallback(Handler, Sender, Args) {
+}
 
 class EventQueue {
 	constructor(CommandHandler) {

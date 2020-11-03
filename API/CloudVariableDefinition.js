@@ -20,7 +20,7 @@ class CloudVariableDefinition {
 	CanWrite(variableOwnerId, writerId) {
 		return (
 			this.AnyoneCanWrite ||
-      (this.VariableOwnerCanWrite && variableOwnerId == writerId) ||
+      (this.VariableOwnerCanWrite && variableOwnerId === writerId) ||
       writerId === this.DefinitionOwnerId
 		);
 	}

@@ -39,6 +39,9 @@ const { UserStatus } = require("./UserStatus");
 const Path = require("path");
 const fs = require("fs");
 const { UploadState } = require("./UploadState");
+const { Submission } = require("./Submission");
+const { RecordId } = require("./RecordId");
+const { CloudVariable } = require("./CloudVariable");
 /**
  *
  *
@@ -1132,9 +1135,9 @@ class CloudXInterface {
     let numArray = CloudXInterface.storageUpdateDelays;
     for (let index = 0; index < numArray.length; index++) {
       await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
-      if (this.CurrentUser.Id != _signedUserId) return;
+      if (this.CurrentUser.Id !== _signedUserId) return;
       if (ownerType === OwnerType.User) {
-        cloudResult = await this.UpdateCurrentUserInfo();
+        let cloudResult = await this.UpdateCurrentUserInfo();
       } else {
         await this.UpdateGroupInfo(ownerId);
       }
@@ -1786,7 +1789,7 @@ class CloudXInterface {
           let num = 0;
           if (!(contentLength > num)) return null;
           return new CloudResult(
-            undefined,
+            null,
             200,
             new ServerStatistics(httpResponseMessage.Content)
           );

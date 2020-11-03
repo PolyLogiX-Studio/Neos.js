@@ -15,8 +15,8 @@ class RecordHelper {
 		return false;
 	}
 	static IsSameRecord(record, other) {
-		if (record.OwnerId == other.OwnerId)
-			return record.RecordId == other.RecordId;
+		if (record.OwnerId === other.OwnerId)
+			return record.RecordId === other.RecordId;
 		return false;
 	}
 

@@ -191,7 +191,7 @@ class MessageManager {
       if (this.UnreadCount === 0) return;
       ids = new Array();
       for (let message of this.Messages) {
-        if (!message.IsSent && !(message.ReadTime != undefined)) {
+        if (!message.IsSent && !(message.ReadTime != null)) {
           message.ReadTime = new Date();
           ids.push(message.Id);
         }
