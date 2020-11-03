@@ -126,7 +126,7 @@ class FriendManager {
   IsFriend(userId) {
     let friend = new Out();
     if (this.friends.TryGetValue(userId, friend))
-      return friend.Out.FriendStatus == "Accepted";
+      return friend.Out.FriendStatus === "Accepted";
     return false;
   }
   /**
@@ -205,7 +205,9 @@ class FriendManager {
   Reset() {
     for (let friend of this.friends) {
       let friendRemoved = this.FriendRemoved;
-      if (friendRemoved != null) friendRemoved(friend.Value);
+      if (friendRemoved != null) {
+        friendRemoved(friend.Value);
+      }
     }
     this.friends.Clear();
     this.lastStatusUpdate = new Date(0);
@@ -216,7 +218,7 @@ class FriendManager {
       this._friendsChanged = false;
       let num;
       num = this.friends.filter((f) => {
-        if (f.Value.FriendStatus == "Requested")
+        if (f.Value.FriendStatus === "Requested")
           return f.Value.FriendUserId != this.Cloud.CurrentUser.Id;
         return false;
       }).length;
@@ -226,7 +228,7 @@ class FriendManager {
         if (friend.Value.UserStatus.ActiveSessions != null) {
           for (let activeSession in friend.Value.UserStatus.ActiveSessions) {
             if (
-              activeSession.AccessLevel == SessionAccessLevel.Friends &&
+              activeSession.AccessLevel === SessionAccessLevel.Friends &&
               !this._friendSessions.ContainsKey(activeSession.SessionId)
             )
               this._friendSessions.Add(activeSession.SessionId, activeSession);

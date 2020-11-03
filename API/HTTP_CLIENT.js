@@ -35,7 +35,7 @@ class HTTP_CLIENT {
 					try {
 						if (
 							body == null ||
-              body == "" ||
+              body === "" ||
               !~resHeaders.get("content-type").indexOf("application/json")
 						)
 							return {};

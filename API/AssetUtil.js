@@ -39,7 +39,7 @@ class AssetUtil {
    * @memberof AssetUtil
    */
 	static ExtractSignature(uri, extension = new Out()) {
-		if (uri.Scheme != "neosdb") throw new Error("Not a NeosDB URI");
+		if (uri.Scheme !== "neosdb") throw new Error("Not a NeosDB URI");
 		let segment = uri.Segments[1];
 		extension.Out = Path.GetExtension(segment);
 		return Path.GetFileNameWithoutExtension(segment);

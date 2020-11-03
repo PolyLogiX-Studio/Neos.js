@@ -24,7 +24,7 @@ class UserStatus {
 	get CurrentSession() {
 		let activeSessions = this.ActiveSessions;
 		if (activeSessions == null) return null;
-		return activeSessions.find((s) => s.SessionId == this.CurrentSessionId);
+		return activeSessions.find((s) => s.SessionId === this.CurrentSessionId);
 	}
 	/**
    *
@@ -35,11 +35,12 @@ class UserStatus {
 	IsSame(other) {
 		if (
 			other == null ||
-      this.OnlineStatus != other.OnlineStatus ||
-      this.CurrentSessionId != other.CurrentSessionId
+      this.OnlineStatus !== other.OnlineStatus ||
+      this.CurrentSessionId !== other.CurrentSessionId
 		)
 			return false;
 		return true; //TODO remove when implimented
+		/**
 		let activeSessions1 = this.ActiveSessions;
 		let num1 = activeSessions1 != null ? activeSessions1.Count : 0;
 		let activeSessions2 = this.ActiveSessions;
@@ -52,6 +53,7 @@ class UserStatus {
 				return false;
 		}
 		return true;
+		*/
 	}
 	SortSessions() {
 		if (this.ActiveSessions == null) return;

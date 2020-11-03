@@ -62,12 +62,12 @@ class SearchParameters {
 
 		if (
 			(!excludeOffsetAndCount &&
-        (this.Count != other.Count || this.Offset != other.Offset)) ||
-      this.Private != other.Private ||
-      this.ByOwner != other.ByOwner ||
-      this.OwnerType != other.OwnerType ||
-      this.SubmittedTo != other.SubmittedTo ||
-      this.RecordType != other.RecordType
+        (this.Count !== other.Count || this.Offset !== other.Offset)) ||
+      this.Private !== other.Private ||
+      this.ByOwner !== other.ByOwner ||
+      this.OwnerType !== other.OwnerType ||
+      this.SubmittedTo !== other.SubmittedTo ||
+      this.RecordType !== other.RecordType
 		)
 			return false;
 		let nullable1 = this.MinDate;
@@ -75,7 +75,7 @@ class SearchParameters {
 		if (
 			(((nullable1 != null) == nullable2) != null
 				? nullable1 != null
-					? nullable1 != nullable2
+					? nullable1 !== nullable2
 						? 1
 						: 0
 					: 0
@@ -87,14 +87,14 @@ class SearchParameters {
 		if (
 			(((nullable2 != null) == nullable1) != null
 				? nullable2 != null
-					? nullable2 != nullable1
+					? nullable2 !== nullable1
 						? 1
 						: 0
 					: 0
 				: 1) != 0 ||
-      this.SortBy != other.SortBy ||
-      this.OnlyFeatured != other.OnlyFeatured ||
-      this.SortDirection != other.SortDirection
+      this.SortBy !== other.SortBy ||
+      this.OnlyFeatured !== other.OnlyFeatured ||
+      this.SortDirection !== other.SortDirection
 		)
 			return false;
 		this.Normalize();
@@ -111,7 +111,7 @@ class SearchParameters {
 		let num2 = b != null ? b.Count : 0;
 		if (num1 != num2) return false;
 		for (let index = 0; index < num1; index++) {
-			if (a[index] != b[index]) return false;
+			if (a[index] !== b[index]) return false;
 		}
 		return true;
 	}

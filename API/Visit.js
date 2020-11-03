@@ -1,7 +1,7 @@
 const { Uri } = require("./Uri");
 String.IsNullOrWhiteSpace = function (str) {
 	if (!str) return true;
-	if (str.trim() == "") return true;
+	if (str.trim() === "") return true;
 	return false;
 };
 class Visit {

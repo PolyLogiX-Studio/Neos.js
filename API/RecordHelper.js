@@ -2,16 +2,16 @@ const { RecordUtil } = require("./RecordUtil");
 class RecordHelper {
 	static IsSameVersion(record, other) {
 		if (
-			record.LastModifyingMachineId == other.LastModifyingMachineId &&
-      record.LastModifyingUserId == other.LastModifyingUserId
+			record.LastModifyingMachineId === other.LastModifyingMachineId &&
+      record.LastModifyingUserId === other.LastModifyingUserId
 		)
-			return record.LocalVersion == other.LocalVersion;
+			return record.LocalVersion === other.LocalVersion;
 		if (
-			record.LocalVersion == other.LocalVersion &&
-      record.GlobalVersion == other.GlobalVersion &&
-      record.LastModifyingMachineId == other.LastModifyingMachineId
+			record.LocalVersion === other.LocalVersion &&
+      record.GlobalVersion === other.GlobalVersion &&
+      record.LastModifyingMachineId === other.LastModifyingMachineId
 		)
-			return record.LastModifyingUserId == other.LastModifyingUserId;
+			return record.LastModifyingUserId === other.LastModifyingUserId;
 		return false;
 	}
 	static IsSameRecord(record, other) {
@@ -29,11 +29,11 @@ class RecordHelper {
 	static CanOverwrite(record, oldRecord) {
 		if (oldRecord == null) return true;
 		if (
-			record.LastModifyingMachineId == oldRecord.LastModifyingMachineId &&
-      record.LastModifyingUserId == oldRecord.LastModifyingUserId
+			record.LastModifyingMachineId === oldRecord.LastModifyingMachineId &&
+      record.LastModifyingUserId === oldRecord.LastModifyingUserId
 		)
 			return record.LocalVersion > oldRecord.LocalVersion;
-		return record.GlobalVersion == oldRecord.GlobalVersion;
+		return record.GlobalVersion === oldRecord.GlobalVersion;
 	}
 
 	static TakeIdentityFrom(record, source) {

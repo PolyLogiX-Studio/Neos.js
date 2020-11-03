@@ -30,6 +30,7 @@ const { TransactionManager } = require("./TransactionManager");
 const { SearchResults } = require("./SearchResults");
 const { ProductInfoHeaderValue } = require("./ProductInfoHeaderValue");
 const { UserSession } = require("./UserSession");
+const { ServerStatus } = require("./ServerStatus");
 /**
  *
  *
@@ -210,7 +211,6 @@ class CloudXInterface {
    */
   static get NEOS_BLOB() {
     switch (CloudXInterface.CLOUD_ENDPOINT) {
-      case CloudXInterface.CloudEndpoint.PolyLogiXOAUTH:
       case CloudXInterface.CloudEndpoint.Production:
       case CloudXInterface.CloudEndpoint.Staging:
       case CloudXInterface.CloudEndpoint.Local:
@@ -267,8 +267,9 @@ class CloudXInterface {
       60.0
     )
       return ServerStatus.NoInternet;
-    if (new Date(new Date() - this.LastServerUpdate).getTime() / 1000 >= 60.0)
+    if (new Date(new Date() - this.LastServerUpdate).getTime() / 1000 >= 60.0) {
       return ServerStatus.Down;
+    }
     return this.ServerResponseTime > 500
       ? ServerStatus.Slow
       : ServerStatus.Good;
@@ -282,7 +283,7 @@ class CloudXInterface {
     return this._currentUser;
   }
   set CurrentUser(value) {
-    if (value == this._currentUser) return;
+    if (value === this._currentUser) return;
     let user = new User(value);
     this._currentUser = user;
     let userUpdated = this.UserUpdated;
@@ -319,7 +320,7 @@ class CloudXInterface {
       this._lastSessionUpdate = new Date();
     Object.defineProperties(this, {
       _currentSession: {
-        value: value,
+        value,
         configurable: true,
       },
     });
@@ -475,7 +476,7 @@ class CloudXInterface {
       case OwnerType.User:
         return ownerId == this.CurrentUser.Id;
       case OwnerType.Group:
-        return this.CurrentUserMemberships.Any((m) => m.GroupId == ownerId);
+        return this.CurrentUserMemberships.Any((m) => m.GroupId === ownerId);
       default:
         return false;
     }
@@ -494,7 +495,7 @@ class CloudXInterface {
     this.RunMembershipsUpdated();
   }
   async RunMembershipsUpdated() {
-    for (groupMembership of this._groupMemberships) {
+    for (let groupMembership of this._groupMemberships) {
       await this.UpdateGroupInfo(groupMembership.GroupId);
     }
     let membershipsUpdated = this.MembershipsUpdated;
@@ -1115,7 +1116,7 @@ class CloudXInterface {
     let ownerType = IdUtil.GetOwnerType(ownerId);
     let _signedUserId = this.CurrentUser.Id;
     let numArray = CloudXInterface.storageUpdateDelays;
-    for (index = 0; index < numArray.length; index++) {
+    for (let index = 0; index < numArray.length; index++) {
       await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
       if (this.CurrentUser.Id != _signedUserId) return;
       if (ownerType == OwnerType.User) {

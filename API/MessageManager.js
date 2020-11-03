@@ -91,10 +91,10 @@ class MessageManager {
           if (!hashSet.includes(message)) {
             if (
               this.InitialmessagesFetched &&
-              message.MessageType == "CreditTransfer"
+              message.MessageType === "CreditTransfer"
             ) {
               let content = message.ExtractContent();
-              let flag2 = content.RecipientId == this.Cloud.CurrentUser.Id;
+              let flag2 = content.RecipientId === this.Cloud.CurrentUser.Id;
               let currentUser = this.Cloud.CurrentUser;
               /*
                             if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
@@ -170,7 +170,7 @@ class MessageManager {
           writable: false,
         },
         _historyLoadTask: {
-          value: function () {},
+          value: () => {},
           writable: true,
         },
         _historyLoaded: {
@@ -269,7 +269,7 @@ class MessageManager {
         this.Messages = cloudResult.Entity;
         this.Messages.reverse();
         this.UnreadCount = this.Messages.filter(
-          (m) => !m.ReadTime != undefined
+          (m) => !m.ReadTime != null
         ).length;
         this._historyLoaded = true;
       }
@@ -278,12 +278,12 @@ class MessageManager {
       if (this._messageIds.includes(message.Id)) return false;
       this.Messages.Add(message);
       this._messageIds.Add(message.Id);
-      if (message.IsReceived && !message.ReadTime != undefined)
+      if (message.IsReceived && !message.ReadTime != null)
         ++this.UnreadCount;
       while (
         this.Messages.length > MessageManager.MAX_UNREAD_HISTORY ||
         (this.Messages.length > MessageManager.MAX_UNREAD_HISTORY &&
-          (this.Messages[0].IsSent || this.Messages[0].ReadTime != undefined))
+          (this.Messages[0].IsSent || this.Messages[0].ReadTime != null))
       ) {
         this._messageIds.Remove(this.Messages[0].Id);
         this.Messages.RemoveAt(0);

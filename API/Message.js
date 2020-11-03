@@ -22,13 +22,13 @@ class Message {
 		this.Content = JSON.stringify(obj);
 	}
 	get IsSent() {
-		return this.SenderId == this.OwnerId;
+		return this.SenderId === this.OwnerId;
 	}
 	get IsReceived() {
-		return this.RecipientId == this.OwnerId;
+		return this.RecipientId === this.OwnerId;
 	}
 	get IsRead() {
-		return this.ReadTime !== undefined;
+		return this.ReadTime != undefined;
 	}
 }
 module.exports = {

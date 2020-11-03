@@ -44,12 +44,12 @@ class SessionInfo {
 		this.HeadlessHost = $b.headlessHost;
 		this.LegacySessionURL = $b.url || null; //LEGACY
 		let SessionURLs = $b.sessionURLs;
-		if (Type.Get(SessionURLs) == "List") this.SessionURLs = SessionURLs;
-		if (Type.Get(SessionURLs) == "Array")
+		if (Type.Get(SessionURLs) === "List") this.SessionURLs = SessionURLs;
+		if (Type.Get(SessionURLs) === "Array")
 			this.SessionURLs = List.ToList(SessionURLs);
 		let SessionUsers = $b.sessionUsers;
-		if (Type.Get(SessionUsers) == "List") this.SessionUsers = SessionUsers;
-		if (Type.Get(SessionUsers) == "Array")
+		if (Type.Get(SessionUsers) === "List") this.SessionUsers = SessionUsers;
+		if (Type.Get(SessionUsers) === "Array")
 			this.SessionUsers = List.ToList(SessionUsers);
 		this.Thumbnail = $b.thumbnail;
 		this.JoinedUsers = $b.joinedUsers;
@@ -98,16 +98,16 @@ class SessionInfo {
    */
 	IsSame(other) {
 		if (
-			!(this.Name == other.Name) ||
-      !(this.Description == other.Description) ||
+			!(this.Name === other.Name) ||
+      !(this.Description === other.Description) ||
       !this.Tags.IsSame(other.Tags) ||
-      !(this.SessionId == other.SessionId) ||
-      !(this.HostUserId == other.HostUserId) ||
-      !(this.HostMachineId == other.HostMachineId) ||
-      !(this.HostUsername == other.HostUsername) ||
-      !(this.CompatibilityHash == other.CompatibilityHash) ||
-      !(this.NeosVersion == other.NeosVersion) ||
-      this.HeadlessHost != other.HeadlessHost
+      !(this.SessionId === other.SessionId) ||
+      !(this.HostUserId === other.HostUserId) ||
+      !(this.HostMachineId === other.HostMachineId) ||
+      !(this.HostUsername === other.HostUsername) ||
+      !(this.CompatibilityHash === other.CompatibilityHash) ||
+      !(this.NeosVersion === other.NeosVersion) ||
+      this.HeadlessHost !== other.HeadlessHost
 		)
 			return false;
 		return true;

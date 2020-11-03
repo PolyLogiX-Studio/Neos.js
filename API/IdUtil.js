@@ -22,7 +22,8 @@ class IdUtil {
 		if (id == null) return OwnerType.INVALID;
 		if (id.startsWith("M-")) return OwnerType.Machine;
 		if (id.startsWith("U-")) return OwnerType.User;
-		return id.startsWith("G-") ? OwnerType.Group : OwnerType.INVALID;
+		if (id.startsWith("G-")) return OwnerType.Group;
+		return OwnerType.INVALID;
 	}
 	/**
    *

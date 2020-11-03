@@ -25,12 +25,12 @@ class Friend {
    */
 	IsSame(other) {
 		if (
-			this.FriendUserId == other.FriendUserId &&
-      this.OwnerId == other.OwnerId &&
-      this.FriendUsername == other.FriendUsername &&
-      this.IsAccepted == other.IsAccepted &&
-      this.FriendStatus == other.FriendStatus &&
-      this.LatestMessageTime == other.LatestMessageTime &&
+			this.FriendUserId === other.FriendUserId &&
+      this.OwnerId === other.OwnerId &&
+      this.FriendUsername === other.FriendUsername &&
+      this.IsAccepted === other.IsAccepted &&
+      this.FriendStatus === other.FriendStatus &&
+      this.LatestMessageTime === other.LatestMessageTime &&
       this.UserStatus.IsSame(other.UserStatus)
 		)
 			return true;
