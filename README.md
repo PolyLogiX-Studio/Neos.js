@@ -58,6 +58,7 @@ neos.SendTextMessage("U-Neos", "This is a Message!");
     - [Event: `'friendRequestCountChanged'`](#event-friendrequestcountchanged)
     - [Event: `'friendsChanged'`](#event-friendschanged)
     - [Event: `'userUpdated'`](#event-userupdated)
+    - [Event: `'error'`](#event-error)
   - [Data](#data)
     - [Object `Message`](#object-message)
     - [Object `User`](#object-user)
@@ -396,6 +397,20 @@ The `neos` instance will emit a `'userUpdated'` event
 ```js
 neos.on("userUpdated", (user) => {
   console.log(user);
+});
+```
+
+### Event: `'error'`
+
+<!-- YAML
+added: v1.6.2
+-->
+
+The `neos` instance will emit a `'error'` event on an Internal error, You may decide to Throw or attempt to continue execution.
+
+```js
+neos.on("error", (error) => {
+  console.trace(error);
 });
 ```
 
