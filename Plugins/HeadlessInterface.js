@@ -2,7 +2,7 @@ const { log } = require("console");
 const { EventEmitter } = require("events");
 const fs = require("fs");
 const path = require("path");
-class HeadlessInterface {
+class HeadlessInterface extends EventEmitter {
 	/**
    *
    * @param {String | 'child_process'} headlessPath
@@ -10,14 +10,18 @@ class HeadlessInterface {
    * @param {any} [options]
    */
 	constructor(headlessPath, configPathRelative, options) {
+		super();
 		this.State = {
 			Running: false,
 			Starting: true,
 			CompatibilityHash: null,
 			log: false,
 			logMsg: 0,
+			sessionId: null,
+			sessionIdAttempts: 0,
 		};
 		this.Options = options || {};
+		if (this.Options.SafeReady == null) this.Options.SafeReady = 1000;
 		if (this.Options.Events == null) this.Options.Events = false;
 		if (typeof headlessPath == "string") {
 			if (process.platform === "win32") {
@@ -31,7 +35,7 @@ class HeadlessInterface {
 							: path.join(headlessPath, "Config/Config.json"),
 					],
 					{
-						windowsHide: true,
+						windowsHide: false,
 						cwd: headlessPath /* Folder to Neos Headless For Binaries*/,
 					}
 				);
@@ -55,37 +59,81 @@ class HeadlessInterface {
 		} else {
 			this.NeosVR = headlessPath;
 		}
-		this.Events = new EventEmitter();
+		this.InternalEvents = new EventEmitter();
+		this.InternalEvents.setMaxListeners(1);
 		this.NeosVR.stdout.on("data", (data) => {
-			data = data.toString();
-			if (data.startsWith("Enabling logging output.")) {
-				this.State.log = true;
-				this.State.logMsg = 1;
-				return;
-			}
-			if (this.State.logMsg != 0) {
-				this.State.logMsg++;
-				if (this.State.logMsg < 4) return (this.State.logMsg = 0);
-			}
-			if (data.startsWith("World running...")) {
+			var message = data.toString();
+			if (message.startsWith("World running...")) {
 				this.State.Starting = false;
-				this.State.Running = true;
-				if (this.Options.Events) this.NeosVR.stdin.write("log\n");
+				if (!this.State.Running) {
+					this.State.Running = true;
+					this.sessionId.then((sessionId) => {
+						this.emit("ready", sessionId);
+					});
+				}
 			}
-			this.Events.emit("HeadlessResponse", data);
+			this.InternalEvents.emit("HeadlessResponse", message);
+			this.emit("message", message);
 		});
 	}
-
+	get CanSend() {
+		return this.InternalEvents._events.HeadlessResponse == null;
+	}
+	get sessionId() {
+		return this.State.sessionId
+			? this.State.sessionId
+			: this.Send("sessionId").then((sessionId) => {
+				if (
+					sessionId != null &&
+            typeof sessionId === "string" &&
+            sessionId.startsWith("S-")
+				) {
+					this.State.sessionId = sessionId;
+					return sessionId;
+				} else {
+					this.State.sessionIdAttempts++;
+					if (this.State.sessionIdAttempts > 9) {
+						this.emit("error", "Coult not retreive session id");
+						this.State.sessionIdAttempts = 0;
+						return null;
+					}
+					return this.sessionId; // Try Again
+				}
+			});
+	}
+	Kill() {
+		return this.NeosVR.kill(0);
+	}
 	/**
    * Send a command to the Headless Client
    * @param {String} text
    * @returns {Promise<String>}
    */
 	Send(text) {
+		if (this.InternalEvents._events.HeadlessResponse) {
+			//TODO Race Conditions! Add Queue, Currently limited to 1 response at a time. System might need to be complex
+			this.emit(
+				"error",
+				"Tried Calling .Send while another command was processing, This Error is to prevent a Race Condition"
+			);
+			return new Promise((resolve) => {
+				resolve("Error, Command Not Sent. Race Condition");
+			});
+		}
 		let response = new Promise((Resolve) =>
-			this.Events.once("HeadlessResponse", Resolve)
+			this.InternalEvents.on("HeadlessResponse", function (data) {
+				if (!data.endsWith(">")) {
+					// Filter out Input text and wait for proper response
+					//TODO Add Timeout
+					console.log(data);
+					this.removeListener(
+						"HeadlessResponse",
+						this._events.HeadlessResponse
+					);
+					Resolve(data);
+				}
+			})
 		);
-		if (this.Options.Events && this.State.log) text = "\n" + text + "\nlog";
 		this.NeosVR.stdin.write(text + "\n");
 		return response;
 	}
