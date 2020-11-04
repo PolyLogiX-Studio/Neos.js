@@ -51,7 +51,9 @@ class CommandExtended {
     if (this.Options.CommandsCommand)
       this.HelpData[this.Options.CommandsCommand] = new HelpObject({
         index: "Get a list of commands",
-        usage: `${this.Options.Prefix + this.Options.CommandsCommand} [Page]`,
+        usage: `${
+          this.Options.Prefix + this.Options.CommandsCommand
+        } [Page #|all]`,
       });
     if (this.Options.HelpCommand)
       this.HelpData[this.Options.HelpCommand] = new HelpObject({
@@ -196,17 +198,32 @@ class CommandExtended {
     let commandData = Message.Content.trim().split(" ");
     commandData.shift(); // remove Help from the command
     let Index = commandData.shift() || 1;
-    if (Number.isNaN(Number(Index)))
+    if (Number.isNaN(Number(Index)) && Index !== "all")
       return context.CommandHandler.Neos.SendTextMessage(
         Message.SenderId,
-        "Invalid Argument, Expecter Integer, got String"
+        'Invalid Argument, Expecter Integer or "all"'
       );
     if (!context.CommandListInfo)
       context.CommandListInfo = new CommandHelper(context);
-    return context.CommandHandler.Neos.SendTextMessage(
-      Message.SenderId,
-      context.CommandListInfo.GetPage(Math.floor(new Number(Index)))
-    );
+    if (Number.isNaN(Number(Index))) {
+      let CommandList = [];
+      for (
+        let page = 1;
+        context.CommandListInfo.CommandPages.length + 1 > page;
+        page++
+      ) {
+        CommandList.push(context.CommandListInfo.GetPage(page));
+      }
+      return context.CommandHandler.Neos.SendTextMessage(
+        Message.SenderId,
+        CommandList
+      );
+    } else {
+      return context.CommandHandler.Neos.SendTextMessage(
+        Message.SenderId,
+        context.CommandListInfo.GetPage(Math.floor(new Number(Index)))
+      );
+    }
   }
 
   /**
