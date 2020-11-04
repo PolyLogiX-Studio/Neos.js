@@ -44,7 +44,7 @@ class Neos extends EventEmitter {
 			options.CompatabilityHash = config.main + " " + config.version;
 		if (!options.UpdateInterval) options.UpdateInterval = 1000;
 		if (options.Update == null) options.Update = true;
-
+		if (options.MultiMessageDelay == null) options.MultiMessageDelay = 1100;
 		this.Options = options;
 		this.Events = new Events();
 		this.CloudX = CloudX;
@@ -523,8 +523,47 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
 	async SendTextMessage(UserId, Message) {
-		this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
-		return this._UserMessage.SendTextMessage(Message);
+		let Messages = [];
+		if (typeof Message === "string") {
+			Messages = chunkSubstr(Message, 120);
+		} else if (typeof Message === "object") {
+			if (Array.isArray(Message)) Messages = Message;
+			else
+				return this.emit(
+					"error",
+					"Invalid Message Type, Expected String or Array"
+				);
+		}
+
+		let index = 0;
+		if (Messages.length > 1) {
+			return new Promise((resolve) => {
+				var context = this;
+				for (let message of Messages) {
+					index++;
+					setTimeout(
+						(index) => {
+							context._UserMessage.UserMessages(
+								UserId,
+								context.CloudXInterface.Messages
+							);
+							let LastMessage = context._UserMessage.SendTextMessage(
+								message +
+                  (Messages.length > 1 && typeof Message === "string"
+                  	? `<br>${index}/${Messages.length}`
+                  	: "")
+							);
+							if (index === Messages.length) return resolve(LastMessage);
+						},
+						index * context.Options.MultiMessageDelay,
+						index
+					);
+				}
+			});
+		} else {
+			this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
+			return this._UserMessage.SendTextMessage(Messages[0]);
+		}
 	}
 	async SendTransaction(UserId, Message) {
 		this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
@@ -541,5 +580,14 @@ class Neos extends EventEmitter {
 	JoinSession() {}
 	LeaveSession() {}
 }
+function chunkSubstr(str, size) {
+	const numChunks = Math.ceil(str.length / size);
+	const chunks = new Array(numChunks);
 
+	for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+		chunks[i] = str.substr(o, size);
+	}
+
+	return chunks;
+}
 module.exports = Neos;
