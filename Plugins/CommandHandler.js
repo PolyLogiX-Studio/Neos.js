@@ -84,7 +84,7 @@ class CommandHandler {
 				Command,
 				Message.SenderId,
 				args,
-				new this.Handler(context.Neos, context, Message, Extra)
+				new context.Handler(context.Neos, context, Message, Extra)
 			);
 		} else {
 			context.Neos.SendTextMessage(Message.SenderId, context.Invalid);
