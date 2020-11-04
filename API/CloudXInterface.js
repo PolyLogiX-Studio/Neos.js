@@ -1793,7 +1793,6 @@ class CloudXInterface {
     );
     if (stringBuilder1.Length > 0) stringBuilder1.String[0] = "?";
     let str1 = stringBuilder1.ToString();
-    console.log(str1);
     return await this.GET("api/sessions" + str1).then((res) => {
       let Content = new List();
       for (let item of res.Content) Content.Add(new SessionInfo(item));
