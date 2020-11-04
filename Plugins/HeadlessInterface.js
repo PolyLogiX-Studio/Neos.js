@@ -23,6 +23,8 @@ class HeadlessInterface extends EventEmitter {
 		this.Options = options || {};
 		if (this.Options.SafeReady == null) this.Options.SafeReady = 1000;
 		if (this.Options.Events == null) this.Options.Events = false;
+		if (this.Options.sessionIdAttempts == null)
+			this.Options.sessionIdAttempts = 15;
 		if (typeof headlessPath == "string") {
 			if (process.platform === "win32") {
 				//Windows
@@ -92,8 +94,8 @@ class HeadlessInterface extends EventEmitter {
 					return sessionId;
 				} else {
 					this.State.sessionIdAttempts++;
-					if (this.State.sessionIdAttempts > 9) {
-						this.emit("error", "Coult not retreive session id");
+					if (this.State.sessionIdAttempts > this.Options.SessionIdAttempts) {
+						this.emit("error", "Coult not retrieve sessionId");
 						this.State.sessionIdAttempts = 0;
 						return null;
 					}

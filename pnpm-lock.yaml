@@ -7,6 +7,7 @@ dependencies:
 devDependencies:
   dotenv: 8.2.0
   eslint: 7.12.1
+  prettier: 2.1.2
 lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.4:
@@ -614,6 +615,13 @@ packages:
       node: ">= 0.8.0"
     resolution:
       integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+  /prettier/2.1.2:
+    dev: true
+    engines:
+      node: ">=10.13.0"
+    hasBin: true
+    resolution:
+      integrity: sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==
   /progress/2.0.3:
     dev: true
     engines:
@@ -803,5 +811,6 @@ specifiers:
   dotenv: ^8.2.0
   eslint: ^7.12.1
   node-fetch: ^2.6.1
+  prettier: ^2.1.2
   uri-js: ^4.4.0
   uuid: ^8.3.1

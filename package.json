@@ -1,6 +1,6 @@
 {
   "name": "@bombitmanbomb/neosjs",
-  "version": "1.6.13",
+  "version": "1.6.14",
   "description": "Neos API",
   "main": "Neos.js",
   "scripts": {
@@ -27,8 +27,9 @@
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "eslint": "^7.12.1",
-    "dotenv": "^8.2.0"
+    "prettier": "^2.1.2"
   },
   "engines": {
     "node": ">=12.0.0"
