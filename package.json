@@ -7,7 +7,8 @@
     "test": "npm run testCommands",
     "testCommands": "node Tests/Commands.js --unhandled-rejections=strict",
     "testHeadless": "node Tests/Headless.js --unhandled-rejections=strict",
-    "lint": "prettier --write . && eslint --fix ."
+    "lint": "prettier --write . && eslint --fix .",
+    "document":"documentation build Neos.js -f html -o docs --shallow"
   },
   "repository": {
     "type": "git",

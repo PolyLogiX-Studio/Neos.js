@@ -40,36 +40,8 @@
                 
                 <li><a
                   href='#neos'
-                  class=" toggle-sibling">
-                  Neos
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#neoscurrentusergroupinfos'
-                        class='regular pre-open'>
-                        #CurrentUserGroupInfos
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#cloudx'
                   class="">
-                  CloudX
+                  Neos
                   
                 </a>
                 
@@ -120,6 +92,16 @@
                   href='#currentusermemberships'
                   class="">
                   CurrentUserMemberships
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#currentusergroupinfos'
+                  class="">
+                  CurrentUserGroupInfos
                   
                 </a>
                 
@@ -335,6 +317,26 @@
                 
                 </li>
               
+                
+                <li><a
+                  href='#sendtransaction'
+                  class="">
+                  SendTransaction
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#cloudx'
+                  class="">
+                  CloudX
+                  
+                </a>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -441,111 +443,6 @@
         </div>
       
     </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='neoscurrentusergroupinfos'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>CurrentUserGroupInfos</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Get User Groups</p>
-
-    <div class='pre p1 fill-light mt0'>CurrentUserGroupInfos</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='cloudx'>
-      CloudX
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>CloudX</p>
-
-    <div class='pre p1 fill-light mt0'>CloudX</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
   
 
   
@@ -856,6 +753,55 @@
   <p>Get User Memberships</p>
 
     <div class='pre p1 fill-light mt0'>CurrentUserMemberships</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='currentusergroupinfos'>
+      CurrentUserGroupInfos
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>CurrentUserGroupInfos</div>
   
   
 
@@ -1260,7 +1206,7 @@
 
   <p>Check if a user is friends</p>
 
-    <div class='pre p1 fill-light mt0'>IsFriend(friendId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): any</div>
+    <div class='pre p1 fill-light mt0'>IsFriend(friendId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
   
   
 
@@ -1291,7 +1237,7 @@
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>any</code>:
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
         
 
       
@@ -1624,7 +1570,7 @@
 
   <p>Get a Member from a Group</p>
 
-    <div class='pre p1 fill-light mt0'>GetGroupMember(groupId: any, userId: any): any</div>
+    <div class='pre p1 fill-light mt0'>GetGroupMember(groupId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, userId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): any</div>
   
   
 
@@ -1641,7 +1587,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>groupId</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>groupId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
           
@@ -1649,7 +1595,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>userId</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>userId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
           
@@ -1703,7 +1649,7 @@
 
   <p>Get the Members of a group</p>
 
-    <div class='pre p1 fill-light mt0'>GetGroupMembers(groupId: any): any</div>
+    <div class='pre p1 fill-light mt0'>GetGroupMembers(groupId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): any</div>
   
   
 
@@ -1720,7 +1666,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>groupId</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>groupId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
           
@@ -1774,7 +1720,7 @@
 
   <p>Get cached messages with a user</p>
 
-    <div class='pre p1 fill-light mt0'>GetUserMessages(UserId: any): any</div>
+    <div class='pre p1 fill-light mt0'>GetUserMessages(UserId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>): any</div>
   
   
 
@@ -1791,7 +1737,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>UserId</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>UserId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code>
 	    
           </div>
           
@@ -1903,7 +1849,7 @@
 
   <p>Get messages and add them to the cache</p>
 
-    <div class='pre p1 fill-light mt0'>GetMessages(fromTime: any, maxItems: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, user: any, unreadOnly: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): any</div>
+    <div class='pre p1 fill-light mt0'>GetMessages(fromTime: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a>, maxItems: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>, user: any, unreadOnly: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): any</div>
   
   
 
@@ -1920,8 +1866,8 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>fromTime</span> <code class='quiet'>(any
-            = <code>Date</code>)</code>
+            <span class='code bold'>fromTime</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a>
+            = <code>newDate</code>)</code>
 	    
           </div>
           
@@ -1929,7 +1875,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>maxItems</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            <span class='code bold'>maxItems</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
             = <code>100</code>)</code>
 	    
           </div>
@@ -2399,6 +2345,134 @@
         </div>
       
     </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='sendtransaction'>
+      SendTransaction
+    </h3>
+    
+    
+  </div>
+  
+
+  
+    <div class='pre p1 fill-light mt0'>SendTransaction(UserId: any, Message: any): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>UserId</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Message</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='cloudx'>
+      CloudX
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>CloudX</p>
+
+    <div class='pre p1 fill-light mt0'>CloudX</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
   
 
   
