@@ -8,7 +8,7 @@ devDependencies:
   dotenv: 8.2.0
   eslint: 7.12.1
   prettier: 2.1.2
-lockfileVersion: 5.2
+lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.10.4:
     dependencies:
