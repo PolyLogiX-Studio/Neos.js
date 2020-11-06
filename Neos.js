@@ -13,9 +13,7 @@ class Events extends EventEmitter {
 }
 /**
  *Creates an instance of Neos.
- * @param {{
- *
- * }} options
+ * @param {{AutoReadMessages:true, OnlineStateL:Online, StatusInterval:60,NeosVersion:"Neos.js <Version>", CompatabilityHash:"Neos.js <Version>",UpdateInterval:1000,Update:true,MultiMessageDelay:1100}} options
  * @memberof Neos
  */
 class Neos extends EventEmitter {
