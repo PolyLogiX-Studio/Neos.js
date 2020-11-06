@@ -55,4 +55,4 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 
 ```
 
-View Full Documentation [HERE](Documentation/index.md)
+View Full Documentation [HERE](docs/index.md)
