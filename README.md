@@ -32,7 +32,6 @@ Want to submit Code? Read our [Contributors Guide](CONTRIBUTNIG.md)!
 
 For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk)
 
-
 # NeosJS
 
 > Library for communicating with the NeosAPI
