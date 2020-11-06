@@ -69,6 +69,16 @@
               
                 
                 <li><a
+                  href='#logout'
+                  class="">
+                  Logout
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#currentuser'
                   class="">
                   CurrentUser
@@ -337,6 +347,166 @@
                 
                 </li>
               
+                
+                <li><a
+                  href='#eventneoslogin'
+                  class="">
+                  Neos#login
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneoslogout'
+                  class="">
+                  Neos#logout
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneoserror'
+                  class="">
+                  Neos#error
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneossessionupdated'
+                  class="">
+                  Neos#sessionUpdated
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneossessionchanged'
+                  class="">
+                  Neos#sessionChanged
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosuserupdated'
+                  class="">
+                  Neos#userUpdated
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosmembershipsupdated'
+                  class="">
+                  Neos#membershipsUpdated
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosgroupupdated'
+                  class="">
+                  Neos#groupUpdated
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosgroupmemberupdated'
+                  class="">
+                  Neos#groupMemberUpdated
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosmessagereceived'
+                  class="">
+                  Neos#messageReceived
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosmessagecountchanged'
+                  class="">
+                  Neos#messageCountChanged
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosfriendadded'
+                  class="">
+                  Neos#friendAdded
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosfriendupdated'
+                  class="">
+                  Neos#friendUpdated
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosfriendremoved'
+                  class="">
+                  Neos#friendRemoved
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosfriendrequestcountchanged'
+                  class="">
+                  Neos#friendRequestCountChanged
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventneosfriendschanged'
+                  class="">
+                  Neos#friendsChanged
+                  
+                </a>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -412,7 +582,7 @@
 
   <p>Creates an instance of Neos.</p>
 
-    <div class='pre p1 fill-light mt0'>new Neos(options: any)</div>
+    <div class='pre p1 fill-light mt0'>new Neos(options: {})</div>
   
   
     <p>
@@ -436,7 +606,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+            <span class='code bold'>options</span> <code class='quiet'>({})</code>
 	    
           </div>
           
@@ -617,6 +787,70 @@
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='logout'>
+      Logout
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Logout</p>
+
+    <div class='pre p1 fill-light mt0'>Logout(manual: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>manual</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
+            = <code>true</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
   
 
   
@@ -2463,6 +2697,845 @@
   <p>CloudX</p>
 
     <div class='pre p1 fill-light mt0'>CloudX</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneoslogin'>
+      Neos#login
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Login Event</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#login</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>CurrentUser</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+          : Current User
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>CurrentSession</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+          : Current Session
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneoslogout'>
+      Neos#logout
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Logout Event</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#logout</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneoserror'>
+      Neos#error
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Error Event</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#error</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneossessionupdated'>
+      Neos#sessionUpdated
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Session Updated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#sessionUpdated</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneossessionchanged'>
+      Neos#sessionChanged
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Session Changed</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#sessionChanged</div>
+  
+    <p>
+      Type:
+      CloudXInterface.CurrentSession
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosuserupdated'>
+      Neos#userUpdated
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>User Updated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#userUpdated</div>
+  
+    <p>
+      Type:
+      CloudXInterface.CurrentUser
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosmembershipsupdated'>
+      Neos#membershipsUpdated
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#membershipsUpdated</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosgroupupdated'>
+      Neos#groupUpdated
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#groupUpdated</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosgroupmemberupdated'>
+      Neos#groupMemberUpdated
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#groupMemberUpdated</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosmessagereceived'>
+      Neos#messageReceived
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#messageReceived</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosmessagecountchanged'>
+      Neos#messageCountChanged
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#messageCountChanged</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosfriendadded'>
+      Neos#friendAdded
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#friendAdded</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosfriendupdated'>
+      Neos#friendUpdated
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#friendUpdated</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosfriendremoved'>
+      Neos#friendRemoved
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#friendRemoved</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosfriendrequestcountchanged'>
+      Neos#friendRequestCountChanged
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#friendRequestCountChanged</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventneosfriendschanged'>
+      Neos#friendsChanged
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>membershipsUpdated</p>
+
+    <div class='pre p1 fill-light mt0'>Neos#friendsChanged</div>
   
   
 

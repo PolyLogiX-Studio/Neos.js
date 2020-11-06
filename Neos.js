@@ -13,7 +13,9 @@ class Events extends EventEmitter {
 }
 /**
  *Creates an instance of Neos.
- * @param {*} options
+ * @param {{
+ *
+ * }} options
  * @memberof Neos
  */
 class Neos extends EventEmitter {
@@ -54,51 +56,138 @@ class Neos extends EventEmitter {
 		this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
 		this._UserMessage.Cloud = this.CloudXInterface;
 		this.CloudXInterface.OnLogin = (obj) => {
+			/**
+       * Login Event
+       *
+       * @event Neos#login
+       * @type {Object}
+       * @property {Object} CurrentUser Current User
+       * @property {Object} CurrentSession Current Session
+       */
 			this.Events.emit("login", obj);
 		};
 		this.CloudXInterface.OnLogout = () => {
+			/**
+       * Logout Event
+       *
+       * @event Neos#logout
+       */
 			this.Events.emit("logout");
 		};
 		this.CloudXInterface.OnError = (error) => {
+			/**
+       * Error Event
+       *
+       * @event Neos#error
+       * @type {Error}
+       */
 			this.Events.emit("error", error);
 		};
 		this.CloudXInterface.OnSessionUpdated = () => {
+			/**
+       * Session Updated
+       *
+       * @event Neos#sessionUpdated
+       */
 			this.Events.emit("sessionUpdated");
 		};
 		this.CloudXInterface.SessionChanged = (session) => {
+			/**
+       * Session Changed
+       *
+       * @event Neos#sessionChanged
+       * @type {CloudXInterface.CurrentSession}
+       *
+       */
 			this.Events.emit("sessionChanged", session);
 		};
 		this.CloudXInterface.UserUpdated = (user) => {
+			/**
+       * User Updated
+       *
+       * @event Neos#userUpdated
+       * @type {CloudXInterface.CurrentUser}
+       */
 			this.Events.emit("userUpdated", user);
 		};
 		this.CloudXInterface.MembershipsUpdated = (memberships) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#membershipsUpdated
+       */
 			this.Events.emit("membershipsUpdated", memberships);
 		};
 		this.CloudXInterface.GroupUpdated = (group) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#groupUpdated
+       */
 			this.Events.emit("groupUpdated", group);
 		};
 		this.CloudXInterface.GroupMemberUpdated = (groupMember) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#groupMemberUpdated
+       */
 			this.Events.emit("groupMemberUpdated", groupMember);
 		};
 		this.CloudXInterface.Messages.onMessageReceived = (message) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#messageReceived
+       */
 			this.Events.emit("messageReceived", message);
 		};
 		this.CloudXInterface.Messages.messageCountChanged = (count) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#messageCountChanged
+       */
 			this.Events.emit("messageCountChanged", count);
 		};
 		this.CloudXInterface.Friends.FriendAdded = (friend) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#friendAdded
+       */
 			this.Events.emit("friendAdded", friend);
 		};
 		this.CloudXInterface.Friends.FriendUpdated = (friend) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#friendUpdated
+       */
 			this.Events.emit("friendUpdated", friend);
 		};
 		this.CloudXInterface.Friends.FriendRemoved = (friend) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#friendRemoved
+       */
 			this.Events.emit("friendRemoved", friend);
 		};
 		this.CloudXInterface.Friends.FriendRequestCountChanged = (count) => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#friendRequestCountChanged
+       */
 			this.Events.emit("friendRequestCountChanged", count);
 		};
 		this.CloudXInterface.Friends.FriendsChanged = () => {
+			/**
+       * membershipsUpdated
+       *
+       * @event Neos#friendsChanged
+       */
 			this.Events.emit("friendsChanged");
 		};
 		//this.Interval = setInterval(this.CloudXInterface.Update,1000)
@@ -109,12 +198,12 @@ class Neos extends EventEmitter {
 			neosVersion: this.Options.NeosVersion,
 			lastStatusChange: new Date(),
 		});
-		this.Events.on("login", () => {
+		this.Events.on("login", (obj) => {
 			if (this.Options.Update) {
 				this.Update();
 				this.startInterval(this.Options.UpdateInterval);
 			}
-			this.emit("login");
+			this.emit("login", obj);
 		});
 		this.Events.on("logout", () => {
 			this.clearInterval();
@@ -254,21 +343,22 @@ class Neos extends EventEmitter {
 		rememberMe,
 		recoverCode
 	) {
-		if (this.Options.OAuth)
-			return await this.OAuthLogin(credential, password /* Machine ID */);
-		else
-			return await this.CloudXInterface.Login(
-				credential,
-				password,
-				sessionToken,
-				machineId,
-				rememberMe,
-				recoverCode
-			);
+		return await this.CloudXInterface.Login(
+			credential,
+			password,
+			sessionToken,
+			machineId,
+			rememberMe,
+			recoverCode
+		);
 	}
-	async OAuthLogin(token) {
-		return await this.CloudXInterface.PolyLogiXOAuthLogin(token);
-	}
+
+	/**
+   * Logout
+   *
+   * @param {boolean} [manual=true]
+   * @memberof Neos
+   */
 	Logout(manual = true) {
 		this.CloudXInterface.Logout(manual);
 	}

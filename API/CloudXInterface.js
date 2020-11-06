@@ -217,7 +217,7 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
         return "https://oauth.neosdb.net/"; // Custom Server
       default:
-        this.onError(
+        this.OnError(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
         );
     }
@@ -236,7 +236,7 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.Local:
         return CloudXInterface.NEOS_CLOUD_BLOB;
       default:
-        return this.onError(
+        return this.OnError(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
         );
     }
@@ -306,7 +306,7 @@ class CloudXInterface {
     return this._currentUser;
   }
 
-  onError(error) {
+  OnError(error) {
     //Overridable Error Output
     throw new Error(error);
   }
@@ -721,8 +721,8 @@ class CloudXInterface {
     /*
     if (result == null) {
       if (exception == null)
-        return this.onError("Failed to get response. Exception is null");
-      return this.onError(exception);
+        return this.OnError("Failed to get response. Exception is null");
+      return this.OnError(exception);
     }
     let entity;
     let content = null;
@@ -796,7 +796,7 @@ class CloudXInterface {
         CurrentSession: this.CurrentSession,
       });
     } else
-      return this.onError(
+      return this.OnError(
         "Error loging in: " + result.State + "\n" + result.Content
       );
     return result;
@@ -845,7 +845,7 @@ class CloudXInterface {
   async UpdateCurrentUserInfo() {
     switch (this.CurrentUser.Id) {
       case null:
-        return this.onError("No current user!");
+        return this.OnError("No current user!");
       default:
         let user = await this.GetUser(this.CurrentUser.Id);
         let entity = user.Entity;
@@ -955,7 +955,7 @@ class CloudXInterface {
       let recordPath = new Out();
       if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
         return this.FetchRecordAtPath(ownerId.Out, recordPath.Out);
-      return this.onError("Uri is not a record URI");
+      return this.OnError("Uri is not a record URI");
     } else {
       return this.GET(
         "api/" +
@@ -976,7 +976,7 @@ class CloudXInterface {
     var recordPath = [];
     if (RecordUtil.ExtractRecordPath(recordUri, ownerId, recordPath))
       return this.FetchRecordAtPath(ownerId.Out, recordPath.Out);
-    return this.onError("Uri is not a record URI");
+    return this.OnError("Uri is not a record URI");
   }
   FetchRecordAtPath(ownerId, path) {
     return this.GET(
@@ -1025,7 +1025,7 @@ class CloudXInterface {
           "api/groups/" + record.OwnerId + "/records/" + record.RecordId;
         break;
       default:
-        return this.onError("Invalid record owner");
+        return this.OnError("Invalid record owner");
     }
     return this.PUT(resource, record, new TimeSpan());
   }
@@ -1049,13 +1049,13 @@ class CloudXInterface {
           "/preprocess";
         break;
       default:
-        return this.onError("Invalid record owner");
+        return this.OnError("Invalid record owner");
     }
     return this.POST(resource, record, new TimeSpan());
   }
 
   GetPreprocessStatus(ownerId, recordId, id) {
-    return this.onError("Not Implimented");
+    return this.OnError("Not Implimented");
     /*
     if (!recordId) {
       recordId = ownerId.RecordId;
@@ -1083,7 +1083,7 @@ class CloudXInterface {
           id;
         break;
       default:
-        return this.onError("Invalid record owner");
+        return this.OnError("Invalid record owner");
     }
     return this.GET(resource, record, new TimeSpan());
     */
@@ -1115,7 +1115,7 @@ class CloudXInterface {
           new TimeSpan()
         );
       default:
-        return this.onError("Invalid record owner");
+        return this.OnError("Invalid record owner");
     }
   }
   MarkStorageDirty(ownerId) {
@@ -1160,7 +1160,7 @@ class CloudXInterface {
           new TimeSpan()
         );
       default:
-        return this.onError("Invalid ownerId");
+        return this.OnError("Invalid ownerId");
     }
   }
   async RegisterAssetInfo(assetInfo) {
@@ -1178,7 +1178,7 @@ class CloudXInterface {
           new TimeSpan()
         );
       default:
-        return this.onError("Invalid ownerId");
+        return this.OnError("Invalid ownerId");
     }
   }
   GetAssetBaseURL(ownerId, hash, variant) {
@@ -1191,7 +1191,7 @@ class CloudXInterface {
       case OwnerType.Group:
         return "api/groups/" + ownerId + "/assets/" + str;
       default:
-        return this.onError("Invalid ownerId");
+        return this.OnError("Invalid ownerId");
     }
   }
   async UploadAsset(
@@ -1369,7 +1369,7 @@ class CloudXInterface {
       case OwnerType.Group:
         return "groups";
       default:
-        return this.onError("Invalid Owner Type: " + ownerId);
+        return this.OnError("Invalid Owner Type: " + ownerId);
     }
   }
   /**
@@ -1425,7 +1425,7 @@ class CloudXInterface {
     }
     return new CloudResult("default", cloudResult.State, cloudResult.Content);
   }
-  SerializationErrorHandeler() {}
+  SerializatiOnErrorHandeler() {}
   /**
    * Write a Variable
    * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
@@ -1592,9 +1592,9 @@ class CloudXInterface {
    */
   async UpsertFriend(friend) {
     if (String.IsNullOrWhiteSpace(friend.OwnerId))
-      return this.onError("Argument Acception: friend.OwnerId");
+      return this.OnError("Argument Acception: friend.OwnerId");
     if (String.IsNullOrWhiteSpace(friend.FriendUserId))
-      return this.onError("Argument Acception: friend.FriendUserId");
+      return this.OnError("Argument Acception: friend.FriendUserId");
     return await this.PUT(
       "api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId,
       friend,
@@ -1610,9 +1610,9 @@ class CloudXInterface {
    */
   async DeleteFriend(friend) {
     if (String.IsNullOrWhiteSpace(friend.OwnerId))
-      return this.onError("Argument Acception: friend.OwnerId");
+      return this.OnError("Argument Acception: friend.OwnerId");
     if (String.IsNullOrWhiteSpace(friend.FriendUserId))
-      return this.onError("Argument Acception: friend.FriendUserId");
+      return this.OnError("Argument Acception: friend.FriendUserId");
     return await this.DELETE(
       "api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId,
       friend,
@@ -1855,7 +1855,7 @@ class CloudXInterface {
         }
       );
     } catch (error) {
-      this.onError(error);
+      this.OnError(error);
       return null;
     }
   }
