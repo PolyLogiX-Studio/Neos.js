@@ -7,7 +7,7 @@
   </p>
   <br />
   <p>
-    <a href="https://discord.gg/bRCvFy9"><img src="https://discordapp.com/api/guilds/571612136036499466/embed.png" alt="Discord server" /></a>
+    <a href="https://discord.gg/6y2A4Pk"><img src="https://discordapp.com/api/guilds/571612136036499466/embed.png" alt="Discord server" /></a>
     <a href="https://www.npmjs.com/package/@bombitmanbomb/neosjs"><img src="https://img.shields.io/npm/v/@bombitmanbomb/neosjs.svg?maxAge=3600" alt="NPM version" /></a>
     <a href="https://www.npmjs.com/package/@bombitmanbomb/neosjs"><img src="https://img.shields.io/npm/dt/@bombitmanbomb/neosjs.svg?maxAge=3600" alt="NPM downloads" /></a>
     <img alt="Build" src="https://travis-ci.com/PolyLogiX-Studio/Neos.js.svg?branch=master">
@@ -22,6 +22,16 @@
     <a href="https://nodei.co/npm/@bombitmanbomb/neosjs"><img src="https://nodei.co/npm/@bombitmanbomb/neosjs.png?downloads=true&stars=true" alt="npm installnfo" /></a>
   </p>
 </div>
+
+# Support
+
+Do you want to help with Neos.js Development?
+Consider pledging to our [Patreon](https://www.patreon.com/PolyLogiX_VR) or Donating to us on [KoFi](https://ko-fi.com/polylogix_studio)
+
+Want to submit Code? Read our [Contributors Guide](CONTRIBUTNIG.md)!
+
+For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk)
+
 
 # NeosJS
 
