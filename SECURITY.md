@@ -6,7 +6,7 @@ We will update older versions to patch any found security issues, However it is 
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x   | :white_check_mark: |
+| 1.x     | :white_check_mark: |
 | < 1.0   | :x:                |
 
 ## Reporting a Vulnerability
