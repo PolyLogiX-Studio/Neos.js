@@ -57,6 +57,10 @@ class Neos extends EventEmitter {
 			/**
        * Login Event
        *
+       * @example Neos.on("login", ()=>{
+       * 	Neos.SendTestMesssage("U-BotOwner", "Bot Online");
+       * ...
+       * })
        * @event Neos#login
        * @type {Object}
        * @property {Object} CurrentUser Current User
@@ -75,7 +79,7 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.OnError = (error) => {
 			/**
        * Error Event
-       *
+       * @example Neos.on("error", (err)=>{console.error(err)})
        * @event Neos#error
        * @type {Error}
        */
@@ -134,8 +138,16 @@ class Neos extends EventEmitter {
 		};
 		this.CloudXInterface.Messages.onMessageReceived = (message) => {
 			/**
-       * membershipsUpdated
-       *
+       * Message Received
+       * @example Neos.on("messageReceived", (message)=>{
+       * 	switch(message.MessageType){
+       * 		case "Text":
+       * 			Commands.Run(message)
+       * 			break
+       * 		default:
+       * 		Neos.SendTextMessage(message.SenderId, "I Only can handle Text")
+       * 	}
+       * })
        * @event Neos#messageReceived
        */
 			this.Events.emit("messageReceived", message);

@@ -2792,6 +2792,15 @@
   
 
   
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Neos.on(<span class="hljs-string">"login"</span>, ()=&gt;{
+	Neos.SendTestMesssage(<span class="hljs-string">"U-BotOwner"</span>, <span class="hljs-string">"Bot Online"</span>);
+...
+})</pre>
+    
+  
 
   
 
@@ -2896,6 +2905,12 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Neos.on(<span class="hljs-string">"error"</span>, (err)=&gt;{<span class="hljs-built_in">console</span>.error(err)})</pre>
+    
   
 
   
@@ -3233,7 +3248,7 @@
   </div>
   
 
-  <p>membershipsUpdated</p>
+  <p>Message Received</p>
 
     <div class='pre p1 fill-light mt0'>Neos#messageReceived</div>
   
@@ -3256,6 +3271,20 @@
 
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'>Neos.on(<span class="hljs-string">"messageReceived"</span>, (message)=&gt;{
+	<span class="hljs-keyword">switch</span>(message.MessageType){
+		<span class="hljs-keyword">case</span> <span class="hljs-string">"Text"</span>:
+			Commands.Run(message)
+			<span class="hljs-keyword">break</span>
+		<span class="hljs-attr">default</span>:
+		Neos.SendTextMessage(message.SenderId, <span class="hljs-string">"I Only can handle Text"</span>)
+	}
+})</pre>
+    
   
 
   
