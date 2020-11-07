@@ -30,7 +30,7 @@ const TestHelp = {
 	},
 };
 Commands.Add("ping", (h) => h.Reply("pong!"), "Ping Pong!");
-Commands.Add("TestHelp", (h) => h.Reply("pong!"), TestHelp);
+Commands.Add("TestFunction", TestFunction, TestHelp);
 Commands.Add("ping3", (h) => h.Reply("pong!"), "Ping Pong!");
 Commands.Add("ping4", (h) => h.Reply("pong!"), "Ping Pong!");
 

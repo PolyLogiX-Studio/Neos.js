@@ -1,7 +1,12 @@
-const { log } = require("console");
 const { EventEmitter } = require("events");
 const fs = require("fs");
 const path = require("path");
+
+/**
+ *
+ * @class HeadlessInterface
+ * @extends {EventEmitter}
+ */
 class HeadlessInterface extends EventEmitter {
 	/**
    *
@@ -70,17 +75,40 @@ class HeadlessInterface extends EventEmitter {
 				if (!this.State.Running) {
 					this.State.Running = true;
 					this.sessionId.then((sessionId) => {
+						/**
+             * Fires when the headless client is Ready
+             * @event HeadlessInterface#ready
+             * @type {String} SessionId
+             *
+             */
 						this.emit("ready", sessionId);
 					});
 				}
 			}
 			this.InternalEvents.emit("HeadlessResponse", message);
+
+			/**
+       * @event HeadlessInterface#message
+       * @type {String}
+       */
 			this.emit("message", message);
 		});
 	}
+	/**
+   * Can the headless client send another command right now?
+   * @readonly
+   * @memberof HeadlessInterface
+   */
 	get CanSend() {
 		return this.InternalEvents._events.HeadlessResponse == null;
 	}
+
+	/**
+   * Get the Headless Client SessionId
+   *
+   * @readonly
+   * @memberof HeadlessInterface
+   */
 	get sessionId() {
 		return this.State.sessionId
 			? this.State.sessionId
@@ -103,6 +131,13 @@ class HeadlessInterface extends EventEmitter {
 				}
 			});
 	}
+
+	/**
+   *End the Process
+   *
+   * @returns
+   * @memberof HeadlessInterface
+   */
 	Kill() {
 		return this.NeosVR.kill(0);
 	}

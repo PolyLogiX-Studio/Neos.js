@@ -6,6 +6,11 @@
  */
 function HandlerCallback(Handler, Sender, Args) {}
 
+/**
+ *@private
+ *
+ * @class EventQueue
+ */
 class EventQueue {
 	constructor(CommandHandler) {
 		this.CommandHandler = CommandHandler; //Refrence Parent
@@ -16,10 +21,10 @@ class EventQueue {
 	/**
    *
    *
-   * @param {*} Command
-   * @param {*} Sender
-   * @param {*} Args
-   * @param {*} Handler
+   * @param {String} Command
+   * @param {String} Sender
+   * @param {String} Args
+   * @param {Handler} Handler
    * @memberof EventQueue
    */
 	Add(Command, Sender, Args, Handler, Extra) {
@@ -51,8 +56,19 @@ class EventQueue {
 	}
 }
 /**
- * A Plugin for Neos.js to add Command Functionality to Bots
+ * CommandHandler Plugin.
  * @class CommandHandler
+ * @param {Class} NeosJS Neos.js "this" instance
+ * @param {String} [Invalid="Invalid Command"]
+ * @example
+ * const NEOS = require("@bombitmanbomb/neosjs")
+ * const Neos = new NEOS()
+ * const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler")
+ * const Command = new Commandhandler(Neos)
+ * Command.Add("Ping", (Handler)=>{Handler.Reply("Pong!")});
+ * Neos.on("messageReceived", (Message)=>{
+ * 	Command.Run(Message)
+ * })
  */
 class CommandHandler {
 	constructor(NeosJS, Invalid = "Invalid Command") {
@@ -125,7 +141,7 @@ class Handler {
 	/**
    *
    *
-   * @param {*} Message
+   * @param {CloudX.Shared.Message} Message
    * @memberof Handler
    */
 	Reply(Message) {
@@ -134,7 +150,7 @@ class Handler {
 }
 /**
  *
- *
+ * @private
  * @class Command
  */
 class Command {
@@ -154,7 +170,7 @@ class Command {
    * @param {String} Sender
    * @param {Array<String>} Args
    * @param {Handler} Handler
-   * @returns
+   * @returns void
    * @memberof Command
    */
 	Run(Sender, Args, Handler, Extra) {

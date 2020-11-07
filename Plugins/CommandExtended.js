@@ -1,20 +1,38 @@
 /**
- * @private
- * @param {{Reply:(Message:String)}} [Handler] Send a reply to the Sender
+ * @param {Handler} [Handler] Send a reply to the Sender
  * @param {String} [Sender] U-ID of the user who triggered the command
  * @param {Array<String>} [Args] Arguments to the Command
  */
+
 function HandlerCallback(Handler, Sender, Args) {}
 
 /**
- *
+ * CommandExtended Plugin. Adds more features to CommandHandler
+ * @param {CommandHandler} CommandHandler
+ * @param {{Prefix:"/",HelpCommand:"help",UsageCommand:"usage",CommandsCommand:"commands",HelpDefault:"Get a list of commands with $this.prefix + $this.CommandsCommand"}} Options
+ * @class CommandExtended
+ * @example
+ * const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler")
+ * const CommandExtended = require("@bombitmanbomb/neosjs/Plugins/CommandExtended")
+ * const NEOS = require("@bombitmanbomb/neosjs")
+ * const Neos = new NEOS()
+ * const Command = new CommandExtended(new CommandHandler(Neos),Options);
+ * Command.Add("Ping", (Handler)=>{Handler.Reply("Pong")})
+ * Command.SetHelp("Ping", {index:"Ping Pong!", usage:Command.Options.Prefix+"Ping"})
+ * Command.Add("Relay", (Handler, Sender, Args)=>{
+ *  if (Args.length<2) return Handler.Usage();
+ *  if (!Args[0].startsWith("U-")) return Handler.Reply("First Argument must be a UserID.");
+ *  if (!Neos.IsFriend(Args[0])) return Handler.Reply("User is not a Friend of the bot.");
+ *  Neos.SendTextMessage(Args.shift(), Args.join(" ")); // Remove first argument (UserID) and join the rest with spaces.
+ *  Handler.Reply("Message Sent!")
+ * },
+ * {
+ *  index:"Send a message to another user via the bot.",
+ *  usage:Command.Options.Prefix+"Relay <User-ID> <Message>"
+ * }, ["U-BotOwner"]);
+ * Neos.on("messageReceived", Command.Run);
  */
 class CommandExtended {
-  /**
-   *
-   * @param {Object} CommandHandler
-   * @param {*} Options
-   */
   constructor(CommandHandler, Options = {}) {
     this.Options = {};
     this.Options.Prefix = Options.Prefix || "/";
@@ -28,6 +46,13 @@ class CommandExtended {
       : "No Help Available, Contact the Bot Owner";
     CommandHandler.CommandHandlerExtended = this;
     this.CommandHandler = CommandHandler;
+
+    /**
+     * Respond with the "usage" Help index.
+     * Injected by CommandExtended
+     * @memberof Handler
+     * @requires CommandHandler
+     */
     this.CommandHandler.Handler.prototype.Usage = function (Args) {
       let help = this.Extra.GetHelp("usage");
       this.Reply(
@@ -36,6 +61,12 @@ class CommandExtended {
           : help || "Improper Usage: No Usage Available"
       );
     };
+    /**
+     * Respond with a Help Index.
+     * Injected by CommandExtended
+     * @param {String} index
+     * @memberof Handler
+     */
     this.CommandHandler.Handler.prototype.Help = function (index, Args) {
       let help = this.Extra.GetHelp(index);
       this.Reply(
@@ -263,6 +294,12 @@ class CommandExtended {
     }
   }
 }
+
+/**
+ *@private
+ *
+ * @class HelpObject
+ */
 class HelpObject {
   constructor(help) {
     this.HelpData = {};
@@ -287,6 +324,12 @@ class HelpObject {
   }
 }
 const util = require("util");
+
+/**
+ *@private
+ *
+ * @class CommandHelper
+ */
 class CommandHelper {
   static MSG_LENGTH_MAX = 105;
   static CMD_PER_PAGE = 6;

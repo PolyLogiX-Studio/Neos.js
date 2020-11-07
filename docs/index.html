@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>@bombitmanbomb/neosjs 1.6.16 | Documentation</title>
+    <title>@bombitmanbomb/neosjs 1.6.17 | Documentation</title>
     <meta name="description" content="Neos API" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="assets/bass.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
       <div id="split-left" class="overflow-auto fs0 height-viewport-100">
         <div class="py1 px2">
           <h3 class="mb0 no-anchor">@bombitmanbomb/neosjs</h3>
-          <div class="mb1"><code>1.6.16</code></div>
+          <div class="mb1"><code>1.6.17</code></div>
           <input
             placeholder="Filter"
             id="filter-input"
@@ -28,6 +28,55 @@
           <div id="toc">
             <ul class="list-reset h5 py1-ul">
               <li><a href="#require" class=""> require </a></li>
+
+              <li><a href="#handlercallback" class=""> HandlerCallback </a></li>
+
+              <li>
+                <a href="#headlessinterface" class="toggle-sibling">
+                  HeadlessInterface
+                  <span class="icon">▸</span>
+                </a>
+
+                <div class="toggle-target display-none">
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Static members</span></li>
+
+                    <li>
+                      <a
+                        href="#headlessinterfacecansend"
+                        class="regular pre-open"
+                      >
+                        .CanSend
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#headlessinterfacesessionid"
+                        class="regular pre-open"
+                      >
+                        .sessionId
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#headlessinterfacekill" class="regular pre-open">
+                        .Kill
+                      </a>
+                    </li>
+                  </ul>
+
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Instance members</span></li>
+
+                    <li>
+                      <a href="#headlessinterfacesend" class="regular pre-open">
+                        #Send
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
 
               <li><a href="#neos" class=""> Neos </a></li>
 
@@ -105,15 +154,117 @@
 
               <li><a href="#cloudx" class=""> CloudX </a></li>
 
+              <li>
+                <a href="#commandextended" class="toggle-sibling">
+                  CommandExtended
+                  <span class="icon">▸</span>
+                </a>
+
+                <div class="toggle-target display-none">
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Instance members</span></li>
+
+                    <li>
+                      <a href="#commandextendedadd" class="regular pre-open">
+                        #Add
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#commandextendedsethelp"
+                        class="regular pre-open"
+                      >
+                        #SetHelp
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#commandextendedrun" class="regular pre-open">
+                        #Run
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li>
+                <a href="#handler" class="toggle-sibling">
+                  Handler
+                  <span class="icon">▸</span>
+                </a>
+
+                <div class="toggle-target display-none">
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Static members</span></li>
+
+                    <li>
+                      <a href="#handlerusage" class="regular pre-open">
+                        .Usage
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#handlerhelp" class="regular pre-open">
+                        .Help
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#handlerreply" class="regular pre-open">
+                        .Reply
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
               <li><a href="#eventneoslogin" class=""> Neos#login </a></li>
+
+              <li>
+                <a href="#commandhandler" class="toggle-sibling">
+                  CommandHandler
+                  <span class="icon">▸</span>
+                </a>
+
+                <div class="toggle-target display-none">
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Static members</span></li>
+
+                    <li>
+                      <a href="#commandhandlerrun" class="regular pre-open">
+                        .Run
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#commandhandleradd" class="regular pre-open">
+                        .Add
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
 
               <li><a href="#eventneoslogout" class=""> Neos#logout </a></li>
 
               <li><a href="#eventneoserror" class=""> Neos#error </a></li>
 
               <li>
+                <a href="#eventheadlessinterfaceready" class="">
+                  HeadlessInterface#ready
+                </a>
+              </li>
+
+              <li>
                 <a href="#eventneossessionupdated" class="">
                   Neos#sessionUpdated
+                </a>
+              </li>
+
+              <li>
+                <a href="#eventheadlessinterfacemessage" class="">
+                  HeadlessInterface#message
                 </a>
               </li>
 
@@ -204,6 +355,190 @@
           <div class="pre p1 fill-light mt0">require</div>
 
           <div>Author: Bitman</div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
+            <h3 class="fl m0" id="handlercallback">HandlerCallback</h3>
+          </div>
+
+          <div class="pre p1 fill-light mt0">
+            new HandlerCallback(Handler: <a href="#handler">Handler</a>?,
+            Sender:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >?, Args:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+              >Array</a
+            >&#x3C;<a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >>?)
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Parameters</div>
+          <div class="prose">
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">Handler</span>
+                <code class="quiet">(<a href="#handler">Handler</a>?)</code>
+                Send a reply to the Sender
+              </div>
+            </div>
+
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">Sender</span>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >?)</code
+                >
+                U-ID of the user who triggered the command
+              </div>
+            </div>
+
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">Args</span>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                    >Array</a
+                  >&#x3C;<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >>?)</code
+                >
+                Arguments to the Command
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
+            <h3 class="fl m0" id="headlessinterface">HeadlessInterface</h3>
+          </div>
+
+          <div class="pre p1 fill-light mt0">new HeadlessInterface()</div>
+
+          <p>Extends EventEmitter</p>
+
+          <div class="py1 quiet mt1 prose-big">Static Members</div>
+          <div class="clearfix">
+            <div class="border-bottom" id="headlessinterfacecansend">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">CanSend</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Can the headless client send another command right now?</p>
+
+                  <div class="pre p1 fill-light mt0">CanSend</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="headlessinterfacesessionid">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">sessionId</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get the Headless Client SessionId</p>
+
+                  <div class="pre p1 fill-light mt0">sessionId</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="headlessinterfacekill">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Kill()</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>End the Process</p>
+
+                  <div class="pre p1 fill-light mt0">Kill(): any</div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>:
+                </section>
+              </div>
+            </div>
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Instance Members</div>
+          <div class="clearfix">
+            <div class="border-bottom" id="headlessinterfacesend">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Send(text)</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Send a command to the Headless Client</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Send(text:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >):
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                      >Promise</a
+                    >&#x3C;<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">text</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code
+                    ><a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                      >Promise</a
+                    >&#x3C;<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >></code
+                  >:
+                </section>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -1234,6 +1569,351 @@
 
         <section class="p2 mb2 clearfix bg-white minishadow">
           <div class="clearfix">
+            <h3 class="fl m0" id="commandextended">CommandExtended</h3>
+          </div>
+
+          <p>CommandExtended Plugin. Adds more features to CommandHandler</p>
+
+          <div class="pre p1 fill-light mt0">
+            new CommandExtended(CommandHandler:
+            <a href="#commandhandler">CommandHandler</a>, Options: {Prefix:
+            <code>"/"</code>, HelpCommand: <code>"help"</code>, UsageCommand:
+            <code>"usage"</code>, CommandsCommand: <code>"commands"</code>,
+            HelpDefault:
+            <code
+              >"Get a list of commands with $this.prefix +
+              $this.CommandsCommand"</code
+            >})
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Parameters</div>
+          <div class="prose">
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">CommandHandler</span>
+                <code class="quiet"
+                  >(<a href="#commandhandler">CommandHandler</a>)</code
+                >
+              </div>
+            </div>
+
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">Options</span>
+                <code class="quiet"
+                  >({Prefix: <code>"/"</code>, HelpCommand: <code>"help"</code>,
+                  UsageCommand: <code>"usage"</code>, CommandsCommand:
+                  <code>"commands"</code>, HelpDefault:
+                  <code
+                    >"Get a list of commands with $this.prefix +
+                    $this.CommandsCommand"</code
+                  >})</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Example</div>
+
+          <pre
+            class="p1 overflow-auto round fill-light"
+          ><span class="hljs-keyword">const</span> CommandHandler = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs/Plugins/CommandHandler"</span>)
+<span class="hljs-keyword">const</span> CommandExtended = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs/Plugins/CommandExtended"</span>)
+<span class="hljs-keyword">const</span> NEOS = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs"</span>)
+<span class="hljs-keyword">const</span> Neos = <span class="hljs-keyword">new</span> NEOS()
+<span class="hljs-keyword">const</span> Command = <span class="hljs-keyword">new</span> CommandExtended(<span class="hljs-keyword">new</span> CommandHandler(Neos),Options);
+Command.Add(<span class="hljs-string">"Ping"</span>, (Handler)=&gt;{Handler.Reply(<span class="hljs-string">"Pong"</span>)})
+Command.SetHelp(<span class="hljs-string">"Ping"</span>, {<span class="hljs-attr">index</span>:<span class="hljs-string">"Ping Pong!"</span>, <span class="hljs-attr">usage</span>:Command.Options.Prefix+<span class="hljs-string">"Ping"</span>})
+Command.Add(<span class="hljs-string">"Relay"</span>, (Handler, Sender, Args)=&gt;{
+ <span class="hljs-keyword">if</span> (Args.length&lt;<span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> Handler.Usage();
+ <span class="hljs-keyword">if</span> (!Args[<span class="hljs-number">0</span>].startsWith(<span class="hljs-string">"U-"</span>)) <span class="hljs-keyword">return</span> Handler.Reply(<span class="hljs-string">"First Argument must be a UserID."</span>);
+ <span class="hljs-keyword">if</span> (!Neos.IsFriend(Args[<span class="hljs-number">0</span>])) <span class="hljs-keyword">return</span> Handler.Reply(<span class="hljs-string">"User is not a Friend of the bot."</span>);
+ Neos.SendTextMessage(Args.shift(), Args.join(<span class="hljs-string">" "</span>)); <span class="hljs-comment">// Remove first argument (UserID) and join the rest with spaces.</span>
+ Handler.Reply(<span class="hljs-string">"Message Sent!"</span>)
+}, 
+{
+ <span class="hljs-attr">index</span>:<span class="hljs-string">"Send a message to another user via the bot."</span>,
+ <span class="hljs-attr">usage</span>:Command.Options.Prefix+<span class="hljs-string">"Relay &lt;User-ID&gt; &lt;Message&gt;"</span>
+}, [<span class="hljs-string">"U-BotOwner"</span>]);
+Neos.on(<span class="hljs-string">"messageReceived"</span>, Command.Run);</pre>
+
+          <div class="py1 quiet mt1 prose-big">Instance Members</div>
+          <div class="clearfix">
+            <div class="border-bottom" id="commandextendedadd">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Add(Command, Script, Help, Whitelist?)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Add a new Command Hook</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Add(Command:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, Script: <a href="#handlercallback">HandlerCallback</a>,
+                    Help: any, Whitelist:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                      >Array</a
+                    >&#x3C;<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >>?)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Command</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                        Command
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Script</span>
+                        <code class="quiet"
+                          >(<a href="#handlercallback">HandlerCallback</a
+                          >)</code
+                        >
+                        Script to run on command call
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Help</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Whitelist</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                            >Array</a
+                          >&#x3C;<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >>?)</code
+                        >
+                        Users allowed to run the command
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="commandextendedsethelp">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >SetHelp(Command, Help)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>
+                    Set help of a command, Will overwrite any previous indexes
+                  </p>
+
+                  <div class="pre p1 fill-light mt0">
+                    SetHelp(Command:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, Help: any)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Command</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                        Command to set Index for
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Help</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="commandextendedrun">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Run(Message)</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Parse and run the given message object</p>
+
+                  <div class="pre p1 fill-light mt0">Run(Message: any)</div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Message</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
+            <h3 class="fl m0" id="handler">Handler</h3>
+          </div>
+
+          <div class="pre p1 fill-light mt0">new Handler()</div>
+
+          <div class="py1 quiet mt1 prose-big">Static Members</div>
+          <div class="clearfix">
+            <div class="border-bottom" id="handlerusage">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Usage(Args)</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>
+                    Respond with the "usage" Help index. Injected by
+                    CommandExtended
+                  </p>
+
+                  <div class="pre p1 fill-light mt0">Usage(Args: any)</div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Args</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="handlerhelp">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Help(index, Args)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Respond with a Help Index. Injected by CommandExtended</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Help(index:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, Args: any)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">index</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Args</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="handlerreply">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Reply(Message)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <div class="pre p1 fill-light mt0">
+                    Reply(Message: CloudX.Shared.Message)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Message</span>
+                        <code class="quiet">(CloudX.Shared.Message)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
             <h3 class="fl m0" id="eventneoslogin">Neos#login</h3>
           </div>
 
@@ -1286,6 +1966,176 @@
 
         <section class="p2 mb2 clearfix bg-white minishadow">
           <div class="clearfix">
+            <h3 class="fl m0" id="commandhandler">CommandHandler</h3>
+          </div>
+
+          <p>CommandHandler Plugin.</p>
+
+          <div class="pre p1 fill-light mt0">
+            new CommandHandler(NeosJS: Class, Invalid:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >)
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Parameters</div>
+          <div class="prose">
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">NeosJS</span>
+                <code class="quiet">(Class)</code>
+                Neos.js "this" instance
+              </div>
+            </div>
+
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">Invalid</span>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >
+                  = <code>&quot;Invalid Command&quot;</code>)</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Example</div>
+
+          <pre
+            class="p1 overflow-auto round fill-light"
+          ><span class="hljs-keyword">const</span> NEOS = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs"</span>)
+<span class="hljs-keyword">const</span> Neos = <span class="hljs-keyword">new</span> NEOS()
+<span class="hljs-keyword">const</span> CommandHandler = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs/Plugins/CommandHandler"</span>)
+<span class="hljs-keyword">const</span> Command = <span class="hljs-keyword">new</span> Commandhandler(Neos)
+Command.Add(<span class="hljs-string">"Ping"</span>, (Handler)=&gt;{Handler.Reply(<span class="hljs-string">"Pong!"</span>)});
+Neos.on(<span class="hljs-string">"messageReceived"</span>, (Message)=&gt;{
+	Command.Run(Message)
+})</pre>
+
+          <div class="py1 quiet mt1 prose-big">Static Members</div>
+          <div class="clearfix">
+            <div class="border-bottom" id="commandhandlerrun">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Run(Message, Extra)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Run a Message for Commands</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Run(Message: {Id, OwnerId, RecipientId, SenderId,
+                    MessageType, Content, SendTime, LastUpdateTime, ReadTime},
+                    Extra: any)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Message</span>
+                        <code class="quiet"
+                          >({Id, OwnerId, RecipientId, SenderId, MessageType,
+                          Content, SendTime, LastUpdateTime, ReadTime})</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Extra</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="commandhandleradd">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Add(command, cb, whitelist?)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Add a Command</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Add(command:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, cb: <a href="#handlercallback">HandlerCallback</a>,
+                    whitelist:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                      >Array</a
+                    >&#x3C;<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >>?)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">command</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">cb</span>
+                        <code class="quiet"
+                          >(<a href="#handlercallback">HandlerCallback</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">whitelist</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                            >Array</a
+                          >&#x3C;<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >>?)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
             <h3 class="fl m0" id="eventneoslogout">Neos#logout</h3>
           </div>
 
@@ -1320,6 +2170,26 @@
 
         <section class="p2 mb2 clearfix bg-white minishadow">
           <div class="clearfix">
+            <h3 class="fl m0" id="eventheadlessinterfaceready">
+              HeadlessInterface#ready
+            </h3>
+          </div>
+
+          <p>Fires when the headless client is Ready</p>
+
+          <div class="pre p1 fill-light mt0">HeadlessInterface#ready</div>
+
+          <p>
+            Type:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >
+          </p>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
             <h3 class="fl m0" id="eventneossessionupdated">
               Neos#sessionUpdated
             </h3>
@@ -1328,6 +2198,24 @@
           <p>Session Updated</p>
 
           <div class="pre p1 fill-light mt0">Neos#sessionUpdated</div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
+            <h3 class="fl m0" id="eventheadlessinterfacemessage">
+              HeadlessInterface#message
+            </h3>
+          </div>
+
+          <div class="pre p1 fill-light mt0">HeadlessInterface#message</div>
+
+          <p>
+            Type:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >
+          </p>
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
