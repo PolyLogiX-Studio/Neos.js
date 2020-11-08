@@ -1604,15 +1604,17 @@ class CloudXInterface {
   /**
    * Remove a Friend
    *
-   * @param {Friend} friend
+   * @param {Friend|string} friend
    * @returns {Promise<CloudResult>}
    * @memberof CloudXInterface
    */
   async DeleteFriend(friend) {
+    if (typeof friend === "string") friend = this.Friends.GetFriend(friend);
     if (String.IsNullOrWhiteSpace(friend.OwnerId))
       return this.OnError("Argument Acception: friend.OwnerId");
     if (String.IsNullOrWhiteSpace(friend.FriendUserId))
       return this.OnError("Argument Acception: friend.FriendUserId");
+
     return await this.DELETE(
       "api/users/" + friend.OwnerId + "/friends/" + friend.FriendUserId,
       friend,
