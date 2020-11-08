@@ -27,6 +27,7 @@ class HTTP_CLIENT {
       request.Method === "PUT"
 		)
 			dat.body = request.Content;
+		let ERROR;
 		let response = await fetch(request.RequestUri, dat)
 			.then((res) => {
 				state = res.status;
@@ -38,7 +39,7 @@ class HTTP_CLIENT {
               body === "" ||
               !~resHeaders.get("content-type").indexOf("application/json")
 						)
-							return {};
+							return { response: {} };
 						return JSON.parse(body);
 					} catch (error) {
 						return {
@@ -48,8 +49,13 @@ class HTTP_CLIENT {
 				});
 			})
 			.catch((err) => {
-				throw new Error(err);
+				ERROR = new Error(err);
 			});
+		if (response == null) {
+			response = { error: ERROR, response: null };
+			state = 500;
+			resHeaders = {};
+		}
 		let cloudResult = new CloudResult("", state, response, resHeaders);
 		cloudResult.CloudResult(state, response, resHeaders);
 		return cloudResult;

@@ -21,7 +21,7 @@ class TransactionManager {
 		} else {
 			throw new Error(
 				"Error getting conversion ratio. " +
-          cloudResult1.State.ToString() +
+          cloudResult1.State +
           "\n\n" +
           cloudResult1.Content
 			);

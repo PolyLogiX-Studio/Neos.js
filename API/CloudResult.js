@@ -26,10 +26,11 @@ class CloudResult {
 	CloudResult(state, content, headers) {
 		this.State = state;
 		this.Content = content;
-
 		if (headers != null) {
 			this.Headers = {};
-			for (let item of headers) this.Headers[item[0]] = item[1];
+			for (let item of headers) {
+				this.Headers[item[0]] = item[1];
+			}
 		}
 		if (!this.IsError) return;
 		if (content == null) return;
