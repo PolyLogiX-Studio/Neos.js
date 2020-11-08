@@ -1,6 +1,6 @@
 ---
 name: Support Ticket
-about: I Need Help
+about: General Support with using the Library
 title: "Support Ticket"
 labels: "support"
 assignees: "bombitmanbomb"
@@ -12,8 +12,12 @@ A clear and concise description of what the problem is. Ex. I'm always frustrate
 **Describe the solution you'd like**
 A clear and concise description of what you want to happen.
 
-**Describe the issue**
+**Describe the problem**
 A clear and concise description of what is happening.
 
+**Version (please complete the following information):**
+
+- Package Version [e.g. 1.6.16] - npm view @bombitmanbomb/neosjs version
+
 **Additional context**
-Add any other context or screenshots about the issue here.
+Add any other context or screenshots about the problem here.
