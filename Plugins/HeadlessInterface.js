@@ -1,7 +1,7 @@
 const { EventEmitter } = require("events");
 const fs = require("fs");
 const path = require("path");
-
+const { v4: uuid } = require("uuid");
 /**
  *
  * @class HeadlessInterface
@@ -66,6 +66,7 @@ class HeadlessInterface extends EventEmitter {
 		} else {
 			this.NeosVR = headlessPath;
 		}
+		this.Queue = new CommandQueue(this);
 		this.InternalEvents = new EventEmitter();
 		this.InternalEvents.setMaxListeners(1);
 		this.NeosVR.stdout.on("data", (data) => {
@@ -173,6 +174,25 @@ class HeadlessInterface extends EventEmitter {
 		);
 		this.NeosVR.stdin.write(text + "\n");
 		return response;
+	}
+}
+
+/**
+ *
+ * @private
+ * @class CommandQueue
+ */
+class CommandQueue {
+	constructor(HeadlessInterface) {
+		this.HeadlessInterface = HeadlessInterface;
+		this.Queue = [];
+		this.Promises = [];
+		this.InternalClock = null; //TODO internal timer
+	}
+	Add(Command) {
+		var context = this; //Passing into ES6
+
+		return new Promise();
 	}
 }
 module.exports = HeadlessInterface;
