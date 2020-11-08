@@ -33,7 +33,6 @@ Commands.Add("ping", (h) => h.Reply("pong!"), "Ping Pong!");
 Commands.Add("TestFunction", TestFunction, TestHelp);
 Commands.Add("ping3", (h) => h.Reply("pong!"), "Ping Pong!");
 Commands.Add("ping4", (h) => h.Reply("pong!"), "Ping Pong!");
-
 Neos.on("messageReceived", Commands.Run);
 Neos.Login(
 	process.env.NEOS_LOGIN,
