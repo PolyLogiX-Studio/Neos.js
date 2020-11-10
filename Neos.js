@@ -2,6 +2,29 @@
  * @fileoverview NeosVR CloudX.Shared Library in NodeJS
  *
  * @author Bitman
+ * @example const NEOS = require("@bombitmanbomb/neosjs");
+ * const Neos = new NEOS();
+ * const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler");
+ * const CommandExtended = require("@bombitmanbomb/neosjs/Plugins/CommandExtended");
+ * const Command = new CommandExtended(new CommandHandler(Neos));
+ * Neos.on("error", (err)=>throw new Error(err));
+ * Neos.on("messageReceived", (Message)=>{
+ * 	switch(Message.MessageType){
+ * 	case "Text":
+ * 		Command.Run(Message)
+ * 	break
+ * 	default:
+ * 		Neos.SendTextMessage(Message.SenderId,"Message could not be handled.");
+ * 	}
+ * })
+ * Command.Add("ping", (Handler)=>{
+ * 	Handler.Reply("Pong!");
+ * },
+ * {
+ * 	index:"Ping Pong!"
+ * 	usage: Command.Options.Prefix + "ping"
+ * });
+ * Neos.Login(Credentials...)
  */
 const { CloudX } = require("./API");
 const config = require("./package.json");
@@ -11,17 +34,24 @@ class Events extends EventEmitter {
 		super();
 	}
 }
+
 /**
  *Creates an instance of Neos.
  * @param {{AutoReadMessages:true, OnlineStateL:Online, StatusInterval:60,NeosVersion:"Neos.js <Version>", CompatabilityHash:"Neos.js <Version>",UpdateInterval:1000,Update:true,MultiMessageDelay:1100}} options
  * @memberof Neos
  */
+
+/**
+ * @class Neos
+ * @extends {EventEmitter}
+ */
 class Neos extends EventEmitter {
 	/**
    * CloudX
    * @readonly
-   * @static
-   * @memberof NeosJS
+   * @instance
+   * @returns {CloudX}
+   * @memberof Neos
    */
 	static get CloudX() {
 		return CloudX;
@@ -54,150 +84,51 @@ class Neos extends EventEmitter {
 		this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
 		this._UserMessage.Cloud = this.CloudXInterface;
 		this.CloudXInterface.OnLogin = (obj) => {
-			/**
-       * Login Event
-       *
-       * @example Neos.on("login", ()=>{
-       * 	Neos.SendTestMesssage("U-BotOwner", "Bot Online");
-       * ...
-       * })
-       * @event Neos#login
-       * @type {Object}
-       * @property {Object} CurrentUser Current User
-       * @property {Object} CurrentSession Current Session
-       */
 			this.Events.emit("login", obj);
 		};
 		this.CloudXInterface.OnLogout = () => {
-			/**
-       * Logout Event
-       *
-       * @event Neos#logout
-       */
 			this.Events.emit("logout");
 		};
 		this.CloudXInterface.OnError = (error) => {
-			/**
-       * Error Event
-       * @example Neos.on("error", (err)=>{console.error(err)})
-       * @event Neos#error
-       * @type {Error}
-       */
 			this.Events.emit("error", error);
 		};
 		this.CloudXInterface.OnSessionUpdated = () => {
-			/**
-       * Session Updated
-       *
-       * @event Neos#sessionUpdated
-       */
 			this.Events.emit("sessionUpdated");
 		};
 		this.CloudXInterface.SessionChanged = (session) => {
-			/**
-       * Session Changed
-       *
-       * @event Neos#sessionChanged
-       * @type {CloudXInterface.CurrentSession}
-       *
-       */
 			this.Events.emit("sessionChanged", session);
 		};
 		this.CloudXInterface.UserUpdated = (user) => {
-			/**
-       * User Updated
-       *
-       * @event Neos#userUpdated
-       * @type {CloudXInterface.CurrentUser}
-       */
 			this.Events.emit("userUpdated", user);
 		};
 		this.CloudXInterface.MembershipsUpdated = (memberships) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#membershipsUpdated
-       */
 			this.Events.emit("membershipsUpdated", memberships);
 		};
 		this.CloudXInterface.GroupUpdated = (group) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#groupUpdated
-       */
 			this.Events.emit("groupUpdated", group);
 		};
 		this.CloudXInterface.GroupMemberUpdated = (groupMember) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#groupMemberUpdated
-       */
 			this.Events.emit("groupMemberUpdated", groupMember);
 		};
 		this.CloudXInterface.Messages.onMessageReceived = (message) => {
-			/**
-       * Message Received
-       * @example Neos.on("messageReceived", (message)=>{
-       * 	switch(message.MessageType){
-       * 		case "Text":
-       * 			Commands.Run(message)
-       * 			break
-       * 		default:
-       * 		Neos.SendTextMessage(message.SenderId, "I Only can handle Text")
-       * 	}
-       * })
-       * @event Neos#messageReceived
-       */
 			this.Events.emit("messageReceived", message);
 		};
 		this.CloudXInterface.Messages.messageCountChanged = (count) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#messageCountChanged
-       */
 			this.Events.emit("messageCountChanged", count);
 		};
 		this.CloudXInterface.Friends.FriendAdded = (friend) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#friendAdded
-       */
 			this.Events.emit("friendAdded", friend);
 		};
 		this.CloudXInterface.Friends.FriendUpdated = (friend) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#friendUpdated
-       */
 			this.Events.emit("friendUpdated", friend);
 		};
 		this.CloudXInterface.Friends.FriendRemoved = (friend) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#friendRemoved
-       */
 			this.Events.emit("friendRemoved", friend);
 		};
 		this.CloudXInterface.Friends.FriendRequestCountChanged = (count) => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#friendRequestCountChanged
-       */
 			this.Events.emit("friendRequestCountChanged", count);
 		};
 		this.CloudXInterface.Friends.FriendsChanged = () => {
-			/**
-       * membershipsUpdated
-       *
-       * @event Neos#friendsChanged
-       */
 			this.Events.emit("friendsChanged");
 		};
 		//this.Interval = setInterval(this.CloudXInterface.Update,1000)
@@ -283,7 +214,7 @@ class Neos extends EventEmitter {
 
 	/**
    * @private
-   *
+   * @instance
    * @param {*} interval
    * @memberof Neos
    */
@@ -322,7 +253,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    * Update the Neos Account status
-   *
+   * @instance
    * @memberof Neos
    */
 	UpdateStatus() {
@@ -344,6 +275,7 @@ class Neos extends EventEmitter {
    * @param {string} [recoverCode] Recovery Code sent via Email, Use to set a new password
    * @returns {Promise<CloudResult<UserSession>>}
    * @memberof Neos
+   * @instance
    */
 	async Login(
 		credential,
@@ -365,7 +297,7 @@ class Neos extends EventEmitter {
 
 	/**
    * Logout
-   *
+   * @instance
    * @param {boolean} [manual=true]
    * @memberof Neos
    */
@@ -373,8 +305,8 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.Logout(manual);
 	}
 	/**
-   *
    * Get the Current User
+   * @instance
    * @readonly
    * @memberof Neos
    * @returns {User}
@@ -384,7 +316,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    * Get the Current Session
-   *
+   * @instance
    * @readonly
    * @memberof Neos
    * @returns {UserSession}
@@ -394,7 +326,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get User Memberships
-   *
+   * @instance
    * @readonly
    * @memberof Neos
    * @returns {List<Membership>}
@@ -405,7 +337,7 @@ class Neos extends EventEmitter {
 
 	/**
    *
-   *
+   * @instance
    * @readonly
    * @memberof Neos
    */
@@ -414,7 +346,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Search neos for username
-   *
+   * @instance
    * @param {string} username
    * @returns
    * @memberof Neos
@@ -424,7 +356,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get a specific User by their UserId
-   *
+   * @instance
    * @param {string} userId
    * @returns {User} User Object
    * @memberof Neos
@@ -435,9 +367,9 @@ class Neos extends EventEmitter {
 		);
 	}
 	/**
-   *
    * get a specific User by their username
    * @param {string} username
+   * @instance
    * @returns {User}
    * @memberof Neos
    */
@@ -446,7 +378,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    * Get the friends list of a user
-   *
+   * @instance
    * @param {string} userId
    * @returns {List<Friend>}
    * @memberof Neos
@@ -456,7 +388,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    * get a user from your friend list
-   *
+   * @instance
    * @param {string} friendId
    * @returns {User}
    * @memberof Neos
@@ -466,7 +398,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    * Check if a user is friends
-   *
+   * @instance
    * @param {string} friendId
    * @returns {Boolean}
    * @memberof Neos
@@ -477,6 +409,7 @@ class Neos extends EventEmitter {
 	/**
    * Send or Accept a friend request
    * - pass the Friend Object
+   * @instance
    * @param {String | CloudX.Shared.Friend} friend
    * @returns void
    * @memberof Neos
@@ -487,7 +420,7 @@ class Neos extends EventEmitter {
 	/**
    * Remove a user from your friends list
    * - pass the Friend Object
-   *
+   * @instance
    * @param {*} friend
    * @returns void
    * @memberof Neos
@@ -498,7 +431,7 @@ class Neos extends EventEmitter {
 	/**
    * Ignore a Friend Request
    *  - pass the Friend Object
-   *
+   * @instance
    * @param {*} friend
    * @returns void
    * @memberof Neos
@@ -508,7 +441,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get a Neos Group
-   *
+   * @instance
    * @param {*} groupId
    * @returns {Group}
    * @memberof Neos
@@ -518,7 +451,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get a Member from a Group
-   *
+   * @instance
    * @param {String} groupId
    * @param {String} userId
    * @returns {Member}
@@ -529,7 +462,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get the Members of a group and their Byte Usage
-   *
+   * @instance
    * @param {String} groupId
    * @returns {List<Member>}
    * @memberof Neos
@@ -538,8 +471,8 @@ class Neos extends EventEmitter {
 		return (await this.CloudXInterface.GetGroupMembers(groupId)).Entity;
 	}
 	/**
-   *
    * Get cached messages with a user
+   * @instance
    * @param {String} UserId
    * @returns {UserMessages}
    * @memberof Neos
@@ -549,7 +482,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get all Cached messages
-   *
+   * @instance
    * @returns {List<Message>}
    * @memberof Neos
    */
@@ -560,7 +493,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get messages and add them to the cache
-   *
+   * @instance
    * @param {Date} [fromTime=new Date]
    * @param {Number} [maxItems=100]
    * @param {String} [user=null]
@@ -585,7 +518,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    * Send a Read Reciept, Messages will not show in UnreadMessages query
-   *
+   * @instance
    * @param {Array<String> | List<String> | String} messageIds
    * @returns
    * @memberof Neos
@@ -597,7 +530,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get History of messages with a user
-   *
+   * @instance
    * @param {String} userId
    * @param {number} [maxItems=100]
    * @returns {List<Message>} Messages
@@ -609,7 +542,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *Get the status of a user
-   *
+   * @instance
    * @param {String} userId
    * @returns {UserStatus} UserStatus
    * @memberof Neos
@@ -618,16 +551,16 @@ class Neos extends EventEmitter {
 		return (await this.CloudXInterface.GetStatus(userId)).Entity;
 	}
 	/**
-   *
    * Not Yet Implimented
    * @param {SearchParameters} record
+   * @instance
    * @memberof Neos
    */
 	// eslint-disable-next-line no-unused-vars
 	FindRecords(record) {}
 	/**
    *Not yet Implimented
-   *
+   * @instance
    * @param {*} ownerId
    * @param {*} recordId
    * @memberof Neos
@@ -637,7 +570,7 @@ class Neos extends EventEmitter {
 	FetchRecord(ownerId, recordId) {}
 	/**
    *
-   *
+   * @instance
    * @param {String} UserId Neos User Id to send
    * @param {String} Message Text to Send
    * @memberof Neos
@@ -688,7 +621,7 @@ class Neos extends EventEmitter {
 
 	/**
    *
-   *
+   * @instance
    * @param {String} neosdb neosdb:///URL
    * @param {Number} endpoint Options:
    * - 0 - Default
@@ -708,7 +641,7 @@ class Neos extends EventEmitter {
 	}
 	/**
    *
-   *
+   * @instance
    * @param {*} UserId
    * @param {*} Message
    * @returns
@@ -730,6 +663,129 @@ class Neos extends EventEmitter {
 	JoinSession() {}
 	LeaveSession() {}
 }
+
+/**
+ * Message Received
+ * @example Neos.on("messageReceived", (message)=>{
+ * 	switch(message.MessageType){
+ * 		case "Text":
+ * 			Commands.Run(message)
+ * 			break
+ * 		default:
+ * 		Neos.SendTextMessage(message.SenderId, "I Only can handle Text")
+ * 	}
+ * })
+ * @event Neos#messageReceived
+ * @type {Message}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#groupMemberUpdated
+ * @type {Member}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#messageCountChanged
+ * @type {Number}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#friendAdded
+ * @type {Friend}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#friendUpdated
+ * @type {Friend}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#friendRemoved
+ * @type {Friend}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#friendRequestCountChanged
+ * @type {Number}
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#friendsChanged
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#groupUpdated
+ * @memberof Neos
+ */
+/**
+ * membershipsUpdated
+ *
+ * @event Neos#membershipsUpdated
+ * @memberof Neos
+ */
+
+/**
+ * User Updated
+ *
+ * @event Neos#userUpdated
+ * @type {User}
+ * @memberof Neos
+ */
+/**
+ * Session Changed
+ *
+ * @event Neos#sessionChanged
+ * @type {UserSession}
+ *@memberof Neos
+ */
+/**
+ * Session Updated
+ *
+ * @event Neos#sessionUpdated
+ * @memberof Neos
+ */
+/**
+ * Error Event
+ * @example Neos.on("error", (err)=>{console.error(err)})
+ * @event Neos#error
+ * @type {Error}
+ * @memberof Neos
+ */
+/**
+ * Logout Event
+ *
+ * @event Neos#logout
+ * @memberof Neos
+ */
+/**
+ * Login Event
+ *
+ * @example Neos.on("login", ()=>{
+ * 	Neos.SendTestMesssage("U-BotOwner", "Bot Online");
+ * ...
+ * })
+ * @event Neos#login
+ * @type {Object}
+ * @property {Object} CurrentUser Current User
+ * @property {Object} CurrentSession Current Session
+ * @memberof Neos
+ */
 
 /**
  *@private

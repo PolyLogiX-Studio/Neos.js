@@ -29,162 +29,357 @@
             <ul class="list-reset h5 py1-ul">
               <li><a href="#require" class=""> require </a></li>
 
-              <li><a href="#neos" class=""> Neos </a></li>
-
-              <li><a href="#updatestatus" class=""> UpdateStatus </a></li>
-
-              <li><a href="#login" class=""> Login </a></li>
-
-              <li><a href="#logout" class=""> Logout </a></li>
-
-              <li><a href="#currentuser" class=""> CurrentUser </a></li>
-
-              <li><a href="#currentsession" class=""> CurrentSession </a></li>
-
               <li>
-                <a href="#currentusermemberships" class="">
-                  CurrentUserMemberships
+                <a href="#neos" class="toggle-sibling">
+                  Neos
+                  <span class="icon">▸</span>
                 </a>
-              </li>
 
-              <li>
-                <a href="#currentusergroupinfos" class="">
-                  CurrentUserGroupInfos
-                </a>
-              </li>
+                <div class="toggle-target display-none">
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Static members</span></li>
 
-              <li><a href="#getusers" class=""> GetUsers </a></li>
+                    <li>
+                      <a href="#neosneos" class="regular pre-open"> .Neos </a>
+                    </li>
+                  </ul>
 
-              <li><a href="#getuser" class=""> GetUser </a></li>
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5"><span>Instance members</span></li>
 
-              <li><a href="#getuserbyname" class=""> GetUserByName </a></li>
+                    <li>
+                      <a href="#neoscloudx" class="regular pre-open">
+                        #CloudX
+                      </a>
+                    </li>
 
-              <li><a href="#getfriends" class=""> GetFriends </a></li>
+                    <li>
+                      <a href="#neosupdatestatus" class="regular pre-open">
+                        #UpdateStatus
+                      </a>
+                    </li>
 
-              <li><a href="#getfriend" class=""> GetFriend </a></li>
+                    <li>
+                      <a href="#neoslogin" class="regular pre-open"> #Login </a>
+                    </li>
 
-              <li><a href="#isfriend" class=""> IsFriend </a></li>
+                    <li>
+                      <a href="#neoslogout" class="regular pre-open">
+                        #Logout
+                      </a>
+                    </li>
 
-              <li><a href="#addfriend" class=""> AddFriend </a></li>
+                    <li>
+                      <a href="#neoscurrentuser" class="regular pre-open">
+                        #CurrentUser
+                      </a>
+                    </li>
 
-              <li><a href="#removefriend" class=""> RemoveFriend </a></li>
+                    <li>
+                      <a href="#neoscurrentsession" class="regular pre-open">
+                        #CurrentSession
+                      </a>
+                    </li>
 
-              <li><a href="#ignorerequest" class=""> IgnoreRequest </a></li>
+                    <li>
+                      <a
+                        href="#neoscurrentusermemberships"
+                        class="regular pre-open"
+                      >
+                        #CurrentUserMemberships
+                      </a>
+                    </li>
 
-              <li><a href="#getgroup" class=""> GetGroup </a></li>
+                    <li>
+                      <a
+                        href="#neoscurrentusergroupinfos"
+                        class="regular pre-open"
+                      >
+                        #CurrentUserGroupInfos
+                      </a>
+                    </li>
 
-              <li><a href="#getgroupmember" class=""> GetGroupMember </a></li>
+                    <li>
+                      <a href="#neosgetusers" class="regular pre-open">
+                        #GetUsers
+                      </a>
+                    </li>
 
-              <li><a href="#getgroupmembers" class=""> GetGroupMembers </a></li>
+                    <li>
+                      <a href="#neosgetuser" class="regular pre-open">
+                        #GetUser
+                      </a>
+                    </li>
 
-              <li><a href="#getusermessages" class=""> GetUserMessages </a></li>
+                    <li>
+                      <a href="#neosgetuserbyname" class="regular pre-open">
+                        #GetUserByName
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#getallusermessages" class=""> GetAllUserMessages </a>
-              </li>
+                    <li>
+                      <a href="#neosgetfriends" class="regular pre-open">
+                        #GetFriends
+                      </a>
+                    </li>
 
-              <li><a href="#getmessages" class=""> GetMessages </a></li>
+                    <li>
+                      <a href="#neosgetfriend" class="regular pre-open">
+                        #GetFriend
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#markmessagesread" class=""> MarkMessagesRead </a>
-              </li>
+                    <li>
+                      <a href="#neosisfriend" class="regular pre-open">
+                        #IsFriend
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#getmessagehistory" class=""> GetMessageHistory </a>
-              </li>
+                    <li>
+                      <a href="#neosaddfriend" class="regular pre-open">
+                        #AddFriend
+                      </a>
+                    </li>
 
-              <li><a href="#getstatus" class=""> GetStatus </a></li>
+                    <li>
+                      <a href="#neosremovefriend" class="regular pre-open">
+                        #RemoveFriend
+                      </a>
+                    </li>
 
-              <li><a href="#findrecords" class=""> FindRecords </a></li>
+                    <li>
+                      <a href="#neosignorerequest" class="regular pre-open">
+                        #IgnoreRequest
+                      </a>
+                    </li>
 
-              <li><a href="#fetchrecord" class=""> FetchRecord </a></li>
+                    <li>
+                      <a href="#neosgetgroup" class="regular pre-open">
+                        #GetGroup
+                      </a>
+                    </li>
 
-              <li><a href="#sendtextmessage" class=""> SendTextMessage </a></li>
+                    <li>
+                      <a href="#neosgetgroupmember" class="regular pre-open">
+                        #GetGroupMember
+                      </a>
+                    </li>
 
-              <li><a href="#neosdbtohttp" class=""> NeosDBToHttp </a></li>
+                    <li>
+                      <a href="#neosgetgroupmembers" class="regular pre-open">
+                        #GetGroupMembers
+                      </a>
+                    </li>
 
-              <li><a href="#sendtransaction" class=""> SendTransaction </a></li>
+                    <li>
+                      <a href="#neosgetusermessages" class="regular pre-open">
+                        #GetUserMessages
+                      </a>
+                    </li>
 
-              <li><a href="#cloudx" class=""> CloudX </a></li>
+                    <li>
+                      <a
+                        href="#neosgetallusermessages"
+                        class="regular pre-open"
+                      >
+                        #GetAllUserMessages
+                      </a>
+                    </li>
 
-              <li><a href="#eventneoslogin" class=""> Neos#login </a></li>
+                    <li>
+                      <a href="#neosgetmessages" class="regular pre-open">
+                        #GetMessages
+                      </a>
+                    </li>
 
-              <li><a href="#eventneoslogout" class=""> Neos#logout </a></li>
+                    <li>
+                      <a href="#neosmarkmessagesread" class="regular pre-open">
+                        #MarkMessagesRead
+                      </a>
+                    </li>
 
-              <li><a href="#eventneoserror" class=""> Neos#error </a></li>
+                    <li>
+                      <a href="#neosgetmessagehistory" class="regular pre-open">
+                        #GetMessageHistory
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneossessionupdated" class="">
-                  Neos#sessionUpdated
-                </a>
-              </li>
+                    <li>
+                      <a href="#neosgetstatus" class="regular pre-open">
+                        #GetStatus
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneossessionchanged" class="">
-                  Neos#sessionChanged
-                </a>
-              </li>
+                    <li>
+                      <a href="#neosfindrecords" class="regular pre-open">
+                        #FindRecords
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosuserupdated" class=""> Neos#userUpdated </a>
-              </li>
+                    <li>
+                      <a href="#neosfetchrecord" class="regular pre-open">
+                        #FetchRecord
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosmembershipsupdated" class="">
-                  Neos#membershipsUpdated
-                </a>
-              </li>
+                    <li>
+                      <a href="#neossendtextmessage" class="regular pre-open">
+                        #SendTextMessage
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosgroupupdated" class="">
-                  Neos#groupUpdated
-                </a>
-              </li>
+                    <li>
+                      <a href="#neosneosdbtohttp" class="regular pre-open">
+                        #NeosDBToHttp
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosgroupmemberupdated" class="">
-                  Neos#groupMemberUpdated
-                </a>
-              </li>
+                    <li>
+                      <a href="#neossendtransaction" class="regular pre-open">
+                        #SendTransaction
+                      </a>
+                    </li>
+                  </ul>
 
-              <li>
-                <a href="#eventneosmessagereceived" class="">
-                  Neos#messageReceived
-                </a>
-              </li>
+                  <ul class="list-reset py1-ul pl1">
+                    <li class="h5">Events</li>
 
-              <li>
-                <a href="#eventneosmessagecountchanged" class="">
-                  Neos#messageCountChanged
-                </a>
-              </li>
+                    <li>
+                      <a
+                        href="#neoseventneosmessagereceived"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#messageReceived
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosfriendadded" class=""> Neos#friendAdded </a>
-              </li>
+                    <li>
+                      <a
+                        href="#neoseventneosgroupmemberupdated"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#groupMemberUpdated
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosfriendupdated" class="">
-                  Neos#friendUpdated
-                </a>
-              </li>
+                    <li>
+                      <a
+                        href="#neoseventneosmessagecountchanged"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#messageCountChanged
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosfriendremoved" class="">
-                  Neos#friendRemoved
-                </a>
-              </li>
+                    <li>
+                      <a
+                        href="#neoseventneosfriendadded"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#friendAdded
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosfriendrequestcountchanged" class="">
-                  Neos#friendRequestCountChanged
-                </a>
-              </li>
+                    <li>
+                      <a
+                        href="#neoseventneosfriendupdated"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#friendUpdated
+                      </a>
+                    </li>
 
-              <li>
-                <a href="#eventneosfriendschanged" class="">
-                  Neos#friendsChanged
-                </a>
+                    <li>
+                      <a
+                        href="#neoseventneosfriendremoved"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#friendRemoved
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneosfriendrequestcountchanged"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#friendRequestCountChanged
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneosfriendschanged"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#friendsChanged
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneosgroupupdated"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#groupUpdated
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneosmembershipsupdated"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#membershipsUpdated
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneosuserupdated"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#userUpdated
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneossessionchanged"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#sessionChanged
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#neoseventneossessionupdated"
+                        class="regular pre-open"
+                      >
+                        ⓔ Neos#sessionUpdated
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#neoseventneoserror" class="regular pre-open">
+                        ⓔ Neos#error
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#neoseventneoslogout" class="regular pre-open">
+                        ⓔ Neos#logout
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="#neoseventneoslogin" class="regular pre-open">
+                        ⓔ Neos#login
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </div>
@@ -206,6 +401,34 @@
           <div class="pre p1 fill-light mt0">require</div>
 
           <div>Author: Bitman</div>
+
+          <div class="py1 quiet mt1 prose-big">Example</div>
+
+          <pre
+            class="p1 overflow-auto round fill-light"
+          ><span class="hljs-keyword">const</span> NEOS = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs"</span>);
+<span class="hljs-keyword">const</span> Neos = <span class="hljs-keyword">new</span> NEOS();
+<span class="hljs-keyword">const</span> CommandHandler = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs/Plugins/CommandHandler"</span>);
+<span class="hljs-keyword">const</span> CommandExtended = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@bombitmanbomb/neosjs/Plugins/CommandExtended"</span>);
+<span class="hljs-keyword">const</span> Command = <span class="hljs-keyword">new</span> CommandExtended(<span class="hljs-keyword">new</span> CommandHandler(Neos));
+Neos.on(<span class="hljs-string">"error"</span>, (err)=&gt;<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(err));
+Neos.on(<span class="hljs-string">"messageReceived"</span>, (Message)=&gt;{
+	<span class="hljs-keyword">switch</span>(Message.MessageType){
+	<span class="hljs-keyword">case</span> <span class="hljs-string">"Text"</span>:
+		Command.Run(Message)
+	<span class="hljs-keyword">break</span>
+	<span class="hljs-attr">default</span>:
+		Neos.SendTextMessage(Message.SenderId,<span class="hljs-string">"Message could not be handled."</span>);
+	}
+})
+Command.Add(<span class="hljs-string">"ping"</span>, (Handler)=&gt;{
+	Handler.Reply(<span class="hljs-string">"Pong!"</span>);
+},
+{
+	<span class="hljs-attr">index</span>:<span class="hljs-string">"Ping Pong!"</span>
+	<span class="hljs-attr">usage</span>: Command.Options.Prefix + <span class="hljs-string">"ping"</span>
+});
+Neos.Login(Credentials...)</pre>
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -213,1338 +436,1462 @@
             <h3 class="fl m0" id="neos">Neos</h3>
           </div>
 
-          <p>Creates an instance of Neos.</p>
-
-          <div class="pre p1 fill-light mt0">
-            new Neos(options: {AutoReadMessages: <code>true</code>,
-            OnlineStateL: Online, StatusInterval: <code>60</code>, NeosVersion:
-            <code>"Neos.js &#x3C;Version>"</code>, CompatabilityHash:
-            <code>"Neos.js &#x3C;Version>"</code>, UpdateInterval:
-            <code>1000</code>, Update: <code>true</code>, MultiMessageDelay:
-            <code>1100</code>})
-          </div>
+          <div class="pre p1 fill-light mt0">new Neos()</div>
 
           <p>Extends EventEmitter</p>
 
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">options</span>
-                <code class="quiet"
-                  >({AutoReadMessages: <code>true</code>, OnlineStateL: Online,
-                  StatusInterval: <code>60</code>, NeosVersion:
-                  <code>"Neos.js &#x3C;Version>"</code>, CompatabilityHash:
-                  <code>"Neos.js &#x3C;Version>"</code>, UpdateInterval:
-                  <code>1000</code>, Update: <code>true</code>,
-                  MultiMessageDelay: <code>1100</code>})</code
-                >
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="py1 quiet mt1 prose-big">Static Members</div>
           <div class="clearfix">
-            <h3 class="fl m0" id="updatestatus">UpdateStatus</h3>
-          </div>
-
-          <p>Update the Neos Account status</p>
-
-          <div class="pre p1 fill-light mt0">UpdateStatus()</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="login">Login</h3>
-          </div>
-
-          <div class="pre p1 fill-light mt0">
-            Login(credential:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >, password:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >?, sessionToken:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >?, machineId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >, rememberMe:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-              >boolean</a
-            >, recoverCode:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >?):
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
-              >Promise</a
-            >&#x3C;CloudResult&#x3C;UserSession>>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">credential</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-                Email, UserId, or Account Username
-              </div>
-            </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">password</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >?)</code
-                >
-                Not required if sessionToken is set,
-                <ul>
-                  <li>Set as new password if recoverCode is set</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">sessionToken</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >?)</code
-                >
-                Session Token to login without storing the password
-              </div>
-            </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">machineId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-                Unique Machine ID, If another instance is logged in using the
-                same machine id, the new one will replace the old.
-              </div>
-            </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">rememberMe</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-                    >boolean</a
+            <div class="border-bottom" id="neosneos">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >new Neos(options)</span
                   >
-                  = <code>false</code>)</code
-                >
-                SessionToken will be valid for 7 days
+                </div>
               </div>
-            </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Creates an instance of Neos.</p>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">recoverCode</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >?)</code
-                >
-                Recovery Code sent via Email, Use to set a new password
+                  <div class="pre p1 fill-light mt0">
+                    new Neos(options: {AutoReadMessages: <code>true</code>,
+                    OnlineStateL: Online, StatusInterval: <code>60</code>,
+                    NeosVersion: <code>"Neos.js &#x3C;Version>"</code>,
+                    CompatabilityHash: <code>"Neos.js &#x3C;Version>"</code>,
+                    UpdateInterval: <code>1000</code>, Update:
+                    <code>true</code>, MultiMessageDelay: <code>1100</code>})
+                  </div>
+
+                  <p>Extends EventEmitter</p>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">options</span>
+                        <code class="quiet"
+                          >({AutoReadMessages: <code>true</code>, OnlineStateL:
+                          Online, StatusInterval: <code>60</code>, NeosVersion:
+                          <code>"Neos.js &#x3C;Version>"</code>,
+                          CompatabilityHash:
+                          <code>"Neos.js &#x3C;Version>"</code>, UpdateInterval:
+                          <code>1000</code>, Update: <code>true</code>,
+                          MultiMessageDelay: <code>1100</code>})</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
           </div>
 
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code
-            ><a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
-              >Promise</a
-            >&#x3C;CloudResult&#x3C;UserSession>></code
-          >:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="py1 quiet mt1 prose-big">Instance Members</div>
           <div class="clearfix">
-            <h3 class="fl m0" id="logout">Logout</h3>
-          </div>
+            <div class="border-bottom" id="neoscloudx">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">CloudX</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>CloudX</p>
 
-          <p>Logout</p>
+                  <div class="pre p1 fill-light mt0">CloudX</div>
 
-          <div class="pre p1 fill-light mt0">
-            Logout(manual:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-              >boolean</a
-            >)
-          </div>
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>CloudX</code>:
+                </section>
+              </div>
+            </div>
 
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">manual</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-                    >boolean</a
+            <div class="border-bottom" id="neosupdatestatus">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >UpdateStatus()</span
                   >
-                  = <code>true</code>)</code
-                >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Update the Neos Account status</p>
+
+                  <div class="pre p1 fill-light mt0">UpdateStatus()</div>
+                </section>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="currentuser">CurrentUser</h3>
-          </div>
-
-          <p>Get the Current User</p>
-
-          <div class="pre p1 fill-light mt0">CurrentUser</div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>User</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="currentsession">CurrentSession</h3>
-          </div>
-
-          <p>Get the Current Session</p>
-
-          <div class="pre p1 fill-light mt0">CurrentSession</div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>UserSession</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="currentusermemberships">
-              CurrentUserMemberships
-            </h3>
-          </div>
-
-          <p>Get User Memberships</p>
-
-          <div class="pre p1 fill-light mt0">CurrentUserMemberships</div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>List&#x3C;Membership></code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="currentusergroupinfos">
-              CurrentUserGroupInfos
-            </h3>
-          </div>
-
-          <div class="pre p1 fill-light mt0">CurrentUserGroupInfos</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getusers">GetUsers</h3>
-          </div>
-
-          <p>Search neos for username</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetUsers(username:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >): any
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">username</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getuser">GetUser</h3>
-          </div>
-
-          <p>Get a specific User by their UserId</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetUser(userId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >): User
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">userId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>User</code>: User Object
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getuserbyname">GetUserByName</h3>
-          </div>
-
-          <p>get a specific User by their username</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetUserByName(username:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >): User
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">username</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>User</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getfriends">GetFriends</h3>
-          </div>
-
-          <p>Get the friends list of a user</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetFriends(userId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >): List&#x3C;Friend>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">userId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>List&#x3C;Friend></code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getfriend">GetFriend</h3>
-          </div>
-
-          <p>get a user from your friend list</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetFriend(friendId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >): User
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">friendId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>User</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="isfriend">IsFriend</h3>
-          </div>
-
-          <p>Check if a user is friends</p>
-
-          <div class="pre p1 fill-light mt0">
-            IsFriend(friendId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >string</a
-            >):
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-              >Boolean</a
-            >
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">friendId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >string</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code
-            ><a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-              >Boolean</a
-            ></code
-          >:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="addfriend">AddFriend</h3>
-          </div>
-
-          <p>Send or Accept a friend request</p>
-          <ul>
-            <li>pass the Friend Object</li>
-          </ul>
-
-          <div class="pre p1 fill-light mt0">
-            AddFriend(friend: (<a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >
-            | CloudX.Shared.Friend)): any
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">friend</span>
-                <code class="quiet"
-                  >((<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
+            <div class="border-bottom" id="neoslogin">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Login(credential, password?, sessionToken?, machineId,
+                    rememberMe, recoverCode?)</span
                   >
-                  | CloudX.Shared.Friend))</code
-                >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <div class="pre p1 fill-light mt0">
+                    Login(credential:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >, password:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >?, sessionToken:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >?, machineId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >, rememberMe:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                      >boolean</a
+                    >, recoverCode:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >?):
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                      >Promise</a
+                    >&#x3C;CloudResult&#x3C;UserSession>>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">credential</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                        Email, UserId, or Account Username
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">password</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >?)</code
+                        >
+                        Not required if sessionToken is set,
+                        <ul>
+                          <li>Set as new password if recoverCode is set</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">sessionToken</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >?)</code
+                        >
+                        Session Token to login without storing the password
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">machineId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                        Unique Machine ID, If another instance is logged in
+                        using the same machine id, the new one will replace the
+                        old.
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">rememberMe</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                            >boolean</a
+                          >
+                          = <code>false</code>)</code
+                        >
+                        SessionToken will be valid for 7 days
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">recoverCode</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >?)</code
+                        >
+                        Recovery Code sent via Email, Use to set a new password
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code
+                    ><a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+                      >Promise</a
+                    >&#x3C;CloudResult&#x3C;UserSession>></code
+                  >:
+                </section>
               </div>
             </div>
-          </div>
 
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>: void
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="removefriend">RemoveFriend</h3>
-          </div>
-
-          <p>Remove a user from your friends list</p>
-          <ul>
-            <li>pass the Friend Object</li>
-          </ul>
-
-          <div class="pre p1 fill-light mt0">
-            RemoveFriend(friend: any): any
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">friend</span>
-                <code class="quiet">(any)</code>
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>: void
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="ignorerequest">IgnoreRequest</h3>
-          </div>
-
-          <p>Ignore a Friend Request</p>
-          <ul>
-            <li>pass the Friend Object</li>
-          </ul>
-
-          <div class="pre p1 fill-light mt0">
-            IgnoreRequest(friend: any): any
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">friend</span>
-                <code class="quiet">(any)</code>
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>: void
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getgroup">GetGroup</h3>
-          </div>
-
-          <p>Get a Neos Group</p>
-
-          <div class="pre p1 fill-light mt0">GetGroup(groupId: any): Group</div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">groupId</span>
-                <code class="quiet">(any)</code>
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>Group</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getgroupmember">GetGroupMember</h3>
-          </div>
-
-          <p>Get a Member from a Group</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetGroupMember(groupId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >, userId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >): Member
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">groupId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-              </div>
-            </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">userId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>Member</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getgroupmembers">GetGroupMembers</h3>
-          </div>
-
-          <p>Get the Members of a group and their Byte Usage</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetGroupMembers(groupId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >): List&#x3C;Member>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">groupId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>List&#x3C;Member></code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getusermessages">GetUserMessages</h3>
-          </div>
-
-          <p>Get cached messages with a user</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetUserMessages(UserId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >): UserMessages
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">UserId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>UserMessages</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getallusermessages">GetAllUserMessages</h3>
-          </div>
-
-          <p>Get all Cached messages</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetAllUserMessages(): List&#x3C;Message>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>List&#x3C;Message></code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getmessages">GetMessages</h3>
-          </div>
-
-          <p>Get messages and add them to the cache</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetMessages(fromTime:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date"
-              >Date</a
-            >, maxItems:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-              >Number</a
-            >, user:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >, unreadOnly:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-              >boolean</a
-            >): List&#x3C;Message>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">fromTime</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date"
-                    >Date</a
+            <div class="border-bottom" id="neoslogout">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Logout(manual)</span
                   >
-                  = <code>newDate</code>)</code
-                >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Logout</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Logout(manual:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                      >boolean</a
+                    >)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">manual</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                            >boolean</a
+                          >
+                          = <code>true</code>)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">maxItems</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-                    >Number</a
+            <div class="border-bottom" id="neoscurrentuser">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">CurrentUser</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get the Current User</p>
+
+                  <div class="pre p1 fill-light mt0">CurrentUser</div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>User</code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoscurrentsession">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >CurrentSession</span
                   >
-                  = <code>100</code>)</code
-                >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get the Current Session</p>
+
+                  <div class="pre p1 fill-light mt0">CurrentSession</div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>UserSession</code>:
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">user</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
+            <div class="border-bottom" id="neoscurrentusermemberships">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >CurrentUserMemberships</span
                   >
-                  = <code>null</code>)</code
-                >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get User Memberships</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    CurrentUserMemberships
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>List&#x3C;Membership></code>:
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">unreadOnly</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-                    >boolean</a
+            <div class="border-bottom" id="neoscurrentusergroupinfos">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >CurrentUserGroupInfos</span
                   >
-                  = <code>false</code>)</code
-                >
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>List&#x3C;Message></code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="markmessagesread">MarkMessagesRead</h3>
-          </div>
-
-          <p>
-            Send a Read Reciept, Messages will not show in UnreadMessages query
-          </p>
-
-          <div class="pre p1 fill-light mt0">
-            MarkMessagesRead(messageIds: (<a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-              >Array</a
-            >&#x3C;<a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >> | List&#x3C;<a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >> |
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >)): any
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">messageIds</span>
-                <code class="quiet"
-                  >((<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-                    >Array</a
-                  >&#x3C;<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >> | List&#x3C;<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >> |
-                  <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >))</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getmessagehistory">GetMessageHistory</h3>
-          </div>
-
-          <p>Get History of messages with a user</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetMessageHistory(userId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >, maxItems:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-              >number</a
-            >): List&#x3C;Message>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">userId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <div class="pre p1 fill-light mt0">CurrentUserGroupInfos</div>
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">maxItems</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-                    >number</a
+            <div class="border-bottom" id="neosgetusers">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetUsers(username)</span
                   >
-                  = <code>100</code>)</code
-                >
+                </div>
               </div>
-            </div>
-          </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Search neos for username</p>
 
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>List&#x3C;Message></code>: Messages
-        </section>
+                  <div class="pre p1 fill-light mt0">
+                    GetUsers(username:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >): any
+                  </div>
 
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="getstatus">GetStatus</h3>
-          </div>
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">username</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
 
-          <p>Get the status of a user</p>
-
-          <div class="pre p1 fill-light mt0">
-            GetStatus(userId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >): UserStatus
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">userId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>UserStatus</code>: UserStatus
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="findrecords">FindRecords</h3>
-          </div>
-
-          <p>Not Yet Implimented</p>
-
-          <div class="pre p1 fill-light mt0">
-            FindRecords(record: SearchParameters)
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">record</span>
-                <code class="quiet">(SearchParameters)</code>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="fetchrecord">FetchRecord</h3>
-          </div>
-
-          <p>Not yet Implimented</p>
-
-          <div class="pre p1 fill-light mt0">
-            FetchRecord(ownerId: any, recordId: any)
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">ownerId</span>
-                <code class="quiet">(any)</code>
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>:
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">recordId</span>
-                <code class="quiet">(any)</code>
+            <div class="border-bottom" id="neosgetuser">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetUser(userId)</span
+                  >
+                </div>
               </div>
-            </div>
-          </div>
-        </section>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get a specific User by their UserId</p>
 
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="sendtextmessage">SendTextMessage</h3>
-          </div>
+                  <div class="pre p1 fill-light mt0">
+                    GetUser(userId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >): User
+                  </div>
 
-          <div class="pre p1 fill-light mt0">
-            SendTextMessage(UserId:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >, Message:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >)
-          </div>
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">userId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
 
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">UserId</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-                Neos User Id to send
-              </div>
-            </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">Message</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-                Text to Send
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="neosdbtohttp">NeosDBToHttp</h3>
-          </div>
-
-          <div class="pre p1 fill-light mt0">
-            NeosDBToHttp(neosdb:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >, endpoint:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-              >Number</a
-            >):
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            >
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">neosdb</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-                    >String</a
-                  >)</code
-                >
-                neosdb:///URL
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>User</code>: User Object
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">endpoint</span>
-                <code class="quiet"
-                  >(<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-                    >Number</a
-                  >)</code
-                >
-                Options:
-                <ul>
-                  <li>0 - Default</li>
-                  <li>1 - Blob</li>
-                  <li>2 - CDN</li>
-                  <li>3 - VideoCDN</li>
-                  <li>null - Default</li>
-                </ul>
+            <div class="border-bottom" id="neosgetuserbyname">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetUserByName(username)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>get a specific User by their username</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetUserByName(username:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >): User
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">username</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>User</code>:
+                </section>
               </div>
             </div>
-          </div>
 
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code
-            ><a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-              >String</a
-            ></code
-          >: http address to neosdb asset
+            <div class="border-bottom" id="neosgetfriends">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetFriends(userId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get the friends list of a user</p>
 
-          <div class="py1 quiet mt1 prose-big">Example</div>
+                  <div class="pre p1 fill-light mt0">
+                    GetFriends(userId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >): List&#x3C;Friend>
+                  </div>
 
-          <pre
-            class="p1 overflow-auto round fill-light"
-          >Neos.GetUser(<span class="hljs-string">"U-bombitmanbomb"</span>).then(<span class="hljs-function">(<span class="hljs-params">User</span>)=&gt;</span>{
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">userId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>List&#x3C;Friend></code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetfriend">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetFriend(friendId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>get a user from your friend list</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetFriend(friendId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >): User
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">friendId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>User</code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosisfriend">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >IsFriend(friendId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Check if a user is friends</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    IsFriend(friendId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >string</a
+                    >):
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                      >Boolean</a
+                    >
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">friendId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >string</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code
+                    ><a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                      >Boolean</a
+                    ></code
+                  >:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosaddfriend">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >AddFriend(friend)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Send or Accept a friend request</p>
+                  <ul>
+                    <li>pass the Friend Object</li>
+                  </ul>
+
+                  <div class="pre p1 fill-light mt0">
+                    AddFriend(friend: (<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >
+                    | CloudX.Shared.Friend)): any
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">friend</span>
+                        <code class="quiet"
+                          >((<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >
+                          | CloudX.Shared.Friend))</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>: void
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosremovefriend">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >RemoveFriend(friend)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Remove a user from your friends list</p>
+                  <ul>
+                    <li>pass the Friend Object</li>
+                  </ul>
+
+                  <div class="pre p1 fill-light mt0">
+                    RemoveFriend(friend: any): any
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">friend</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>: void
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosignorerequest">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >IgnoreRequest(friend)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Ignore a Friend Request</p>
+                  <ul>
+                    <li>pass the Friend Object</li>
+                  </ul>
+
+                  <div class="pre p1 fill-light mt0">
+                    IgnoreRequest(friend: any): any
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">friend</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>: void
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetgroup">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetGroup(groupId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get a Neos Group</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetGroup(groupId: any): Group
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">groupId</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>Group</code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetgroupmember">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetGroupMember(groupId, userId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get a Member from a Group</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetGroupMember(groupId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, userId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >): Member
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">groupId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">userId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>Member</code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetgroupmembers">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetGroupMembers(groupId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get the Members of a group and their Byte Usage</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetGroupMembers(groupId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >): List&#x3C;Member>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">groupId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>List&#x3C;Member></code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetusermessages">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetUserMessages(UserId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get cached messages with a user</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetUserMessages(UserId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >): UserMessages
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">UserId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>UserMessages</code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetallusermessages">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetAllUserMessages()</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get all Cached messages</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetAllUserMessages(): List&#x3C;Message>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>List&#x3C;Message></code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetmessages">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetMessages(fromTime, maxItems, user, unreadOnly)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get messages and add them to the cache</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetMessages(fromTime:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date"
+                      >Date</a
+                    >, maxItems:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                      >Number</a
+                    >, user:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, unreadOnly:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                      >boolean</a
+                    >): List&#x3C;Message>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">fromTime</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date"
+                            >Date</a
+                          >
+                          = <code>newDate</code>)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">maxItems</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                            >Number</a
+                          >
+                          = <code>100</code>)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">user</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >
+                          = <code>null</code>)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">unreadOnly</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+                            >boolean</a
+                          >
+                          = <code>false</code>)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>List&#x3C;Message></code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosmarkmessagesread">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >MarkMessagesRead(messageIds)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>
+                    Send a Read Reciept, Messages will not show in
+                    UnreadMessages query
+                  </p>
+
+                  <div class="pre p1 fill-light mt0">
+                    MarkMessagesRead(messageIds: (<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                      >Array</a
+                    >&#x3C;<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >> | List&#x3C;<a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >> |
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >)): any
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">messageIds</span>
+                        <code class="quiet"
+                          >((<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                            >Array</a
+                          >&#x3C;<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >> | List&#x3C;<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >> |
+                          <a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >))</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>:
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetmessagehistory">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetMessageHistory(userId, maxItems)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get History of messages with a user</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetMessageHistory(userId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, maxItems:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                      >number</a
+                    >): List&#x3C;Message>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">userId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">maxItems</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                            >number</a
+                          >
+                          = <code>100</code>)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>List&#x3C;Message></code>: Messages
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosgetstatus">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >GetStatus(userId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Get the status of a user</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    GetStatus(userId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >): UserStatus
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">userId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>UserStatus</code>: UserStatus
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosfindrecords">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >FindRecords(record)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Not Yet Implimented</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    FindRecords(record: SearchParameters)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">record</span>
+                        <code class="quiet">(SearchParameters)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosfetchrecord">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >FetchRecord(ownerId, recordId)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Not yet Implimented</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    FetchRecord(ownerId: any, recordId: any)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">ownerId</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">recordId</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neossendtextmessage">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >SendTextMessage(UserId, Message)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <div class="pre p1 fill-light mt0">
+                    SendTextMessage(UserId:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, Message:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >)
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">UserId</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                        Neos User Id to send
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Message</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                        Text to Send
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neosneosdbtohttp">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >NeosDBToHttp(neosdb, endpoint)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <div class="pre p1 fill-light mt0">
+                    NeosDBToHttp(neosdb:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >, endpoint:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                      >Number</a
+                    >):
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    >
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">neosdb</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                            >String</a
+                          >)</code
+                        >
+                        neosdb:///URL
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">endpoint</span>
+                        <code class="quiet"
+                          >(<a
+                            href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                            >Number</a
+                          >)</code
+                        >
+                        Options:
+                        <ul>
+                          <li>0 - Default</li>
+                          <li>1 - Blob</li>
+                          <li>2 - CDN</li>
+                          <li>3 - VideoCDN</li>
+                          <li>null - Default</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code
+                    ><a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                      >String</a
+                    ></code
+                  >: http address to neosdb asset
+
+                  <div class="py1 quiet mt1 prose-big">Example</div>
+
+                  <pre
+                    class="p1 overflow-auto round fill-light"
+                  >Neos.GetUser(<span class="hljs-string">"U-bombitmanbomb"</span>).then(<span class="hljs-function">(<span class="hljs-params">User</span>)=&gt;</span>{
 	<span class="hljs-built_in">console</span>.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
 	<span class="hljs-comment">//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369</span>
 })</pre>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="sendtransaction">SendTransaction</h3>
-          </div>
-
-          <div class="pre p1 fill-light mt0">
-            SendTransaction(UserId: any, Message: any): any
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Parameters</div>
-          <div class="prose">
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">UserId</span>
-                <code class="quiet">(any)</code>
+                </section>
               </div>
             </div>
 
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">Message</span>
-                <code class="quiet">(any)</code>
+            <div class="border-bottom" id="neossendtransaction">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >SendTransaction(UserId, Message)</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <div class="pre p1 fill-light mt0">
+                    SendTransaction(UserId: any, Message: any): any
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Parameters</div>
+                  <div class="prose">
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">UserId</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+
+                    <div class="space-bottom0">
+                      <div>
+                        <span class="code bold">Message</span>
+                        <code class="quiet">(any)</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Returns</div>
+                  <code>any</code>:
+                </section>
               </div>
             </div>
           </div>
 
-          <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="py1 quiet mt1 prose-big">Events</div>
           <div class="clearfix">
-            <h3 class="fl m0" id="cloudx">CloudX</h3>
-          </div>
+            <div class="border-bottom" id="neoseventneosmessagereceived">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#messageReceived</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Message Received</p>
 
-          <p>CloudX</p>
+                  <div class="pre p1 fill-light mt0">Neos#messageReceived</div>
 
-          <div class="pre p1 fill-light mt0">CloudX</div>
-        </section>
+                  <p>Type: Message</p>
 
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneoslogin">Neos#login</h3>
-          </div>
+                  <div class="py1 quiet mt1 prose-big">Example</div>
 
-          <p>Login Event</p>
-
-          <div class="pre p1 fill-light mt0">Neos#login</div>
-
-          <p>
-            Type:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object"
-              >Object</a
-            >
-          </p>
-
-          <div class="py1 quiet mt1 prose-big">Properties</div>
-          <div>
-            <div class="space-bottom0">
-              <span class="code bold">CurrentUser</span>
-              <code class="quiet"
-                >(<a
-                  href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object"
-                  >Object</a
-                >)</code
-              >
-              : Current User
-            </div>
-
-            <div class="space-bottom0">
-              <span class="code bold">CurrentSession</span>
-              <code class="quiet"
-                >(<a
-                  href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object"
-                  >Object</a
-                >)</code
-              >
-              : Current Session
-            </div>
-          </div>
-
-          <div class="py1 quiet mt1 prose-big">Example</div>
-
-          <pre
-            class="p1 overflow-auto round fill-light"
-          >Neos.on(<span class="hljs-string">"login"</span>, ()=&gt;{
-	Neos.SendTestMesssage(<span class="hljs-string">"U-BotOwner"</span>, <span class="hljs-string">"Bot Online"</span>);
-...
-})</pre>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneoslogout">Neos#logout</h3>
-          </div>
-
-          <p>Logout Event</p>
-
-          <div class="pre p1 fill-light mt0">Neos#logout</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneoserror">Neos#error</h3>
-          </div>
-
-          <p>Error Event</p>
-
-          <div class="pre p1 fill-light mt0">Neos#error</div>
-
-          <p>
-            Type:
-            <a
-              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error"
-              >Error</a
-            >
-          </p>
-
-          <div class="py1 quiet mt1 prose-big">Example</div>
-
-          <pre
-            class="p1 overflow-auto round fill-light"
-          >Neos.on(<span class="hljs-string">"error"</span>, (err)=&gt;{<span class="hljs-built_in">console</span>.error(err)})</pre>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneossessionupdated">
-              Neos#sessionUpdated
-            </h3>
-          </div>
-
-          <p>Session Updated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#sessionUpdated</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneossessionchanged">
-              Neos#sessionChanged
-            </h3>
-          </div>
-
-          <p>Session Changed</p>
-
-          <div class="pre p1 fill-light mt0">Neos#sessionChanged</div>
-
-          <p>Type: CloudXInterface.CurrentSession</p>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosuserupdated">Neos#userUpdated</h3>
-          </div>
-
-          <p>User Updated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#userUpdated</div>
-
-          <p>Type: CloudXInterface.CurrentUser</p>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosmembershipsupdated">
-              Neos#membershipsUpdated
-            </h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#membershipsUpdated</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosgroupupdated">Neos#groupUpdated</h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#groupUpdated</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosgroupmemberupdated">
-              Neos#groupMemberUpdated
-            </h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#groupMemberUpdated</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosmessagereceived">
-              Neos#messageReceived
-            </h3>
-          </div>
-
-          <p>Message Received</p>
-
-          <div class="pre p1 fill-light mt0">Neos#messageReceived</div>
-
-          <div class="py1 quiet mt1 prose-big">Example</div>
-
-          <pre
-            class="p1 overflow-auto round fill-light"
-          >Neos.on(<span class="hljs-string">"messageReceived"</span>, (message)=&gt;{
+                  <pre
+                    class="p1 overflow-auto round fill-light"
+                  >Neos.on(<span class="hljs-string">"messageReceived"</span>, (message)=&gt;{
 	<span class="hljs-keyword">switch</span>(message.MessageType){
 		<span class="hljs-keyword">case</span> <span class="hljs-string">"Text"</span>:
 			Commands.Run(message)
@@ -1553,78 +1900,369 @@
 		Neos.SendTextMessage(message.SenderId, <span class="hljs-string">"I Only can handle Text"</span>)
 	}
 })</pre>
-        </section>
+                </section>
+              </div>
+            </div>
 
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosmessagecountchanged">
-              Neos#messageCountChanged
-            </h3>
+            <div class="border-bottom" id="neoseventneosgroupmemberupdated">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#groupMemberUpdated</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Neos#groupMemberUpdated
+                  </div>
+
+                  <p>Type: Member</p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosmessagecountchanged">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#messageCountChanged</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Neos#messageCountChanged
+                  </div>
+
+                  <p>
+                    Type:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                      >Number</a
+                    >
+                  </p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosfriendadded">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#friendAdded</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#friendAdded</div>
+
+                  <p>Type: Friend</p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosfriendupdated">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#friendUpdated</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#friendUpdated</div>
+
+                  <p>Type: Friend</p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosfriendremoved">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#friendRemoved</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#friendRemoved</div>
+
+                  <p>Type: Friend</p>
+                </section>
+              </div>
+            </div>
+
+            <div
+              class="border-bottom"
+              id="neoseventneosfriendrequestcountchanged"
+            >
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#friendRequestCountChanged</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Neos#friendRequestCountChanged
+                  </div>
+
+                  <p>
+                    Type:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                      >Number</a
+                    >
+                  </p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosfriendschanged">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#friendsChanged</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#friendsChanged</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosgroupupdated">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#groupUpdated</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#groupUpdated</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosmembershipsupdated">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#membershipsUpdated</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>membershipsUpdated</p>
+
+                  <div class="pre p1 fill-light mt0">
+                    Neos#membershipsUpdated
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneosuserupdated">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#userUpdated</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>User Updated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#userUpdated</div>
+
+                  <p>Type: User</p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneossessionchanged">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#sessionChanged</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Session Changed</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#sessionChanged</div>
+
+                  <p>Type: UserSession</p>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneossessionupdated">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate"
+                    >Neos#sessionUpdated</span
+                  >
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Session Updated</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#sessionUpdated</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneoserror">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Neos#error</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Error Event</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#error</div>
+
+                  <p>
+                    Type:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error"
+                      >Error</a
+                    >
+                  </p>
+
+                  <div class="py1 quiet mt1 prose-big">Example</div>
+
+                  <pre
+                    class="p1 overflow-auto round fill-light"
+                  >Neos.on(<span class="hljs-string">"error"</span>, (err)=&gt;{<span class="hljs-built_in">console</span>.error(err)})</pre>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneoslogout">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Neos#logout</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Logout Event</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#logout</div>
+                </section>
+              </div>
+            </div>
+
+            <div class="border-bottom" id="neoseventneoslogin">
+              <div class="clearfix small pointer toggle-sibling">
+                <div class="py1 contain">
+                  <a class="icon pin-right py1 dark-link caret-right">▸</a>
+                  <span class="code strong strong truncate">Neos#login</span>
+                </div>
+              </div>
+              <div class="clearfix display-none toggle-target">
+                <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>Login Event</p>
+
+                  <div class="pre p1 fill-light mt0">Neos#login</div>
+
+                  <p>
+                    Type:
+                    <a
+                      href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                      >Object</a
+                    >
+                  </p>
+
+                  <div class="py1 quiet mt1 prose-big">Properties</div>
+                  <div>
+                    <div class="space-bottom0">
+                      <span class="code bold">CurrentUser</span>
+                      <code class="quiet"
+                        >(<a
+                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                          >Object</a
+                        >)</code
+                      >
+                      : Current User
+                    </div>
+
+                    <div class="space-bottom0">
+                      <span class="code bold">CurrentSession</span>
+                      <code class="quiet"
+                        >(<a
+                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object"
+                          >Object</a
+                        >)</code
+                      >
+                      : Current Session
+                    </div>
+                  </div>
+
+                  <div class="py1 quiet mt1 prose-big">Example</div>
+
+                  <pre
+                    class="p1 overflow-auto round fill-light"
+                  >Neos.on(<span class="hljs-string">"login"</span>, ()=&gt;{
+	Neos.SendTestMesssage(<span class="hljs-string">"U-BotOwner"</span>, <span class="hljs-string">"Bot Online"</span>);
+...
+})</pre>
+                </section>
+              </div>
+            </div>
           </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#messageCountChanged</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosfriendadded">Neos#friendAdded</h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#friendAdded</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosfriendupdated">
-              Neos#friendUpdated
-            </h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#friendUpdated</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosfriendremoved">
-              Neos#friendRemoved
-            </h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#friendRemoved</div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosfriendrequestcountchanged">
-              Neos#friendRequestCountChanged
-            </h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">
-            Neos#friendRequestCountChanged
-          </div>
-        </section>
-
-        <section class="p2 mb2 clearfix bg-white minishadow">
-          <div class="clearfix">
-            <h3 class="fl m0" id="eventneosfriendschanged">
-              Neos#friendsChanged
-            </h3>
-          </div>
-
-          <p>membershipsUpdated</p>
-
-          <div class="pre p1 fill-light mt0">Neos#friendsChanged</div>
         </section>
       </div>
     </div>
