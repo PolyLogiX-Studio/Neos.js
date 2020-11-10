@@ -687,6 +687,7 @@ class Neos extends EventEmitter {
 	 * - 1 - Blob
 	 * - 2 - CDN
 	 * - 3 - VideoCDN 
+	 * - null - Default
 	 * @returns {String} http address to neosdb asset
 	 * @memberof Neos
 	 */
