@@ -22,4 +22,4 @@ Neos.on("error", (err) => {
 	throw new Error(err); // Errors are not Halted by default, you may handle errors as you see fit.
 });
 
-Neos.Login(Credential, Password, undefined, "TotallyRealMachineId", true);
+Neos.Login(/*Credential, Password, undefined, "TotallyRealMachineId", true*/);

@@ -84,7 +84,7 @@ class List extends Array {
    *
    * @param {*} match
    */
-	Exists(match) {
+	Exists() {
 		//TODO
 	}
 	/**

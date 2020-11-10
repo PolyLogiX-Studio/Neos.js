@@ -22,8 +22,7 @@ const Commands = new CommandExtended(
 	} // Define the Extended Internal Commands and Settings
 );
 const Admins = ["U-bombitmanbomb"];
-api.use(bodyparser);
-Neos.on("login", (obj) => {
+Neos.on("login", () => {
 	console.log(__dirname, "Logged in as " + Neos.CurrentUser.Username);
 });
 Neos.on("friendAdded", (friend) => {
@@ -52,7 +51,7 @@ Commands.Add(
 );
 Commands.Add(
 	"joke",
-	(Handler, Sender, Args) => {
+	(Handler) => {
 		fetch("https://official-joke-api.appspot.com/jokes/random")
 			.then((d) => d.json())
 			.then((joke) => {
@@ -64,7 +63,9 @@ Commands.Add(
 	{
 		index: "Tell a Bad Joke",
 		categories: (args) => {
-			return "This function will return help info programaically";
+			return "This function will return help info programaically" + args.len > 0
+				? "<br>" + args.join(" ")
+				: "";
 		},
 		usage: "/joke [category]",
 	}
@@ -112,4 +113,4 @@ Commands.Add(
 		usage: Commands.Options.Prefix + "subscribe <channel>",
 	}
 );
-Neos.Login(Username, Password, undefined, "POLYLOGIXDEVELPERBOT");
+Neos.Login(/*Username, Password, undefined, "POLYLOGIXDEVELPERBOT"*/);
