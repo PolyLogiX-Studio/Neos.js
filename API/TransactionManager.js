@@ -54,13 +54,13 @@ class TransactionManager {
 			case "NCR":
 				num1 = sourceAmount;
 				ncrConversionRatio1 = this.NCRConversionRatio;
-				return !ncrConversionRatio1 != null
+				return !(ncrConversionRatio1 != null)
 					? new Decimal()
 					: num1 / ncrConversionRatio1;
 			case "CDFT":
 				num2 = sourceAmount;
 				cdftConversionRatio1 = this.CDFTConversionRatio;
-				return !cdftConversionRatio1 != null
+				return !(cdftConversionRatio1 != null)
 					? new Decimal()
 					: num2 / cdftConversionRatio1;
 			default:
@@ -72,13 +72,13 @@ class TransactionManager {
 			case "NCR":
 				num3 = sourceAmount;
 				ncrConversionRatio2 = this.NCRConversionRatio;
-				return !ncrConversionRatio2 != null
+				return !(ncrConversionRatio2 != null)
 					? new Decimal()
 					: num3 * ncrConversionRatio2;
 			case "CDFT":
 				num4 = sourceAmount;
 				cdftConversionRatio2 = this.CDFTConversionRatio;
-				return !cdftConversionRatio2 != null
+				return !(cdftConversionRatio2 != null)
 					? new Decimal()
 					: num4 * cdftConversionRatio2;
 			case "KFC":
@@ -101,13 +101,13 @@ class TransactionManager {
 	ToUSD(token, amount) {
 		switch (token) {
 		case "NCR":
-			return !this.NCRConversionRatio != null
+			return !(this.NCRConversionRatio != null)
 				? new Decimal()
 				: this.NCRConversionRatio * amount;
 		case "CDFT":
 			let cdftConversionRatio = this.CDFTConversionRatio;
 			let num = amount;
-			return !cdftConversionRatio != null
+			return !(cdftConversionRatio != null)
 				? new Decimal()
 				: cdftConversionRatio * num;
 		case "KFC":

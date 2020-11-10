@@ -1,4 +1,4 @@
-const { Out } = require("./Out");
+const { Out } = require("./Out"); //lgtm [js/unused-local-variable] JSDoc Type Def
 /**
  *
  *

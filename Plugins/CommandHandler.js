@@ -5,9 +5,9 @@
  * @param {Array<String>} [Args] Arguments to the Command
  */
 function HandlerCallback(Handler, Sender, Args) {
-	Handler;
-	Sender;
-	Args;
+	Handler; //lgtm [js/useless-expression]
+	Sender; //lgtm [js/useless-expression]
+	Args; //lgtm [js/useless-expression]
 }
 HandlerCallback;
 /**

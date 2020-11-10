@@ -394,25 +394,12 @@ class CloudXInterface {
 				configurable: true,
 			},
 		});
-		if (!this.OAuth) this.OAuth = {};
-		//Set the Authentication Header
-		if (this.OAuth.IsOAUTH) {
-			//Use the OAuth Schema
-			this._currentAuthenticationHeader =
-				value != null
-					? new AuthenticationHeaderValue("Bearer", value.SessionToken) //lgtm [js/hardcoded-credentials]
-						.Authorization
-					: AuthenticationHeaderValue;
-		} else {
-			//Use the Neos Schema
-			this._currentAuthenticationHeader =
-				value != null
-					? new AuthenticationHeaderValue(
-						"neos", //lgtm [js/hardcoded-credentials]
-						value.UserId + ":" + value.SessionToken
-					  ).Authorization
-					: AuthenticationHeaderValue;
-		}
+		//Use the Neos Schema
+		this._currentAuthenticationHeader = new AuthenticationHeaderValue(
+			"neos", //lgtm [js/hardcoded-credentials]
+			value.UserId + ":" + value.SessionToken
+		).Authorization;
+
 		//Call Event
 		this.OnSessionUpdated();
 		try {
@@ -596,7 +583,7 @@ class CloudXInterface {
 		if (str2 != null) str3 = str3 + "/" + str2;
 		if (CloudXInterface.IsLegacyNeosDB(neosdb))
 			return new Uri("https://neoscloud.blob.core.windows.net/assets/" + str3);
-		let str4 = new String();
+		let str4 = new String(); //lgtm [js/useless-assignment-to-local] Error Avoidance
 		switch (endpoint) {
 		case NeosDB_Endpoint.Blob:
 			str4 = CloudXInterface.NEOS_ASSETS_BLOB;
@@ -619,9 +606,9 @@ class CloudXInterface {
 			assetURL.Segments.length >= 2 &&
 			assetURL.Segments.includes(".")
 		)
-			return (assetURL = new Uri(
+			assetURL = new Uri(
 				"neosdb:///" + assetURL.Segments[1].noExtension() + assetURL.Query
-			));
+			);
 		return assetURL;
 	}
 	static NeosDBFilename(neosdb) {
@@ -696,7 +683,7 @@ class CloudXInterface {
 	 * @memberof CloudXInterface
 	 */
 	AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
-		let fileStream = fs.readFile(filePath);
+		////let fileStream = fs.readFile(filePath);
 		//TODO Multi Part Form Content
 		//if (mime != null)
 	}
@@ -749,8 +736,8 @@ class CloudXInterface {
 		let request = null;
 		/** @type {HttpResponseMessage} */
 		let result = null;
-		let exception = null;
-		let remainingRetries = CloudXInterface.DEFAULT_RETRIES;
+		////let exception = null;
+		let remainingRetries = CloudXInterface.DEFAULT_RETRIES; //lgtm [js/useless-assignment-to-local] False Positive
 		let delay = 0;
 		do {
 			request = requestSource();
@@ -907,7 +894,7 @@ class CloudXInterface {
 			) {
 				this.CurrentUser = entity;
 				let patreonData = this.CurrentUser.PatreonData;
-				let num = new Number();
+				let num = new Number(0); //lgtm [js/useless-assignment-to-local] False Positive
 				if (
 					(patreonData != null
 						? patreonData.IsPatreonSupporter
@@ -959,7 +946,7 @@ class CloudXInterface {
 			})();
 		}
 		this._cryptoProvider = null;
-		this.PublicKey; // TODO RSAParameters
+		this.PublicKey = null; // TODO RSAParameters
 		this.CurrentSession = null;
 		this.CurrentUser = null;
 		this.ClearMemberships();
@@ -1181,7 +1168,7 @@ class CloudXInterface {
 				await TimeSpan.Delay(TimeSpan.fromSeconds(numArray[index]));
 				if (!(this.CurrentUser.Id !== _signedUserId)) {
 					if (ownerType === OwnerType.User) {
-						let cloudResult = await this.UpdateCurrentUserInfo();
+						await this.UpdateCurrentUserInfo();
 					} else {
 						await this.UpdateGroupInfo(ownerId);
 					}
@@ -1280,7 +1267,7 @@ class CloudXInterface {
 		progressIndicator = null,
 		bytes = null
 	) {
-		let fileName = Path.GetFileName(assetPath);
+	//	let fileName = Path.GetFileName(assetPath);
 		//TODO finish
 	}
 	async WaitForAssetFinishProcessing(assetUpload) {

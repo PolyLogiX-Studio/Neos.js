@@ -1,15 +1,11 @@
 /**
+ * @name HandlerCallback
+ * @function
  * @param {Handler} [Handler] Send a reply to the Sender
  * @param {String} [Sender] U-ID of the user who triggered the command
  * @param {Array<String>} [Args] Arguments to the Command
  */
 
-function HandlerCallback(Handler, Sender, Args) {
-	Handler;
-	Args;
-	Sender;
-} //lgtm [js/unused-local-variable]
-HandlerCallback;
 /**
  * CommandExtended Plugin. Adds more features to CommandHandler
  * @param {CommandHandler} CommandHandler
@@ -80,7 +76,7 @@ class CommandExtended {
 		this.HelpData = {
 			null: new HelpObject(this.Options.HelpDefault),
 			get undefined() {
-				return this[null];
+				return this[null]; //lgtm [js/implicit-operand-conversion]
 			},
 		};
 		if (this.Options.CommandsCommand)

@@ -6,7 +6,7 @@ const { HashSet } = require("./HashSet");
 const { Out } = require("./Out");
 class MessageManager {
 	constructor(cloud) {
-		this.lastRequest;
+		this.lastRequest = null;
 		this.lastUnreadMessage = null;
 		this.Cloud = cloud;
 		this.InitialmessagesFetched = new Boolean();
@@ -76,7 +76,7 @@ class MessageManager {
 		this.lastRequest = new Date();
 		this._waitingForRequest = true;
 		(async () => {
-			let cloudResult1 = await this.Cloud.GetUnreadMessages(
+			await this.Cloud.GetUnreadMessages(
 				this.lastUnreadMessage
 			).then(async (cloudResult1) => {
 				this._waitingForRequest = false;
@@ -99,8 +99,8 @@ class MessageManager {
 							message.MessageType === "CreditTransfer"
 						) {
 							let content = message.ExtractContent();
-							let flag2 = content.RecipientId === this.Cloud.CurrentUser.Id;
-							let currentUser = this.Cloud.CurrentUser;
+							////let flag2 = content.RecipientId === this.Cloud.CurrentUser.Id;
+							////let currentUser = this.Cloud.CurrentUser;
 							/*
                             if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
                                 currentUser.Credits[content.Token] += flag2 ? content.Amount : -content.Amount;
@@ -120,7 +120,7 @@ class MessageManager {
 				this.InitialmessagesFetched = true;
 				if (!flag1) return;
 				await setTimeout(() => {
-					let cloudResult2 = this.Cloud.UpdateCurrentUserInfo();
+					this.Cloud.UpdateCurrentUserInfo();
 				}, 10000);
 			});
 		})();
@@ -282,7 +282,7 @@ class MessageManager {
 					this.Messages = cloudResult.Entity;
 					this.Messages.reverse();
 					this.UnreadCount = this.Messages.filter(
-						(m) => !m.ReadTime != null
+						(m) => !(m.ReadTime != null)
 					).length;
 					this._historyLoaded = true;
 				}
@@ -291,7 +291,7 @@ class MessageManager {
 				if (this._messageIds.includes(message.Id)) return false;
 				this.Messages.Add(message);
 				this._messageIds.Add(message.Id);
-				if (message.IsReceived && !message.ReadTime != null) ++this.UnreadCount;
+				if (message.IsReceived && !(message.ReadTime != null)) ++this.UnreadCount;
 				while (
 					this.Messages.length > MessageManager.MAX_UNREAD_HISTORY ||
 					(this.Messages.length > MessageManager.MAX_UNREAD_HISTORY &&

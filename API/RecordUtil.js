@@ -1,4 +1,4 @@
-const { Out } = require("./Out");
+const { Out } = require("./Out"); //lgtm [js/unused-local-variable] JSDoc Type Def
 const { StringBuilder } = require("./StringBuilder");
 const { Uri } = require("./Uri");
 const { v4: uuidv4 } = require("uuid");
