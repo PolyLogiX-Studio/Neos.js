@@ -149,6 +149,13 @@ class MessageManager {
     this._messages.Add(userId, usermessages2);
     return usermessages2;
   }
+
+  /**
+   *
+   *
+   * @param {List} list
+   * @memberof MessageManager
+   */
   GetAllUserMessages(list) {
     for (let message of this._messages) {
       list.push(message.Value);

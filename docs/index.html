@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>@bombitmanbomb/neosjs 1.6.18-alpha.2 | Documentation</title>
+    <title>@bombitmanbomb/neosjs 1.6.18-beta.1 | Documentation</title>
     <meta name="description" content="Neos API" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="assets/bass.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
       <div id="split-left" class="overflow-auto fs0 height-viewport-100">
         <div class="py1 px2">
           <h3 class="mb0 no-anchor">@bombitmanbomb/neosjs</h3>
-          <div class="mb1"><code>1.6.18-alpha.2</code></div>
+          <div class="mb1"><code>1.6.18-beta.1</code></div>
           <input
             placeholder="Filter"
             id="filter-input"
@@ -288,7 +288,7 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
               >Promise</a
-            >&#x3C;CloudX.Shared.CloudResult&#x3C;CloudX.Shared.UserSession>>
+            >&#x3C;CloudResult&#x3C;UserSession>>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -382,7 +382,7 @@
             ><a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
               >Promise</a
-            >&#x3C;CloudX.Shared.CloudResult&#x3C;CloudX.Shared.UserSession>></code
+            >&#x3C;CloudResult&#x3C;UserSession>></code
           >:
         </section>
 
@@ -426,6 +426,9 @@
           <p>Get the Current User</p>
 
           <div class="pre p1 fill-light mt0">CurrentUser</div>
+
+          <div class="py1 quiet mt1 prose-big">Returns</div>
+          <code>User</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -436,6 +439,9 @@
           <p>Get the Current Session</p>
 
           <div class="pre p1 fill-light mt0">CurrentSession</div>
+
+          <div class="py1 quiet mt1 prose-big">Returns</div>
+          <code>UserSession</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -448,6 +454,9 @@
           <p>Get User Memberships</p>
 
           <div class="pre p1 fill-light mt0">CurrentUserMemberships</div>
+
+          <div class="py1 quiet mt1 prose-big">Returns</div>
+          <code>List&#x3C;Membership></code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -540,7 +549,7 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
               >string</a
-            >): any
+            >): User
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -559,7 +568,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>User</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -574,7 +583,7 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
               >string</a
-            >): any
+            >): List&#x3C;Friend>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -593,7 +602,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>List&#x3C;Friend></code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -608,7 +617,7 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
               >string</a
-            >): any
+            >): User
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -627,7 +636,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>User</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -708,7 +717,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>any</code>: void
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -736,7 +745,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>any</code>: void
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -764,7 +773,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>any</code>: void
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -774,7 +783,7 @@
 
           <p>Get a Neos Group</p>
 
-          <div class="pre p1 fill-light mt0">GetGroup(groupId: any): any</div>
+          <div class="pre p1 fill-light mt0">GetGroup(groupId: any): Group</div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
           <div class="prose">
@@ -787,7 +796,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>Group</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -806,7 +815,7 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
               >String</a
-            >): any
+            >): Member
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -837,7 +846,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>Member</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -845,14 +854,14 @@
             <h3 class="fl m0" id="getgroupmembers">GetGroupMembers</h3>
           </div>
 
-          <p>Get the Members of a group</p>
+          <p>Get the Members of a group and their Byte Usage</p>
 
           <div class="pre p1 fill-light mt0">
             GetGroupMembers(groupId:
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
               >String</a
-            >): any
+            >): List&#x3C;Member>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -871,7 +880,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>List&#x3C;Member></code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -886,7 +895,7 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
               >String</a
-            >): any
+            >): UserMessages
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -905,7 +914,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>UserMessages</code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -915,10 +924,12 @@
 
           <p>Get all Cached messages</p>
 
-          <div class="pre p1 fill-light mt0">GetAllUserMessages(): any</div>
+          <div class="pre p1 fill-light mt0">
+            GetAllUserMessages(): List&#x3C;Message>
+          </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>List&#x3C;Message></code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -937,11 +948,15 @@
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
               >Number</a
-            >, user: any, unreadOnly:
+            >, user:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >, unreadOnly:
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
               >boolean</a
-            >): any
+            >): List&#x3C;Message>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -975,7 +990,13 @@
             <div class="space-bottom0">
               <div>
                 <span class="code bold">user</span>
-                <code class="quiet">(any = <code>null</code>)</code>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >
+                  = <code>null</code>)</code
+                >
               </div>
             </div>
 
@@ -994,7 +1015,7 @@
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>List&#x3C;Message></code>:
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -1007,7 +1028,20 @@
           </p>
 
           <div class="pre p1 fill-light mt0">
-            MarkMessagesRead(messageIds: any): any
+            MarkMessagesRead(messageIds: (<a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+              >Array</a
+            >&#x3C;<a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >> | List&#x3C;<a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >> |
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >)): any
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -1015,7 +1049,22 @@
             <div class="space-bottom0">
               <div>
                 <span class="code bold">messageIds</span>
-                <code class="quiet">(any)</code>
+                <code class="quiet"
+                  >((<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+                    >Array</a
+                  >&#x3C;<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >> | List&#x3C;<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >> |
+                  <a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >))</code
+                >
               </div>
             </div>
           </div>
@@ -1032,11 +1081,15 @@
           <p>Get History of messages with a user</p>
 
           <div class="pre p1 fill-light mt0">
-            GetMessageHistory(userId: any, maxItems:
+            GetMessageHistory(userId:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >, maxItems:
             <a
               href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
               >number</a
-            >, user: any): any
+            >): List&#x3C;Message>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -1044,7 +1097,12 @@
             <div class="space-bottom0">
               <div>
                 <span class="code bold">userId</span>
-                <code class="quiet">(any)</code>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >)</code
+                >
               </div>
             </div>
 
@@ -1060,17 +1118,10 @@
                 >
               </div>
             </div>
-
-            <div class="space-bottom0">
-              <div>
-                <span class="code bold">user</span>
-                <code class="quiet">(any)</code>
-              </div>
-            </div>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>List&#x3C;Message></code>: Messages
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -1080,20 +1131,31 @@
 
           <p>Get the status of a user</p>
 
-          <div class="pre p1 fill-light mt0">GetStatus(userId: any): any</div>
+          <div class="pre p1 fill-light mt0">
+            GetStatus(userId:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >): UserStatus
+          </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
           <div class="prose">
             <div class="space-bottom0">
               <div>
                 <span class="code bold">userId</span>
-                <code class="quiet">(any)</code>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >)</code
+                >
               </div>
             </div>
           </div>
 
           <div class="py1 quiet mt1 prose-big">Returns</div>
-          <code>any</code>:
+          <code>UserStatus</code>: UserStatus
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
@@ -1104,7 +1166,7 @@
           <p>Not Yet Implimented</p>
 
           <div class="pre p1 fill-light mt0">
-            FindRecords(record: CloudX.Shared.SearchParameters)
+            FindRecords(record: SearchParameters)
           </div>
 
           <div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -1112,7 +1174,7 @@
             <div class="space-bottom0">
               <div>
                 <span class="code bold">record</span>
-                <code class="quiet">(CloudX.Shared.SearchParameters)</code>
+                <code class="quiet">(SearchParameters)</code>
               </div>
             </div>
           </div>

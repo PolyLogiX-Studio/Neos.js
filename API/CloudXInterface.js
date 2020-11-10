@@ -1677,7 +1677,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   async GetMessageHistory(user, maxItems = 100) {
-    return await this.GetMessages(new Date(), maxItems, user, false);
+    return await this.GetMessages(new Date(0), maxItems, user, false);
   }
   /**
    * Get messages

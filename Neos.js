@@ -342,7 +342,7 @@ class Neos extends EventEmitter {
    * @param {string} machineId Unique Machine ID, If another instance is logged in using the same machine id, the new one will replace the old.
    * @param {boolean} [rememberMe = false] SessionToken will be valid for 7 days
    * @param {string} [recoverCode] Recovery Code sent via Email, Use to set a new password
-   * @returns {Promise<CloudX.Shared.CloudResult<CloudX.Shared.UserSession>>}
+   * @returns {Promise<CloudResult<UserSession>>}
    * @memberof Neos
    */
 	async Login(
@@ -377,6 +377,7 @@ class Neos extends EventEmitter {
    * Get the Current User
    * @readonly
    * @memberof Neos
+   * @returns {User}
    */
 	get CurrentUser() {
 		return this.CloudXInterface.CurrentUser;
@@ -386,6 +387,7 @@ class Neos extends EventEmitter {
    *
    * @readonly
    * @memberof Neos
+   * @returns {UserSession}
    */
 	get CurrentSession() {
 		return this.CloudXInterface.CurrentSession;
@@ -395,6 +397,7 @@ class Neos extends EventEmitter {
    *
    * @readonly
    * @memberof Neos
+   * @returns {List<Membership>}
    */
 	get CurrentUserMemberships() {
 		return this.CloudXInterface.CurrentUserMemberships;
@@ -427,34 +430,35 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
 	async GetUser(userId) {
-		let response = await this.CloudXInterface.GetUser(userId);
-		return new this.CloudX.Shared.User(response.Entity);
+		return new this.CloudX.Shared.User(
+			(await this.CloudXInterface.GetUser(userId)).Entity
+		);
 	}
 	/**
    *
    * get a specific User by their username
    * @param {string} username
-   * @returns
+   * @returns {User}
    * @memberof Neos
    */
 	async GetUserByName(username) {
-		return await this.CloudXInterface.GetUserByName(username);
+		return (await this.CloudXInterface.GetUserByName(username)).Entity;
 	}
 	/**
    * Get the friends list of a user
    *
    * @param {string} userId
-   * @returns
+   * @returns {List<Friend>}
    * @memberof Neos
    */
 	async GetFriends(userId) {
-		return await this.CloudXInterface.GetFriends(userId);
+		return (await this.CloudXInterface.GetFriends(userId)).Entity;
 	}
 	/**
    * get a user from your friend list
    *
    * @param {string} friendId
-   * @returns
+   * @returns {User}
    * @memberof Neos
    */
 	GetFriend(friendId) {
@@ -474,7 +478,7 @@ class Neos extends EventEmitter {
    * Send or Accept a friend request
    * - pass the Friend Object
    * @param {String | CloudX.Shared.Friend} friend
-   * @returns
+   * @returns void
    * @memberof Neos
    */
 	AddFriend(friend) {
@@ -485,7 +489,7 @@ class Neos extends EventEmitter {
    * - pass the Friend Object
    *
    * @param {*} friend
-   * @returns
+   * @returns void
    * @memberof Neos
    */
 	RemoveFriend(friend) {
@@ -496,7 +500,7 @@ class Neos extends EventEmitter {
    *  - pass the Friend Object
    *
    * @param {*} friend
-   * @returns
+   * @returns void
    * @memberof Neos
    */
 	IgnoreRequest(friend) {
@@ -506,47 +510,56 @@ class Neos extends EventEmitter {
    *Get a Neos Group
    *
    * @param {*} groupId
-   * @returns
+   * @returns {Group}
    * @memberof Neos
    */
 	async GetGroup(groupId) {
-		return await this.CloudXInterface.GetGroup(groupId);
+		return new CloudX.Shared.Group(
+			(await this.CloudXInterface.GetGroup(groupId)).Entity
+		);
 	}
 	/**
    *Get a Member from a Group
    *
    * @param {String} groupId
    * @param {String} userId
-   * @returns
+   * @returns {Member}
    * @memberof Neos
    */
 	async GetGroupMember(groupId, userId) {
-		return await this.CloudXInterface.GetGroupMember(groupId, userId);
+		return new CloudX.Shared.Member(
+			(await this.CloudXInterface.GetGroupMember(groupId, userId)).Entity
+		);
 	}
 	/**
-   *Get the Members of a group
+   *Get the Members of a group and their Byte Usage
    *
    * @param {String} groupId
-   * @returns
+   * @returns {List<Member>}
    * @memberof Neos
    */
 	async GetGroupMembers(groupId) {
-		return await this.CloudXInterface.GetGroupMembers(groupId);
+		let response = (await this.CloudXInterface.GetGroupMembers(groupId)).Entity;
+		let MemberList = new CloudX.Util.List(); // Will factor into CloudX function
+		for (let Member of response) {
+			MemberList.Add(new CloudX.Shared.Member(Member));
+		}
+		return MemberList;
 	}
 	/**
    *
    * Get cached messages with a user
    * @param {String} UserId
-   * @returns
+   * @returns {UserMessages}
    * @memberof Neos
    */
 	async GetUserMessages(UserId) {
-		return await this.CloudXInterface.GetUserMessages(UserId);
+		return await this.CloudXInterface.Messages.GetUserMessages(UserId);
 	}
 	/**
    *Get all Cached messages
    *
-   * @returns
+   * @returns {List<Message>}
    * @memberof Neos
    */
 	GetAllUserMessages() {
@@ -559,9 +572,9 @@ class Neos extends EventEmitter {
    *
    * @param {Date} [fromTime=new Date]
    * @param {Number} [maxItems=100]
-   * @param {*} [user=null]
+   * @param {String} [user=null]
    * @param {boolean} [unreadOnly=false]
-   * @returns
+   * @returns {List<Message>}
    * @memberof Neos
    */
 	async GetMessages(
@@ -570,17 +583,19 @@ class Neos extends EventEmitter {
 		user = null,
 		unreadOnly = false
 	) {
-		return await this.CloudXInterface.GetMessages(
-			fromTime,
-			maxItems,
-			user,
-			unreadOnly
-		);
+		return (
+			await this.CloudXInterface.GetMessages(
+				fromTime,
+				maxItems,
+				user,
+				unreadOnly
+			)
+		).Entity;
 	}
 	/**
    * Send a Read Reciept, Messages will not show in UnreadMessages query
    *
-   * @param {*} messageIds
+   * @param {Array<String> | List<String> | String} messageIds
    * @returns
    * @memberof Neos
    */
@@ -592,28 +607,29 @@ class Neos extends EventEmitter {
 	/**
    *Get History of messages with a user
    *
-   * @param {*} user
+   * @param {String} userId
    * @param {number} [maxItems=100]
-   * @returns
+   * @returns {List<Message>} Messages
    * @memberof Neos
    */
-	GetMessageHistory(userId, maxItems = 100) {
-		return this.CloudXInterface.GetMessageHistory(userId, maxItems);
+	async GetMessageHistory(userId, maxItems = 100) {
+		return (await this.CloudXInterface.GetMessageHistory(userId, maxItems))
+			.Entity;
 	}
 	/**
    *Get the status of a user
    *
-   * @param {*} userId
-   * @returns
+   * @param {String} userId
+   * @returns {UserStatus} UserStatus
    * @memberof Neos
    */
 	async GetStatus(userId) {
-		return await this.CloudXInterface.GetStatus(userId);
+		return (await this.CloudXInterface.GetStatus(userId)).Entity;
 	}
 	/**
    *
    * Not Yet Implimented
-   * @param {CloudX.Shared.SearchParameters} record
+   * @param {SearchParameters} record
    * @memberof Neos
    */
 	// eslint-disable-next-line no-unused-vars
@@ -741,4 +757,5 @@ function chunkSubstr(str, size) {
 
 	return chunks;
 }
+
 module.exports = Neos;
