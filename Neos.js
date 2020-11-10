@@ -596,7 +596,7 @@ class Neos extends EventEmitter {
 	async SendTextMessage(UserId, Message) {
 		let Messages = [];
 		if (typeof Message === "string") {
-			Messages = chunkSubstr(Message, 120);
+			Messages = chunkSubstr(Message, 115);
 		} else if (typeof Message === "object") {
 			if (Array.isArray(Message)) Messages = Message;
 			else
@@ -808,19 +808,24 @@ class Neos extends EventEmitter {
 /**
  *@private
  *
- * @param {*} str
- * @param {*} size
- * @returns
+ * @param {String} str
+ * @param {Number} len
+ * @returns {Array<String>}
  */
-function chunkSubstr(str, size) {
-	const numChunks = Math.ceil(str.length / size);
-	const chunks = new Array(numChunks);
-
-	for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
-		chunks[i] = str.substr(o, size);
-	}
-
-	return chunks;
+function chunkSubstr(str, len) {
+	let input = str.trim().split(" ");
+	let [index, output] = [0, []];
+	output[index] = "";
+	input.forEach((word) => {
+		let temp = output[index] + " " + word.trim();
+		if (temp.length <= len) {
+			output[index] = temp;
+		} else {
+			index++;
+			output[index] = word;
+		}
+	});
+	return output;
 }
 
 module.exports = Neos;
