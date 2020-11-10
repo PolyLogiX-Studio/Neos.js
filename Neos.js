@@ -691,8 +691,7 @@ class Neos extends EventEmitter {
    * - null - Default
    * @returns {String} http address to neosdb asset
    * @memberof Neos
-   * @example
-   * Neos.GetUser("U-bombitmanbomb").then((User)=>{
+   * @example Neos.GetUser("U-bombitmanbomb").then((User)=>{
    * 	console.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
    * 	//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369
    * })
