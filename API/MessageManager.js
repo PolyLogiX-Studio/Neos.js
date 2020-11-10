@@ -76,7 +76,7 @@ class MessageManager {
         this.lastUnreadMessage
       ).then(async (cloudResult1) => {
         this._waitingForRequest = false;
-        if (!cloudResult1.IsOK) {
+        if (cloudResult1.IsError) {
           return;
         }
         var hashSet = new HashSet();
@@ -264,7 +264,7 @@ class MessageManager {
       }
       let cloudResult = await this._historyLoadTask;
       if (!isFirstRequest) return;
-      if (!cloudResult.IsOK) {
+      if (cloudResult.IsError) {
         this._historyLoadTask = null;
       } else {
         this.Messages = cloudResult.Entity;
