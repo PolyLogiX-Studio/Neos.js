@@ -40,6 +40,7 @@ Neos.Login(
 	undefined,
 	uuidv4()
 );
+Neos.on("error", (err) => console.trace(err));
 Neos.on("login", () => {
 	console.log(process.env.NEOS_LOGIN + " Logged in");
 	console.log(Neos.CommandHandler.CommandExtended);
