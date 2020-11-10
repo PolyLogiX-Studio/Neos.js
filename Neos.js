@@ -590,7 +590,7 @@ class Neos extends EventEmitter {
    *
    * @instance
    * @param {String} UserId Neos User Id to send
-   * @param {String} Message Text to Send
+   * @param {String | Array<String>} Message Message or Array of Messages to Send
    * @memberof Neos
    */
 	async SendTextMessage(UserId, Message) {
