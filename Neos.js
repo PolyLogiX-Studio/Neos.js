@@ -514,9 +514,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
 	async GetGroup(groupId) {
-		return new CloudX.Shared.Group(
-			(await this.CloudXInterface.GetGroup(groupId)).Entity
-		);
+		(await this.CloudXInterface.GetGroup(groupId)).Entity;
 	}
 	/**
    *Get a Member from a Group
@@ -527,9 +525,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
 	async GetGroupMember(groupId, userId) {
-		return new CloudX.Shared.Member(
-			(await this.CloudXInterface.GetGroupMember(groupId, userId)).Entity
-		);
+		(await this.CloudXInterface.GetGroupMember(groupId, userId)).Entity;
 	}
 	/**
    *Get the Members of a group and their Byte Usage
@@ -539,12 +535,7 @@ class Neos extends EventEmitter {
    * @memberof Neos
    */
 	async GetGroupMembers(groupId) {
-		let response = (await this.CloudXInterface.GetGroupMembers(groupId)).Entity;
-		let MemberList = new CloudX.Util.List(); // Will factor into CloudX function
-		for (let Member of response) {
-			MemberList.Add(new CloudX.Shared.Member(Member));
-		}
-		return MemberList;
+		return (await this.CloudXInterface.GetGroupMembers(groupId)).Entity;
 	}
 	/**
    *

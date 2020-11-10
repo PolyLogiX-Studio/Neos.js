@@ -43,6 +43,7 @@ const { Submission } = require("./Submission");
 const { RecordId } = require("./RecordId");
 const { CloudVariable } = require("./CloudVariable");
 const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
+const { CloudX } = require("../Neos");
 /**
  *
  *
@@ -1283,7 +1284,9 @@ class CloudXInterface {
     );
   }
   async GetGroup(groupId) {
-    return await this.GET("api/groups/" + groupId, new TimeSpan());
+    var res = await this.GET("api/groups/" + groupId, new TimeSpan());
+    res.Content = new CloudX.Shared.Group(res.Entity);
+    return res;
   }
   async GetGroupCaches(groupId) {
     return await this.GetGroup(groupId);
@@ -1298,20 +1301,56 @@ class CloudXInterface {
       new TimeSpan()
     );
   }
+
+  /**
+   *
+   *
+   * @param {*} member
+   * @returns {Promise<CloudResult<Member>>}
+   * @memberof CloudXInterface
+   */
   async DeleteGroupMember(member) {
     return await this.DELETE(
       "api/groups/" + member.GroupId + "/members/" + member.UserId,
       new TimeSpan()
     );
   }
+
+  /**
+   *
+   *
+   * @param {*} groupId
+   * @param {*} userId
+   * @returns {Promise<CloudResult<Member>>}
+   * @memberof CloudXInterface
+   */
   async GetGroupMember(groupId, userId) {
-    return await this.GET(
+    var res = await this.GET(
       "api/groups/" + groupId + "/members/" + userId,
       new TimeSpan()
     );
+    res.Content = new CloudX.Shared.Member(res.Entity);
+    return res;
   }
+
+  /**
+   *
+   *
+   * @param {*} groupId
+   * @returns{Promise<CloudResult<List<Member>>>}
+   * @memberof CloudXInterface
+   */
   async GetGroupMembers(groupId) {
-    return await this.GET("api/groups/" + groupId + "/members", new TimeSpan());
+    var res = await this.GET(
+      "api/groups/" + groupId + "/members",
+      new TimeSpan()
+    );
+    let MemberList = new CloudX.Util.List();
+    for (let Member of res) {
+      MemberList.Add(Member);
+    }
+    res.Content = MemberList;
+    return res;
   }
   async UpdateCurrentUserMemberships() {
     let groupMemberships = await this.GetUserGroupMemberships();
