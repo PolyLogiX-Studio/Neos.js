@@ -44,4 +44,5 @@ class AssetVariantComputationTask {
 }
 module.exports = {
 	AssetUploadData,
+	AssetVariantComputationTask,
 };

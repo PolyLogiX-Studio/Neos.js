@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 class CancellationTokenSource {
-	constructor(timeout) {
+	constructor() {
 		this.Token = uuidv4();
 	}
 }

@@ -45,17 +45,21 @@ class TransactionManager {
 		let num2;
 		let num3;
 		let num4;
+		let ncrConversionRatio1;
+		let cdftConversionRatio1;
+		let ncrConversionRatio2;
+		let cdftConversionRatio2;
 		if (sourceToken === "USD") {
 			switch (targetToken) {
 			case "NCR":
 				num1 = sourceAmount;
-				let ncrConversionRatio1 = this.NCRConversionRatio;
+				ncrConversionRatio1 = this.NCRConversionRatio;
 				return !ncrConversionRatio1 != null
 					? new Decimal()
 					: num1 / ncrConversionRatio1;
 			case "CDFT":
 				num2 = sourceAmount;
-				let cdftConversionRatio1 = this.CDFTConversionRatio;
+				cdftConversionRatio1 = this.CDFTConversionRatio;
 				return !cdftConversionRatio1 != null
 					? new Decimal()
 					: num2 / cdftConversionRatio1;
@@ -67,13 +71,13 @@ class TransactionManager {
 			switch (sourceAmount) {
 			case "NCR":
 				num3 = sourceAmount;
-				let ncrConversionRatio2 = this.NCRConversionRatio;
+				ncrConversionRatio2 = this.NCRConversionRatio;
 				return !ncrConversionRatio2 != null
 					? new Decimal()
-					: num4 * ncrConversionRatio2;
+					: num3 * ncrConversionRatio2;
 			case "CDFT":
 				num4 = sourceAmount;
-				let cdftConversionRatio2 = this.CDFTConversionRatio;
+				cdftConversionRatio2 = this.CDFTConversionRatio;
 				return !cdftConversionRatio2 != null
 					? new Decimal()
 					: num4 * cdftConversionRatio2;

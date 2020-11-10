@@ -79,6 +79,8 @@ process.on("SIGINT", function () {
 		console.log("Logging Out All Accounts");
 		Neos.Logout(true);
 		Neos2.Logout(true);
-	} catch (e) {}
+	} catch (e) {
+		throw Error(err);
+	}
 	process.exit(0);
 });

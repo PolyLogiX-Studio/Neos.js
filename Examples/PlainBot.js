@@ -10,9 +10,10 @@ Neos.on("friendAdded", (friend) => {
 Neos.on("messageReceived", (Message) => {
 	switch (Message.MessageType) {
 	case "Object":
-		let object = new Neos.CloudX.Shared.Record(JSON.parse(Message.Content));
+		var object = new Neos.CloudX.Shared.Record(JSON.parse(Message.Content));
 		console.log(object.Name, object.Descriptions);
 		Neos.SendTextMessage(Message.SenderId, object.Name + " Looks wonderful!");
+		break;
 	case "Text":
 		console.log(Message.SenderId + ":" + Message.Content);
 	}

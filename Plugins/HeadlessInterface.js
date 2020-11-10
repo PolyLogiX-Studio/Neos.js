@@ -189,10 +189,12 @@ class CommandQueue {
 		this.Promises = [];
 		this.InternalClock = null; //TODO internal timer
 	}
+	/*
 	Add(Command) {
 		var context = this; //Passing into ES6
 
 		return new Promise();
 	}
+	*/
 }
 module.exports = HeadlessInterface;

@@ -4,8 +4,12 @@
  * @param {String} [Sender] U-ID of the user who triggered the command
  * @param {Array<String>} [Args] Arguments to the Command
  */
-function HandlerCallback(Handler, Sender, Args) {}
-
+function HandlerCallback(Handler, Sender, Args) { 
+	Handler;
+	Sender;
+	Args;
+}
+HandlerCallback;
 /**
  *@private
  *
@@ -123,7 +127,7 @@ class CommandHandler {
 		}
 		if (typeof cb != "function")
 			throw new Error("Command must pass ('command', Function)");
-		context.Commands[command] = new Command(cb, whitelist, context);
+		context.Commands[command] = new Command(cb, whitelist, context);//lgtm [js/superfluous-trailing-arguments]
 	}
 }
 /**

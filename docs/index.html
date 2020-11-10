@@ -1757,6 +1757,13 @@ Neos.Login(Credentials...)</pre>
               </div>
               <div class="clearfix display-none toggle-target">
                 <section class="p2 mb2 clearfix bg-white minishadow">
+                  <p>
+                    Send a Text Message. If Message is longer than 128
+                    characters it will be chunked as there is a character limit
+                    if a Message element in an Array is longer than 128
+                    characters it will be cut off with "..." by the server
+                  </p>
+
                   <div class="pre p1 fill-light mt0">
                     SendTextMessage(UserId:
                     <a

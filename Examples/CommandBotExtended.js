@@ -104,10 +104,10 @@ Commands.Add(
 		h.Reply("You succeeded! Something could happen here with a[0]");
 	},
 	{
-		index: function (args) {
+		index: function () {
 			return "Subscribe to a feed<br>Help Pages: usage, channels";
 		},
-		channels: (args) => {
+		channels: () => {
 			return "No Channels Available"; //Yet
 		},
 		usage: Commands.Options.Prefix + "subscribe <channel>",

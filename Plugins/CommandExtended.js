@@ -4,8 +4,12 @@
  * @param {Array<String>} [Args] Arguments to the Command
  */
 
-function HandlerCallback(Handler, Sender, Args) {}
-
+function HandlerCallback(Handler, Sender, Args) {
+  Handler;
+  Args;
+  Sender;
+} //lgtm [js/unused-local-variable]
+HandlerCallback;
 /**
  * CommandExtended Plugin. Adds more features to CommandHandler
  * @param {CommandHandler} CommandHandler
@@ -74,9 +78,9 @@ class CommandExtended {
       );
     };
     this.HelpData = {
-      undefined: new HelpObject(this.Options.HelpDefault),
-      get null() {
-        return this[undefined];
+      null: new HelpObject(this.Options.HelpDefault),
+      get undefined() {
+        return this[null];
       },
     };
     if (this.Options.CommandsCommand)
@@ -150,7 +154,6 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended;
     }
-    let prefix = context.Options.Prefix;
     let commandData = Message.Content.trim().split(" ");
     commandData.shift(); // remove Help from the command
     let Command = commandData.shift();
@@ -225,7 +228,6 @@ class CommandExtended {
     } else {
       context = this.CommandHandler.CommandHandlerExtended;
     }
-    let prefix = context.Options.Prefix;
     let commandData = Message.Content.trim().split(" ");
     commandData.shift(); // remove Help from the command
     let Index = commandData.shift() || 1;

@@ -587,7 +587,9 @@ class Neos extends EventEmitter {
 	// eslint-disable-next-line no-unused-vars
 	FetchRecord(ownerId, recordId) {}
 	/**
-   *
+   * Send a Text Message.
+   * If Message is longer than 128 characters it will be chunked as there is a character limit
+   * if a Message element in an Array is longer than 128 characters it will be cut off with "..." by the server
    * @instance
    * @param {String} UserId Neos User Id to send
    * @param {String | Array<String>} Message Message or Array of Messages to Send

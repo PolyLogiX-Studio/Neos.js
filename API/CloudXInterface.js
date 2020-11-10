@@ -101,10 +101,15 @@ class CloudXInterface {
     this.Messages;
     /** @type TransactionManager */
     this.Transactions;
+    /** @type Function */
     this.SessionChanged;
+    /** @type Function */
     this.UserUpdated;
+    /** @type Function */
     this.MembershipsUpdated;
+    /** @type Function */
     this.GroupUpdated;
+    /** @type Function */
     this.GroupMemberUpdated;
     //Setup Private Properties
     //this.CloudXInterface()
@@ -219,7 +224,7 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
         return "https://oauth.neosdb.net/"; // Custom Server
       default:
-        this.OnError(
+        return new Error(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
         );
     }
@@ -238,7 +243,7 @@ class CloudXInterface {
       case CloudXInterface.CloudEndpoint.Local:
         return CloudXInterface.NEOS_CLOUD_BLOB;
       default:
-        return this.OnError(
+        return new Error(
           "Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
         );
     }
@@ -360,7 +365,7 @@ class CloudXInterface {
       //Use the OAuth Schema
       this._currentAuthenticationHeader =
         value != null
-          ? new AuthenticationHeaderValue("Bearer", value.SessionToken)
+          ? new AuthenticationHeaderValue("Bearer", value.SessionToken) //lgtm [js/hardcoded-credentials]
               .Authorization
           : AuthenticationHeaderValue;
     } else {
@@ -368,7 +373,7 @@ class CloudXInterface {
       this._currentAuthenticationHeader =
         value != null
           ? new AuthenticationHeaderValue(
-              "neos",
+              "neos", //lgtm [js/hardcoded-credentials]
               value.UserId + ":" + value.SessionToken
             ).Authorization
           : AuthenticationHeaderValue;
@@ -1418,7 +1423,7 @@ class CloudXInterface {
       case OwnerType.Group:
         return "groups";
       default:
-        return this.OnError("Invalid Owner Type: " + ownerId);
+        return new Error("Invalid Owner Type: " + ownerId);
     }
   }
   /**
