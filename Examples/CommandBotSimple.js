@@ -11,7 +11,7 @@ Command.Add("/uptime", function (Handler) {
 	Handler.Reply(process.uptime());
 });
 var HighFives = 0;
-HighFiveLast = null;
+var HighFiveLast = null;
 function HighFive(Handler, SenderId) {
 	HighFives++;
 	Handler.Reply(
@@ -36,6 +36,7 @@ Neos.on("messageReceived", (Message) => {
 			Message.SenderId,
 			"I'm sorry but I cant handle Sound Files."
 		);
+		break;
 	case "Text":
 		Command.Run(Message, { color: "red", number: 4 }); // Pass extra context/Data Usable within Command Handler
 	}
@@ -45,4 +46,4 @@ Neos.on("error", (err) => {
 	throw new Error(err); // Errors are not Halted by default, you may handle errors as you see fit.
 });
 
-Neos.Login(Credential, Password, undefined, "TotallyRealMachineId", true);
+Neos.Login(/*Credential, Password, undefined, "TotallyRealMachineId", true*/);
