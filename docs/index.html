@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>@bombitmanbomb/neosjs 1.6.17 | Documentation</title>
+    <title>@bombitmanbomb/neosjs 1.6.18-alpha.1 | Documentation</title>
     <meta name="description" content="Neos API" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="assets/bass.css" rel="stylesheet" />
@@ -15,7 +15,7 @@
       <div id="split-left" class="overflow-auto fs0 height-viewport-100">
         <div class="py1 px2">
           <h3 class="mb0 no-anchor">@bombitmanbomb/neosjs</h3>
-          <div class="mb1"><code>1.6.17</code></div>
+          <div class="mb1"><code>1.6.18-alpha.1</code></div>
           <input
             placeholder="Filter"
             id="filter-input"
@@ -100,6 +100,8 @@
               <li><a href="#fetchrecord" class=""> FetchRecord </a></li>
 
               <li><a href="#sendtextmessage" class=""> SendTextMessage </a></li>
+
+              <li><a href="#neosdbtohttp" class=""> NeosDBToHttp </a></li>
 
               <li><a href="#sendtransaction" class=""> SendTransaction </a></li>
 
@@ -1190,6 +1192,72 @@
               </div>
             </div>
           </div>
+        </section>
+
+        <section class="p2 mb2 clearfix bg-white minishadow">
+          <div class="clearfix">
+            <h3 class="fl m0" id="neosdbtohttp">NeosDBToHttp</h3>
+          </div>
+
+          <div class="pre p1 fill-light mt0">
+            NeosDBToHttp(neosdb:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >, endpoint:
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+              >Number</a
+            >):
+            <a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            >
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Parameters</div>
+          <div class="prose">
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">neosdb</span>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+                    >String</a
+                  >)</code
+                >
+                neosdb:///URL
+              </div>
+            </div>
+
+            <div class="space-bottom0">
+              <div>
+                <span class="code bold">endpoint</span>
+                <code class="quiet"
+                  >(<a
+                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+                    >Number</a
+                  >)</code
+                >
+                Options:
+                <ul>
+                  <li>0 - Default</li>
+                  <li>1 - Blob</li>
+                  <li>2 - CDN</li>
+                  <li>3 - VideoCDN</li>
+                  <li>null - Default</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="py1 quiet mt1 prose-big">Returns</div>
+          <code
+            ><a
+              href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+              >String</a
+            ></code
+          >: http address to neosdb asset
         </section>
 
         <section class="p2 mb2 clearfix bg-white minishadow">
