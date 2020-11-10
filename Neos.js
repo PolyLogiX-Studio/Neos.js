@@ -44,13 +44,13 @@ class Events extends EventEmitter {
 /**
  * @class Neos
  * @extends {EventEmitter}
+ * @classdesc Neos
  */
 class Neos extends EventEmitter {
 	/**
    * CloudX
    * @readonly
    * @instance
-   * @returns {CloudX}
    * @memberof Neos
    */
 	static get CloudX() {
@@ -72,9 +72,27 @@ class Neos extends EventEmitter {
 		if (!options.UpdateInterval) options.UpdateInterval = 1000;
 		if (options.Update == null) options.Update = true;
 		if (options.MultiMessageDelay == null) options.MultiMessageDelay = 1100;
+		/**
+     * @instance
+     * @property {{AutoReadMessages:true,
+     * OnlineStateL:Online,
+     * StatusInterval:60,
+     * NeosVersion:"Neos.js <Version>",
+     * CompatabilityHash:"Neos.js <Version>",
+     * UpdateInterval:1000,
+     * Update:true,
+     * MultiMessageDelay:1100}} Options
+     * @memberof Neos
+     */
 		this.Options = options;
 		this.Events = new Events();
 		this.CloudX = CloudX;
+
+		/**
+     * @property {import('./API').Shared.CloudXInterface} CloudXInterface
+     * @memberof Neos
+     * @instance
+     */
 		this.CloudXInterface = new CloudX.Shared.CloudXInterface(
 			this.Events,
 			config.main,
