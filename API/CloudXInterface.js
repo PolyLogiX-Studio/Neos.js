@@ -123,6 +123,10 @@ class CloudXInterface {
 				value: new Dictionary(),
 				writable: true,
 			},
+			_USE_CDN: {
+				value: false,
+				writable: true,
+			},
 			_groups: {
 				value: new Dictionary(),
 				writable: true,
@@ -200,7 +204,7 @@ class CloudXInterface {
 		return null;
 	}
 	static get USE_CDN() {
-		return new Boolean();
+		return false;
 	}
 	static get CLOUDX_PRODUCTION_NEOS_API() {
 		return "https://www.neosvr-api.com/";
@@ -917,7 +921,7 @@ class CloudXInterface {
 								tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
 					else num = 0;
 				} else num = 1;
-				CloudXInterface.USE_CDN = num !== 0;
+				this._USE_CDN = num !== 0;
 			}
 			return user;
 		}
@@ -960,7 +964,7 @@ class CloudXInterface {
 		this.CurrentUser = null;
 		this.ClearMemberships();
 		this.Friends = new FriendManager(this);
-		CloudXInterface.USE_CDN = false;
+		this._USE_CDN = false;
 
 		this.OnLogout();
 	}
