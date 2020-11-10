@@ -80,7 +80,7 @@ process.on("SIGINT", function () {
 		Neos.Logout(true);
 		Neos2.Logout(true);
 	} catch (e) {
-		throw Error(err);
+		throw Error(e);
 	}
 	process.exit(0);
 });
