@@ -41,7 +41,7 @@ class Record extends IRecord {
 		return RecordHelper.GetUrl(this);
 	}
 	set URL(value) {
-		return RecordHelper.SetUrl(this, value);
+		RecordHelper.SetUrl(this, value);
 	}
 	static IsValidId(recordId) {
 		return recordId.startsWith("R-");

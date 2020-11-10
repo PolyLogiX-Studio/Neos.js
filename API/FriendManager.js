@@ -65,6 +65,7 @@ class FriendManager {
 	 * @memberof FriendManager
 	 */
 	GetFriends(friendId) {
+		var friend = new Out();
 		switch (Type.Get(friendId)) {
 		case "List":
 			for (let friend of this.friends) {
@@ -72,7 +73,6 @@ class FriendManager {
 			}
 			break;
 		case "String":
-			let friend = new Out();
 			if (this.friends.TryGetValue(friendId, friend)) return friend.Out;
 			return null;
 		}

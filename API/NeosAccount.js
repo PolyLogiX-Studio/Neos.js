@@ -77,27 +77,37 @@ class NeosAccount {
 	 * @memberof NeosAccount
 	 */
 	static StorageBytes(type) {
+		// eslint-disable-next-line no-undef
 		var num = BigInt("1073741824n");
 		switch (type) {
 		case AccountType.Normal:
 			return num;
 		case AccountType.AgentSmith:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("5n");
 		case AccountType.BladeRunner:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("25n");
 		case AccountType.Gunter:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("50n");
 		case AccountType.Neuromancer:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("100n");
 		case AccountType.Architect:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("150n");
 		case AccountType.Curator:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("300n");
 		case AccountType.Level144:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("600n");
 		case AccountType.Level250:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("1200n");
 		case AccountType.Anorak:
+			// eslint-disable-next-line no-undef
 			return num * BigInt("2400n");
 		default:
 			throw new Error("Invalid AccountType: " + type);

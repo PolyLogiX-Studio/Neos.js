@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const { Out } = require("./Out"); //lgtm [js/unused-local-variable] JSDoc Type Def
 const { StringBuilder } = require("./StringBuilder");
 const { Uri } = require("./Uri");

@@ -39,11 +39,13 @@ class CommandExtended {
 		this.Options.HelpCommand = Options.HelpCommand || "help";
 		this.Options.UsageCommand = Options.UsageCommand || "usage";
 		this.Options.CommandsCommand = Options.CommandsCommand || "commands";
-		this.Options.HelpDefault = this.Options.CommandsCommand
-			? `Get a list of commands with ${
+		if (this.Options.CommandsCommand) {
+			this.Options.HelpDefault = `Get a list of commands with ${
 				this.Options.Prefix + this.Options.CommandsCommand
-			  }.`
-			: "No Help Available, Contact the Bot Owner";
+			}.`;
+		} else {
+			this.Options.HelpDefault = "No Help Available, Contact the Bot Owner";
+		}
 		CommandHandler.CommandHandlerExtended = this;
 		this.CommandHandler = CommandHandler;
 

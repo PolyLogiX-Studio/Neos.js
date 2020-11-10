@@ -19,6 +19,7 @@ class HashSet extends List {
 		switch (Type.Get($b)) {
 		case "Array":
 			$b = List.ToList($b);
+			// eslint-disable-next-line no-fallthrough
 		case "List":
 			super();
 			this.AddRange($b);

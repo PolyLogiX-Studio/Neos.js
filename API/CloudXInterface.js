@@ -10,6 +10,7 @@ const { OwnerType } = require("./OwnerType");
 const { TimeSpan } = require("./TimeSpan");
 const { HttpMethod } = require("./HttpMethod");
 const { HttpRequestMessage } = require("./HttpRequestMessage");
+// eslint-disable-next-line no-unused-vars
 const { HttpResponseMessage } = require("./HttpResponseMessage"); //lgtm [js/unused-local-variable]
 const { CancellationTokenSource } = require("./CancellationTokenSource");
 const { CloudResult } = require("./CloudResult");
@@ -230,7 +231,7 @@ class CloudXInterface {
 	static get CLOUDX_NEOS_VIDEO_CDN() {
 		return "https://cloudx-video.azureedge.net/";
 	}
-	ProfilerBeginSample(name) {
+	ProfilerBeginSample() {
 		let beginSampleCallback = CloudXInterface.ProfilerBeginSampleCallback;
 		if (beginSampleCallback == null) return;
 		beginSampleCallback();
@@ -444,7 +445,7 @@ class CloudXInterface {
 		});
 	}
 	IsCurrentUserMemberOfGroup(groupId) {
-		return this.TryGetCurrentUserGroupMemberInfo != null;
+		return this.TryGetCurrentUserGroupMemberInfo(groupId) != null;
 	}
 	TryGetCurrentUserGroupMembership(groupId) {
 		let a = this._groupMemberInfos.indexOf(groupId);
@@ -672,22 +673,13 @@ class CloudXInterface {
 			return this.CreateRequest(resource, HttpMethod.Delete);
 		}, timeout);
 	}
-
-	/**
-	 *
-	 *
-	 * @param {HttpRequestMessage} request
-	 * @param {string} filePath
-	 * @param {string} [mime=null]
-	 * @param {IProgressIndicator} [progressIndicator=null]
-	 * @memberof CloudXInterface
-	 */
+	/*
 	AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
 		////let fileStream = fs.readFile(filePath);
 		//TODO Multi Part Form Content
 		//if (mime != null)
 	}
-
+*/
 	/**
 	 *
 	 * @param {string} resource
@@ -881,12 +873,14 @@ class CloudXInterface {
 		);
 	}
 	async UpdateCurrentUserInfo() {
+		var user;
+		var entity;
 		switch (this.CurrentUser.Id) {
 		case null:
 			return this.OnError("No current user!");
 		default:
-			let user = await this.GetUser(this.CurrentUser.Id);
-			let entity = user.Entity;
+			user = await this.GetUser(this.CurrentUser.Id);
+			entity = user.Entity;
 			if (
 				user.IsOK &&
 					this.CurrentUser != null &&
@@ -955,9 +949,11 @@ class CloudXInterface {
 
 		this.OnLogout();
 	}
+	/*
 	SignHash(hash) {
 		return this._cryptoProvider; //TODO Cryptography
 	}
+	*/
 	/**
 	 * @template R
 	 *
@@ -1027,7 +1023,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	GetRecordsList(ids) {}
+	GetRecordsList() {}
 	GetRecordsFull(ownerId, tag = null, path = null) {
 		let ownerPath = CloudXInterface.GetOwnerPath(ownerId);
 		let str = "";
@@ -1091,10 +1087,10 @@ class CloudXInterface {
 		}
 		return this.POST(resource, record, new TimeSpan());
 	}
-
+	/*
 	GetPreprocessStatus(ownerId, recordId, id) {
 		return this.OnError("Not Implimented");
-		/*
+		
     if (!recordId) {
       recordId = ownerId.RecordId;
       id = ownerId.PreprocessId;
@@ -1124,8 +1120,9 @@ class CloudXInterface {
         return this.OnError("Invalid record owner");
     }
     return this.GET(resource, record, new TimeSpan());
-    */
+    
 	}
+	*/
 	async DeleteRecord(ownerId, recordId) {
 		if (!recordId) {
 			recordId = ownerId.RecordId;
@@ -1252,12 +1249,15 @@ class CloudXInterface {
 		if (!cloudResult.isOK) return cloudResult;
 		return await this.WaitForAssetFinishProcessing(cloudResult.Entity);
 	}
+	/*
 	EnqueueChunk(baseUrl, fileName, buffer, processingBuffers) {
 		buffer.task = this.RunRequest(() => {}); //TODO Wtf is this
 	}
-	async TakeFinishedBuffer(buffers) {
+	*/
+	async TakeFinishedBuffer() {
 		//TODO TakeFinishedBuffer
 	}
+	/*
 	async BeginUploadAsset(
 		ownerId,
 		signature,
@@ -1265,11 +1265,12 @@ class CloudXInterface {
 		assetPath,
 		retries = 5,
 		progressIndicator = null,
-		bytes = null
+		bytes = null //TODO
 	) {
 		//	let fileName = Path.GetFileName(assetPath);
 		//TODO finish
 	}
+	*/
 	async WaitForAssetFinishProcessing(assetUpload) {
 		let baseUrl =
 			this.GetAssetBaseURL(
@@ -1896,7 +1897,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	async GetOnlineInstanceCount(machineId) {
+	async GetOnlineInstanceCount() {
 		let cloudResult = await this.GET(
 			"api/stats/onlineInstances/",
 			new TimeSpan()

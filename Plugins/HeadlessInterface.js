@@ -111,13 +111,13 @@ class HeadlessInterface extends EventEmitter {
 	 * @memberof HeadlessInterface
 	 */
 	get sessionId() {
-		return this.State.sessionId
-			? this.State.sessionId
-			: this.Send("sessionId").then((sessionId) => {
+		if (this.State.sessionId) return this.State.sessionId;
+		else
+			return this.Send("sessionId").then((sessionId) => {
 				if (
 					sessionId != null &&
-						typeof sessionId === "string" &&
-						sessionId.startsWith("S-")
+					typeof sessionId === "string" &&
+					sessionId.startsWith("S-")
 				) {
 					this.State.sessionId = sessionId;
 					return sessionId;
@@ -130,7 +130,7 @@ class HeadlessInterface extends EventEmitter {
 					}
 					return this.sessionId; // Try Again
 				}
-			  });
+			});
 	}
 
 	/**

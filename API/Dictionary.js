@@ -1,3 +1,4 @@
+//eslint-disable-next-line no-unused-vars
 const { Out } = require("./Out"); //lgtm [js/unused-local-variable] JSDoc Type Def
 /**
  *
@@ -97,7 +98,7 @@ class Dictionary extends Array {
 	 *
 	 * @memberof Dictionary
 	 */
-	EnsureCapacity(capacity) {
+	EnsureCapacity() {
 		return this.length;
 	}
 	/**

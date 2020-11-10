@@ -99,14 +99,16 @@ class TransactionManager {
 		}
 	}
 	ToUSD(token, amount) {
+		var cdftConversionRatio;
+		var num;
 		switch (token) {
 		case "NCR":
 			return !(this.NCRConversionRatio != null)
 				? new Decimal()
 				: this.NCRConversionRatio * amount;
 		case "CDFT":
-			let cdftConversionRatio = this.CDFTConversionRatio;
-			let num = amount;
+			cdftConversionRatio = this.CDFTConversionRatio;
+			num = amount;
 			return !(cdftConversionRatio != null)
 				? new Decimal()
 				: cdftConversionRatio * num;
