@@ -30,11 +30,7 @@ class HashSet extends List {
 			throw new Error("ArgumentException: Expected <Array, List, Number>");
 		}
 	}
-	IsSame(set) {
-		for (let item of set) {
-			//TODO Impliment
-		}
-	}
+	IsSame() {}
 }
 module.exports = {
 	HashSet,
