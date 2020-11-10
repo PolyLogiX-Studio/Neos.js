@@ -5,12 +5,12 @@
  */
 class CloudResult {
 	/**
-   *Creates an instance of CloudResult.
-   * @param {*} entity
-   * @param {*} state
-   * @param {*} content
-   * @memberof CloudResult
-   */
+	 *Creates an instance of CloudResult.
+	 * @param {*} entity
+	 * @param {*} state
+	 * @param {*} content
+	 * @memberof CloudResult
+	 */
 	constructor(entity, state, content, resHeaders) {
 		this.CloudResult(state, content, resHeaders, entity);
 	}
@@ -18,11 +18,11 @@ class CloudResult {
 		return "CloudResult - State: " + this.State + " Content: " + this.Content;
 	}
 	/**
-   * @param {HttpStatusCode} state
-   * @param {string} content
-   * @returns undefined
-   * @memberof CloudResult
-   */
+	 * @param {HttpStatusCode} state
+	 * @param {string} content
+	 * @returns undefined
+	 * @memberof CloudResult
+	 */
 	CloudResult(state, content, headers) {
 		this.State = state;
 		this.Content = content;
@@ -41,29 +41,29 @@ class CloudResult {
 		}
 	}
 	/**
-   * Cet the Result Content Entity
-   * @readonly
-   * @memberof CloudResult
-   */
+	 * Cet the Result Content Entity
+	 * @readonly
+	 * @memberof CloudResult
+	 */
 	get Entity() {
 		return this.Content;
 	}
 	/**
-   * Is Valid?
-   *
-   * @readonly
-   * @memberof CloudResult
-   */
+	 * Is Valid?
+	 *
+	 * @readonly
+	 * @memberof CloudResult
+	 */
 	get IsOK() {
 		if (this.State !== 200) return this.State === 204;
 		return true;
 	}
 	/**
-   * Is Invalid?
-   *
-   * @readonly
-   * @memberof CloudResult
-   */
+	 * Is Invalid?
+	 *
+	 * @readonly
+	 * @memberof CloudResult
+	 */
 	get IsError() {
 		return !this.IsOK;
 	}

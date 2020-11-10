@@ -5,15 +5,15 @@ const { Enumerable } = require("./Enumerable");
  */
 class AssetDiff {
 	/**
-   *Creates an instance of AssetDiff.
-   * @param {{
-   * hash:string,
-   * bytes:Number,
-   * state: AssetDiff.Diff,
-   * isUploaded?: Boolean
-   * }} $b
-   * @memberof AssetDiff
-   */
+	 *Creates an instance of AssetDiff.
+	 * @param {{
+	 * hash:string,
+	 * bytes:Number,
+	 * state: AssetDiff.Diff,
+	 * isUploaded?: Boolean
+	 * }} $b
+	 * @memberof AssetDiff
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Hash = $b.hash;

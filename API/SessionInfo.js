@@ -4,33 +4,33 @@ const { Uri } = require("./Uri");
 const { HashSet } = require("./HashSet");
 class SessionInfo {
 	/**
-   *Creates an instance of SessionInfo.
-   * @param {{
-   * name:String,
-   * description:String,
-   * tags:HashSet<String>,
-   * sessionId:String,
-   * hostUserId:String,
-   * hostMachineId:String,
-   * hostUsername:String,
-   * compatibilityHash:String,
-   * neosVersion:String,
-   * headlessHost:Boolean,
-   * url:String,
-   * sessionURLs:List<String>,
-   * sessionUsers:List<SessionUser>,
-   * thumbnail:String,
-   * joinedUsers:Number,
-   * activeUsers:Number,
-   * maxUsers:Number,
-   * mobileFriendly:Boolean,
-   * sessionBeginTime:Date,
-   * lastUpdate:Date,
-   * awaySince?:Date,
-   * accessLevel:SessionAccessLevel
-   * }} $b
-   * @memberof SessionInfo
-   */
+	 *Creates an instance of SessionInfo.
+	 * @param {{
+	 * name:String,
+	 * description:String,
+	 * tags:HashSet<String>,
+	 * sessionId:String,
+	 * hostUserId:String,
+	 * hostMachineId:String,
+	 * hostUsername:String,
+	 * compatibilityHash:String,
+	 * neosVersion:String,
+	 * headlessHost:Boolean,
+	 * url:String,
+	 * sessionURLs:List<String>,
+	 * sessionUsers:List<SessionUser>,
+	 * thumbnail:String,
+	 * joinedUsers:Number,
+	 * activeUsers:Number,
+	 * maxUsers:Number,
+	 * mobileFriendly:Boolean,
+	 * sessionBeginTime:Date,
+	 * lastUpdate:Date,
+	 * awaySince?:Date,
+	 * accessLevel:SessionAccessLevel
+	 * }} $b
+	 * @memberof SessionInfo
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Name = $b.name;
@@ -64,11 +64,11 @@ class SessionInfo {
 		this.IsLAN = new Boolean();
 	}
 	/**
-   *
-   *
-   * @returns {List<Uri>}
-   * @memberof SessionInfo
-   */
+	 *
+	 *
+	 * @returns {List<Uri>}
+	 * @memberof SessionInfo
+	 */
 	GetSessionURLs() {
 		if (this.SessionURLs != null)
 			return List.ToList(
@@ -82,33 +82,33 @@ class SessionInfo {
 		return uriList;
 	}
 	/**
-   *
-   * @readonly
-   * @memberof SessionInfo
-   */
+	 *
+	 * @readonly
+	 * @memberof SessionInfo
+	 */
 	get HasEnded() {
 		if (this.SessionURLs == null || this.SessionURLs.length === 0)
 			return this.LegacySessionURL == null;
 		return false;
 	}
 	/**
-   *
-   * @param {SessionInfo} other
-   * @returns {Boolean}
-   * @memberof SessionInfo
-   */
+	 *
+	 * @param {SessionInfo} other
+	 * @returns {Boolean}
+	 * @memberof SessionInfo
+	 */
 	IsSame(other) {
 		if (
 			!(this.Name === other.Name) ||
-      !(this.Description === other.Description) ||
-      !this.Tags.IsSame(other.Tags) ||
-      !(this.SessionId === other.SessionId) ||
-      !(this.HostUserId === other.HostUserId) ||
-      !(this.HostMachineId === other.HostMachineId) ||
-      !(this.HostUsername === other.HostUsername) ||
-      !(this.CompatibilityHash === other.CompatibilityHash) ||
-      !(this.NeosVersion === other.NeosVersion) ||
-      this.HeadlessHost !== other.HeadlessHost
+			!(this.Description === other.Description) ||
+			!this.Tags.IsSame(other.Tags) ||
+			!(this.SessionId === other.SessionId) ||
+			!(this.HostUserId === other.HostUserId) ||
+			!(this.HostMachineId === other.HostMachineId) ||
+			!(this.HostUsername === other.HostUsername) ||
+			!(this.CompatibilityHash === other.CompatibilityHash) ||
+			!(this.NeosVersion === other.NeosVersion) ||
+			this.HeadlessHost !== other.HeadlessHost
 		)
 			return false;
 		return true;

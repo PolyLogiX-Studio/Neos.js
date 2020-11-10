@@ -16,27 +16,27 @@ class UserStatus {
 		this.ActiveSessions = $b.activeSessions;
 	}
 	/**
-   *
-   * @returns {SessionInfo}
-   * @readonly
-   * @memberof UserStatus
-   */
+	 *
+	 * @returns {SessionInfo}
+	 * @readonly
+	 * @memberof UserStatus
+	 */
 	get CurrentSession() {
 		let activeSessions = this.ActiveSessions;
 		if (activeSessions == null) return null;
 		return activeSessions.find((s) => s.SessionId === this.CurrentSessionId);
 	}
 	/**
-   *
-   * @returns {Boolean}
-   * @param {UserStatus} other
-   * @memberof UserStatus
-   */
+	 *
+	 * @returns {Boolean}
+	 * @param {UserStatus} other
+	 * @memberof UserStatus
+	 */
 	IsSame(other) {
 		if (
 			other == null ||
-      this.OnlineStatus !== other.OnlineStatus ||
-      this.CurrentSessionId !== other.CurrentSessionId
+			this.OnlineStatus !== other.OnlineStatus ||
+			this.CurrentSessionId !== other.CurrentSessionId
 		)
 			return false;
 		return true; //TODO remove when implimented

@@ -1,12 +1,12 @@
 class ThumbnailInfo {
 	/**
-   *Creates an instance of ThumbnailInfo.
-   * @param {{
-   * id: string,
-   * key: string
-   * }} $b
-   * @memberof ThumbnailInfo
-   */
+	 *Creates an instance of ThumbnailInfo.
+	 * @param {{
+	 * id: string,
+	 * key: string
+	 * }} $b
+	 * @memberof ThumbnailInfo
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.MAX_THUMBNAIL_LIFETIME_MINUTES = 10;

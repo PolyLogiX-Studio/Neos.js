@@ -8,7 +8,7 @@ class ComputationLock {
 	get IsLocked() {
 		return (
 			!(this.Token === "" || this.Token == null) &&
-      new Date() > this.ExpireTimestamp
+			new Date() > this.ExpireTimestamp
 		);
 	}
 	TryLock(duration) {

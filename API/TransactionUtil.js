@@ -1,7 +1,11 @@
 class TransactionUtil {
-  static NCR_CONVERSION_VARIABLE = "NCR_CONVERSION";
-  static CDFT_CONVERSION_VARIABLE = "CDFT_CONVERSION";
+	static get NCR_CONVERSION_VARIABLE() {
+		return "NCR_CONVERSION";
+	}
+	static get CDFT_CONVERSION_VARIABLE() {
+		return "CDFT_CONVERSION";
+	}
 }
 module.exports = {
-  TransactionUtil,
+	TransactionUtil,
 };

@@ -1,17 +1,17 @@
 class AssetUploadData {
 	/**
-   *Creates an instance of AssetUploadData.
-   * @param {{
-   * signature: string,
-   * variant: string,
-   * ownerId: string
-   * totalBytes: Number,
-   * chunkSIze: Number,
-   * totalChunks: Number,
-   * uploadState: (UploadState)
-   * }} $b
-   * @memberof AssetUploadData
-   */
+	 *Creates an instance of AssetUploadData.
+	 * @param {{
+	 * signature: string,
+	 * variant: string,
+	 * ownerId: string
+	 * totalBytes: Number,
+	 * chunkSIze: Number,
+	 * totalChunks: Number,
+	 * uploadState: (UploadState)
+	 * }} $b
+	 * @memberof AssetUploadData
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Signature = $b.signature;
@@ -27,14 +27,14 @@ class AssetUploadData {
 
 class AssetVariantComputationTask {
 	/**
-   *Creates an instance of AssetVariantComputationTask.
-   * @param {{
-   * assetSignature: string,
-   * variantId: string,
-   * entityType: AssetVariantEntityType
-   * }} $b
-   * @memberof AssetVariantComputationTask
-   */
+	 *Creates an instance of AssetVariantComputationTask.
+	 * @param {{
+	 * assetSignature: string,
+	 * variantId: string,
+	 * entityType: AssetVariantEntityType
+	 * }} $b
+	 * @memberof AssetVariantComputationTask
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.AssetSignature = $b.assetSignature;

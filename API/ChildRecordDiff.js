@@ -1,15 +1,15 @@
 const { Enumerable } = require("./Enumerable");
 class ChildRecordDiff {
 	/**
-   *Creates an instance of ChildRecordDiff.
-   * @param {{
-   * operation: <#RecordInfoOperation>,
-   * created: Date,
-   * parentRecord: RecordId,
-   * recordInfo: RecordInfo,
-   * }} $b
-   * @memberof ChildRecordDiff
-   */
+	 *Creates an instance of ChildRecordDiff.
+	 * @param {{
+	 * operation: <#RecordInfoOperation>,
+	 * created: Date,
+	 * parentRecord: RecordId,
+	 * recordInfo: RecordInfo,
+	 * }} $b
+	 * @memberof ChildRecordDiff
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Operation = $b.operation;

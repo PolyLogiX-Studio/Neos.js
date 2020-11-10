@@ -23,14 +23,14 @@ class EventQueue {
 		//this.Interval = setInterval(this.RunQueue, 500)
 	}
 	/**
-   *
-   *
-   * @param {String} Command
-   * @param {String} Sender
-   * @param {String} Args
-   * @param {Handler} Handler
-   * @memberof EventQueue
-   */
+	 *
+	 *
+	 * @param {String} Command
+	 * @param {String} Sender
+	 * @param {String} Args
+	 * @param {Handler} Handler
+	 * @memberof EventQueue
+	 */
 	Add(Command, Sender, Args, Handler, Extra) {
 		this.Queue.push({
 			Command,
@@ -42,11 +42,11 @@ class EventQueue {
 		this.RunQueue(); // Disable Queue Interval for now
 	}
 	/**
-   *
-   *
-   * @returns
-   * @memberof EventQueue
-   */
+	 *
+	 *
+	 * @returns
+	 * @memberof EventQueue
+	 */
 	RunQueue() {
 		if (this.Queue.length == 0) return true;
 
@@ -84,11 +84,11 @@ class CommandHandler {
 		this.Queue = new EventQueue(this);
 	}
 	/**
-   * Run a Message for Commands
-   *
-   * @param {{Id,OwnerId,RecipientId,SenderId,MessageType,Content,SendTime,LastUpdateTime,ReadTime}} Message
-   * @memberof CommandHandler
-   */
+	 * Run a Message for Commands
+	 *
+	 * @param {{Id,OwnerId,RecipientId,SenderId,MessageType,Content,SendTime,LastUpdateTime,ReadTime}} Message
+	 * @memberof CommandHandler
+	 */
 	Run(Message, Extra) {
 		var context;
 		if (this instanceof CommandHandler) {
@@ -111,13 +111,13 @@ class CommandHandler {
 		}
 	}
 	/**
-   * Add a Command
-   *
-   * @param {String} command
-   * @param {HandlerCallback} cb
-   * @param {Array<String>} [whitelist]
-   * @memberof CommandHandler
-   */
+	 * Add a Command
+	 *
+	 * @param {String} command
+	 * @param {HandlerCallback} cb
+	 * @param {Array<String>} [whitelist]
+	 * @memberof CommandHandler
+	 */
 	Add(command, cb, whitelist) {
 		var context;
 		if (this instanceof CommandHandler) {
@@ -143,11 +143,11 @@ class Handler {
 		this.Extra = Extra; // Modding Support Extra Variable Passthrough
 	}
 	/**
-   *
-   *
-   * @param {CloudX.Shared.Message} Message
-   * @memberof Handler
-   */
+	 *
+	 *
+	 * @param {CloudX.Shared.Message} Message
+	 * @memberof Handler
+	 */
 	Reply(Message) {
 		this.Neos.SendTextMessage(this.Message.SenderId, Message);
 	}
@@ -159,24 +159,24 @@ class Handler {
  */
 class Command {
 	/**
-   *Creates an instance of Command.
-   * @param {Function} cb
-   * @param {Array<String>} whitelist
-   * @memberof Command
-   */
+	 *Creates an instance of Command.
+	 * @param {Function} cb
+	 * @param {Array<String>} whitelist
+	 * @memberof Command
+	 */
 	constructor(cb, whitelist) {
 		this.script = cb;
 		this.whitelist = whitelist;
 	}
 	/**
-   *
-   *
-   * @param {String} Sender
-   * @param {Array<String>} Args
-   * @param {Handler} Handler
-   * @returns void
-   * @memberof Command
-   */
+	 *
+	 *
+	 * @param {String} Sender
+	 * @param {Array<String>} Args
+	 * @param {Handler} Handler
+	 * @returns void
+	 * @memberof Command
+	 */
 	Run(Sender, Args, Handler, Extra) {
 		if (this.whitelist && !~this.whitelist.indexOf(Sender)) return false;
 		this.script(Handler, Sender, Args, Extra);

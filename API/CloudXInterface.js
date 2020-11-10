@@ -51,8 +51,8 @@ const { CloudX } = require("../Neos");
  */
 class CloudXInterface {
 	/**
-   *
-   */
+	 *
+	 */
 	constructor(BUS, product, version) {
 		this.CloudXInterface(product, version);
 		this.OAuth = {
@@ -261,12 +261,12 @@ class CloudXInterface {
 		}
 	}
 	/**
-   * Return the Blob Endpoint
-   *
-   * @readonly
-   * @static
-   * @memberof CloudXInterface
-   */
+	 * Return the Blob Endpoint
+	 *
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_BLOB() {
 		switch (CloudXInterface.CLOUD_ENDPOINT) {
 		case CloudXInterface.CloudEndpoint.Production:
@@ -280,22 +280,22 @@ class CloudXInterface {
 		}
 	}
 	/**
-   * Return the Assets URI
-   *
-   * @readonly
-   * @static
-   * @memberof CloudXInterface
-   */
+	 * Return the Assets URI
+	 *
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_ASSETS() {
 		return CloudXInterface.NEOS_BLOB + "assets/";
 	}
 	/**
-   * Get the Neos CDN server
-   *
-   * @readonly
-   * @static
-   * @memberof CloudXInterface
-   */
+	 * Get the Neos CDN server
+	 *
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_ASSETS_CDN() {
 		return "https://cloudx.azureedge.net/assets/";
 	}
@@ -317,15 +317,15 @@ class CloudXInterface {
 			: "https://cloudx.azureedge.net/";
 	}
 	/**
-   * Recalculate Server Ping and Response Time
-   *
-   * @readonly
-   * @memberof CloudXInterface
-   */
+	 * Recalculate Server Ping and Response Time
+	 *
+	 * @readonly
+	 * @memberof CloudXInterface
+	 */
 	get ServerStatus() {
 		if (
 			new Date(new Date() - this.LastServerStateFetch).getTime() / 1000 >=
-      60.0
+			60.0
 		)
 			return ServerStatus.NoInternet;
 		if (new Date(new Date() - this.LastServerUpdate).getTime() / 1000 >= 60.0) {
@@ -336,10 +336,10 @@ class CloudXInterface {
 			: ServerStatus.Good;
 	}
 	/**
-   * The Current User Object
-   *
-   * @memberof CloudXInterface
-   */
+	 * The Current User Object
+	 *
+	 * @memberof CloudXInterface
+	 */
 	get CurrentUser() {
 		return this._currentUser;
 	}
@@ -360,10 +360,10 @@ class CloudXInterface {
 		return this._currentSession;
 	}
 	/**
-   * The Current Session Object
-   *
-   * @memberof CloudXInterface
-   */
+	 * The Current Session Object
+	 *
+	 * @memberof CloudXInterface
+	 */
 	set CurrentSession(value) {
 		if (value == null) {
 			Object.defineProperties(this, {
@@ -395,19 +395,19 @@ class CloudXInterface {
 		if (this.OAuth.IsOAUTH) {
 			//Use the OAuth Schema
 			this._currentAuthenticationHeader =
-        value != null
-        	? new AuthenticationHeaderValue("Bearer", value.SessionToken) //lgtm [js/hardcoded-credentials]
-        		.Authorization
-        	: AuthenticationHeaderValue;
+				value != null
+					? new AuthenticationHeaderValue("Bearer", value.SessionToken) //lgtm [js/hardcoded-credentials]
+						.Authorization
+					: AuthenticationHeaderValue;
 		} else {
 			//Use the Neos Schema
 			this._currentAuthenticationHeader =
-        value != null
-        	? new AuthenticationHeaderValue(
-        		"neos", //lgtm [js/hardcoded-credentials]
-        		value.UserId + ":" + value.SessionToken
-        	).Authorization
-        	: AuthenticationHeaderValue;
+				value != null
+					? new AuthenticationHeaderValue(
+						"neos", //lgtm [js/hardcoded-credentials]
+						value.UserId + ":" + value.SessionToken
+					  ).Authorization
+					: AuthenticationHeaderValue;
 		}
 		//Call Event
 		this.OnSessionUpdated();
@@ -418,17 +418,17 @@ class CloudXInterface {
 		} catch (error) {
 			Error(
 				"Exception in SessionChanged: " +
-          (this.CurrentSession.toString() + error.toString()),
+					(this.CurrentSession.toString() + error.toString()),
 				true
 			);
 		}
 	}
 	/**
-   *The Curent Memberships, Will return Null if this.Update has not been run
-   *
-   *
-   * @memberof CloudXInterface
-   */
+	 *The Curent Memberships, Will return Null if this.Update has not been run
+	 *
+	 *
+	 * @memberof CloudXInterface
+	 */
 	get CurrentUserMemberships() {
 		return this._groupMemberships;
 	}
@@ -462,28 +462,28 @@ class CloudXInterface {
 		}
 	}
 	/**
-   * Redefineable Function for Hooks
-   *
-   * @memberof CloudXInterface
-   */
+	 * Redefineable Function for Hooks
+	 *
+	 * @memberof CloudXInterface
+	 */
 	OnLogin() {}
 	/**
-   * Redefineable Function for Hooks
-   *
-   * @memberof CloudXInterface
-   */
+	 * Redefineable Function for Hooks
+	 *
+	 * @memberof CloudXInterface
+	 */
 	OnLogout() {}
 	/**
-   * Redefineable Function for Hooks
-   *
-   * @memberof CloudXInterface
-   */
+	 * Redefineable Function for Hooks
+	 *
+	 * @memberof CloudXInterface
+	 */
 	OnSessionUpdated() {}
 	/**
-   * Initializing Function, Setup local managers
-   * @param {String} UserAgentProduct Agent ie. NeosJS
-   * @param {String} UserAgentVersion Version ie v1.5.6
-   */
+	 * Initializing Function, Setup local managers
+	 * @param {String} UserAgentProduct Agent ie. NeosJS
+	 * @param {String} UserAgentVersion Version ie v1.5.6
+	 */
 	CloudXInterface(UserAgentProduct = "CloudX", UserAgentVersion = "0.0.0.0") {
 		this.HttpClient = new HTTP_CLIENT();
 		this.Friends = new FriendManager(this);
@@ -497,15 +497,15 @@ class CloudXInterface {
 		this.Transactions = new TransactionManager(this);
 	}
 	/**
-   * Run all state updates
-   *
-   * @memberof CloudXInterface
-   */
+	 * Run all state updates
+	 *
+	 * @memberof CloudXInterface
+	 */
 	Update() {
 		if (this.CurrentSession != null) {
 			if (
 				new Date(new Date() - this._lastSessionUpdate).getTime() / 1000 >=
-        3600.0
+				3600.0
 			) {
 				this.ExtendSession();
 				this._lastSessionUpdate = new Date();
@@ -513,7 +513,7 @@ class CloudXInterface {
 		}
 		if (
 			new Date(new Date() - this._lastServerStatsUpdate).getTime() / 1000 >=
-      10.0
+			10.0
 		) {
 			(async () => {
 				let cloudResult = await this.GetServerStatistics();
@@ -536,12 +536,12 @@ class CloudXInterface {
 		}
 	}
 	/**
-   *
-   *
-   * @param {String} ownerId
-   * @returns
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {String} ownerId
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	HasPotentialAccess(ownerId) {
 		switch (IdUtil.GetOwnerType(ownerId)) {
 		case OwnerType.Machine:
@@ -559,9 +559,9 @@ class CloudXInterface {
 		this.RunMembershipsUpdated();
 	}
 	/**
-   * Reset the membership cache
-   * @memberof CloudXInterface
-   */
+	 * Reset the membership cache
+	 * @memberof CloudXInterface
+	 */
 	ClearMemberships() {
 		if (this._groupMemberships.length === 0) return;
 		this._groupMemberships = new List();
@@ -576,14 +576,14 @@ class CloudXInterface {
 		membershipsUpdated(this._groupMemberships);
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {Uri} neosdb
-   * @param {NeosDB_Endpoint} forceCDN
-   * @returns
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @static
+	 * @param {Uri} neosdb
+	 * @param {NeosDB_Endpoint} forceCDN
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	static NeosDBToHttp(neosdb, endpoint) {
 		if (!(neosdb instanceof Uri)) neosdb = new Uri(neosdb);
 		let str1 = CloudXInterface.NeosDBSignature(neosdb);
@@ -612,8 +612,8 @@ class CloudXInterface {
 	static FilterNeosURL(assetURL) {
 		if (
 			assetURL.Scheme === "neosdb" &&
-      assetURL.Segments.length >= 2 &&
-      assetURL.Segments.includes(".")
+			assetURL.Segments.length >= 2 &&
+			assetURL.Segments.includes(".")
 		)
 			return (assetURL = new Uri(
 				"neosdb:///" + assetURL.Segments[1].noExtension() + assetURL.Query
@@ -683,14 +683,14 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   *
-   * @param {HttpRequestMessage} request
-   * @param {string} filePath
-   * @param {string} [mime=null]
-   * @param {IProgressIndicator} [progressIndicator=null]
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {HttpRequestMessage} request
+	 * @param {string} filePath
+	 * @param {string} [mime=null]
+	 * @param {IProgressIndicator} [progressIndicator=null]
+	 * @memberof CloudXInterface
+	 */
 	AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
 		let fileStream = fs.readFile(filePath);
 		//TODO Multi Part Form Content
@@ -698,11 +698,11 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   * @param {string} resource
-   * @param {HttpMethod} method
-   * @returns {HttpRequestMessage}
-   */
+	 *
+	 * @param {string} resource
+	 * @param {HttpMethod} method
+	 * @returns {HttpRequestMessage}
+	 */
 	CreateRequest(resource, method) {
 		let Endpoint;
 		if (this.OAuth) {
@@ -720,26 +720,26 @@ class CloudXInterface {
 		return request;
 	}
 	/**
-   *
-   *
-   * @param {HttpResponseMessage} message
-   * @param {*} entity
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {HttpResponseMessage} message
+	 * @param {*} entity
+	 * @memberof CloudXInterface
+	 */
 	AddBody(message, entity) {
 		message.Headers["Content-Type"] =
-      CloudXInterface.JSON_MEDIA_TYPE["Content-Type"];
+			CloudXInterface.JSON_MEDIA_TYPE["Content-Type"];
 		if (entity) message.Content = JSON.stringify(entity);
 	}
 
 	/**
-   *
-   *
-   * @param {Func<HttpRequestMessage>} requestSource
-   * @param {TimeSpan} timeout
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {Func<HttpRequestMessage>} requestSource
+	 * @param {TimeSpan} timeout
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async RunRequest(requestSource, timeout) {
 		/** @type {HttpRequestMessage} request */
 		let request = null;
@@ -797,15 +797,15 @@ class CloudXInterface {
     */
 	}
 	/**
-   *
-   * @param {string} credential
-   * @param {string} password
-   * @param {string} sessionToken
-   * @param {string} secretMachineId
-   * @param {Boolean} rememberMe
-   * @param {string} reciverCode
-   * @returns {Promise<CloudResult<UserSession>>>}
-   */
+	 *
+	 * @param {string} credential
+	 * @param {string} password
+	 * @param {string} sessionToken
+	 * @param {string} secretMachineId
+	 * @param {Boolean} rememberMe
+	 * @param {string} reciverCode
+	 * @returns {Promise<CloudResult<UserSession>>>}
+	 */
 	async Login(
 		credential,
 		password,
@@ -853,14 +853,14 @@ class CloudXInterface {
 	}
 
 	/**
-   * Register a new Neos Account
-   *
-   * @param {string} username
-   * @param {string} email
-   * @param {string} password
-   * @returns {Promise<CloudResult<User>>}
-   * @memberof CloudXInterface
-   */
+	 * Register a new Neos Account
+	 *
+	 * @param {string} username
+	 * @param {string} email
+	 * @param {string} password
+	 * @returns {Promise<CloudResult<User>>}
+	 * @memberof CloudXInterface
+	 */
 	async Register(username, email, password) {
 		this.Logout(false);
 		return await this.POST(
@@ -874,12 +874,12 @@ class CloudXInterface {
 		);
 	}
 	/**
-   *
-   *
-   * @param {*} email
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {*} email
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async RequestRecoveryCode(email) {
 		return await this.POST(
 			"/api/users/requestlostpassword",
@@ -898,8 +898,8 @@ class CloudXInterface {
 			let entity = user.Entity;
 			if (
 				user.IsOK &&
-          this.CurrentUser != null &&
-          this.CurrentUser.Id === entity.id
+					this.CurrentUser != null &&
+					this.CurrentUser.Id === entity.id
 			) {
 				this.CurrentUser = entity;
 				let patreonData = this.CurrentUser.PatreonData;
@@ -914,7 +914,7 @@ class CloudXInterface {
 					let tags = this.CurrentUser.Tags;
 					if (tags.size > 0)
 						num =
-                tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
+								tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
 					else num = 0;
 				} else num = 1;
 				CloudXInterface.USE_CDN = num !== 0;
@@ -943,7 +943,7 @@ class CloudXInterface {
 	Logout(manualLogOut) {
 		if (
 			this.CurrentSession != null &&
-      !this.CurrentSession.RememberMe | manualLogOut
+			!this.CurrentSession.RememberMe | manualLogOut
 		) {
 			let _userId = this.CurrentSession.UserId;
 			let _sessionToken = this.CurrentSession.SessionToken;
@@ -968,12 +968,12 @@ class CloudXInterface {
 		return this._cryptoProvider; //TODO Cryptography
 	}
 	/**
-   * @template R
-   *
-   * @param {Uri} recordUri
-   * @param {R} type
-   * @memberof CloudXInterface
-   */
+	 * @template R
+	 *
+	 * @param {Uri} recordUri
+	 * @param {R} type
+	 * @memberof CloudXInterface
+	 */
 	async FetchRecordCached(recordUri, type) {
 		/** @type Dictionary<Uri, CloudResult> */
 		let dictionary = new Out();
@@ -1006,11 +1006,11 @@ class CloudXInterface {
 		} else {
 			return this.GET(
 				"api/" +
-          CloudXInterface.GetOwnerPath(ownerId) +
-          "/" +
-          ownerId +
-          "/records/" +
-          recordId,
+					CloudXInterface.GetOwnerPath(ownerId) +
+					"/" +
+					ownerId +
+					"/records/" +
+					recordId,
 				new TimeSpan()
 			);
 		}
@@ -1028,11 +1028,11 @@ class CloudXInterface {
 	FetchRecordAtPath(ownerId, path) {
 		return this.GET(
 			"api/" +
-        CloudXInterface.GetOwnerPath(ownerId) +
-        "/" +
-        ownerId +
-        "/records/root/" +
-        path,
+				CloudXInterface.GetOwnerPath(ownerId) +
+				"/" +
+				ownerId +
+				"/records/root/" +
+				path,
 			new TimeSpan()
 		);
 	}
@@ -1051,12 +1051,12 @@ class CloudXInterface {
 		return this.GetRecordsFull(a, b, c);
 	}
 	/**
-   *
-   *
-   * @param {SearchParameters} search
-   * @returns
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {SearchParameters} search
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	FindRecords(search) {
 		return this.POST("/api/records/pagedSearch", search, new TimeSpan());
 	}
@@ -1065,11 +1065,11 @@ class CloudXInterface {
 		switch (IdUtil.GetOwnerType(record.OwnerId)) {
 		case OwnerType.User:
 			resource =
-          "api/users/" + record.OwnerId + "/records/" + record.RecordId;
+					"api/users/" + record.OwnerId + "/records/" + record.RecordId;
 			break;
 		case OwnerType.Group:
 			resource =
-          "api/groups/" + record.OwnerId + "/records/" + record.RecordId;
+					"api/groups/" + record.OwnerId + "/records/" + record.RecordId;
 			break;
 		default:
 			return this.OnError("Invalid record owner");
@@ -1081,19 +1081,19 @@ class CloudXInterface {
 		switch (IdUtil.GetOwnerType(record.OwnerId)) {
 		case OwnerType.User:
 			resource =
-          "api/users/" +
-          record.OwnerId +
-          "/records/" +
-          record.RecordId +
-          "/preprocess";
+					"api/users/" +
+					record.OwnerId +
+					"/records/" +
+					record.RecordId +
+					"/preprocess";
 			break;
 		case OwnerType.Group:
 			resource =
-          "api/groups/" +
-          record.OwnerId +
-          "/records/" +
-          record.RecordId +
-          "/preprocess";
+					"api/groups/" +
+					record.OwnerId +
+					"/records/" +
+					record.RecordId +
+					"/preprocess";
 			break;
 		default:
 			return this.OnError("Invalid record owner");
@@ -1281,19 +1281,19 @@ class CloudXInterface {
 	}
 	async WaitForAssetFinishProcessing(assetUpload) {
 		let baseUrl =
-      this.GetAssetBaseURL(
-      	assetUpload.OwnerId,
-      	assetUpload.Signature,
-      	assetUpload.Variant
-      ) + "/chunks";
+			this.GetAssetBaseURL(
+				assetUpload.OwnerId,
+				assetUpload.Signature,
+				assetUpload.Variant
+			) + "/chunks";
 		let cloudResult;
 		let condition = true;
 		while (condition) {
 			cloudResult = await this.GET(baseUrl, new TimeSpan());
 			if (
 				!cloudResult.IsError &&
-        cloudResult.Entity.UploadState !== UploadState.Uploaded &&
-        cloudResult.Entity.UploadState !== UploadState.Failed
+				cloudResult.Entity.UploadState !== UploadState.Uploaded &&
+				cloudResult.Entity.UploadState !== UploadState.Failed
 			)
 				await TimeSpan.Delay(new TimeSpan(250));
 			else condition = false;
@@ -1301,12 +1301,12 @@ class CloudXInterface {
 		return cloudResult;
 	}
 	/**
-   *
-   *
-   * @param {string} path
-   * @returns {Promise<CloudResult<ThumbnailInfo>>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {string} path
+	 * @returns {Promise<CloudResult<ThumbnailInfo>>}
+	 * @memberof CloudXInterface
+	 */
 	UploadThumbnail(path) {
 		return this.POST_File("api/thumbnails", path, "image/webp", null);
 	}
@@ -1339,12 +1339,12 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   *
-   * @param {*} member
-   * @returns {Promise<CloudResult<Member>>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {*} member
+	 * @returns {Promise<CloudResult<Member>>}
+	 * @memberof CloudXInterface
+	 */
 	async DeleteGroupMember(member) {
 		return await this.DELETE(
 			"api/groups/" + member.GroupId + "/members/" + member.UserId,
@@ -1353,13 +1353,13 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   *
-   * @param {*} groupId
-   * @param {*} userId
-   * @returns {Promise<CloudResult<Member>>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {*} groupId
+	 * @param {*} userId
+	 * @returns {Promise<CloudResult<Member>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetGroupMember(groupId, userId) {
 		var res = await this.GET(
 			"api/groups/" + groupId + "/members/" + userId,
@@ -1370,12 +1370,12 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   *
-   * @param {*} groupId
-   * @returns{Promise<CloudResult<List<Member>>>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {*} groupId
+	 * @returns{Promise<CloudResult<List<Member>>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetGroupMembers(groupId) {
 		var res = await this.GET(
 			"api/groups/" + groupId + "/members",
@@ -1401,11 +1401,11 @@ class CloudXInterface {
 		);
 	}
 	/**
-   *
-   * @returns {Task}
-   * @param {string} groupId
-   * @memberof CloudXInterface
-   */
+	 *
+	 * @returns {Task}
+	 * @param {string} groupId
+	 * @memberof CloudXInterface
+	 */
 	async UpdateGroupInfo(groupId) {
 		/** @type {Task<CloudResult<Group>>>} */
 		let group = this.GetGroup(groupId);
@@ -1458,20 +1458,20 @@ class CloudXInterface {
 		}
 	}
 	/**
-   *
-   *
-   * @param {CloudVariableDefinition} definition
-   * @returns
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {CloudVariableDefinition} definition
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	async UpsertVariableDefinition(definition) {
 		return await this.PUT(
 			"api/" +
-        CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) +
-        "/" +
-        definition.DefinitionOwnerId +
-        "/vardefs/" +
-        definition.Subpath,
+				CloudXInterface.GetOwnerPath(definition.DefinitionOwnerId) +
+				"/" +
+				definition.DefinitionOwnerId +
+				"/vardefs/" +
+				definition.Subpath,
 			definition,
 			new TimeSpan()
 		).then((b) => {
@@ -1488,12 +1488,12 @@ class CloudXInterface {
 		if (ownerId === "GLOBAL") resource = "api/globalvars/" + path;
 		else
 			resource =
-        "api/" +
-        CloudXInterface.GetOwnerPath(ownerId) +
-        "/" +
-        ownerId +
-        "/vars/" +
-        path;
+				"api/" +
+				CloudXInterface.GetOwnerPath(ownerId) +
+				"/" +
+				ownerId +
+				"/vars/" +
+				path;
 		let cloudResult = await cloudXInterface.GET(resource, new TimeSpan());
 		if (cloudResult.IsOK) {
 			switch (cloudResult.Entity.Value) {
@@ -1505,31 +1505,31 @@ class CloudXInterface {
 					cloudResult.State,
 					cloudResult.Content
 				);
-        //TODO Deserialize
+				//TODO Deserialize
 			}
 		}
 		return new CloudResult("default", cloudResult.State, cloudResult.Content);
 	}
 	SerializatiOnErrorHandeler() {}
 	/**
-   * Write a Variable
-   * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
-   * @template T
-   * @param {string | string} ownerId OwnerID | Path
-   * @param {string | T} path Path or T
-   * @param {T} [value]
-   * @memberof CloudXInterface
-   */
+	 * Write a Variable
+	 * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
+	 * @template T
+	 * @param {string | string} ownerId OwnerID | Path
+	 * @param {string | T} path Path or T
+	 * @param {T} [value]
+	 * @memberof CloudXInterface
+	 */
 	async WriteVariable(ownerId, path, value) {
 		if (!value)
 			return await this.WriteVariable(this.CurrentUser.Id, ownerId, path);
 		return await this.PUT(
 			"api/" +
-        CloudXInterface.GetOwnerPath(ownerId) +
-        "/" +
-        ownerId +
-        "/vars/" +
-        path,
+				CloudXInterface.GetOwnerPath(ownerId) +
+				"/" +
+				ownerId +
+				"/vars/" +
+				path,
 			new CloudVariable(
 				{
 					value: JSON.stringify(value),
@@ -1546,20 +1546,20 @@ class CloudXInterface {
 		);
 	}
 	/**
-   *
-   * @returns {Promise<CloudResult>}
-   * @param {Visit} visit
-   * @memberof CloudXInterface
-   */
+	 *
+	 * @returns {Promise<CloudResult>}
+	 * @param {Visit} visit
+	 * @memberof CloudXInterface
+	 */
 	async LogVisit(visit) {
 		return await this.POST("api/visits", visit, new TimeSpan());
 	}
 	/**
-   *
-   * @returns {Promise<CloudResult<NeosSession>>}
-   * @param {NeosSession} session
-   * @memberof CloudXInterface
-   */
+	 *
+	 * @returns {Promise<CloudResult<NeosSession>>}
+	 * @param {NeosSession} session
+	 * @memberof CloudXInterface
+	 */
 	async CreateNeosSession(session) {
 		return await this.POST("api/neosSessions", session, new TimeSpan()).then(
 			(b) => {
@@ -1569,11 +1569,11 @@ class CloudXInterface {
 		);
 	}
 	/**
-   *
-   * @param {NeosSession} session
-   * @returns {Promise<CloudResult<NeosSession>>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 * @param {NeosSession} session
+	 * @returns {Promise<CloudResult<NeosSession>>}
+	 * @memberof CloudXInterface
+	 */
 	async PatchNeosSession(session) {
 		return await this.PATCH("api/neosSessions", session, new TimeSpan()).then(
 			(b) => {
@@ -1583,12 +1583,12 @@ class CloudXInterface {
 		);
 	}
 	/**
-   * Get User Status
-   *
-   * @param {string} userId
-   * @returns {Promise<CloudResult<UserStatus>>}
-   * @memberof CloudXInterface
-   */
+	 * Get User Status
+	 *
+	 * @param {string} userId
+	 * @returns {Promise<CloudResult<UserStatus>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetStatus(userId) {
 		return await this.GET(
 			"api/users/" + userId + "/status",
@@ -1602,17 +1602,17 @@ class CloudXInterface {
 		return await this.GET("api/exitMessage", new TimeSpan()).Entity;
 	}
 	/**
-   * Update the User Status
-   * -If not userId is supplied, uses Current User, Refer to Examples
-   *
-   * @param {string | UserStatus} userId
-   * @param {UserStatus} [status]
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   * @example
-   * await UpdateStatus(userId, UserStatus)
-   * await UpdateStatus(UserStatus)
-   */
+	 * Update the User Status
+	 * -If not userId is supplied, uses Current User, Refer to Examples
+	 *
+	 * @param {string | UserStatus} userId
+	 * @param {UserStatus} [status]
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 * @example
+	 * await UpdateStatus(userId, UserStatus)
+	 * await UpdateStatus(UserStatus)
+	 */
 	async UpdateStatus(userId, status) {
 		if (!status) return await this.UpdateStatus(this.CurrentUser.Id, userId);
 		return await this.PUT(
@@ -1622,16 +1622,16 @@ class CloudXInterface {
 		);
 	}
 	/**
-   * Update the User Profile
-   *
-   * @param {string | UserProfile} userId
-   * @param {UserProfile} [profile]
-   * @memberof CloudXInterface
-   * @returns {Promise<CloudResult>}
-   * @example
-   * await UpdateProfile(userId, UserProfile)
-   * await UpdateProfile(UserProfile)
-   */
+	 * Update the User Profile
+	 *
+	 * @param {string | UserProfile} userId
+	 * @param {UserProfile} [profile]
+	 * @memberof CloudXInterface
+	 * @returns {Promise<CloudResult>}
+	 * @example
+	 * await UpdateProfile(userId, UserProfile)
+	 * await UpdateProfile(UserProfile)
+	 */
 	async UpdateProfile(userId, profile) {
 		if (!profile) {
 			this.CurrentUser.Profile = userId;
@@ -1644,13 +1644,13 @@ class CloudXInterface {
 		);
 	}
 	/**
-   *
-   *
-   * @param {string | Date} userId
-   * @param {Date} [lastStatusUpdate = null]
-   * @memberof CloudXInterface
-   * @returns {Promise<CloudResult<List<Friend>>>>}
-   */
+	 *
+	 *
+	 * @param {string | Date} userId
+	 * @param {Date} [lastStatusUpdate = null]
+	 * @memberof CloudXInterface
+	 * @returns {Promise<CloudResult<List<Friend>>>>}
+	 */
 	async GetFriends(userId, lastStatusUpdate = null, count = 0) {
 		if (count > 10) return new List();
 		if (typeof userId !== "string")
@@ -1670,12 +1670,12 @@ class CloudXInterface {
 		});
 	}
 	/**
-   * Add a Friend Record
-   *
-   * @param {Friend} friend
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 * Add a Friend Record
+	 *
+	 * @param {Friend} friend
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async UpsertFriend(friend) {
 		if (String.IsNullOrWhiteSpace(friend.OwnerId))
 			return this.OnError("Argument Acception: friend.OwnerId");
@@ -1688,12 +1688,12 @@ class CloudXInterface {
 		);
 	}
 	/**
-   * Remove a Friend
-   *
-   * @param {Friend|string} friend
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 * Remove a Friend
+	 *
+	 * @param {Friend|string} friend
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async DeleteFriend(friend) {
 		if (typeof friend === "string") friend = this.Friends.GetFriend(friend);
 		if (String.IsNullOrWhiteSpace(friend.OwnerId))
@@ -1708,12 +1708,12 @@ class CloudXInterface {
 		);
 	}
 	/**
-   * Send a Message Object
-   * - Requires Sender be friends with Recipient
-   * @param {Message} message
-   * @returns {Promise<CloudResult<Message>>}
-   * @memberof CloudXInterface
-   */
+	 * Send a Message Object
+	 * - Requires Sender be friends with Recipient
+	 * @param {Message} message
+	 * @returns {Promise<CloudResult<Message>>}
+	 * @memberof CloudXInterface
+	 */
 	async SendMessage(message) {
 		return await this.POST(
 			"api/users/" + message.RecipientId + "/messages",
@@ -1735,35 +1735,35 @@ class CloudXInterface {
 		);
 	}
 	/**
-   * Return all unread messages
-   * @returns {Promise<CloudResult<List<Message>>>}
-   * @param {Date} [fromTime=null]
-   * @memberof CloudXInterface
-   */
+	 * Return all unread messages
+	 * @returns {Promise<CloudResult<List<Message>>>}
+	 * @param {Date} [fromTime=null]
+	 * @memberof CloudXInterface
+	 */
 	async GetUnreadMessages(fromTime = null) {
 		return await this.GetMessages(fromTime, -1, null, true);
 	}
 	/**
-   * Get message history with `user`
-   *
-   * @param {string} user
-   * @param {number} [maxItems=100]
-   * @returns {Promise<CloudResult<List<Message>>>}
-   * @memberof CloudXInterface
-   */
+	 * Get message history with `user`
+	 *
+	 * @param {string} user
+	 * @param {number} [maxItems=100]
+	 * @returns {Promise<CloudResult<List<Message>>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetMessageHistory(user, maxItems = 100) {
 		return await this.GetMessages(new Date(0), maxItems, user, false);
 	}
 	/**
-   * Get messages
-   *
-   * @param {Date} [fromTime]
-   * @param {Number} maxItems
-   * @param {String} user
-   * @param {Boolean} unreadOnly
-   * @returns {Promise<CloudResult<List<Message>>>}
-   * @memberof CloudXInterface
-   */
+	 * Get messages
+	 *
+	 * @param {Date} [fromTime]
+	 * @param {Number} maxItems
+	 * @param {String} user
+	 * @param {Boolean} unreadOnly
+	 * @returns {Promise<CloudResult<List<Message>>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetMessages(fromTime, maxItems, user, unreadOnly) {
 		let stringBuilder = new StringBuilder();
 		stringBuilder.Append(`?maxItems=${maxItems}`);
@@ -1786,12 +1786,12 @@ class CloudXInterface {
 		});
 	}
 	/**
-   * Mark Messages as Read
-   *
-   * @param {List<String>} messageIds
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 * Mark Messages as Read
+	 *
+	 * @param {List<String>} messageIds
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async MarkMessagesRead(messageIds) {
 		switch (messageIds[0].constructor.name) {
 		case "String":
@@ -1805,22 +1805,22 @@ class CloudXInterface {
 		}
 	}
 	/**
-   *
-   *
-   * @param {SessionUpdate} update
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {SessionUpdate} update
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async UpdateSessions(update) {
 		return await this.PUT("api/sessions/", update, new TimeSpan());
 	}
 	/**
-   *
-   *
-   * @param {string} sessionId Session Id
-   * @returns {Promise<CloudResult<SessionInfo>>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @param {string} sessionId Session Id
+	 * @returns {Promise<CloudResult<SessionInfo>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetSession(sessionId) {
 		return await this.GET("api/sessions/" + sessionId, new TimeSpan()).then(
 			(b) => {
@@ -1832,18 +1832,18 @@ class CloudXInterface {
 	}
 
 	/**
-   * Get a list of sessions
-   * @param {Date} updateSince
-   * @param {Boolean} includeEnded
-   * @param {String} compatibilityHash
-   * @param {String} name
-   * @param {String} universeId
-   * @param {String} hostName
-   * @param {String} hostId
-   * @param {Number} minActiveUsers
-   * @param {Boolean} includeEmptyHeadless
-   * @returns {Promise<CloudResult<List<Sessioninfo>>>}
-   */
+	 * Get a list of sessions
+	 * @param {Date} updateSince
+	 * @param {Boolean} includeEnded
+	 * @param {String} compatibilityHash
+	 * @param {String} name
+	 * @param {String} universeId
+	 * @param {String} hostName
+	 * @param {String} hostId
+	 * @param {Number} minActiveUsers
+	 * @param {Boolean} includeEmptyHeadless
+	 * @returns {Promise<CloudResult<List<Sessioninfo>>>}
+	 */
 	async GetSessions(
 		updateSince = null,
 		includeEnded = false,
@@ -1858,7 +1858,7 @@ class CloudXInterface {
 		let stringBuilder1 = new StringBuilder();
 		if (updateSince) {
 			let str =
-        "&updatedSince=" + Uri.EscapeDataString(updateSince.toISOString());
+				"&updatedSince=" + Uri.EscapeDataString(updateSince.toISOString());
 			stringBuilder1.Append(str);
 		}
 		if (includeEnded) stringBuilder1.Append("&includeEnded=true");
@@ -1890,11 +1890,11 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   *
-   * @returns {Promise<CloudResult>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 *
+	 * @returns {Promise<CloudResult>}
+	 * @memberof CloudXInterface
+	 */
 	async Ping() {
 		return await this.GET("api/testing/ping", new TimeSpan());
 	}
@@ -1911,16 +1911,17 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 		let result = new Out();
-		return !cloudResult.IsOK() || Number.TryParseInt(cloudResult.Content, result)
+		return !cloudResult.IsOK() ||
+			Number.TryParseInt(cloudResult.Content, result)
 			? -1
 			: result.Out;
 	}
 	/**
-   * Fetch Neos Server Statistics
-   *
-   * @returns {Promise<CloudResult<ServerStatistics>>}
-   * @memberof CloudXInterface
-   */
+	 * Fetch Neos Server Statistics
+	 *
+	 * @returns {Promise<CloudResult<ServerStatistics>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetServerStatistics() {
 		try {
 			var request = new HttpRequestMessage(
@@ -1948,10 +1949,10 @@ class CloudXInterface {
 	}
 
 	/**
-   *
-   * @returns {Promise<Number>}
-   * @memberof CloudXInterface
-   */
+	 *
+	 * @returns {Promise<Number>}
+	 * @memberof CloudXInterface
+	 */
 	async GetOnlineUserCount() {
 		let cloudResult = await this.GET("api/stats/onlineUsers", new TimeSpan());
 		return !cloudResult.IsOK || !Number.parseInt(cloudResult.Content)

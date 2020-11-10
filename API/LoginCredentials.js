@@ -1,19 +1,19 @@
 const { CryptoHelper } = require("./CryptoHelper");
 class LoginCredentials {
 	/**
-   *Creates an instance of LoginCredentials.
-   * @param {{
-   * ownerId: string,
-   * username: string,
-   * email: string,
-   * password: string,
-   * recoverCode: string,
-   * sessionCode: string
-   * secretMachineId: string,
-   * rememberMe: Boolean
-   * }} $b
-   * @memberof LoginCredentials
-   */
+	 *Creates an instance of LoginCredentials.
+	 * @param {{
+	 * ownerId: string,
+	 * username: string,
+	 * email: string,
+	 * password: string,
+	 * recoverCode: string,
+	 * sessionCode: string
+	 * secretMachineId: string,
+	 * rememberMe: Boolean
+	 * }} $b
+	 * @memberof LoginCredentials
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.OwnerId = $b.ownerId;
@@ -30,11 +30,11 @@ class LoginCredentials {
 		if (this.Email) this.Email = this.Email.trim();
 	}
 	/**
-   *
-   * @readonly
-   * @memberof LoginCredentials
-   * @returns {Boolean}
-   */
+	 *
+	 * @readonly
+	 * @memberof LoginCredentials
+	 * @returns {Boolean}
+	 */
 	get IsPasswordValid() {
 		return CryptoHelper.IsValidPassword(this.Password);
 	}

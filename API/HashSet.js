@@ -9,11 +9,11 @@ const { List } = require("./List");
  */
 class HashSet extends List {
 	/**
-   *Creates an instance of HashSet.
-   * @param {*} $b
-   * @memberof HashSet
-   * @return {T}
-   */
+	 *Creates an instance of HashSet.
+	 * @param {*} $b
+	 * @memberof HashSet
+	 * @return {T}
+	 */
 	constructor($b) {
 		if (!$b) $b = [];
 		switch (Type.Get($b)) {

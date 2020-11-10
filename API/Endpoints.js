@@ -1,10 +1,14 @@
 class Endpoints {
-  static CLOUDX_NEOS_API = "https://cloudx.azurewebsites.net";
-  static CLOUDX_NEOS_BLOB =
-    "https://cloudxstorage.blob.core.windows.net/assets/";
-  static CLOUDX_NEOS_THUMBNAILS =
-    "https://cloudxstorage.blob.core.windows.net/thumbnails/";
+	static get CLOUDX_NEOS_API() {
+		return "https://cloudx.azurewebsites.net";
+	}
+	static get CLOUDX_NEOS_BLOB() {
+		return "https://cloudxstorage.blob.core.windows.net/assets/";
+	}
+	static get CLOUDX_NEOS_THUMBNAILS() {
+		return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
+	}
 }
 module.exports = {
-  Endpoints,
+	Endpoints,
 };

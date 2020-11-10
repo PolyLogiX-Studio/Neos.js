@@ -7,13 +7,13 @@ const List = require("./List");
  */
 class HubPatreons {
 	/**
-   *Creates an instance of HubPatreons.
-   * @param {{
-   * "patreon-names": List<string>,
-   * "patreon-pictures": List<PicturePatreon>
-   * }} $b
-   * @memberof HubPatreons
-   */
+	 *Creates an instance of HubPatreons.
+	 * @param {{
+	 * "patreon-names": List<string>,
+	 * "patreon-pictures": List<PicturePatreon>
+	 * }} $b
+	 * @memberof HubPatreons
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.MAX_NAMES = 400;

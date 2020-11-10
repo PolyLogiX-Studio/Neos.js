@@ -1,12 +1,12 @@
 const { AccountType } = require("./AccountType");
 class NeosAccount {
 	/**
-   *
-   * @static
-   * @param {AccountType} type
-   * @returns {Number}
-   * @memberof NeosAccount
-   */
+	 *
+	 * @static
+	 * @param {AccountType} type
+	 * @returns {Number}
+	 * @memberof NeosAccount
+	 */
 	static MinCents(type) {
 		let num = 100;
 		switch (type) {
@@ -35,13 +35,13 @@ class NeosAccount {
 		}
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {AccountType} type
-   * @returns {String}
-   * @memberof NeosAccount
-   */
+	 *
+	 *
+	 * @static
+	 * @param {AccountType} type
+	 * @returns {String}
+	 * @memberof NeosAccount
+	 */
 	static AccountName(type) {
 		switch (type) {
 		case AccountType.Normal:
@@ -69,13 +69,13 @@ class NeosAccount {
 		}
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {AccountType} type
-   * @returns {BigInt}
-   * @memberof NeosAccount
-   */
+	 *
+	 *
+	 * @static
+	 * @param {AccountType} type
+	 * @returns {BigInt}
+	 * @memberof NeosAccount
+	 */
 	static StorageBytes(type) {
 		var num = BigInt("1073741824n");
 		switch (type) {
@@ -104,13 +104,13 @@ class NeosAccount {
 		}
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {AccountType} type
-   * @returns {Number}
-   * @memberof NeosAccount
-   */
+	 *
+	 *
+	 * @static
+	 * @param {AccountType} type
+	 * @returns {Number}
+	 * @memberof NeosAccount
+	 */
 	static HasPatreonWorldAccess(type) {
 		switch (type) {
 		case AccountType.Normal:

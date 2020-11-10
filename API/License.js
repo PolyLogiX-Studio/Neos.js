@@ -1,13 +1,13 @@
 class License {
 	/**
-   *Creates an instance of License.
-   * @param {{
-   * licenseGroup: string,
-   * licenseKey: string,
-   * PairedMachineUUID: string
-   * }} $b
-   * @memberof License
-   */
+	 *Creates an instance of License.
+	 * @param {{
+	 * licenseGroup: string,
+	 * licenseKey: string,
+	 * PairedMachineUUID: string
+	 * }} $b
+	 * @memberof License
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.LicenseGroup = $b.licenseGroup;

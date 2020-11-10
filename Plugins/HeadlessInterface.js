@@ -9,11 +9,11 @@ const path = require("path");
  */
 class HeadlessInterface extends EventEmitter {
 	/**
-   *
-   * @param {String | 'child_process'} headlessPath
-   * @param {String} [configPathRelative]
-   * @param {any} [options]
-   */
+	 *
+	 * @param {String | 'child_process'} headlessPath
+	 * @param {String} [configPathRelative]
+	 * @param {any} [options]
+	 */
 	constructor(headlessPath, configPathRelative, options) {
 		super();
 		this.State = {
@@ -77,11 +77,11 @@ class HeadlessInterface extends EventEmitter {
 					this.State.Running = true;
 					this.sessionId.then((sessionId) => {
 						/**
-             * Fires when the headless client is Ready
-             * @event HeadlessInterface#ready
-             * @type {String} SessionId
-             *
-             */
+						 * Fires when the headless client is Ready
+						 * @event HeadlessInterface#ready
+						 * @type {String} SessionId
+						 *
+						 */
 						this.emit("ready", sessionId);
 					});
 				}
@@ -89,35 +89,35 @@ class HeadlessInterface extends EventEmitter {
 			this.InternalEvents.emit("HeadlessResponse", message);
 
 			/**
-       * @event HeadlessInterface#message
-       * @type {String}
-       */
+			 * @event HeadlessInterface#message
+			 * @type {String}
+			 */
 			this.emit("message", message);
 		});
 	}
 	/**
-   * Can the headless client send another command right now?
-   * @readonly
-   * @memberof HeadlessInterface
-   */
+	 * Can the headless client send another command right now?
+	 * @readonly
+	 * @memberof HeadlessInterface
+	 */
 	get CanSend() {
 		return this.InternalEvents._events.HeadlessResponse == null;
 	}
 
 	/**
-   * Get the Headless Client SessionId
-   *
-   * @readonly
-   * @memberof HeadlessInterface
-   */
+	 * Get the Headless Client SessionId
+	 *
+	 * @readonly
+	 * @memberof HeadlessInterface
+	 */
 	get sessionId() {
 		return this.State.sessionId
 			? this.State.sessionId
 			: this.Send("sessionId").then((sessionId) => {
 				if (
 					sessionId != null &&
-            typeof sessionId === "string" &&
-            sessionId.startsWith("S-")
+						typeof sessionId === "string" &&
+						sessionId.startsWith("S-")
 				) {
 					this.State.sessionId = sessionId;
 					return sessionId;
@@ -130,23 +130,23 @@ class HeadlessInterface extends EventEmitter {
 					}
 					return this.sessionId; // Try Again
 				}
-			});
+			  });
 	}
 
 	/**
-   *End the Process
-   *
-   * @returns
-   * @memberof HeadlessInterface
-   */
+	 *End the Process
+	 *
+	 * @returns
+	 * @memberof HeadlessInterface
+	 */
 	Kill() {
 		return this.NeosVR.kill(0);
 	}
 	/**
-   * Send a command to the Headless Client
-   * @param {String} text
-   * @returns {Promise<String>}
-   */
+	 * Send a command to the Headless Client
+	 * @param {String} text
+	 * @returns {Promise<String>}
+	 */
 	Send(text) {
 		if (this.InternalEvents._events.HeadlessResponse) {
 			//TODO Race Conditions! Add Queue, Currently limited to 1 response at a time. System might need to be complex

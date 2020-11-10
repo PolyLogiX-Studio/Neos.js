@@ -15,13 +15,13 @@ String.prototype.GetHashCode = function () {
 
 class RecordId {
 	/**
-   *Creates an instance of RecordId.
-   * @param {{
-   * recordId: string,
-   * ownerId: string
-   * }} [$b]
-   * @memberof RecordId
-   */
+	 *Creates an instance of RecordId.
+	 * @param {{
+	 * recordId: string,
+	 * ownerId: string
+	 * }} [$b]
+	 * @memberof RecordId
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Id = $b.recordId;
@@ -31,23 +31,23 @@ class RecordId {
 		return this.Id.GetHashCode() ^ this.OwnerId.GetHashCode();
 	}
 	/**
-   *
-   *
-   * @param {RecordId} other
-   * @returns {Boolean}
-   * @memberof RecordId
-   */
+	 *
+	 *
+	 * @param {RecordId} other
+	 * @returns {Boolean}
+	 * @memberof RecordId
+	 */
 	Equals(other) {
 		if (this.Id === other.Id) return this.OwnerId === other.OwnerId;
 		return false;
 	}
 	/**
-   *
-   *
-   * @param {string} ownerId
-   * @param {string} recordId
-   * @memberof RecordId
-   */
+	 *
+	 *
+	 * @param {string} ownerId
+	 * @param {string} recordId
+	 * @memberof RecordId
+	 */
 	RecordId(ownerId, recordId) {
 		this.OwnerId = ownerId;
 		this.Id = recordId;

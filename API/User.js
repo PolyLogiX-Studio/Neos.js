@@ -46,7 +46,7 @@ class User {
 	get AccountName() {
 		return (
 			this.PatreonData.AccountName ||
-      NeosAccount.AccountName(AccountType.Normal)
+			NeosAccount.AccountName(AccountType.Normal)
 		);
 	}
 	get IsPasswordValid() {

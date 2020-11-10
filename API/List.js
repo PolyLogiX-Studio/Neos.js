@@ -8,13 +8,13 @@ const { Type } = require("./Type");
  */
 class List extends Array {
 	/**
-   *Creates an instance of List.
-   * @param {List} props List
-   * @template T
-   * @param {T} props
-   * @returns {List<T>}
-   * @memberof List
-   */
+	 *Creates an instance of List.
+	 * @param {List} props List
+	 * @template T
+	 * @param {T} props
+	 * @returns {List<T>}
+	 * @memberof List
+	 */
 	constructor(props) {
 		if (!props) {
 			super();
@@ -23,11 +23,11 @@ class List extends Array {
 		super(props);
 	}
 	/**
-   *Add a Value to the List
-   * @template T
-   * @param {T} value
-   * @memberof List
-   */
+	 *Add a Value to the List
+	 * @template T
+	 * @param {T} value
+	 * @memberof List
+	 */
 	Add(value) {
 		this.push(value);
 	}
@@ -35,13 +35,13 @@ class List extends Array {
 		return this.some(action);
 	}
 	/**
-   *Convert Array to List
-   *
-   * @static
-   * @param {Array} array
-   * @returns List
-   * @memberof List
-   */
+	 *Convert Array to List
+	 *
+	 * @static
+	 * @param {Array} array
+	 * @returns List
+	 * @memberof List
+	 */
 	static ToList(array) {
 		let t = new List();
 		if (!array || Type.Get(array) === "List") return t;
@@ -51,9 +51,9 @@ class List extends Array {
 		return t;
 	}
 	/**
-   * Concat 2 Lists
-   * @param {List} list
-   */
+	 * Concat 2 Lists
+	 * @param {List} list
+	 */
 	AddRange(list) {
 		if (list == null) throw new Error("ArgumentNullException");
 		if (!(Type.Get(list) === "List"))
@@ -63,17 +63,17 @@ class List extends Array {
 		}
 	}
 	/**
-   *Clear the List
-   *
-   * @memberof List
-   */
+	 *Clear the List
+	 *
+	 * @memberof List
+	 */
 	Clear() {
 		this.splice(0, this.length);
 	}
 	/**
-   * Does the List contain a given item
-   * @param {*} item
-   */
+	 * Does the List contain a given item
+	 * @param {*} item
+	 */
 	Contains(item) {
 		return this.includes(item);
 	}
@@ -81,38 +81,38 @@ class List extends Array {
 		return this.length;
 	}
 	/**
-   *
-   * @param {*} match
-   */
+	 *
+	 * @param {*} match
+	 */
 	Exists() {
 		//TODO
 	}
 	/**
-   *
-   *
-   * @param {*} match
-   *
-   * @memberof List
-   */
+	 *
+	 *
+	 * @param {*} match
+	 *
+	 * @memberof List
+	 */
 	Find(match) {
 		return this.find(match);
 	}
 	/**
-   *
-   *
-   * @param {*} action
-   * @memberof List
-   */
+	 *
+	 *
+	 * @param {*} action
+	 * @memberof List
+	 */
 	ForEach(action) {
 		this.forEach(action);
 	}
 	/**
-   *
-   *
-   * @param {*} iValue
-   * @returns {Number} Index
-   * @memberof List
-   */
+	 *
+	 *
+	 * @param {*} iValue
+	 * @returns {Number} Index
+	 * @memberof List
+	 */
 	Remove(iValue) {
 		var iIndex = this.indexOf(iValue);
 		if (~iIndex) {
@@ -121,12 +121,12 @@ class List extends Array {
 		return iIndex;
 	}
 	/**
-   *
-   *
-   * @param {Number} iIndex
-   * @returns {*} Removed Item
-   * @memberof List
-   */
+	 *
+	 *
+	 * @param {Number} iIndex
+	 * @returns {*} Removed Item
+	 * @memberof List
+	 */
 	RemoveAt(iIndex) {
 		var vItem = this[iIndex];
 		if (vItem) {
@@ -135,10 +135,10 @@ class List extends Array {
 		return vItem;
 	}
 	/**
-   *
-   * @param {} value
-   * @param {Out<T>} out
-   */
+	 *
+	 * @param {} value
+	 * @param {Out<T>} out
+	 */
 	TryGetValue(value, out) {
 		if (value == null) return false;
 		if (!this.includes(value)) return false;

@@ -8,17 +8,17 @@ const { Out } = require("./Out");
  */
 class Dictionary extends Array {
 	/**
-   *Creates an instance of Dictionary.
-   * @memberof Dictionary
-   */
+	 *Creates an instance of Dictionary.
+	 * @memberof Dictionary
+	 */
 	constructor() {
 		super();
 	}
 	/**
-   * @param {T} Key
-   * @param {A} Value
-   * @memberof Dictionary
-   */
+	 * @param {T} Key
+	 * @param {A} Value
+	 * @memberof Dictionary
+	 */
 	Add(Key, Value) {
 		if (this.ContainsKey(Key))
 			throw new Error(
@@ -30,10 +30,10 @@ class Dictionary extends Array {
 		});
 	}
 	/**
-   * @param {T} Key
-   * @param {A} Value
-   * @memberof Dictionary
-   */
+	 * @param {T} Key
+	 * @param {A} Value
+	 * @memberof Dictionary
+	 */
 	TryAdd(Key, Value) {
 		if (this.ContainsKey(Key)) return false;
 		this.push({
@@ -53,10 +53,10 @@ class Dictionary extends Array {
 		return false;
 	}
 	/**
-   *
-   *
-   * @memberof Dictionary
-   */
+	 *
+	 *
+	 * @memberof Dictionary
+	 */
 	Clear() {
 		this.splice(0, this.length);
 	}
@@ -65,12 +65,12 @@ class Dictionary extends Array {
 		return this.filter(func).length;
 	}
 	/**
-   *
-   *
-   * @param {*} key
-   *
-   * @memberof Dictionary
-   */
+	 *
+	 *
+	 * @param {*} key
+	 *
+	 * @memberof Dictionary
+	 */
 	ContainsKey(key) {
 		for (let object of this) {
 			if (object.Key === key) return true;
@@ -78,12 +78,12 @@ class Dictionary extends Array {
 		return false;
 	}
 	/**
-   *
-   *
-   * @param {*} value
-   *
-   * @memberof Dictionary
-   */
+	 *
+	 *
+	 * @param {*} value
+	 *
+	 * @memberof Dictionary
+	 */
 	ContainsValue(value) {
 		for (let object of this) {
 			if (object.Value === value) return true;
@@ -91,22 +91,22 @@ class Dictionary extends Array {
 		return false;
 	}
 	/**
-   *
-   *
-   * @param {*} capacity
-   *
-   * @memberof Dictionary
-   */
+	 *
+	 *
+	 * @param {*} capacity
+	 *
+	 * @memberof Dictionary
+	 */
 	EnsureCapacity(capacity) {
 		return this.length;
 	}
 	/**
-   *
-   *
-   * @param {*} iIndex
-   *
-   * @memberof Dictionary
-   */
+	 *
+	 *
+	 * @param {*} iIndex
+	 *
+	 * @memberof Dictionary
+	 */
 	RemoveAt(iIndex) {
 		var vItem = this[iIndex];
 		if (vItem) {
@@ -115,12 +115,12 @@ class Dictionary extends Array {
 		return vItem;
 	}
 	/**
-   *
-   *
-   * @param {*} key
-   *
-   * @memberof Dictionary
-   */
+	 *
+	 *
+	 * @param {*} key
+	 *
+	 * @memberof Dictionary
+	 */
 	Remove(key) {
 		if (!this.ContainsKey(key)) return false;
 		for (let object of this) {
@@ -155,10 +155,10 @@ class Dictionary extends Array {
 		return false; // How tf you manage that??
 	}
 	/**
-   *
-   * @param {} value
-   * @param {Out<T>} out
-   */
+	 *
+	 * @param {} value
+	 * @param {Out<T>} out
+	 */
 	TryGetValue(value, out) {
 		if (value == null) return false;
 		if (!this.ContainsKey(value)) return false;

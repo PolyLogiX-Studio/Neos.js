@@ -8,12 +8,12 @@ const fetch = require("node-fetch");
 class HTTP_CLIENT {
 	constructor() {}
 	/**
-   *
-   * @param {HttpRequestMessage} request
-   * @param {TimeSpan} token
-   * @returns {Promise<HttpResponseMessage>}
-   * @memberof HTTP_CLIENT
-   */
+	 *
+	 * @param {HttpRequestMessage} request
+	 * @param {TimeSpan} token
+	 * @returns {Promise<HttpResponseMessage>}
+	 * @memberof HTTP_CLIENT
+	 */
 	async SendAsync(request) {
 		let state;
 		let resHeaders;
@@ -23,8 +23,8 @@ class HTTP_CLIENT {
 		dat.headers = request.Headers;
 		if (
 			request.Method === "POST" ||
-      request.Method === "PATCH" ||
-      request.Method === "PUT"
+			request.Method === "PATCH" ||
+			request.Method === "PUT"
 		)
 			dat.body = request.Content;
 		let ERROR;
@@ -36,8 +36,8 @@ class HTTP_CLIENT {
 					try {
 						if (
 							body == null ||
-              body === "" ||
-              !~resHeaders.get("content-type").indexOf("application/json")
+							body === "" ||
+							!~resHeaders.get("content-type").indexOf("application/json")
 						)
 							return { response: {} };
 						return JSON.parse(body);

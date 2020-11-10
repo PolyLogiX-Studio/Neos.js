@@ -19,9 +19,9 @@ class Visit {
 	get IsValid() {
 		return (
 			this.Start.getFullYear() >= 2016 &&
-      !(this.Start >= this.End) &&
-      (this.End - this.Start).getSeconds() >= this.Duration &&
-      !String.IsNullOrWhiteSpace(this.URL._rawUrl)
+			!(this.Start >= this.End) &&
+			(this.End - this.Start).getSeconds() >= this.Duration &&
+			!String.IsNullOrWhiteSpace(this.URL._rawUrl)
 		);
 	}
 }

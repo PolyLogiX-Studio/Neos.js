@@ -12,12 +12,12 @@ class IdUtil {
 		return 20;
 	}
 	/**
-   *
-   * @static
-   * @param {string} id
-   * @returns {OwnerType}
-   * @memberof IdUtil
-   */
+	 *
+	 * @static
+	 * @param {string} id
+	 * @returns {OwnerType}
+	 * @memberof IdUtil
+	 */
 	static GetOwnerType(id) {
 		if (id == null) return OwnerType.INVALID;
 		if (id.startsWith("M-")) return OwnerType.Machine;
@@ -26,21 +26,21 @@ class IdUtil {
 		return OwnerType.INVALID;
 	}
 	/**
-   *
-   * @static
-   * @param {OwnerType} ownerType
-   * @param {string} [name=null]
-   * @param {number} [randomAppend=0]
-   * @memberof IdUtil
-   */
+	 *
+	 * @static
+	 * @param {OwnerType} ownerType
+	 * @param {string} [name=null]
+	 * @param {number} [randomAppend=0]
+	 * @memberof IdUtil
+	 */
 	static GenerateId(ownerType, name = null, randomAppend = 0) {
 		name =
-      name != null
-      	? name
-      		.normalize("NFD")
-      		.replace(/[\u0300-\u036f]/g, "")
-      		.replace(/[\u{0080}-\u{FFFF}]/gu, "")
-      	: null;
+			name != null
+				? name
+					.normalize("NFD")
+					.replace(/[\u0300-\u036f]/g, "")
+					.replace(/[\u{0080}-\u{FFFF}]/gu, "")
+				: null;
 		var stringBuilder = new StringBuilder();
 		if (name != null) {
 			for (/** @type string */ let c of name) {

@@ -62,12 +62,12 @@ class SearchParameters {
 
 		if (
 			(!excludeOffsetAndCount &&
-        (this.Count !== other.Count || this.Offset !== other.Offset)) ||
-      this.Private !== other.Private ||
-      this.ByOwner !== other.ByOwner ||
-      this.OwnerType !== other.OwnerType ||
-      this.SubmittedTo !== other.SubmittedTo ||
-      this.RecordType !== other.RecordType
+				(this.Count !== other.Count || this.Offset !== other.Offset)) ||
+			this.Private !== other.Private ||
+			this.ByOwner !== other.ByOwner ||
+			this.OwnerType !== other.OwnerType ||
+			this.SubmittedTo !== other.SubmittedTo ||
+			this.RecordType !== other.RecordType
 		)
 			return false;
 		let nullable1 = this.MinDate;
@@ -92,18 +92,18 @@ class SearchParameters {
 						: 0
 					: 0
 				: 1) !== 0 ||
-      this.SortBy !== other.SortBy ||
-      this.OnlyFeatured !== other.OnlyFeatured ||
-      this.SortDirection !== other.SortDirection
+			this.SortBy !== other.SortBy ||
+			this.OnlyFeatured !== other.OnlyFeatured ||
+			this.SortDirection !== other.SortDirection
 		)
 			return false;
 		this.Normalize();
 		other.Normalize();
 		return (
 			SearchParameters.ListsEqual(this.OptionalTags, other.OptionalTags) &&
-      SearchParameters.ListsEqual(this.RequiredTags, other.RequiredTags) &&
-      SearchParameters.ListsEqual(this.ExcludedTags, other.ExcludedTags) &&
-      SearchParameters.ListsEqual(this.ExtraSignatures, other.ExtraSignatures)
+			SearchParameters.ListsEqual(this.RequiredTags, other.RequiredTags) &&
+			SearchParameters.ListsEqual(this.ExcludedTags, other.ExcludedTags) &&
+			SearchParameters.ListsEqual(this.ExtraSignatures, other.ExtraSignatures)
 		);
 	}
 	static ListsEqual(a, b) {

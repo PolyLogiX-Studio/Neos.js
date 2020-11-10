@@ -8,11 +8,11 @@ const { Type } = require("./Type");
  */
 class Enumerable extends Object {
 	/**
-   *Creates an instance of Enumerable.
-   * @param {(string[]|List<String>)} $b
-   * @returns {Enumerable<$b>}
-   * @memberof Enumerable
-   */
+	 *Creates an instance of Enumerable.
+	 * @param {(string[]|List<String>)} $b
+	 * @returns {Enumerable<$b>}
+	 * @memberof Enumerable
+	 */
 	constructor($b) {
 		if ($b == null) throw new Error("No Data Given");
 		super();
@@ -38,12 +38,12 @@ class Enumerable extends Object {
 		Object.freeze(this);
 	}
 	/**
-   *
-   *
-   * @param {String} key
-   * @returns {T}
-   * @memberof Enumerable
-   */
+	 *
+	 *
+	 * @param {String} key
+	 * @returns {T}
+	 * @memberof Enumerable
+	 */
 	GetValue(key) {
 		return this[key];
 	}

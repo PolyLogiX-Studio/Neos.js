@@ -4,17 +4,17 @@ String.prototype.noExtension = function () {
 };
 class Uri {
 	/**
-   *Creates an instance of Uri.
-   * @param {String} url
-   * @memberof Uri
-   */
+	 *Creates an instance of Uri.
+	 * @param {String} url
+	 * @memberof Uri
+	 */
 	constructor(url) {
 		if (!url) return;
 		this.URL = url;
 	}
 	/**
-   * @param {string} url
-   */
+	 * @param {string} url
+	 */
 	set URL(url) {
 		Object.defineProperty(this, "rawUrl", {
 			value: url,
@@ -32,31 +32,31 @@ class Uri {
 	}
 
 	/**
-   * Return the URL
-   *
-   * @readonly
-   * @memberof Uri
-   */
+	 * Return the URL
+	 *
+	 * @readonly
+	 * @memberof Uri
+	 */
 	get URL() {
 		return this._rawUrl;
 	}
 	/**
-   *
-   *
-   * @readonly
-   * @memberof Uri
-   */
+	 *
+	 *
+	 * @readonly
+	 * @memberof Uri
+	 */
 	get Scheme() {
 		return this._raw.scheme;
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {String} dat
-   * @returns {String}
-   * @memberof Uri
-   */
+	 *
+	 *
+	 * @static
+	 * @param {String} dat
+	 * @returns {String}
+	 * @memberof Uri
+	 */
 	static EscapeDataString(dat) {
 		return encodeURI(dat);
 	}

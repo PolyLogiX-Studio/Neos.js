@@ -21,9 +21,9 @@ class TransactionManager {
 		} else {
 			throw new Error(
 				"Error getting conversion ratio. " +
-          cloudResult1.State +
-          "\n\n" +
-          cloudResult1.Content
+					cloudResult1.State +
+					"\n\n" +
+					cloudResult1.Content
 			);
 		}
 		let cloudResult2 = await this.Cloud.ReadGlobalVariable(
@@ -34,9 +34,9 @@ class TransactionManager {
 		} else {
 			throw new Error(
 				"Error getting conversion ratio. " +
-          cloudResult2.State.ToString() +
-          "\n\n" +
-          cloudResult2.Content
+					cloudResult2.State.ToString() +
+					"\n\n" +
+					cloudResult2.Content
 			);
 		}
 	}

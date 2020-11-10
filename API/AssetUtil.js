@@ -6,20 +6,20 @@ const fs = require("fs");
 const { Type } = require("./Type");
 class AssetUtil {
 	/**
-   * @readonly
-   * @static
-   * @memberof AssetUtil
-   */
+	 * @readonly
+	 * @static
+	 * @memberof AssetUtil
+	 */
 	static get COMPUTE_VERSION() {
 		return 4;
 	}
 	/**
-   *
-   * @template T
-   * @static
-   * @param {T} file
-   * @memberof AssetUtil
-   */
+	 *
+	 * @template T
+	 * @static
+	 * @param {T} file
+	 * @memberof AssetUtil
+	 */
 	static GenerateHashSignature(file) {
 		if (Type.Get(file) === "String") {
 			let fileStream = fs.readFileSync(file);
@@ -33,11 +33,11 @@ class AssetUtil {
 		return new Uri("neosdb:///" + signature + extension);
 	}
 	/**
-   * @static
-   * @param {Uri} uri
-   * @param {Out<String>} extension
-   * @memberof AssetUtil
-   */
+	 * @static
+	 * @param {Uri} uri
+	 * @param {Out<String>} extension
+	 * @memberof AssetUtil
+	 */
 	static ExtractSignature(uri, extension = new Out()) {
 		if (uri.Scheme !== "neosdb") throw new Error("Not a NeosDB URI");
 		let segment = uri.Segments[1];
@@ -45,25 +45,25 @@ class AssetUtil {
 		return Path.GetFileNameWithoutExtension(segment);
 	}
 	/**
-   *
-   *
-   * @param {string} signature
-   * @param {string} variant
-   * @memberof AssetUtil
-   */
+	 *
+	 *
+	 * @param {string} signature
+	 * @param {string} variant
+	 * @memberof AssetUtil
+	 */
 	static ComposeIdentifier(signature, variant) {
 		if (String.IsNullOrWhiteSpace(variant)) return signature;
 		return signature + "&" + variant;
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {string} identifier
-   * @param {Out<String>} signature
-   * @param {Out<String>} variant
-   * @memberof AssetUtil
-   */
+	 *
+	 *
+	 * @static
+	 * @param {string} identifier
+	 * @param {Out<String>} signature
+	 * @param {Out<String>} variant
+	 * @memberof AssetUtil
+	 */
 	static SplitIdentifier(identifier, signature, variant) {
 		let length = identifier.indexOf("&");
 		if (length >= 0) {

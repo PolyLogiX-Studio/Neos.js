@@ -17,11 +17,11 @@ class TimeSpan {
 	}
 
 	/**
-   *
-   *  Delay by ms
-   * @param {TimeSpan} timespan
-   * @returns {Promise}
-   */
+	 *
+	 *  Delay by ms
+	 * @param {TimeSpan} timespan
+	 * @returns {Promise}
+	 */
 	static Delay(timespan) {
 		if (Type.Get(timespan) !== "TimeSpan") timespan = new TimeSpan(timespan);
 		return new Promise((resolve) => setTimeout(resolve, timespan.msecs));

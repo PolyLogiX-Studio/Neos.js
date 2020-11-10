@@ -1,17 +1,17 @@
 class CreditTransaction {
 	/**
-   *Creates an instance of CreditTransaction.
-   * @param {{
-   * token: string,
-   * fromUserId: string,
-   * toUserId: string,
-   * amount: number,
-   * comment: string,
-   * transactionType: TransactionType,
-   * anonymous: Boolean
-   * }} $b
-   * @memberof CreditTransaction
-   */
+	 *Creates an instance of CreditTransaction.
+	 * @param {{
+	 * token: string,
+	 * fromUserId: string,
+	 * toUserId: string,
+	 * amount: number,
+	 * comment: string,
+	 * transactionType: TransactionType,
+	 * anonymous: Boolean
+	 * }} $b
+	 * @memberof CreditTransaction
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Token = $b.token;

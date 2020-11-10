@@ -1,17 +1,17 @@
 class RecordPreprocessStatus {
 	/**
-   *Creates an instance of RecordPreprocessStatus.
-   * @param {{
-   * id: string,
-   * ownerId: string,
-   * recordId: string,
-   * state: RecordPreprocessStatus,
-   * progress: number,
-   * failReason: string
-   * resultDiffs: List
-   * }} $b
-   * @memberof RecordPreprocessStatus
-   */
+	 *Creates an instance of RecordPreprocessStatus.
+	 * @param {{
+	 * id: string,
+	 * ownerId: string,
+	 * recordId: string,
+	 * state: RecordPreprocessStatus,
+	 * progress: number,
+	 * failReason: string
+	 * resultDiffs: List
+	 * }} $b
+	 * @memberof RecordPreprocessStatus
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.PreprocessId = $b.id;

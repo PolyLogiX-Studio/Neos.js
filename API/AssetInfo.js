@@ -5,9 +5,9 @@
  */
 class AssetInfo {
 	/**
-   *Creates an instance of AssetInfo.
-   * @memberof AssetInfo
-   */
+	 *Creates an instance of AssetInfo.
+	 * @memberof AssetInfo
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.OwnerId = $b.ownerId || new String();

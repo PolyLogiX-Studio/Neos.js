@@ -19,41 +19,41 @@ String.IsNullOrEmpty = function (str) {
  */
 class RecordUtil {
 	/**
-   *
-   *
-   * @static
-   * @param {string} ownerId
-   * @param {string} recordId
-   *
-   * @memberof RecordUtil
-   */
+	 *
+	 *
+	 * @static
+	 * @param {string} ownerId
+	 * @param {string} recordId
+	 *
+	 * @memberof RecordUtil
+	 */
 	static GenerateUri(ownerId, recordId) {
 		return new Uri("neosrec:///" + ownerId + "/" + recordId);
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {string} recordId
-   *
-   * @memberof RecordUtil
-   */
+	 *
+	 *
+	 * @static
+	 * @param {string} recordId
+	 *
+	 * @memberof RecordUtil
+	 */
 	static IsValidRecordID(recordId) {
 		return (
 			!String.IsNullOrWhiteSpace(recordId) &&
-      recordId.startsWith("R-") &&
-      recordId.length > "R-".length
+			recordId.startsWith("R-") &&
+			recordId.length > "R-".length
 		);
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {Uri} recordUri
-   * @param {Out<string>} ownerId
-   * @param {Out<string>} recordId
-   * @memberof RecordUtil
-   */
+	 *
+	 *
+	 * @static
+	 * @param {Uri} recordUri
+	 * @param {Out<string>} ownerId
+	 * @param {Out<string>} recordId
+	 * @memberof RecordUtil
+	 */
 	static ExtractRecordID(recordUri, ownerId, recordId) {
 		ownerId.Out = null;
 		recordId.Out = null;
@@ -66,25 +66,25 @@ class RecordUtil {
 		recordId.Out = recordUri.Segments[2];
 		return (
 			!String.IsNullOrEmpty(recordId.Out) &&
-      RecordUtil.IsValidRecordID(recordId.Out)
+			RecordUtil.IsValidRecordID(recordId.Out)
 		);
 	}
 	/**
-   *
-   *
-   * @static
-   * @param {Uri} recordUri
-   * @param {Out<string>} ownerId
-   * @param {Out<string>} recordPath
-   * @memberof RecordUtil
-   */
+	 *
+	 *
+	 * @static
+	 * @param {Uri} recordUri
+	 * @param {Out<string>} ownerId
+	 * @param {Out<string>} recordPath
+	 * @memberof RecordUtil
+	 */
 	static ExtractRecordPath(recordUri, ownerId, recordPath) {
 		ownerId.Out = null;
 		recordPath.Out = null;
 		if (
 			recordUri == null ||
-      recordUri.Scheme !== "neosrec" ||
-      recordUri.Segments.length < 3
+			recordUri.Scheme !== "neosrec" ||
+			recordUri.Segments.length < 3
 		)
 			return false;
 		ownerId.Out = recordUri.Segments[1];

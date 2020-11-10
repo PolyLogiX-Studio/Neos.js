@@ -3,13 +3,13 @@ class RecordHelper {
 	static IsSameVersion(record, other) {
 		if (
 			record.LastModifyingMachineId === other.LastModifyingMachineId &&
-      record.LastModifyingUserId === other.LastModifyingUserId
+			record.LastModifyingUserId === other.LastModifyingUserId
 		)
 			return record.LocalVersion === other.LocalVersion;
 		if (
 			record.LocalVersion === other.LocalVersion &&
-      record.GlobalVersion === other.GlobalVersion &&
-      record.LastModifyingMachineId === other.LastModifyingMachineId
+			record.GlobalVersion === other.GlobalVersion &&
+			record.LastModifyingMachineId === other.LastModifyingMachineId
 		)
 			return record.LastModifyingUserId === other.LastModifyingUserId;
 		return false;
@@ -30,7 +30,7 @@ class RecordHelper {
 		if (oldRecord == null) return true;
 		if (
 			record.LastModifyingMachineId === oldRecord.LastModifyingMachineId &&
-      record.LastModifyingUserId === oldRecord.LastModifyingUserId
+			record.LastModifyingUserId === oldRecord.LastModifyingUserId
 		)
 			return record.LocalVersion > oldRecord.LocalVersion;
 		return record.GlobalVersion === oldRecord.GlobalVersion;

@@ -1,15 +1,15 @@
 class TransactionMessage {
 	/**
-   *Creates an instance of TransactionMessage.
-   * @param {{
-   * token: string,
-   * recipientId: string,
-   * amount:number,
-   * comment:string,
-   * transactionType: TransactionType
-   * }} $b
-   * @memberof TransactionMessage
-   */
+	 *Creates an instance of TransactionMessage.
+	 * @param {{
+	 * token: string,
+	 * recipientId: string,
+	 * amount:number,
+	 * comment:string,
+	 * transactionType: TransactionType
+	 * }} $b
+	 * @memberof TransactionMessage
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Token = $b.token;

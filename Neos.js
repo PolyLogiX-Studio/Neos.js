@@ -48,11 +48,11 @@ class Events extends EventEmitter {
  */
 class Neos extends EventEmitter {
 	/**
-   * CloudX
-   * @readonly
-   * @instance
-   * @memberof Neos
-   */
+	 * CloudX
+	 * @readonly
+	 * @instance
+	 * @memberof Neos
+	 */
 	static get CloudX() {
 		return CloudX;
 	}
@@ -73,26 +73,26 @@ class Neos extends EventEmitter {
 		if (options.Update == null) options.Update = true;
 		if (options.MultiMessageDelay == null) options.MultiMessageDelay = 1100;
 		/**
-     * @instance
-     * @property {{AutoReadMessages:true,
-     * OnlineStateL:Online,
-     * StatusInterval:60,
-     * NeosVersion:"Neos.js <Version>",
-     * CompatabilityHash:"Neos.js <Version>",
-     * UpdateInterval:1000,
-     * Update:true,
-     * MultiMessageDelay:1100}} Options
-     * @memberof Neos
-     */
+		 * @instance
+		 * @property {{AutoReadMessages:true,
+		 * OnlineStateL:Online,
+		 * StatusInterval:60,
+		 * NeosVersion:"Neos.js <Version>",
+		 * CompatabilityHash:"Neos.js <Version>",
+		 * UpdateInterval:1000,
+		 * Update:true,
+		 * MultiMessageDelay:1100}} Options
+		 * @memberof Neos
+		 */
 		this.Options = options;
 		this.Events = new Events();
 		this.CloudX = CloudX;
 
 		/**
-     * @property {import('./API').Shared.CloudXInterface} CloudXInterface
-     * @memberof Neos
-     * @instance
-     */
+		 * @property {import('./API').Shared.CloudXInterface} CloudXInterface
+		 * @memberof Neos
+		 * @instance
+		 */
 		this.CloudXInterface = new CloudX.Shared.CloudXInterface(
 			this.Events,
 			config.main,
@@ -204,7 +204,7 @@ class Neos extends EventEmitter {
 		this.Events.on("messageReceived", (message) => {
 			let read = this.emit("messageReceived", message);
 			if (this.Options.AutoReadMessages && read)
-			// Auto Mark Read & Was Event Caught and read
+				// Auto Mark Read & Was Event Caught and read
 				this.CloudXInterface.MarkMessagesRead([message]);
 		});
 		this.Events.on("messageCountChanged", (count) => {
@@ -231,49 +231,49 @@ class Neos extends EventEmitter {
 	}
 
 	/**
-   * @private
-   * @instance
-   * @param {*} interval
-   * @memberof Neos
-   */
+	 * @private
+	 * @instance
+	 * @param {*} interval
+	 * @memberof Neos
+	 */
 	startInterval(interval) {
 		this.clearInterval(this.Interval);
 		this.Interval = setInterval(this.Update.bind(this), interval);
 	}
 
 	/**
-   * @private
-   * @param {Interval} interval
-   */
+	 * @private
+	 * @param {Interval} interval
+	 */
 	clearInterval(interval = this.Interval) {
 		clearInterval(interval);
 	}
 	/**
-   *
-   * @private
-   * @returns void
-   * @memberof Neos
-   */
+	 *
+	 * @private
+	 * @returns void
+	 * @memberof Neos
+	 */
 	Update() {
 		this.CloudXInterface.Update();
 		if (!this.CloudXInterface.CurrentUser.Id) return;
 		if (
 			this.Options.StatusInterval != null &&
-      this.Options.StatusInterval !== 0
+			this.Options.StatusInterval !== 0
 		) {
 			if (
 				new Date(new Date() - this.lastStatusUpdate).getTime() / 1000 >
-          this.Options.StatusInterval ||
-        this.lastStatusUpdate === "No Update"
+					this.Options.StatusInterval ||
+				this.lastStatusUpdate === "No Update"
 			)
 				return this.UpdateStatus();
 		}
 	}
 	/**
-   * Update the Neos Account status
-   * @instance
-   * @memberof Neos
-   */
+	 * Update the Neos Account status
+	 * @instance
+	 * @memberof Neos
+	 */
 	UpdateStatus() {
 		this.emit("statusUpdate");
 		this.lastStatusUpdate = new Date();
@@ -281,20 +281,20 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.UpdateStatus(this.Status);
 	}
 	/**
-   *
-   *
-   * @param {string} credential Email, UserId, or Account Username
-   * @param {string} [password]
-   * Not required if sessionToken is set,
-   * - Set as new password if recoverCode is set
-   * @param {string} [sessionToken] Session Token to login without storing the password
-   * @param {string} machineId Unique Machine ID, If another instance is logged in using the same machine id, the new one will replace the old.
-   * @param {boolean} [rememberMe = false] SessionToken will be valid for 7 days
-   * @param {string} [recoverCode] Recovery Code sent via Email, Use to set a new password
-   * @returns {Promise<CloudResult<UserSession>>}
-   * @memberof Neos
-   * @instance
-   */
+	 *
+	 *
+	 * @param {string} credential Email, UserId, or Account Username
+	 * @param {string} [password]
+	 * Not required if sessionToken is set,
+	 * - Set as new password if recoverCode is set
+	 * @param {string} [sessionToken] Session Token to login without storing the password
+	 * @param {string} machineId Unique Machine ID, If another instance is logged in using the same machine id, the new one will replace the old.
+	 * @param {boolean} [rememberMe = false] SessionToken will be valid for 7 days
+	 * @param {string} [recoverCode] Recovery Code sent via Email, Use to set a new password
+	 * @returns {Promise<CloudResult<UserSession>>}
+	 * @memberof Neos
+	 * @instance
+	 */
 	async Login(
 		credential,
 		password,
@@ -314,211 +314,211 @@ class Neos extends EventEmitter {
 	}
 
 	/**
-   * Logout
-   * @instance
-   * @param {boolean} [manual=true]
-   * @memberof Neos
-   */
+	 * Logout
+	 * @instance
+	 * @param {boolean} [manual=true]
+	 * @memberof Neos
+	 */
 	Logout(manual = true) {
 		this.CloudXInterface.Logout(manual);
 	}
 	/**
-   * Get the Current User
-   * @instance
-   * @readonly
-   * @memberof Neos
-   * @returns {User}
-   */
+	 * Get the Current User
+	 * @instance
+	 * @readonly
+	 * @memberof Neos
+	 * @returns {User}
+	 */
 	get CurrentUser() {
 		return this.CloudXInterface.CurrentUser;
 	}
 	/**
-   * Get the Current Session
-   * @instance
-   * @readonly
-   * @memberof Neos
-   * @returns {UserSession}
-   */
+	 * Get the Current Session
+	 * @instance
+	 * @readonly
+	 * @memberof Neos
+	 * @returns {UserSession}
+	 */
 	get CurrentSession() {
 		return this.CloudXInterface.CurrentSession;
 	}
 	/**
-   *Get User Memberships
-   * @instance
-   * @readonly
-   * @memberof Neos
-   * @returns {List<Membership>}
-   */
+	 *Get User Memberships
+	 * @instance
+	 * @readonly
+	 * @memberof Neos
+	 * @returns {List<Membership>}
+	 */
 	get CurrentUserMemberships() {
 		return this.CloudXInterface.CurrentUserMemberships;
 	}
 
 	/**
-   *
-   * @instance
-   * @readonly
-   * @memberof Neos
-   */
+	 *
+	 * @instance
+	 * @readonly
+	 * @memberof Neos
+	 */
 	get CurrentUserGroupInfos() {
 		return this.CloudXInterface.CurrentUserGroupInfos;
 	}
 	/**
-   *Search neos for username
-   * @instance
-   * @param {string} username
-   * @returns
-   * @memberof Neos
-   */
+	 *Search neos for username
+	 * @instance
+	 * @param {string} username
+	 * @returns
+	 * @memberof Neos
+	 */
 	async GetUsers(username) {
 		return await this.CloudXInterface.GetUsers(username);
 	}
 	/**
-   *Get a specific User by their UserId
-   * @instance
-   * @param {string} userId
-   * @returns {User} User Object
-   * @memberof Neos
-   */
+	 *Get a specific User by their UserId
+	 * @instance
+	 * @param {string} userId
+	 * @returns {User} User Object
+	 * @memberof Neos
+	 */
 	async GetUser(userId) {
 		return new this.CloudX.Shared.User(
 			(await this.CloudXInterface.GetUser(userId)).Entity
 		);
 	}
 	/**
-   * get a specific User by their username
-   * @param {string} username
-   * @instance
-   * @returns {User}
-   * @memberof Neos
-   */
+	 * get a specific User by their username
+	 * @param {string} username
+	 * @instance
+	 * @returns {User}
+	 * @memberof Neos
+	 */
 	async GetUserByName(username) {
 		return (await this.CloudXInterface.GetUserByName(username)).Entity;
 	}
 	/**
-   * Get the friends list of a user
-   * @instance
-   * @param {string} userId
-   * @returns {List<Friend>}
-   * @memberof Neos
-   */
+	 * Get the friends list of a user
+	 * @instance
+	 * @param {string} userId
+	 * @returns {List<Friend>}
+	 * @memberof Neos
+	 */
 	async GetFriends(userId) {
 		return (await this.CloudXInterface.GetFriends(userId)).Entity;
 	}
 	/**
-   * get a user from your friend list
-   * @instance
-   * @param {string} friendId
-   * @returns {User}
-   * @memberof Neos
-   */
+	 * get a user from your friend list
+	 * @instance
+	 * @param {string} friendId
+	 * @returns {User}
+	 * @memberof Neos
+	 */
 	GetFriend(friendId) {
 		return this.CloudXInterface.Friends.GetFriend(friendId);
 	}
 	/**
-   * Check if a user is friends
-   * @instance
-   * @param {string} friendId
-   * @returns {Boolean}
-   * @memberof Neos
-   */
+	 * Check if a user is friends
+	 * @instance
+	 * @param {string} friendId
+	 * @returns {Boolean}
+	 * @memberof Neos
+	 */
 	IsFriend(friendId) {
 		return this.CloudXInterface.Friends.IsFriend(friendId);
 	}
 	/**
-   * Send or Accept a friend request
-   * - pass the Friend Object
-   * @instance
-   * @param {String | CloudX.Shared.Friend} friend
-   * @returns void
-   * @memberof Neos
-   */
+	 * Send or Accept a friend request
+	 * - pass the Friend Object
+	 * @instance
+	 * @param {String | CloudX.Shared.Friend} friend
+	 * @returns void
+	 * @memberof Neos
+	 */
 	AddFriend(friend) {
 		return this.CloudXInterface.Friends.AddFriend(friend);
 	}
 	/**
-   * Remove a user from your friends list
-   * - pass the Friend Object
-   * @instance
-   * @param {*} friend
-   * @returns void
-   * @memberof Neos
-   */
+	 * Remove a user from your friends list
+	 * - pass the Friend Object
+	 * @instance
+	 * @param {*} friend
+	 * @returns void
+	 * @memberof Neos
+	 */
 	RemoveFriend(friend) {
 		return this.CloudXInterface.Friends.RemoveFriend(friend);
 	}
 	/**
-   * Ignore a Friend Request
-   *  - pass the Friend Object
-   * @instance
-   * @param {*} friend
-   * @returns void
-   * @memberof Neos
-   */
+	 * Ignore a Friend Request
+	 *  - pass the Friend Object
+	 * @instance
+	 * @param {*} friend
+	 * @returns void
+	 * @memberof Neos
+	 */
 	IgnoreRequest(friend) {
 		return this.CloudXInterface.Friends.IgnoreRequest(friend);
 	}
 	/**
-   *Get a Neos Group
-   * @instance
-   * @param {*} groupId
-   * @returns {Group}
-   * @memberof Neos
-   */
+	 *Get a Neos Group
+	 * @instance
+	 * @param {*} groupId
+	 * @returns {Group}
+	 * @memberof Neos
+	 */
 	async GetGroup(groupId) {
 		(await this.CloudXInterface.GetGroup(groupId)).Entity;
 	}
 	/**
-   *Get a Member from a Group
-   * @instance
-   * @param {String} groupId
-   * @param {String} userId
-   * @returns {Member}
-   * @memberof Neos
-   */
+	 *Get a Member from a Group
+	 * @instance
+	 * @param {String} groupId
+	 * @param {String} userId
+	 * @returns {Member}
+	 * @memberof Neos
+	 */
 	async GetGroupMember(groupId, userId) {
 		(await this.CloudXInterface.GetGroupMember(groupId, userId)).Entity;
 	}
 	/**
-   *Get the Members of a group and their Byte Usage
-   * @instance
-   * @param {String} groupId
-   * @returns {List<Member>}
-   * @memberof Neos
-   */
+	 *Get the Members of a group and their Byte Usage
+	 * @instance
+	 * @param {String} groupId
+	 * @returns {List<Member>}
+	 * @memberof Neos
+	 */
 	async GetGroupMembers(groupId) {
 		return (await this.CloudXInterface.GetGroupMembers(groupId)).Entity;
 	}
 	/**
-   * Get cached messages with a user
-   * @instance
-   * @param {String} UserId
-   * @returns {UserMessages}
-   * @memberof Neos
-   */
+	 * Get cached messages with a user
+	 * @instance
+	 * @param {String} UserId
+	 * @returns {UserMessages}
+	 * @memberof Neos
+	 */
 	async GetUserMessages(UserId) {
 		return await this.CloudXInterface.Messages.GetUserMessages(UserId);
 	}
 	/**
-   *Get all Cached messages
-   * @instance
-   * @returns {List<Message>}
-   * @memberof Neos
-   */
+	 *Get all Cached messages
+	 * @instance
+	 * @returns {List<Message>}
+	 * @memberof Neos
+	 */
 	GetAllUserMessages() {
 		let messages = new this.CloudX.Util.List();
 		this.CloudXInterface.Friends.GetAllUserMessages(messages);
 		return messages;
 	}
 	/**
-   *Get messages and add them to the cache
-   * @instance
-   * @param {Date} [fromTime=new Date]
-   * @param {Number} [maxItems=100]
-   * @param {String} [user=null]
-   * @param {boolean} [unreadOnly=false]
-   * @returns {List<Message>}
-   * @memberof Neos
-   */
+	 *Get messages and add them to the cache
+	 * @instance
+	 * @param {Date} [fromTime=new Date]
+	 * @param {Number} [maxItems=100]
+	 * @param {String} [user=null]
+	 * @param {boolean} [unreadOnly=false]
+	 * @returns {List<Message>}
+	 * @memberof Neos
+	 */
 	async GetMessages(
 		fromTime = new Date(0),
 		maxItems = 100,
@@ -535,66 +535,66 @@ class Neos extends EventEmitter {
 		).Entity;
 	}
 	/**
-   * Send a Read Reciept, Messages will not show in UnreadMessages query
-   * @instance
-   * @param {Array<String> | List<String> | String} messageIds
-   * @returns
-   * @memberof Neos
-   */
+	 * Send a Read Reciept, Messages will not show in UnreadMessages query
+	 * @instance
+	 * @param {Array<String> | List<String> | String} messageIds
+	 * @returns
+	 * @memberof Neos
+	 */
 	MarkMessagesRead(messageIds) {
 		if (this.CloudX.Util.Type.Get(messageIds) === "string")
 			messageIds = [messageIds];
 		return this.MarkMessagesRead(messageIds);
 	}
 	/**
-   *Get History of messages with a user
-   * @instance
-   * @param {String} userId
-   * @param {number} [maxItems=100]
-   * @returns {List<Message>} Messages
-   * @memberof Neos
-   */
+	 *Get History of messages with a user
+	 * @instance
+	 * @param {String} userId
+	 * @param {number} [maxItems=100]
+	 * @returns {List<Message>} Messages
+	 * @memberof Neos
+	 */
 	async GetMessageHistory(userId, maxItems = 100) {
 		return (await this.CloudXInterface.GetMessageHistory(userId, maxItems))
 			.Entity;
 	}
 	/**
-   *Get the status of a user
-   * @instance
-   * @param {String} userId
-   * @returns {UserStatus} UserStatus
-   * @memberof Neos
-   */
+	 *Get the status of a user
+	 * @instance
+	 * @param {String} userId
+	 * @returns {UserStatus} UserStatus
+	 * @memberof Neos
+	 */
 	async GetStatus(userId) {
 		return (await this.CloudXInterface.GetStatus(userId)).Entity;
 	}
 	/**
-   * Not Yet Implimented
-   * @param {SearchParameters} record
-   * @instance
-   * @memberof Neos
-   */
+	 * Not Yet Implimented
+	 * @param {SearchParameters} record
+	 * @instance
+	 * @memberof Neos
+	 */
 	// eslint-disable-next-line no-unused-vars
 	FindRecords(record) {}
 	/**
-   *Not yet Implimented
-   * @instance
-   * @param {*} ownerId
-   * @param {*} recordId
-   * @memberof Neos
-   */
+	 *Not yet Implimented
+	 * @instance
+	 * @param {*} ownerId
+	 * @param {*} recordId
+	 * @memberof Neos
+	 */
 
 	// eslint-disable-next-line no-unused-vars
 	FetchRecord(ownerId, recordId) {}
 	/**
-   * Send a Text Message.
-   * If Message is longer than 128 characters it will be chunked as there is a character limit
-   * if a Message element in an Array is longer than 128 characters it will be cut off with "..." by the server
-   * @instance
-   * @param {String} UserId Neos User Id to send
-   * @param {String | Array<String>} Message Message or Array of Messages to Send
-   * @memberof Neos
-   */
+	 * Send a Text Message.
+	 * If Message is longer than 128 characters it will be chunked as there is a character limit
+	 * if a Message element in an Array is longer than 128 characters it will be cut off with "..." by the server
+	 * @instance
+	 * @param {String} UserId Neos User Id to send
+	 * @param {String | Array<String>} Message Message or Array of Messages to Send
+	 * @memberof Neos
+	 */
 	async SendTextMessage(UserId, Message) {
 		let Messages = [];
 		if (typeof Message === "string") {
@@ -622,9 +622,9 @@ class Neos extends EventEmitter {
 							);
 							let LastMessage = context._UserMessage.SendTextMessage(
 								message +
-                  (Messages.length > 1 && typeof Message === "string"
-                  	? `<br>${index}/${Messages.length}`
-                  	: "")
+									(Messages.length > 1 && typeof Message === "string"
+										? `<br>${index}/${Messages.length}`
+										: "")
 							);
 							if (index === Messages.length) return resolve(LastMessage);
 						},
@@ -640,33 +640,33 @@ class Neos extends EventEmitter {
 	}
 
 	/**
-   *
-   * @instance
-   * @param {String} neosdb neosdb:///URL
-   * @param {Number} endpoint Options:
-   * - 0 - Default
-   * - 1 - Blob
-   * - 2 - CDN
-   * - 3 - VideoCDN
-   * - null - Default
-   * @returns {String} http address to neosdb asset
-   * @memberof Neos
-   * @example Neos.GetUser("U-bombitmanbomb").then((User)=>{
-   * 	console.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
-   * 	//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369
-   * })
-   */
+	 *
+	 * @instance
+	 * @param {String} neosdb neosdb:///URL
+	 * @param {Number} endpoint Options:
+	 * - 0 - Default
+	 * - 1 - Blob
+	 * - 2 - CDN
+	 * - 3 - VideoCDN
+	 * - null - Default
+	 * @returns {String} http address to neosdb asset
+	 * @memberof Neos
+	 * @example Neos.GetUser("U-bombitmanbomb").then((User)=>{
+	 * 	console.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
+	 * 	//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369
+	 * })
+	 */
 	NeosDBToHttp(neosdb, endpoint) {
 		return CloudX.Shared.CloudXInterface.NeosDBToHttp(neosdb, endpoint).rawUrl;
 	}
 	/**
-   *
-   * @instance
-   * @param {*} UserId
-   * @param {*} Message
-   * @returns
-   * @memberof Neos
-   */
+	 *
+	 * @instance
+	 * @param {*} UserId
+	 * @param {*} Message
+	 * @returns
+	 * @memberof Neos
+	 */
 	async SendTransaction(UserId, Message) {
 		this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
 		return this._UserMessage.SendTextMessage(Message);

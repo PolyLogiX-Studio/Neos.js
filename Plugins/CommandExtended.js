@@ -46,17 +46,17 @@ class CommandExtended {
 		this.Options.HelpDefault = this.Options.CommandsCommand
 			? `Get a list of commands with ${
 				this.Options.Prefix + this.Options.CommandsCommand
-			}.`
+			  }.`
 			: "No Help Available, Contact the Bot Owner";
 		CommandHandler.CommandHandlerExtended = this;
 		this.CommandHandler = CommandHandler;
 
 		/**
-     * Respond with the "usage" Help index.
-     * Injected by CommandExtended
-     * @memberof Handler
-     * @requires CommandHandler
-     */
+		 * Respond with the "usage" Help index.
+		 * Injected by CommandExtended
+		 * @memberof Handler
+		 * @requires CommandHandler
+		 */
 		this.CommandHandler.Handler.prototype.Usage = function (Args) {
 			let help = this.Extra.GetHelp("usage");
 			this.Reply(
@@ -66,11 +66,11 @@ class CommandExtended {
 			);
 		};
 		/**
-     * Respond with a Help Index.
-     * Injected by CommandExtended
-     * @param {String} index
-     * @memberof Handler
-     */
+		 * Respond with a Help Index.
+		 * Injected by CommandExtended
+		 * @param {String} index
+		 * @memberof Handler
+		 */
 		this.CommandHandler.Handler.prototype.Help = function (index, Args) {
 			let help = this.Extra.GetHelp(index);
 			this.Reply(
@@ -107,12 +107,12 @@ class CommandExtended {
 	}
 
 	/**
-   * Add a new Command Hook
-   * @param {String} Command Command
-   * @param {HandlerCallback} Script Script to run on command call
-   * @param {String | {index:String|Function,usage:String|Function,HelpIndex:String|Function}} [Help] Help Info
-   * @param {Array<String>} [Whitelist] Users allowed to run the command
-   */
+	 * Add a new Command Hook
+	 * @param {String} Command Command
+	 * @param {HandlerCallback} Script Script to run on command call
+	 * @param {String | {index:String|Function,usage:String|Function,HelpIndex:String|Function}} [Help] Help Info
+	 * @param {Array<String>} [Whitelist] Users allowed to run the command
+	 */
 	Add(Command, Script, Help, Whitelist) {
 		var context;
 		if (this instanceof CommandExtended) {
@@ -129,10 +129,10 @@ class CommandExtended {
 	}
 
 	/**
-   * Set help of a command, Will overwrite any previous indexes
-   * @param {String} Command Command to set Index for
-   * @param {String | {index:String|Function,usage:String|Function,HelpIndex:String|Function}} Help Help Info
-   */
+	 * Set help of a command, Will overwrite any previous indexes
+	 * @param {String} Command Command to set Index for
+	 * @param {String | {index:String|Function,usage:String|Function,HelpIndex:String|Function}} Help Help Info
+	 */
 	SetHelp(Command, Help) {
 		var context;
 		if (this instanceof CommandExtended) {
@@ -144,9 +144,9 @@ class CommandExtended {
 	}
 
 	/**
-   * @private
-   * @param {*} Message
-   */
+	 * @private
+	 * @param {*} Message
+	 */
 	async Help(Message) {
 		var context;
 		if (this instanceof CommandExtended) {
@@ -181,9 +181,9 @@ class CommandExtended {
 	}
 
 	/**
-   * @private
-   * @param {*} Message
-   */
+	 * @private
+	 * @param {*} Message
+	 */
 	async Usage(Message) {
 		var context;
 		if (this instanceof CommandExtended) {
@@ -218,9 +218,9 @@ class CommandExtended {
 	}
 
 	/**
-   * @private
-   * @param {*} Message
-   */
+	 * @private
+	 * @param {*} Message
+	 */
 	Commands(Message) {
 		var context;
 		if (this instanceof CommandExtended) {
@@ -260,9 +260,9 @@ class CommandExtended {
 	}
 
 	/**
-   * Parse and run the given message object
-   * @param {*} Message
-   */
+	 * Parse and run the given message object
+	 * @param {*} Message
+	 */
 	Run(Message) {
 		var context;
 		if (this instanceof CommandExtended) {
@@ -287,11 +287,11 @@ class CommandExtended {
 			break;
 		default:
 			var CONTEXT =
-          context.HelpData[
-          	Message.Content.trim()
-          		.split(" ")[0]
-          		.substring(context.Options.Prefix.length)
-          ];
+					context.HelpData[
+						Message.Content.trim()
+							.split(" ")[0]
+							.substring(context.Options.Prefix.length)
+					];
 			context.CommandHandler.Run(Message, CONTEXT);
 		}
 	}
@@ -319,8 +319,8 @@ class HelpObject {
 		let help = this.HelpData[index];
 		if (help == null)
 			help =
-        "Additional Argument Required: " +
-        Object.keys(this.HelpData).join(", ");
+				"Additional Argument Required: " +
+				Object.keys(this.HelpData).join(", ");
 
 		return help;
 	}
@@ -363,15 +363,15 @@ class CommandHelper {
 		let Commands = Object.keys(this.Commands);
 		Commands.push(
 			this.CommandExtended.Options.Prefix +
-        this.CommandExtended.Options.HelpCommand
+				this.CommandExtended.Options.HelpCommand
 		);
 		Commands.push(
 			this.CommandExtended.Options.Prefix +
-        this.CommandExtended.Options.CommandsCommand
+				this.CommandExtended.Options.CommandsCommand
 		);
 		Commands.push(
 			this.CommandExtended.Options.Prefix +
-        this.CommandExtended.Options.UsageCommand
+				this.CommandExtended.Options.UsageCommand
 		);
 		Commands.sort();
 
@@ -381,7 +381,7 @@ class CommandHelper {
 		for (let command of Commands) {
 			if (
 				command.length + CurrentPage.length > CommandHelper.MSG_LENGTH_MAX ||
-        commands + 1 > CommandHelper.CMD_PER_PAGE
+				commands + 1 > CommandHelper.CMD_PER_PAGE
 			) {
 				commands = 0;
 				CurrentPage += "<br>Page %d - %d";
