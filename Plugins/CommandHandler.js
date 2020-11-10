@@ -9,7 +9,7 @@ function HandlerCallback(Handler, Sender, Args) {
 	Sender; //lgtm [js/useless-expression]
 	Args; //lgtm [js/useless-expression]
 }
-HandlerCallback;
+HandlerCallback; //lgtm [js/useless-expression]
 /**
  *@private
  *

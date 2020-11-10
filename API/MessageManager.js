@@ -97,7 +97,7 @@ class MessageManager {
 								this.InitialmessagesFetched &&
 								message.MessageType === "CreditTransfer"
 							) {
-								let content = message.ExtractContent();
+								//let content = message.ExtractContent(); //
 								////let flag2 = content.RecipientId === this.Cloud.CurrentUser.Id;
 								////let currentUser = this.Cloud.CurrentUser;
 								/*

@@ -73,7 +73,7 @@ class SearchParameters {
 		let nullable1 = this.MinDate;
 		let nullable2 = other.MinDate;
 		if (
-			(((nullable1 != null) === nullable2) != null
+			(((nullable1 != null) === nullable2) != null //lgtm [js/comparison-between-incompatible-types] False Positive
 				? nullable1 != null
 					? nullable1 !== nullable2
 						? 1
@@ -85,7 +85,7 @@ class SearchParameters {
 		nullable2 = this.MaxDate;
 		nullable1 = other.MaxDate;
 		if (
-			(((nullable2 != null) === nullable1) != null
+			(((nullable2 != null) === nullable1) != null //lgtm [js/comparison-between-incompatible-types] False Positive
 				? nullable2 != null
 					? nullable2 !== nullable1
 						? 1
