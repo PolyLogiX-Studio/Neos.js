@@ -20,12 +20,25 @@ class Uri {
 			value: url,
 			enumerable: false,
 		});
-		this._raw = URI.parse(url);
+		Object.defineProperty(this, "_raw", {
+			value: URI.parse(url),
+			enumerable: false,
+		});
 		let path = this._raw.path.split("/");
 		this.Segments = new Array();
 		path.forEach((value, index) => {
 			this.Segments.push(index < path.length - 1 ? value + "/" : value);
 		});
+	}
+
+	/**
+   * Return the URL
+   *
+   * @readonly
+   * @memberof Uri
+   */
+	get URL() {
+		return this._rawUrl;
 	}
 	/**
    *

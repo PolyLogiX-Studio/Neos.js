@@ -423,11 +423,12 @@ class Neos extends EventEmitter {
    *Get a specific User by their UserId
    *
    * @param {string} userId
-   * @returns
+   * @returns {User} User Object
    * @memberof Neos
    */
 	async GetUser(userId) {
-		return await this.CloudXInterface.GetUser(userId);
+		let response = await this.CloudXInterface.GetUser(userId);
+		return new this.CloudX.Shared.User(response.Entity);
 	}
 	/**
    *
@@ -690,9 +691,14 @@ class Neos extends EventEmitter {
    * - null - Default
    * @returns {String} http address to neosdb asset
    * @memberof Neos
+   * @example
+   * Neos.GetUser("U-bombitmanbomb").then((User)=>{
+   * 	console.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
+   * 	//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369
+   * })
    */
 	NeosDBToHttp(neosdb, endpoint) {
-		return CloudX.Shared.CloudXInterface.NeosDBToHttp(neosdb, endpoint);
+		return CloudX.Shared.CloudXInterface.NeosDBToHttp(neosdb, endpoint).rawUrl;
 	}
 	/**
    *

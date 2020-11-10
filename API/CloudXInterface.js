@@ -548,6 +548,7 @@ class CloudXInterface {
    * @memberof CloudXInterface
    */
   static NeosDBToHttp(neosdb, endpoint) {
+    if (!(neosdb instanceof Uri)) neosdb = new Uri(neosdb);
     let str1 = CloudXInterface.NeosDBSignature(neosdb);
     let str2 = CloudXInterface.NeosDBQuery(neosdb);
     let str3 = str1;
