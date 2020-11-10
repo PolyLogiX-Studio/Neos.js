@@ -42,6 +42,7 @@ const { UploadState } = require("./UploadState");
 const { Submission } = require("./Submission");
 const { RecordId } = require("./RecordId");
 const { CloudVariable } = require("./CloudVariable");
+const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
 /**
  *
  *
@@ -542,25 +543,33 @@ class CloudXInterface {
    *
    * @static
    * @param {Uri} neosdb
-   * @param {boolean} [forceCDN=false]
-   * @param {boolean} [forceCloudBlob=false]
+   * @param {NeosDB_Endpoint} forceCDN
    * @returns
    * @memberof CloudXInterface
    */
-  static NeosDBToHttp(neosdb, forceCDN = false, forceCloudBlob = false) {
+  static NeosDBToHttp(neosdb, endpoint) {
     let str1 = CloudXInterface.NeosDBSignature(neosdb);
     let str2 = CloudXInterface.NeosDBQuery(neosdb);
     let str3 = str1;
     if (str2 != null) str3 = str3 + "/" + str2;
     if (CloudXInterface.IsLegacyNeosDB(neosdb))
       return new Uri("https://neoscloud.blob.core.windows.net/assets/" + str3);
-    return new Uri(
-      (forceCDN
-        ? CloudXInterface.NEOS_ASSETS_CDN
-        : forceCloudBlob
-        ? "https://cloudxstorage.blob.core.windows.net/"
-        : CloudXInterface.NEOS_ASSETS) + str3
-    );
+    let str4 = new String();
+    switch (endpoint) {
+      case NeosDB_Endpoint.Blob:
+        str4 = CloudXInterface.NEOS_ASSETS_BLOB;
+        break;
+      case NeosDB_Endpoint.CDN:
+        str4 = CloudXInterface.NEOS_ASSETS_CDN;
+        break;
+      case NeosDB_Endpoint.VideoCDN:
+        str4 = CloudXInterface.NEOS_ASSETS_VIDEO_CDN;
+        break;
+      default:
+        str4 = CloudXInterface.NEOS_ASSETS;
+        break;
+    }
+    return new Uri(str4 + str3);
   }
   static FilterNeosURL(assetURL) {
     if (
@@ -1390,7 +1399,7 @@ class CloudXInterface {
       definition,
       new TimeSpan()
     ).then((b) => {
-      b.COntent = new CloudVariableDefinition(b.Entity);
+      b.Content = new CloudVariableDefinition(b.Entity);
     });
   }
   async ReadGlobalVariable(path) {
@@ -1577,6 +1586,7 @@ class CloudXInterface {
       "api/users/" + userId + "/friends" + str,
       new TimeSpan()
     ).then((b) => {
+      if (b.IsError) return b;
       let a = new List();
       for (let item of b.Entity) a.Add(new Friend(item));
       b.Content = a;
@@ -1692,7 +1702,7 @@ class CloudXInterface {
       `api/users/${this.CurrentUser.Id}/messages${stringBuilder.toString()}`,
       new TimeSpan()
     ).then((b) => {
-      if (!b.Entity) return b;
+      if (b.IsError) return b;
       let a = new List();
       for (let item of b.Entity) a.Add(new Message(item));
       b.Content = a;
