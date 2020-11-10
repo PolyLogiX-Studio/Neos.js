@@ -1267,7 +1267,7 @@ class CloudXInterface {
 		progressIndicator = null,
 		bytes = null
 	) {
-	//	let fileName = Path.GetFileName(assetPath);
+		//	let fileName = Path.GetFileName(assetPath);
 		//TODO finish
 	}
 	async WaitForAssetFinishProcessing(assetUpload) {

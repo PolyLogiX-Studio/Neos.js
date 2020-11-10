@@ -76,53 +76,56 @@ class MessageManager {
 		this.lastRequest = new Date();
 		this._waitingForRequest = true;
 		(async () => {
-			await this.Cloud.GetUnreadMessages(
-				this.lastUnreadMessage
-			).then(async (cloudResult1) => {
-				this._waitingForRequest = false;
-				if (cloudResult1.IsError) {
-					return;
-				}
-				var hashSet = new HashSet();
-				for (let message of cloudResult1.Entity) {
-					let tMessage = this.GetUserMessages(message.SenderId);
-					if (!tMessage) hashSet.push(message);
-					else {
-						tMessage.AddMessage(message);
+			await this.Cloud.GetUnreadMessages(this.lastUnreadMessage).then(
+				async (cloudResult1) => {
+					this._waitingForRequest = false;
+					if (cloudResult1.IsError) {
+						return;
 					}
-				}
-				let flag1 = false;
-				for (let message of cloudResult1.Entity) {
-					if (!hashSet.includes(message)) {
-						if (
-							this.InitialmessagesFetched &&
-							message.MessageType === "CreditTransfer"
-						) {
-							let content = message.ExtractContent();
-							////let flag2 = content.RecipientId === this.Cloud.CurrentUser.Id;
-							////let currentUser = this.Cloud.CurrentUser;
-							/*
+					var hashSet = new HashSet();
+					for (let message of cloudResult1.Entity) {
+						let tMessage = this.GetUserMessages(message.SenderId);
+						if (!tMessage) hashSet.push(message);
+						else {
+							tMessage.AddMessage(message);
+						}
+					}
+					let flag1 = false;
+					for (let message of cloudResult1.Entity) {
+						if (!hashSet.includes(message)) {
+							if (
+								this.InitialmessagesFetched &&
+								message.MessageType === "CreditTransfer"
+							) {
+								let content = message.ExtractContent();
+								////let flag2 = content.RecipientId === this.Cloud.CurrentUser.Id;
+								////let currentUser = this.Cloud.CurrentUser;
+								/*
                             if (currentUser.Credits != null && currentUser.Credits.CONTAINSKEY(content.Token)) { //TODO: Create Function CONTAINSKEY
                                 currentUser.Credits[content.Token] += flag2 ? content.Amount : -content.Amount;
                             }
                             */
-							flag1 = true;
+								flag1 = true;
+							}
+							let onMessageReceived = this.onMessageReceived;
+							if (onMessageReceived != null) onMessageReceived(message);
+							let friend = this.Cloud.Friends.GetFriend(message.SenderId);
+							if (friend != null)
+								friend.LatestMessageTime = Math.max(
+									new Date(),
+									message.SendTime
+								);
 						}
-						let onMessageReceived = this.onMessageReceived;
-						if (onMessageReceived != null) onMessageReceived(message);
-						let friend = this.Cloud.Friends.GetFriend(message.SenderId);
-						if (friend != null)
-							friend.LatestMessageTime = Math.max(new Date(), message.SendTime);
 					}
+					//TODO: POOL RETURN
+					this.MarkUnreadCountDirty();
+					this.InitialmessagesFetched = true;
+					if (!flag1) return;
+					await setTimeout(() => {
+						this.Cloud.UpdateCurrentUserInfo();
+					}, 10000);
 				}
-				//TODO: POOL RETURN
-				this.MarkUnreadCountDirty();
-				this.InitialmessagesFetched = true;
-				if (!flag1) return;
-				await setTimeout(() => {
-					this.Cloud.UpdateCurrentUserInfo();
-				}, 10000);
-			});
+			);
 		})();
 	}
 	MarkUnreadCountDirty() {
@@ -291,7 +294,8 @@ class MessageManager {
 				if (this._messageIds.includes(message.Id)) return false;
 				this.Messages.Add(message);
 				this._messageIds.Add(message.Id);
-				if (message.IsReceived && !(message.ReadTime != null)) ++this.UnreadCount;
+				if (message.IsReceived && !(message.ReadTime != null))
+					++this.UnreadCount;
 				while (
 					this.Messages.length > MessageManager.MAX_UNREAD_HISTORY ||
 					(this.Messages.length > MessageManager.MAX_UNREAD_HISTORY &&
