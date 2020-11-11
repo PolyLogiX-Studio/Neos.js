@@ -1312,7 +1312,7 @@ class CloudXInterface {
 	}
 	async GetGroup(groupId) {
 		var res = await this.GET("api/groups/" + groupId, new TimeSpan());
-		res.Content = new CloudX.Shared.Group(res.Entity);
+		res.Content = new Group(res.Entity);
 		return res;
 	}
 	async GetGroupCaches(groupId) {
@@ -1356,7 +1356,7 @@ class CloudXInterface {
 			"api/groups/" + groupId + "/members/" + userId,
 			new TimeSpan()
 		);
-		res.Content = new CloudX.Shared.Member(res.Entity);
+		res.Content = new Member(res.Entity);
 		return res;
 	}
 
