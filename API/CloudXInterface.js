@@ -44,7 +44,6 @@ const { Submission } = require("./Submission");
 const { RecordId } = require("./RecordId");
 const { CloudVariable } = require("./CloudVariable");
 const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
-const { CloudX } = require("../Neos");
 /**
  *
  *
@@ -1373,7 +1372,7 @@ class CloudXInterface {
 			"api/groups/" + groupId + "/members",
 			new TimeSpan()
 		);
-		let MemberList = new CloudX.Util.List();
+		let MemberList = new List();
 		for (let Member of res) {
 			MemberList.Add(Member);
 		}
