@@ -13,13 +13,14 @@
     <a href="https://www.npmjs.com/package/@bombitmanbomb/neosjs"><img src="https://img.shields.io/npm/dt/@bombitmanbomb/neosjs.svg?maxAge=3600" alt="NPM downloads" /></a>
     <img alt="Build" src="https://travis-ci.com/PolyLogiX-Studio/Neos.js.svg?branch=master">
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/PolyLogiX-Studio/Neos.js">
-    <a href="https://www.patreon.com/PolyLogiX_VR"><img src="https://img.shields.io/badge/donate-patreon-F96854.svg" alt="Patreon" /></a>
     <img alt="GitHub issues" src="https://img.shields.io/github/issues/PolyLogiX-Studio/Neos.js">
     <a href="https://www.codacy.com/gh/PolyLogiX-Studio/Neos.js/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PolyLogiX-Studio/Neos.js&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/c6eca36829154d05993cbaffb8172caa"/></a>
     <a href="https://lgtm.com/projects/g/PolyLogiX-Studio/Neos.js/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/PolyLogiX-Studio/Neos.js.svg?logo=lgtm&logoWidth=18"/></a>
     <a href="https://lgtm.com/projects/g/PolyLogiX-Studio/Neos.js/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/PolyLogiX-Studio/Neos.js.svg?logo=lgtm&logoWidth=18"/></a>
     <img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/PolyLogiX-Studio/Neos.js">
+    </p><p>
     <a href="https://ko-fi.com/N4N418QV5"><img src="https://www.ko-fi.com/img/githubbutton_sm.svg" alt="Ko-Fi" /></a>
+    <a href="https://www.patreon.com/PolyLogiX_VR"><img src="https://img.shields.io/badge/donate-patreon-F96854.svg" alt="Patreon" /></a>
   </p>
   <p>
     <a href="https://nodei.co/npm/@bombitmanbomb/neosjs"><img src="https://nodei.co/npm/@bombitmanbomb/neosjs.png?downloads=true&stars=true" alt="npm installnfo" /></a>
@@ -34,6 +35,10 @@ Consider pledging to our [Patreon](https://www.patreon.com/PolyLogiX_VR) or Dona
 Want to submit Code? Read our [Contributors Guide](CONTRIBUTING.md)!
 
 For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk)
+
+[View Development Time Allocation](https://wakatime.com/@bombitmanbomb/projects/ukduiihxzq)
+
+[![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](CONTRIBUTING.md)
 
 # NeosJS
 
