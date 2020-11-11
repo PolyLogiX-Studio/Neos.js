@@ -18,6 +18,7 @@
     <a href="https://lgtm.com/projects/g/PolyLogiX-Studio/Neos.js/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/PolyLogiX-Studio/Neos.js.svg?logo=lgtm&logoWidth=18"/></a>
     <a href="https://lgtm.com/projects/g/PolyLogiX-Studio/Neos.js/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/PolyLogiX-Studio/Neos.js.svg?logo=lgtm&logoWidth=18"/></a>
     <img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/PolyLogiX-Studio/Neos.js">
+    <a href="https://inch-ci.org/github/PolyLogiX-Studio/Neos.js"><img alt="Docs" src="http://inch-ci.org/github/PolyLogiX-Studio/Neos.js.svg?branch=master"></a>
     </p>
     <p>
     <a href="https://nodei.co/npm/@bombitmanbomb/neosjs"><img src="https://nodei.co/npm/@bombitmanbomb/neosjs.png?downloads=true&stars=true" alt="npm installnfo" /></a>

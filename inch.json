@@ -1,6 +1,6 @@
 {
 	"files": {
-		"included": ["Plugins/", "Neos.js"],
+		"included": ["Plugins/", "./Neos.js", "API/"],
 		"excluded": ["docs/", "Tests/"]
 	}
 }
