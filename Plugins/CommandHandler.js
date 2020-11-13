@@ -97,7 +97,7 @@ class CommandHandler {
 			context = this.CommandHandler;
 		}
 		if (Message.SenderId == context.Neos.CurrentUser.Id) return false;
-		let args = Message.Content.split(" ");
+		let args = context.ParseArguments(Message.Content);
 		let Command = args.shift();
 		if (context.Commands[Command]) {
 			context.Queue.Add(
@@ -109,6 +109,30 @@ class CommandHandler {
 		} else {
 			context.Neos.SendTextMessage(Message.SenderId, context.Invalid);
 		}
+	}
+	/**
+	 * @private
+	 * @param {String} str
+	 */
+	ParseArguments(str = "") {
+		var search = str.trim();
+		let Output = [];
+		if (search === "") return [];
+		var flag = false;
+		var stringBuilder = new this.Neos.CloudX.Util.StringBuilder();
+		for (let index = 0; index < search.length; index++) {
+			let num = index === search.length ? 1 : 0;
+			let c = num !== 0 ? " " : search[index];
+			if (num !== 0 || (c == " " && !flag) || (c === "\"") & flag) {
+				if (stringBuilder.Length > 0) {
+					Output.push(stringBuilder.ToString());
+				}
+				stringBuilder.Clear();
+				flag = false;
+			} else if (c === "\"") flag = true;
+			else stringBuilder.Append(c);
+		}
+		return Output;
 	}
 	/**
 	 * Add a Command
