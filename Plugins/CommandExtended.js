@@ -39,6 +39,8 @@ class CommandExtended {
 		this.Options.HelpCommand = Options.HelpCommand || "help";
 		this.Options.UsageCommand = Options.UsageCommand || "usage";
 		this.Options.CommandsCommand = Options.CommandsCommand || "commands";
+		this.Options.BetterArguments =
+			Options.BetterArguments != null ? Options.BetterArguments : true;
 		if (this.Options.CommandsCommand) {
 			this.Options.HelpDefault = `Get a list of commands with ${
 				this.Options.Prefix + this.Options.CommandsCommand
@@ -103,7 +105,30 @@ class CommandExtended {
 				} Command [Help Arguments?]`,
 			});
 	}
-
+	/**
+	 * @private
+	 * @param {String} str
+	 */
+	ParseArguments(str = "") {
+		var search = str.trim();
+		let Output = [];
+		if (search === "") return [];
+		var flag = false;
+		var stringBuilder = new this.Neos.CloudX.Util.StringBuilder();
+		for (let index = 0; index < search.length; index++) {
+			let num = index === search.length ? 1 : 0;
+			let c = num !== 0 ? " " : search[index];
+			if (num !== 0 || (c == " " && !flag) || (c === "\"") & flag) {
+				if (stringBuilder.Length > 0) {
+					Output.push(stringBuilder.ToString());
+				}
+				stringBuilder.Clear();
+				flag = false;
+			} else if (c === "\"") flag = true;
+			else stringBuilder.Append(c);
+		}
+		return Output;
+	}
 	/**
 	 * Add a new Command Hook
 	 * @param {String} Command Command
