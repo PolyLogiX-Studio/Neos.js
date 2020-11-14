@@ -14,10 +14,11 @@ notifications:
 
 jobs:
   include:
+    - stage: compile
+      script: npm run lint
     - stage: test
       script: 
         - echo "Running tests against $(node -v) ..."
-        - npm run lint
         - npm run test
     - stage: deploy
       script: npx semantic-release
