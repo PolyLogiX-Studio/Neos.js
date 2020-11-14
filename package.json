@@ -9,7 +9,7 @@
 		"testHeadless": "node Tests/Headless.js --unhandled-rejections=strict",
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
 		"document": "documentation build Neos.js -f html -o docs --shallow",
-		"prepare": "npm run document && npm run lint"
+		"prepare": "npm run document && npm run lint && npm run test"
 	},
 	"repository": {
 		"type": "git",
