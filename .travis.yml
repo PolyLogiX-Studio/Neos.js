@@ -20,4 +20,4 @@ jobs:
         - npm run lint
         - npm run test
     - stage: deploy
-      script: echo "Success"
+      script: npx semantic-release
