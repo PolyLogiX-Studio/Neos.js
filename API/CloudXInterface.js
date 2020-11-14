@@ -1594,9 +1594,10 @@ class CloudXInterface {
 	 */
 	async GetRandomExitMessage() {
 		return new ExitMessage(
-			await this.GET("api/exitMessage", new TimeSpan()).Entity
+			(await this.GET("api/exitMessage", new TimeSpan())).Entity
 		);
 	}
+			(await this.GET("https://api.exchangeratesapi.io/latest?base="+baseCurrency, new TimeSpan())).Entity
 	/**
 	 * Update the User Status
 	 * -If not userId is supplied, uses Current User, Refer to Examples
