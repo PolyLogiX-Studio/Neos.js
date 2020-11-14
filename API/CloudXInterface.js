@@ -692,12 +692,12 @@ class CloudXInterface {
 			flag = true;
 			resource = CloudXInterface.NEOS_API + "/" + resource;
 		}
-		var HttpRequestMessage = new HttpRequestMessage(method, resource);
+		var httpRequestMessage = new HttpRequestMessage(method, resource);
 		if (this.CurrentSession != null & flag) {
-			HttpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
+			httpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
 		}
-		HttpRequestMessage.Headers.UserAgent = this.UserAgent.Value();
-		return HttpRequestMessage;
+		httpRequestMessage.Headers.UserAgent = this.UserAgent.Value();
+		return httpRequestMessage;
 	}
 	/**
 	 *
