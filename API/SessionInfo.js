@@ -5,41 +5,41 @@ const { SessionUser } = require("./SessionUser");
 const { RecordId } = require("./RecordId");
 class SessionInfo {
 	/**
-   *	Creates an instance of SessionInfo.
-   * @param {{
-   * name: String,
-   * description: String
-   * correspondingWorldId: RecordId
-   * tags: HashSet<String>,
-   * sessionId: String,
-   * hostUserId: String,
-   * hostMachineId: String,
-   * hostUsername : String,
-   * compatabilityHash: String,
-   * universeId: String,
-   * neosVersion: String,
-   * headlessHost: Boolean,
-   * sessionURLs: List<String>,
-   * sessionUsers: List<SessionUser>,
-   * thumbnail: String,
-   * joinedUsers: Number,
-   * activeUsers: Number,
-   * maximumUsers: Number,
-   * mobileFreindly: Boolean,
-   * sessionBeginTime: Date,
-   * awaySince? : Date,
-   * accessLevel: String<SessionAccessLevel> // Enum
-   * }} $b
-   * @memberof SessionInfo
-   */
+	 *	Creates an instance of SessionInfo.
+	 * @param {{
+	 * name: String,
+	 * description: String
+	 * correspondingWorldId: RecordId
+	 * tags: HashSet<String>,
+	 * sessionId: String,
+	 * hostUserId: String,
+	 * hostMachineId: String,
+	 * hostUsername : String,
+	 * compatabilityHash: String,
+	 * universeId: String,
+	 * neosVersion: String,
+	 * headlessHost: Boolean,
+	 * sessionURLs: List<String>,
+	 * sessionUsers: List<SessionUser>,
+	 * thumbnail: String,
+	 * joinedUsers: Number,
+	 * activeUsers: Number,
+	 * maximumUsers: Number,
+	 * mobileFreindly: Boolean,
+	 * sessionBeginTime: Date,
+	 * awaySince? : Date,
+	 * accessLevel: String<SessionAccessLevel> // Enum
+	 * }} $b
+	 * @memberof SessionInfo
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Name = $b.name;
 		this.Description = $b.description;
 		this.CorrespondingWorldId =
-      $b.correspondingWorldId instanceof RecordId
-      	? $b.correspondingWorldId
-      	: new RecordId($b.correspondingWorldId);
+			$b.correspondingWorldId instanceof RecordId
+				? $b.correspondingWorldId
+				: new RecordId($b.correspondingWorldId);
 		this.Tags = $b.tags
 			? $b.tags instanceof HashSet
 				? $b.tags
@@ -67,7 +67,8 @@ class SessionInfo {
 						userList.Add(new SessionUser(user));
 					}
 					return userList;
-				})($b.sessionUsers)
+					//eslint-disable-next-line no-mixed-spaces-and-tabs
+				  })($b.sessionUsers)
 			: new List();
 		this.Thumbnail = $b.thumbnail;
 		this.JoinedUsers = $b.joinesUsers;
@@ -80,34 +81,34 @@ class SessionInfo {
 		this.AccessLevel = $b.accessLevel; //Enum
 	}
 	/**
-   * Is the session LAN
-   * @readonly
-   * @memberof SessionInfo
-   */
+	 * Is the session LAN
+	 * @readonly
+	 * @memberof SessionInfo
+	 */
 	get IsOnLAN() {
 		return this.LAN_URL != null;
 	}
 	/**
-   * Is the session still up?
-   * @readonly
-   * @memberof SessionInfo
-   */
+	 * Is the session still up?
+	 * @readonly
+	 * @memberof SessionInfo
+	 */
 	get HasEnded() {
 		return this.SessionURLs == null || this.SessionURLs.Count === 0;
 	}
 	/**
-   * Mark the session as ended
-   * @function
-   * @memberof SessionInfo
-   */
+	 * Mark the session as ended
+	 * @function
+	 * @memberof SessionInfo
+	 */
 	SetEnded() {
 		this.SessionURLs = null;
 	}
 	/**
-   * Copy the lan info of a session to the current session object
-   * @param {SessionInfo} source
-   * @memberof SessionInfo
-   */
+	 * Copy the lan info of a session to the current session object
+	 * @param {SessionInfo} source
+	 * @memberof SessionInfo
+	 */
 	CopyLAN_Data(source) {
 		this.LAN_URL = source.LAN_URL;
 		this.LastLAN_Update = source.LastLAN_Update;
@@ -116,10 +117,10 @@ class SessionInfo {
 		this.SessionURLs.Add(this.LAN_URL);
 	}
 	/**
-   * Session Urls
-   * @returns {List<Uri>}
-   * @memberof SessionInfo
-   */
+	 * Session Urls
+	 * @returns {List<Uri>}
+	 * @memberof SessionInfo
+	 */
 	GetSessionURLs() {
 		let urls = new List();
 		for (let url in this.SessionURLs) {
@@ -128,23 +129,23 @@ class SessionInfo {
 		return urls;
 	}
 	/**
-   * Is name Safe (!18+)
-   * @static
-   * @param {String} name
-   * @returns {Boolean}
-   * @memberof SessionInfo
-   */
+	 * Is name Safe (!18+)
+	 * @static
+	 * @param {String} name
+	 * @returns {Boolean}
+	 * @memberof SessionInfo
+	 */
 	static IsAllowedName(name) {
 		if (name == null) return true;
 		name = name.toLowerCase();
 		return !~name.indexOf("18+") && !~name.indexOf("nsfw");
 	}
 	/**
-   * Normalized Session Id
-   * @returns {String}
-   * @readonly
-   * @memberof SessionInfo
-   */
+	 * Normalized Session Id
+	 * @returns {String}
+	 * @readonly
+	 * @memberof SessionInfo
+	 */
 	get NormalizedSessionId() {
 		if (this.SessionId) return this.SessionId.toLower();
 		return null;
@@ -168,31 +169,31 @@ class SessionInfo {
 		return 256;
 	}
 	/**
-   * Update Session Id
-   * @param {String} sessionId
-   * @memberof SessionInfo
-   */
+	 * Update Session Id
+	 * @param {String} sessionId
+	 * @memberof SessionInfo
+	 */
 	SessionInfo(sessionId) {
 		this.SessionId = sessionId;
 		this.LastUpdate = new Date();
 	}
 	/**
-   * Is the sessionId Custom (DEV)
-   * @static
-   * @param {String} sessionId
-   * @returns {Boolean}
-   * @memberof SessionInfo
-   */
+	 * Is the sessionId Custom (DEV)
+	 * @static
+	 * @param {String} sessionId
+	 * @returns {Boolean}
+	 * @memberof SessionInfo
+	 */
 	static IsCustomSessionId(sessionId) {
 		return sessionId.startsWith("S-U-");
 	}
 	/**
-   * Get OwnerId from a Custom ID
-   * @static
-   * @param {String} sessionId
-   * @returns {String}
-   * @memberof SessionInfo
-   */
+	 * Get OwnerId from a Custom ID
+	 * @static
+	 * @param {String} sessionId
+	 * @returns {String}
+	 * @memberof SessionInfo
+	 */
 	static GetCustomSessionOwnerId(sessionId) {
 		var num = sessionId.indexOf(":");
 		if (!~num)
@@ -200,12 +201,12 @@ class SessionInfo {
 		return sessionId.substr(2, num - 2);
 	}
 	/**
-   * Check if the given session id is Valid
-   * @static
-   * @param {String} sessionId
-   * @returns {Boolean}
-   * @memberof SessionInfo
-   */
+	 * Check if the given session id is Valid
+	 * @static
+	 * @param {String} sessionId
+	 * @returns {Boolean}
+	 * @memberof SessionInfo
+	 */
 	static IsValidSessionId(sessionId) {
 		if (sessionId == null || sessionId.trim() == "") return false;
 		for (let c of sessionId) {
@@ -217,7 +218,7 @@ class SessionInfo {
 		}
 		return (
 			!sessionId.startsWith("U-") &&
-      (!SessionInfo.IsCustomSessionId(sessionId) || sessionId.indexOf(":") >= 0)
+			(!SessionInfo.IsCustomSessionId(sessionId) || sessionId.indexOf(":") >= 0)
 		);
 	}
 	IsSame(other) {
@@ -232,9 +233,9 @@ class SessionInfo {
 		return true;
 	}
 	/**
-   * Trim the current SessionInfo to maximum lengths
-   * @memberof SessionInfo
-   */
+	 * Trim the current SessionInfo to maximum lengths
+	 * @memberof SessionInfo
+	 */
 	Trim() {
 		var name = this.Name;
 		if (
@@ -260,10 +261,10 @@ class SessionInfo {
 		//TODO Trim Tags
 	}
 	/**
-   * To String
-   * @returns {String}
-   * @memberof SessionInfo
-   */
+	 * To String
+	 * @returns {String}
+	 * @memberof SessionInfo
+	 */
 	ToString() {
 		return "SessionInfo. Id " + this.SessionId;
 	}
