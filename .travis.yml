@@ -12,3 +12,12 @@ script:
 notifications: 
   email: false
 
+jobs:
+  include:
+    - stage: test
+      script: 
+        - echo "Running tests against $(node -v) ..."
+        - npm run lint
+        - npm run test
+    - stage: deploy
+      script: echo "Success"
