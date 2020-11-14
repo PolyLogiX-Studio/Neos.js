@@ -8,7 +8,8 @@
 		"testCommands": "node Tests/Commands.js --unhandled-rejections=strict",
 		"testHeadless": "node Tests/Headless.js --unhandled-rejections=strict",
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
-		"document": "documentation build Neos.js -f html -o docs --shallow"
+		"document": "documentation build Neos.js -f html -o docs --shallow",
+		"prepare":"npm run document && npm run lint"
 	},
 	"repository": {
 		"type": "git",
