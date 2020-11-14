@@ -72,6 +72,11 @@ class SessionInfo {
 		}
 		return urls
 	}
+	static IsAllowedName(name){
+		if (name == null) return true
+		name = name.toLowerCase()
+		return !(~name.indexOf("18+")) && !(~name.indexOf("nsfw"))
+	}
 	get NormalizedSessionId() {
 		if (this.SessionId) return this.SessionId.toLower();
 		return null;
