@@ -1,7 +1,21 @@
 const { Dictionary } = require("./Dictionary");
+/**
+ * Currency Rates
+ * @class CurrencyRates
+ */
 class CurrencyRates {
 	constructor($b) {
+		/**
+		 * @instance
+		 * @type {String}
+		 * @memberof CurrencyRates
+		 */
 		this.BaseCurrency = $b.base;
+		/**
+		 * @instance
+		 * @type {Dictionary<String, Number>}
+		 * @memberof CurrencyRates
+		 */
 		this.Rates =
 			$b.rates instanceof Dictionary
 				? $b.rates
