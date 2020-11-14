@@ -692,7 +692,7 @@ class CloudXInterface {
 			flag = true;
 			resource = CloudXInterface.NEOS_API + "/" + resource;
 		}
-		var HttpRequestMessage = new HttpRequestMessage(method, Endpoint);
+		var HttpRequestMessage = new HttpRequestMessage(method, resource);
 		if (this.CurrentSession != null & flag) {
 			HttpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
 		}
