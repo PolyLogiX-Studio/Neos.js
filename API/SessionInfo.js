@@ -133,7 +133,13 @@ class SessionInfo {
 		//TODO
 	}
 	Trim(){
-		/TODO
+		var name = this.Name
+		if ((name != null ? (name.length > SessionInfo.MAX_NAME_LENGTH ? 1 : 0) : 0) != 0)
+			this.Name = this.Name.substr(0, SessionInfo.MAX_NAME_LENGTH)
+		var description = this.Description
+		if ((description != null ? (description.length > SessionInfo.MAX_DESCRIPTION_LENGTH?1:0):0)!=0)
+			this.Description = this.Description.substr(0,SessionInfo.MAX_DESCRIPTION_LENGTH);
+		//TODO Trim Tags
 	}
 	ToString(){
 		return "SessionInfo. Id "+this.SessionId
