@@ -585,8 +585,8 @@ class Neos extends EventEmitter {
 	 */
 
 	/**
-	 *
-	 *
+	 * Get the number of friends in a Session
+	 * @instance
 	 * @param {SessionInfo} session
 	 * @returns {Number} Friends in Session
 	 * @memberof Neos
