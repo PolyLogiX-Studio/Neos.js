@@ -139,15 +139,19 @@ class FriendManager {
 	 * @returns {Number} Friends in Session
 	 * @memberof FriendManager
 	 */
-	CountPresentFriends(session){
+	CountPresentFriends(session) {
 		if (session.SessionUsers == null || session.SessionUsers.length == 0)
-			return 0
-		var num = 0
-		for (let sessionUser of session.SessionUsers){
-			if (sessionUser.IsPresent && sessionUser.UserId != null && this.friends.ContainsKey(sessionUser.UserId))
-				num++
+			return 0;
+		var num = 0;
+		for (let sessionUser of session.SessionUsers) {
+			if (
+				sessionUser.IsPresent &&
+				sessionUser.UserId != null &&
+				this.friends.ContainsKey(sessionUser.UserId)
+			)
+				num++;
 		}
-		return num
+		return num;
 	}
 
 	/**
@@ -267,8 +271,8 @@ class FriendManager {
 		}
 		if (
 			this.Cloud.CurrentUser == null ||
-			new Date(new Date() - this.lastRequest).getSeconds() <
-				FriendManager.UPDATE_PERIOD_SECONDS
+			new Date(new Date() - this.lastRequest).getTime() <
+				FriendManager.UPDATE_PERIOD_SECONDS * 1000
 		) {
 			return;
 		}
