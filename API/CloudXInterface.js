@@ -687,20 +687,17 @@ class CloudXInterface {
 	 * @returns {HttpRequestMessage}
 	 */
 	CreateRequest(resource, method) {
-		let Endpoint;
-		if (this.OAuth) {
-			if (this.OAuth.IsOAUTH)
-				Endpoint = CloudXInterface.POLYLOGIX_OAUTH_API + resource;
-			else Endpoint = CloudXInterface.NEOS_API + resource;
-		} else {
-			Endpoint = CloudXInterface.NEOS_API + resource;
+		var flag = false;
+		if (!resource.startsWith("http")) {
+			flag = true;
+			resource = CloudXInterface.NEOS_API + "/" + resource;
 		}
-		let request = new HttpRequestMessage(method, Endpoint);
-		if (this.CurrentSession != null) {
-			request.Headers.Authorization = this._currentAuthenticationHeader;
+		var HttpRequestMessage = new HttpRequestMessage(method, Endpoint);
+		if (this.CurrentSession != null & flag) {
+			HttpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
 		}
-		request.Headers.UserAgent = this.UserAgent.Value();
-		return request;
+		HttpRequestMessage.Headers.UserAgent = this.UserAgent.Value();
+		return HttpRequestMessage;
 	}
 	/**
 	 *
