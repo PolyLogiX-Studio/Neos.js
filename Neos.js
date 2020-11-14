@@ -576,13 +576,6 @@ class Neos extends EventEmitter {
 	 */
 	// eslint-disable-next-line no-unused-vars
 	FindRecords(record) {}
-	/**
-	 *Not yet Implimented
-	 * @instance
-	 * @param {*} ownerId
-	 * @param {*} recordId
-	 * @memberof Neos
-	 */
 
 	/**
 	 * Get the number of friends in a Session
@@ -594,6 +587,14 @@ class Neos extends EventEmitter {
 	CountPresentFriends(session) {
 		return this.CloudXInterface.Friends.CountPresentFriends(session);
 	}
+
+	/**
+	 *Not yet Implimented
+	 * @instance
+	 * @param {*} ownerId
+	 * @param {*} recordId
+	 * @memberof Neos
+	 */
 
 	// eslint-disable-next-line no-unused-vars
 	FetchRecord(ownerId, recordId) {}
