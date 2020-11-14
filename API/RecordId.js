@@ -11,6 +11,9 @@ String.prototype.GetHashCode = function () {
 	}
 	return hash;
 };
+const { RecordUtil } = require("./RecordUtil");
+const { OwnerType } = require("./OwnerType");
+const { IdUtil } = require("./IdUtil");
 //Code
 
 class RecordId {
@@ -51,6 +54,12 @@ class RecordId {
 	RecordId(ownerId, recordId) {
 		this.OwnerId = ownerId;
 		this.Id = recordId;
+	}
+	get IsValid() {
+		return RecordId.IsValidId(this.OwnerId, this.Id);
+	}
+	static IsValidId(ownerId, id) {
+		return RecordUtil.IsValidRecordID(id) && IdUtil.GetOwnerType(ownerId) != OwnerType.INVALID;
 	}
 }
 module.exports = {
