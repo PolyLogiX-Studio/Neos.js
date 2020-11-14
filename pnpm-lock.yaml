@@ -9,7 +9,6 @@ devDependencies:
   "@types/minimist": 1.2.1
   "@types/normalize-package-data": 2.4.0
   "@types/unist": 2.0.3
-  conventional-changelog-eslint: 3.0.9
   documentation: 13.1.0
   dotenv: 8.2.0
   eslint: 7.13.0
@@ -5806,7 +5805,6 @@ specifiers:
   "@types/minimist": ^1.2.0
   "@types/normalize-package-data": ^2.4.0
   "@types/unist": ^2.0.3
-  conventional-changelog-eslint: ^3.0.9
   crypto-js: ^4.0.0
   decimal.js: ^10.2.1
   documentation: ^13.1.0

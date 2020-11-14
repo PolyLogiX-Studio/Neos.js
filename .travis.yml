@@ -4,7 +4,7 @@ node_js:
   - 12
 os: linux
 
-notifications: 
+notifications:
   email: false
 
 jobs:
@@ -12,12 +12,7 @@ jobs:
     - stage: compile
       script: npm run lint
     - stage: test
-      script: 
-        - echo "Running tests against $(node -v) ..."
-        - npm run test
-    - stage: deploy
-      script: npx semantic-release
+      script: npm run test
 stages:
   - compile
   - test
-  - deploy
