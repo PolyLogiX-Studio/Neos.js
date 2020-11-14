@@ -588,6 +588,15 @@ class Neos extends EventEmitter {
 	}
 
 	/**
+	 * Get a random Exit Message
+	 * @instance
+	 * @returns {ExitMessage}
+	 * @memberof Neos
+	 */
+	async GetRandomExitMessage(){
+		return this.CloudXInterface.GetRandomExitMessage();
+	}
+	/**
 	 *Not yet Implimented
 	 * @instance
 	 * @param {*} ownerId
