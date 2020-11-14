@@ -44,6 +44,7 @@ const { Submission } = require("./Submission");
 const { RecordId } = require("./RecordId");
 const { CloudVariable } = require("./CloudVariable");
 const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
+const { ExitMessage } = require("./ExitMessage");
 /**
  *
  *
@@ -1590,7 +1591,9 @@ class CloudXInterface {
 		});
 	}
 	async GetRandomExitMessage() {
-		return await this.GET("api/exitMessage", new TimeSpan()).Entity;
+		return new ExitMessage(
+			await this.GET("api/exitMessage", new TimeSpan()).Entity
+		);
 	}
 	/**
 	 * Update the User Status
