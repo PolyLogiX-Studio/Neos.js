@@ -1598,13 +1598,13 @@ class CloudXInterface {
 			(await this.GET("api/exitMessage", new TimeSpan())).Entity
 		);
 	}
-/**
- * Get a list of Transaction Rates
- * @param {string} [baseCurrency="USD"]
- * @returns {CurrencyRates}
- * @memberof CloudXInterface
- */
-async GetCurrencyRates(baseCurrency = "USD") {
+	/**
+	 * Get a list of Transaction Rates
+	 * @param {string} [baseCurrency="USD"]
+	 * @returns {CurrencyRates}
+	 * @memberof CloudXInterface
+	 */
+	async GetCurrencyRates(baseCurrency = "USD") {
 		return new CurrencyRates(
 			(
 				await this.GET(

@@ -593,17 +593,17 @@ class Neos extends EventEmitter {
 	 * @returns {ExitMessage}
 	 * @memberof Neos
 	 */
-	async GetRandomExitMessage(){
+	async GetRandomExitMessage() {
 		return this.CloudXInterface.GetRandomExitMessage();
 	}
 	/**
- * Get currency transaction rates
- * @instance
- * @param {string} [baseCurrency="USD"]
- * @returns {CurrencyRates}
- * @memberof Neos
- */
-async GetCurrencyRates(baseCurrency="USD"){
+	 * Get currency transaction rates
+	 * @instance
+	 * @param {string} [baseCurrency="USD"]
+	 * @returns {CurrencyRates}
+	 * @memberof Neos
+	 */
+	async GetCurrencyRates(baseCurrency = "USD") {
 		return this.CloudXInterface.GetCurrencyRates(baseCurrency);
 	}
 	/**
