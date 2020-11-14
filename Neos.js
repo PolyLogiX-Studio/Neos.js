@@ -584,18 +584,16 @@ class Neos extends EventEmitter {
 	 * @memberof Neos
 	 */
 
-/**
- *
- *
- * @param {SessionInfo} session
- * @returns {Number} Friends in Session
- * @memberof Neos
- */
-CountPresentFriends(session){
+	/**
+	 *
+	 *
+	 * @param {SessionInfo} session
+	 * @returns {Number} Friends in Session
+	 * @memberof Neos
+	 */
+	CountPresentFriends(session) {
 		return this.CloudXInterface.Friends.CountPresentFriends(session);
 	}
-
-
 
 	// eslint-disable-next-line no-unused-vars
 	FetchRecord(ownerId, recordId) {}
