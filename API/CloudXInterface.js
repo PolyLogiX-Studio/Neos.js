@@ -45,6 +45,7 @@ const { RecordId } = require("./RecordId");
 const { CloudVariable } = require("./CloudVariable");
 const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
 const { ExitMessage } = require("./ExitMessage");
+const { CurrencyRates } = require("./CurrencyRates");
 /**
  *
  *
@@ -693,7 +694,7 @@ class CloudXInterface {
 			resource = CloudXInterface.NEOS_API + "/" + resource;
 		}
 		var httpRequestMessage = new HttpRequestMessage(method, resource);
-		if (this.CurrentSession != null & flag) {
+		if ((this.CurrentSession != null) & flag) {
 			httpRequestMessage.Headers.Authorization = this._currentAuthenticationHeader;
 		}
 		httpRequestMessage.Headers.UserAgent = this.UserAgent.Value();
@@ -1597,7 +1598,17 @@ class CloudXInterface {
 			(await this.GET("api/exitMessage", new TimeSpan())).Entity
 		);
 	}
-			(await this.GET("https://api.exchangeratesapi.io/latest?base="+baseCurrency, new TimeSpan())).Entity
+
+	async GetCurrencyRates(baseCurrency = "USD") {
+		return new CurrencyRates(
+			(
+				await this.GET(
+					"https://api.exchangeratesapi.io/latest?base=" + baseCurrency,
+					new TimeSpan()
+				)
+			).Entity
+		);
+	}
 	/**
 	 * Update the User Status
 	 * -If not userId is supplied, uses Current User, Refer to Examples
