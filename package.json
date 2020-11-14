@@ -1,6 +1,6 @@
 {
 	"name": "@bombitmanbomb/neosjs",
-	"version": "1.7.2-beta.3",
+	"version": "1.7.2-beta.4",
 	"description": "Neos API",
 	"main": "Neos.js",
 	"scripts": {
@@ -9,7 +9,7 @@
 		"testHeadless": "node Tests/Headless.js --unhandled-rejections=strict",
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
 		"document": "documentation build Neos.js -f html -o docs --shallow",
-		"prepare":"npm run document && npm run lint"
+		"prepare": "npm run document && npm run lint"
 	},
 	"repository": {
 		"type": "git",
