@@ -33,7 +33,11 @@ Commands.Add("ping", (h) => h.Reply("pong!"), "Ping Pong!");
 Commands.Add("TestFunction", TestFunction, TestHelp);
 Commands.Add("ping3", (h) => h.Reply("pong!"), "Ping Pong!");
 Commands.Add("ping4", (h) => h.Reply("pong!"), "Ping Pong!");
-Neos.on("messageReceived", Commands.Run);
+Neos.on("messageReceived", (Message) => {
+	if (Message.SenderId != process.env.NEOS_LOGIN_SECOND) return;
+	console.log(Message.SenderId + ":" + Message.Content);
+	Commands.Run(Message);
+});
 Neos.Login(
 	process.env.NEOS_LOGIN,
 	process.env.NEOS_PASSWORD,
