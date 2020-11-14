@@ -1,5 +1,4 @@
 const { List } = require("./List");
-const { Type } = require("./Type");
 const { Uri } = require("./Uri");
 const { HashSet } = require("./HashSet");
 const { SessionUser } = require("./SessionUser");
