@@ -1587,6 +1587,11 @@ class CloudXInterface {
 			return b;
 		});
 	}
+	/**
+	 * Get a random Exit Message
+	 * @returns {ExitMessage}
+	 * @memberof CloudXInterface
+	 */
 	async GetRandomExitMessage() {
 		return new ExitMessage(
 			await this.GET("api/exitMessage", new TimeSpan()).Entity
