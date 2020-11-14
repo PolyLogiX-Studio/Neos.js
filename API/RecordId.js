@@ -59,7 +59,10 @@ class RecordId {
 		return RecordId.IsValidId(this.OwnerId, this.Id);
 	}
 	static IsValidId(ownerId, id) {
-		return RecordUtil.IsValidRecordID(id) && IdUtil.GetOwnerType(ownerId) != OwnerType.INVALID;
+		return (
+			RecordUtil.IsValidRecordID(id) &&
+			IdUtil.GetOwnerType(ownerId) != OwnerType.INVALID
+		);
 	}
 }
 module.exports = {
