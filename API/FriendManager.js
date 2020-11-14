@@ -131,6 +131,25 @@ class FriendManager {
 			return friend.Out.FriendStatus === "Accepted";
 		return false;
 	}
+
+	/**
+	 *	Get the number of friends in a session
+	 *
+	 * @param {SessionInfo} session
+	 * @returns {Number} Friends in Session
+	 * @memberof FriendManager
+	 */
+	CountPresentFriends(session){
+		if (session.SessionUsers == null || session.SessionUsers.length == 0)
+			return 0
+		var num = 0
+		for (let sessionUser of session.SessionUsers){
+			if (sessionUser.IsPresent && sessionUser.UserId != null && this.friends.ContainsKey(sessionUser.UserId))
+				num++
+		}
+		return num
+	}
+
 	/**
 	 *
 	 *
