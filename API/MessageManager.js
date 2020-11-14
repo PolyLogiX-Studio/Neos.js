@@ -255,7 +255,7 @@ class MessageManager {
 			async SendMessage(message) {
 				if (message.Id == null) message.Id = Message.GenerateId();
 				message.RecipientId = this.UserId;
-				message.SenderId = this.Cloud.CurrentUser.Id;
+				message.SenderId = this.CloudXInterface.CurrentUser.Id;
 				message.OwnerId = message.SenderId;
 				message.SendTime = new Date();
 				this.Messages.push(message);

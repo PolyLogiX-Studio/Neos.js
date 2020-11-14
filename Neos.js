@@ -100,7 +100,6 @@ class Neos extends EventEmitter {
 		);
 		this.CloudXInterface.NeosJS = this;
 		this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
-		this._UserMessage.Cloud = this.CloudXInterface;
 		this.CloudXInterface.OnLogin = (obj) => {
 			this.Events.emit("login", obj);
 		};
@@ -796,6 +795,7 @@ class Neos extends EventEmitter {
  * Error Event
  * @example Neos.on("error", (err)=>{console.error(err)})
  * @event Neos#error
+ * @param {Error} err
  * @type {Error}
  * @memberof Neos
  */
