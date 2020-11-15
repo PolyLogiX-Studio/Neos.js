@@ -3,7 +3,7 @@ class UserProfile {
 		if (!$b) $b = {};
 		this.IconUrl = $b.iconUrl;
 		this.BackgroundUrl = $b.backgroundUrl;
-		this.TagLine = $b.tagLine;
+		this.Tagline = $b.tagline;
 		this.Description = $b.description;
 		this.ProfileWorldUrl = $b.profileWorldUrl;
 		this.ShowcaseItems = $b.showcaseItems;
