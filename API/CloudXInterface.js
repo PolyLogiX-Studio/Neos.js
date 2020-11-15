@@ -1647,8 +1647,7 @@ class CloudXInterface {
 	 */
 	async UpdateProfile(userId, profile) {
 		if (!profile) {
-			this.CurrentUser.Profile = userId;
-			return await this.UpdateProfile(this.CurrentUser.Id);
+			return await this.UpdateProfile(this.CurrentUser.Id, userId);
 		}
 		return await this.PUT(
 			"api/users/" + userId + "/profile",
