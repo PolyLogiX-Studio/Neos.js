@@ -39,7 +39,7 @@ class HTTP_CLIENT {
 							body === "" ||
 							!~resHeaders.get("content-type").indexOf("application/json")
 						)
-							return { response: {} };
+							return { response: null };
 						return JSON.parse(body);
 					} catch (error) {
 						return {
