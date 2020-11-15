@@ -46,6 +46,7 @@ const { CloudVariable } = require("./CloudVariable");
 const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
 const { ExitMessage } = require("./ExitMessage");
 const { CurrencyRates } = require("./CurrencyRates");
+const { Membership } = require("./Membership");
 /**
  *
  *
@@ -548,8 +549,13 @@ class CloudXInterface {
 		}
 	}
 	SetMemberships(memberships) {
-		this._groupMemberships = memberships;
+		this._groupMemberships.Clear()
+		this._groupMemberships.AddRange(memberships);
 		this.RunMembershipsUpdated();
+	}
+	AddMembership(membership){
+		this._groupMemberships.Add(membership)
+		this.RunMembershipsUpdated()
 	}
 	/**
 	 * Reset the membership cache
@@ -816,6 +822,7 @@ class CloudXInterface {
 			this.CurrentUser = new User();
 			this.CurrentUser.Id = this.CurrentSession.UserId;
 			this.CurrentUser.Username = credentials.Username;
+			this.CurrentUser.Email = credentials.email
 			await this.UpdateCurrentUserInfo();
 			await this.UpdateCurrentUserMemberships();
 			this.Friends.Update();
@@ -1380,15 +1387,21 @@ class CloudXInterface {
 	}
 	async UpdateCurrentUserMemberships() {
 		let groupMemberships = await this.GetUserGroupMemberships();
-		if (groupMemberships.isOK) this.SetMemberships(groupMemberships.Entity);
+		if (groupMemberships.IsOK) this.SetMemberships(groupMemberships.Entity);
 		return groupMemberships;
 	}
 	async GetUserGroupMemberships(userId) {
 		if (!userId) return await this.GetUserGroupMemberships(this.CurrentUser.Id);
-		return await this.GET(
+		let response = await this.GET(
 			"api/users/" + userId + "/memberships",
 			new TimeSpan()
 		);
+		var GroupInfo = new List()
+		for (let Group of response.Entity){
+			GroupInfo.Add(new Membership(Group))
+		}
+		response.Content = GroupInfo
+		return response
 	}
 	/**
 	 *
@@ -1406,14 +1419,14 @@ class CloudXInterface {
 		/** @type {CloudResult<Member>>} */
 		let cloudResult = await memberTask;
 		if (groupResult.IsOK) {
-			this._groups.Remove(groupId);
-			this._groups.Add(groupId, new Group(groupResult.Entity));
+			this._groups.TryRemove(groupId);
+			this._groups.Add(groupId, groupResult.Entity);
 			let groupUpdated = this.GroupUpdated;
 			if (groupUpdated != null) groupUpdated(groupResult.Entity);
 		}
 		if (!cloudResult.IsOK) return;
-		this._groupMemberInfos.Remove(groupId);
-		this._groupMemberInfos.Add(groupId, new Member(cloudResult.Entity));
+		this._groupMemberInfos.TryRemove(groupId);
+		this._groupMemberInfos.Add(groupId, cloudResult.Entity);
 		let groupMemberUpdated = this.GroupMemberUpdated;
 		if (groupMemberUpdated == null) return;
 		groupMemberUpdated(cloudResult.Entity);
