@@ -549,13 +549,13 @@ class CloudXInterface {
 		}
 	}
 	SetMemberships(memberships) {
-		this._groupMemberships.Clear()
+		this._groupMemberships.Clear();
 		this._groupMemberships.AddRange(memberships);
 		this.RunMembershipsUpdated();
 	}
-	AddMembership(membership){
-		this._groupMemberships.Add(membership)
-		this.RunMembershipsUpdated()
+	AddMembership(membership) {
+		this._groupMemberships.Add(membership);
+		this.RunMembershipsUpdated();
 	}
 	/**
 	 * Reset the membership cache
@@ -822,7 +822,7 @@ class CloudXInterface {
 			this.CurrentUser = new User();
 			this.CurrentUser.Id = this.CurrentSession.UserId;
 			this.CurrentUser.Username = credentials.Username;
-			this.CurrentUser.Email = credentials.email
+			this.CurrentUser.Email = credentials.email;
 			await this.UpdateCurrentUserInfo();
 			await this.UpdateCurrentUserMemberships();
 			this.Friends.Update();
@@ -1396,12 +1396,12 @@ class CloudXInterface {
 			"api/users/" + userId + "/memberships",
 			new TimeSpan()
 		);
-		var GroupInfo = new List()
-		for (let Group of response.Entity){
-			GroupInfo.Add(new Membership(Group))
+		var GroupInfo = new List();
+		for (let Group of response.Entity) {
+			GroupInfo.Add(new Membership(Group));
 		}
-		response.Content = GroupInfo
-		return response
+		response.Content = GroupInfo;
+		return response;
 	}
 	/**
 	 *
@@ -1936,8 +1936,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 		let result = new Out();
-		return !cloudResult.IsOK ||
-			Number.TryParseInt(cloudResult.Content, result)
+		return !cloudResult.IsOK || Number.TryParseInt(cloudResult.Content, result)
 			? -1
 			: result.Out;
 	}
