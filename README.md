@@ -26,6 +26,11 @@
   </p>
 </div>
 
+# Documentation
+
+View Full Documentation [HERE](https://polylogix-studio.github.io/Neos.js/)
+Neos.js uses JSDoc Intellisense.
+
 # Support
 
 Do you want to help with Neos.js Development?
@@ -76,5 +81,3 @@ neos.on("messageReceived",(message)=>{
 neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, MachineID<String>, RememberMe<Boolean>)
 
 ```
-
-View Full Documentation [HERE](https://polylogix-studio.github.io/Neos.js/)
