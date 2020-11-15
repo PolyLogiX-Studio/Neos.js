@@ -1,3 +1,4 @@
+const { List } = require("./List");
 class UserProfile {
 	constructor($b) {
 		if (!$b) $b = {};
@@ -6,8 +7,18 @@ class UserProfile {
 		this.Tagline = $b.tagline;
 		this.Description = $b.description;
 		this.ProfileWorldUrl = $b.profileWorldUrl;
-		this.ShowcaseItems = $b.showcaseItems;
-		this.TokenOptOut = $b.tokenOptOut;
+		this.ShowcaseItems =
+			$b.showcaseItems instanceof List
+				? $b.showcaseItems
+				: $b.showcaseItems != null
+					? List.ToList($b.showcaseItems)
+					: null;
+		this.TokenOptOut =
+			$b.tokenOptOut instanceof List
+				? $b.tokenOptOut
+				: $b.tokenOptOut != null
+					? List.ToList($b.tokenOptOut)
+					: null;
 	}
 	/**
 	 *
