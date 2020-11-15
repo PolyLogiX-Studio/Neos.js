@@ -1924,7 +1924,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 		let result = new Out();
-		return !cloudResult.IsOK() ||
+		return !cloudResult.IsOK ||
 			Number.TryParseInt(cloudResult.Content, result)
 			? -1
 			: result.Out;
