@@ -38,7 +38,7 @@ Consider pledging to our [Patreon](https://www.patreon.com/PolyLogiX_VR) or Dona
 
 Want to submit Code? Read our [Contributors Guide](CONTRIBUTING.md)!
 
-For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk)
+For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk) after checking our [FAQ](#faq)
 
 [View Development Time Allocation](https://wakatime.com/@bombitmanbomb/projects/ukduiihxzq)
 
@@ -81,3 +81,24 @@ neos.on("messageReceived",(message)=>{
 neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, MachineID<String>, RememberMe<Boolean>)
 
 ```
+
+# FAQ
+
+## Can I run Neos.js in my Browser
+
+> No, NeosVR CORS Policy denies browser requests.
+> You must make requests from a Node server. If you are new we reccomend Glitch.me
+
+## Will you add Browser Support
+
+> This is a limitation imposed by the Neos server and workarounds are Very limited,
+> as well as **extremely** _Unsafe_.
+
+## How do I use a Pre-Release Version
+
+> Most notable Pre-Release versions are available on [NPM](https://www.npmjs.com/package/@bombitmanbomb/neosjs).
+> -alpha is Unstable, -beta is Usable but might have bugs, -rc is the Release Candidate for the next build and **Should** be stable. To use a specific version use <br>`npm install @bombitmanbomb/neosjs@version`
+
+## X breaks when I do YZ / Can you make NeosJs do X
+
+> Feedback and Bug reports are Very important to maintaining Neosjs, The best way to report a bug or ask for a feature is via [Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)
