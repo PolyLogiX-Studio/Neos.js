@@ -26,23 +26,21 @@
   </p>
 </div>
 
-# [日本語](READMEJP.md)
+# ドキュメンテーション
 
-# Documentation
+ドキュメントの全文を見る [こちら](https://polylogix-studio.github.io/Neos.js/)、
+Neos.js は JSDoc Intellisense を使用しています。
 
-View Full Documentation [HERE](https://polylogix-studio.github.io/Neos.js/)
-Neos.js uses JSDoc Intellisense.
+# サポートしています
 
-# Support
+Neos.js の開発に協力しませんか？
+[Patreon](https://www.patreon.com/PolyLogiX_VR)への寄付や、[KoFi](https://ko-fi.com/polylogix_studio)への寄付を検討してみてください。
 
-Do you want to help with Neos.js Development?
-Consider pledging to our [Patreon](https://www.patreon.com/PolyLogiX_VR) or Donating to us on [KoFi](https://ko-fi.com/polylogix_studio)
+コードを投稿してみませんか？私たちの[コントリビューターガイド](CONTRIBUTING.md)を読んでください!
 
-Want to submit Code? Read our [Contributors Guide](CONTRIBUTING.md)!
+質問や支援については、[Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)を開くか、[よくあるご質問](#よくあるご質問)を確認した後、[Discord](https://discord.gg/6y2A4Pk)に参加してください。
 
-For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk) after checking our [FAQ](#faq)
-
-[View Development Time Allocation](https://wakatime.com/@bombitmanbomb/projects/ukduiihxzq)
+[開発時間配分を見る](https://wakatime.com/@bombitmanbomb/projects/ukduiihxzq)
 
 <div><p>
     <a href="https://ko-fi.com/N4N418QV5"><img src="https://www.ko-fi.com/img/githubbutton_sm.svg" alt="Ko-Fi" /></a>
@@ -54,13 +52,13 @@ For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-
 
 # NeosJS
 
-> Library for communicating with the NeosAPI
+> NeosAPI と通信するためのモジュール
 
 ```js
-neos.SendTextMessage("U-Neos", "This is a Message!");
+neos.SendTextMessage("U-Neos", "これはメッセージだ！");
 ```
 
-## Usage
+## 使用方法
 
 > npm i @bombitmanbomb/neosjs
 
@@ -69,38 +67,37 @@ const Neos = require('@bombitmanbomb/neosjs')
 const neos = new Neos()
 
 neos.on("login",(obj)=>{
-    console.log(obj.CurrentUser, obj.CurrentSession) // Log the current user and Session
+    console.log(obj.CurrentUser, obj.CurrentSession) // 現在のユーザーとセッションのログ
 })
 neos.on("friendAdded",(friend)=>{
     if (friend.FriendStatus == "Requested") {
-        neos.AddFriend(friend) // Accept the Friend Request
+        neos.AddFriend(friend) // 友達申請を承認する
     }
-    console.log(friend) //New Friend
+    console.log(friend) //新しい友達
 })
 neos.on("messageReceived",(message)=>{
-    neos.SendTextMessage(message.SenderId,message.Content) // Reply recieved message back
+    neos.SendTextMessage(message.SenderId,message.Content) // 返信メッセージを受信しました。
 })
 neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, MachineID<String>, RememberMe<Boolean>)
 
 ```
 
-# FAQ
+# よくあるご質問
 
-## Can I run Neos.js in my Browser
+## ブラウザで Neos.js を実行することはできますか
 
-> No, NeosVR CORS Policy denies browser requests.
-> You must make requests from a Node server. If you are new we reccomend Glitch.me
+> いいえ、NeosVR CORS ポリシーでは、ブラウザからのリクエストを拒否します。Node サーバーからのリクエストを行う必要があります。初めての方は Glitch.me をお勧めします。
 
-## Will you add Browser Support
+## ブラウザのサポートを追加しますか
 
-> This is a limitation imposed by the Neos server and workarounds are Very limited,
-> as well as **extremely** _Unsafe_.
+> これは Neos サーバによって課せられた制限であり、回避策は非常に限られています。
+> と同様に**非常に安全ではない**。
 
-## How do I use a Pre-Release Version
+## プリリリース版を使うにはどうすればいいですか
 
-> Most notable Pre-Release versions are available on [NPM](https://www.npmjs.com/package/@bombitmanbomb/neosjs).
-> -alpha is Unstable, -beta is Usable but might have bugs, -rc is the Release Candidate for the next build and **Should** be stable. To use a specific version use <br>`npm install @bombitmanbomb/neosjs@version`
+> ほとんどの注目すべきプレリリース版は [NPM](https://www.npmjs.com/package/@bombitmanbomb/neosjs) で入手可能です。
+> このような場合には、「-alpha」は不安定、「-beta」は使用可能だがバグがあるかもしれない、「-rc」は次のビルドのリリース候補であり、安定しているはずだ、ということになります。特定のバージョンを使うには<br>`npm install @bombitmanbomb/neosjs@version`を使ってください。
 
-## X breaks when I do YZ / Can you make NeosJs do X
+## YZ をやると X が壊れる / NeosJs に X をやらせることができるか
 
-> Feedback and Bug reports are Very important to maintaining Neosjs, The best way to report a bug or ask for a feature is via [Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)
+> フィードバックとバグ報告は Neosjs を維持する上で非常に重要です。バグを報告したり機能を要求したりする最良の方法は、[Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)で行います。
