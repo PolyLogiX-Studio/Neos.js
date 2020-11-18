@@ -35,7 +35,7 @@ class UserProfile {
 			other.TagLine
 		); //TODO When implimented
 	}
-	static MAX_SHOWCASE_ITEMS() {
+	static get MAX_SHOWCASE_ITEMS() {
 		return 6;
 	}
 	/**
