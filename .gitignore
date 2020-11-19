@@ -1,4 +1,4 @@
 .API/
 .env
 node_modules/
-CloudX.Shared
+CloudX.Shared/

@@ -7,3 +7,5 @@ docs/
 .env
 .eslintignore
 .gitconfig
+CloudX.Shared/
+.travis.yml
