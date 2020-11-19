@@ -110,11 +110,17 @@ class CommandExtended {
 	 * @param {String} str
 	 */
 	ParseArguments(str = "") {
+		var context;
+		if (this instanceof CommandExtended) {
+			context = this;
+		} else {
+			context = this.CommandHandler.CommandHandlerExtended;
+		}
 		var search = str.trim();
 		let Output = [];
 		if (search === "") return [];
 		var flag = false;
-		var stringBuilder = new this.Neos.CloudX.Util.StringBuilder();
+		var stringBuilder = new context.Neos.CloudX.Util.StringBuilder();
 		for (let index = 0; index < search.length; index++) {
 			let num = index === search.length ? 1 : 0;
 			let c = num !== 0 ? " " : search[index];
