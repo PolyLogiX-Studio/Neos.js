@@ -133,6 +133,9 @@ class CommandExtended {
 			} else if (c === "\"") flag = true;
 			else stringBuilder.Append(c);
 		}
+		if (stringBuilder.Length > 0) {
+			Output.push(stringBuilder.ToString());
+		} // Catch last phrase
 		return Output;
 	}
 	/**
