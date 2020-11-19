@@ -114,7 +114,7 @@ class CommandExtended {
 		if (this instanceof CommandExtended) {
 			context = this;
 		} else {
-			context = this.CommandHandler.CommandHandlerExtended;
+			context = this.CommandHandlerExtended;
 		}
 		var search = str.trim();
 		let Output = [];
