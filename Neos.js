@@ -271,6 +271,7 @@ class Neos extends EventEmitter {
 	/**
 	 * Update the Neos Account status
 	 * @instance
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	UpdateStatus() {
@@ -290,6 +291,7 @@ class Neos extends EventEmitter {
 	 * @param {string} machineId Unique Machine ID, If another instance is logged in using the same machine id, the new one will replace the old.
 	 * @param {boolean} [rememberMe = false] SessionToken will be valid for 7 days
 	 * @param {string} [recoverCode] Recovery Code sent via Email, Use to set a new password
+	 * @since 1.0.0
 	 * @returns {Promise<CloudResult<UserSession>>}
 	 * @memberof Neos
 	 * @instance
@@ -316,6 +318,7 @@ class Neos extends EventEmitter {
 	 * Logout
 	 * @instance
 	 * @param {boolean} [manual=true]
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	Logout(manual = true) {
@@ -335,6 +338,7 @@ class Neos extends EventEmitter {
 	 * Get the Current Session
 	 * @instance
 	 * @readonly
+	 * @since 1.0.0
 	 * @memberof Neos
 	 * @returns {UserSession}
 	 */
@@ -345,6 +349,7 @@ class Neos extends EventEmitter {
 	 *Get User Memberships
 	 * @instance
 	 * @readonly
+	 * @since 1.0.0
 	 * @memberof Neos
 	 * @returns {List<Membership>}
 	 */
@@ -356,6 +361,7 @@ class Neos extends EventEmitter {
 	 *
 	 * @instance
 	 * @readonly
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	get CurrentUserGroupInfos() {
@@ -365,7 +371,8 @@ class Neos extends EventEmitter {
 	 *Search neos for username
 	 * @instance
 	 * @param {string} username
-	 * @returns
+	 * @since 1.0.0
+	 * @returns {*}
 	 * @memberof Neos
 	 */
 	async GetUsers(username) {
@@ -376,6 +383,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {string} userId
 	 * @returns {User} User Object
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetUser(userId) {
@@ -388,6 +396,7 @@ class Neos extends EventEmitter {
 	 * @param {string} username
 	 * @instance
 	 * @returns {User}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetUserByName(username) {
@@ -398,6 +407,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {string} userId
 	 * @returns {List<Friend>}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetFriends(userId) {
@@ -408,6 +418,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {string} friendId
 	 * @returns {User}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	GetFriend(friendId) {
@@ -418,6 +429,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {string} friendId
 	 * @returns {Boolean}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	IsFriend(friendId) {
@@ -429,6 +441,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {String | CloudX.Shared.Friend} friend
 	 * @returns void
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	AddFriend(friend) {
@@ -440,6 +453,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {*} friend
 	 * @returns void
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	RemoveFriend(friend) {
@@ -451,6 +465,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {*} friend
 	 * @returns void
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	IgnoreRequest(friend) {
@@ -461,6 +476,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {*} groupId
 	 * @returns {Group}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetGroup(groupId) {
@@ -472,6 +488,7 @@ class Neos extends EventEmitter {
 	 * @param {String} groupId
 	 * @param {String} userId
 	 * @returns {Member}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetGroupMember(groupId, userId) {
@@ -482,6 +499,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {String} groupId
 	 * @returns {List<Member>}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetGroupMembers(groupId) {
@@ -492,6 +510,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {String} UserId
 	 * @returns {UserMessages}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetUserMessages(UserId) {
@@ -501,6 +520,7 @@ class Neos extends EventEmitter {
 	 *Get all Cached messages
 	 * @instance
 	 * @returns {List<Message>}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	GetAllUserMessages() {
@@ -516,6 +536,7 @@ class Neos extends EventEmitter {
 	 * @param {String} [user=null]
 	 * @param {boolean} [unreadOnly=false]
 	 * @returns {List<Message>}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetMessages(
@@ -538,6 +559,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {Array<String> | List<String> | String} messageIds
 	 * @returns
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	MarkMessagesRead(messageIds) {
@@ -551,6 +573,7 @@ class Neos extends EventEmitter {
 	 * @param {String} userId
 	 * @param {number} [maxItems=100]
 	 * @returns {List<Message>} Messages
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetMessageHistory(userId, maxItems = 100) {
@@ -562,6 +585,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {String} userId
 	 * @returns {UserStatus} UserStatus
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetStatus(userId) {
@@ -571,6 +595,7 @@ class Neos extends EventEmitter {
 	 * Not Yet Implimented
 	 * @param {SearchParameters} record
 	 * @instance
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	// eslint-disable-next-line no-unused-vars
@@ -581,6 +606,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {SessionInfo} session
 	 * @returns {Number} Friends in Session
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	CountPresentFriends(session) {
@@ -591,6 +617,7 @@ class Neos extends EventEmitter {
 	 * Get a random Exit Message
 	 * @instance
 	 * @returns {ExitMessage}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetRandomExitMessage() {
@@ -601,6 +628,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {string} [baseCurrency="USD"]
 	 * @returns {CurrencyRates}
+	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	async GetCurrencyRates(baseCurrency = "USD") {
@@ -621,6 +649,7 @@ class Neos extends EventEmitter {
 	 * If Message is longer than 128 characters it will be chunked as there is a character limit
 	 * if a Message element in an Array is longer than 128 characters it will be cut off with "..." by the server
 	 * @instance
+	 * @since 1.0.0
 	 * @param {String} UserId Neos User Id to send
 	 * @param {String | Array<String>} Message Message or Array of Messages to Send
 	 * @memberof Neos
@@ -681,6 +710,7 @@ class Neos extends EventEmitter {
 	 * - null - Default
 	 * @returns {String} http address to neosdb asset
 	 * @memberof Neos
+	 * @since 1.7.1
 	 * @example Neos.GetUser("U-bombitmanbomb").then((User)=>{
 	 * 	console.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
 	 * 	//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369
@@ -726,6 +756,7 @@ class Neos extends EventEmitter {
  * 	}
  * })
  * @event Neos#messageReceived
+ * @since 1.0.0
  * @type {Message}
  * @memberof Neos
  */
@@ -733,6 +764,7 @@ class Neos extends EventEmitter {
  * membershipsUpdated
  *
  * @event Neos#groupMemberUpdated
+ * @since 1.0.0
  * @type {Member}
  * @memberof Neos
  */
@@ -741,6 +773,7 @@ class Neos extends EventEmitter {
  *
  * @event Neos#messageCountChanged
  * @type {Number}
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
@@ -748,6 +781,7 @@ class Neos extends EventEmitter {
  *
  * @event Neos#friendAdded
  * @type {Friend}
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
@@ -755,6 +789,7 @@ class Neos extends EventEmitter {
  *
  * @event Neos#friendUpdated
  * @type {Friend}
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
@@ -762,6 +797,7 @@ class Neos extends EventEmitter {
  *
  * @event Neos#friendRemoved
  * @type {Friend}
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
@@ -769,24 +805,28 @@ class Neos extends EventEmitter {
  *
  * @event Neos#friendRequestCountChanged
  * @type {Number}
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
  * membershipsUpdated
  *
  * @event Neos#friendsChanged
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
  * membershipsUpdated
  *
  * @event Neos#groupUpdated
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
  * membershipsUpdated
  *
  * @event Neos#membershipsUpdated
+ * @since 1.0.0
  * @memberof Neos
  */
 
@@ -794,6 +834,7 @@ class Neos extends EventEmitter {
  * User Updated
  *
  * @event Neos#userUpdated
+ * @since 1.0.0
  * @type {User}
  * @memberof Neos
  */
@@ -801,13 +842,15 @@ class Neos extends EventEmitter {
  * Session Changed
  *
  * @event Neos#sessionChanged
+ * @since 1.0.0
  * @type {UserSession}
- *@memberof Neos
+ * @memberof Neos
  */
 /**
  * Session Updated
  *
  * @event Neos#sessionUpdated
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
@@ -816,12 +859,14 @@ class Neos extends EventEmitter {
  * @event Neos#error
  * @param {Error} err
  * @type {Error}
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
  * Logout Event
  *
  * @event Neos#logout
+ * @since 1.0.0
  * @memberof Neos
  */
 /**
@@ -835,11 +880,12 @@ class Neos extends EventEmitter {
  * @type {Object}
  * @property {Object} CurrentUser Current User
  * @property {Object} CurrentSession Current Session
+ * @since 1.0.0
  * @memberof Neos
  */
 
 /**
- *@private
+ * @private
  *
  * @param {String} str
  * @param {Number} len
