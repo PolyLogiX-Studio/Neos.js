@@ -913,19 +913,29 @@ class CloudXInterface {
 		}
 	}
 	async GetUser(userId) {
-		return await this.GET("api/users/" + userId, new TimeSpan());
+		let cloudResult = await this.GET("api/users/" + userId, new TimeSpan());
+		cloudResult.Content = new User(cloudResult.Entity);
+		return cloudResult;
 	}
 	async GetUserByName(username) {
-		return await this.GET(
+		let cloudResult = await this.GET(
 			"api/users/" + username + "?byUsername=true",
 			new TimeSpan()
 		);
+		cloudResult.Content = new User(cloudResult.Entity);
+		return cloudResult;
 	}
 	async GetUsers(searchName) {
-		return await this.GET(
+		let cloudResult = await this.GET(
 			"api/users?name=" + Uri.EscapeDataString(searchName),
 			new TimeSpan()
 		);
+		let userList = new List();
+		for (let user of cloudResult.Entity) {
+			userList.Add(new User(user));
+		}
+		cloudResult.Content = userList;
+		return cloudResult;
 	}
 	async GetUserCached(userId) {
 		return await this.GetUser(userId);
