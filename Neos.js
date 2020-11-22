@@ -397,10 +397,11 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @returns {User}
 	 * @since 1.0.0
+	 * @version 1.6.8
 	 * @memberof Neos
 	 */
 	async GetUserByName(username) {
-		return (await this.CloudXInterface.GetUserByName(username)).Entity;
+		(await this.CloudXInterface.GetUserByName(username)).Entity;
 	}
 	/**
 	 * Get the friends list of a user
