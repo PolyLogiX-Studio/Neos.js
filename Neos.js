@@ -368,15 +368,16 @@ class Neos extends EventEmitter {
 		return this.CloudXInterface.CurrentUserGroupInfos;
 	}
 	/**
-	 *Search neos for username
+	 * Search neos for username
 	 * @instance
 	 * @param {string} username
 	 * @since 1.0.0
-	 * @returns {*}
+	 * @version 1.6.7
+	 * @returns {List<User>}
 	 * @memberof Neos
 	 */
 	async GetUsers(username) {
-		return await this.CloudXInterface.GetUsers(username);
+		return (await this.CloudXInterface.GetUsers(username)).Entity;
 	}
 	/**
 	 *Get a specific User by their UserId
