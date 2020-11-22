@@ -385,12 +385,11 @@ class Neos extends EventEmitter {
 	 * @param {string} userId
 	 * @returns {User} User Object
 	 * @since 1.0.0
+	 * @version 1.6.7
 	 * @memberof Neos
 	 */
 	async GetUser(userId) {
-		return new this.CloudX.Shared.User(
-			(await this.CloudXInterface.GetUser(userId)).Entity
-		);
+		(await this.CloudXInterface.GetUser(userId)).Entity;
 	}
 	/**
 	 * get a specific User by their username
