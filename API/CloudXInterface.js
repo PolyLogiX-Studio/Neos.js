@@ -357,7 +357,9 @@ class CloudXInterface {
 	}
 	set CurrentUser(value) {
 		if (value === this._currentUser) return;
-		let user = new User(value);
+		let user;
+		if (!(value instanceof User)) user = new User(value);
+		else user = value;
 		this._currentUser = user;
 		let userUpdated = this.UserUpdated;
 		if (userUpdated == null) return;
@@ -878,20 +880,12 @@ class CloudXInterface {
 		);
 	}
 	async UpdateCurrentUserInfo() {
-		var user;
-		var entity;
-		switch (this.CurrentUser.Id) {
-		case null:
+		if (this.CurrentUser.Id == null) {
 			return this.OnError("No current user!");
-		default:
-			user = await this.GetUser(this.CurrentUser.Id);
-			entity = user.Entity;
-			if (
-				user.IsOK &&
-					this.CurrentUser != null &&
-					this.CurrentUser.Id === entity.id
-			) {
-				this.CurrentUser = entity;
+		} else {
+			var user = await this.GetUser(this.CurrentUser.Id);
+			if (user.IsOK && this.CurrentUser != null) {
+				this.CurrentUser = user.Entity;
 				let patreonData = this.CurrentUser.PatreonData;
 				let num = new Number(0); //lgtm [js/useless-assignment-to-local] False Positive
 				if (
@@ -903,8 +897,7 @@ class CloudXInterface {
 				) {
 					let tags = this.CurrentUser.Tags;
 					if (tags.size > 0)
-						num =
-								tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
+						num = tags != null ? (tags.includes(UserTags.NeosTeam) ? 1 : 0) : 0;
 					else num = 0;
 				} else num = 1;
 				this._USE_CDN = num !== 0;
