@@ -9,3 +9,4 @@ docs/
 .gitconfig
 CloudX.Shared/
 .travis.yml
+.documentation.yml

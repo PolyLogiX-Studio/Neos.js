@@ -1,7 +1,8 @@
 /**
  * @fileoverview NeosVR CloudX.Shared Library in NodeJS
- *
+ * @name Neos.js
  * @author Bitman
+ * @returns {Neos}
  * @example const NEOS = require("@bombitmanbomb/neosjs");
  * const Neos = new NEOS();
  * const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler");
@@ -440,7 +441,7 @@ class Neos extends EventEmitter {
 	 * Send or Accept a friend request
 	 * - pass the Friend Object
 	 * @instance
-	 * @param {String | CloudX.Shared.Friend} friend
+	 * @param {String | Friend} friend
 	 * @returns void
 	 * @since 1.0.0
 	 * @memberof Neos
