@@ -12,7 +12,7 @@ class HeadlessInterface extends EventEmitter {
 	 *
 	 * @param {String | 'child_process'} headlessPath
 	 * @param {String} [configPathRelative]
-	 * @param {any} [options]
+	 * @param {{SafeReady:1000, Events: false, sessionIdAttempts:15}} [options]
 	 */
 	constructor(headlessPath, configPathRelative, options) {
 		super();
