@@ -11,14 +11,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bombitmanbomb/Neos.js.git"
+		"url": "git+https://github.com/PolyLogiX-Studio/Neos.js.git"
 	},
 	"author": "Ethan Snow",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/bombitmanbomb/Neos.js/issues"
+		"url": "https://github.com/PolyLogiX-Studio/Neos.js/issues"
 	},
-	"homepage": "https://github.com/bombitmanbomb/Neos.js#readme",
+	"homepage": "https://github.com/PolyLogiX-Studio/Neos.js#readme",
 	"dependencies": {
 		"crypto-js": "^4.0.0",
 		"decimal.js": "^10.2.1",
