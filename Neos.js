@@ -5,9 +5,8 @@
  * @returns {Neos}
  * @example const NEOS = require("@bombitmanbomb/neosjs");
  * const Neos = new NEOS();
- * const CommandHandler = require("@bombitmanbomb/neosjs/Plugins/CommandHandler");
- * const CommandExtended = require("@bombitmanbomb/neosjs/Plugins/CommandExtended");
- * const Command = new CommandExtended(new CommandHandler(Neos));
+ * const { CommandManager } = require("neosjs-commands")
+ * const Command = CommandManager.CreateCommands(Neos));
  * Neos.on("error", (err)=>throw new Error(err));
  * Neos.on("messageReceived", (Message)=>{
  * 	switch(Message.MessageType){
