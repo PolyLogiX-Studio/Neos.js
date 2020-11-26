@@ -26,6 +26,18 @@
 		"uri-js": "^4.4.0",
 		"uuid": "^8.3.1"
 	},
+	"peerDependencies": {
+		"neosjs-headless-interface": "^1.0.0",
+		"neosjs-commands": "^1.0.0"
+	},
+	"peerDependenciesMeta": {
+		"neosjs-headless-interface": {
+			"optional": true
+		},
+		"neosjs-commands": {
+			"optional": true
+		}
+	},
 	"devDependencies": {
 		"@babel/plugin-transform-flow-strip-types": "^7.12.1",
 		"@types/minimist": "^1.2.0",
