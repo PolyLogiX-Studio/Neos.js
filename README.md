@@ -102,3 +102,19 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 ## X breaks when I do YZ / Can you make NeosJs do X
 
 > Feedback and Bug reports are Very important to maintaining Neosjs, The best way to report a bug or ask for a feature is via [Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)
+
+# Plugins
+
+Popular Plugins will be listed Here
+
+## neosjs-commands
+
+Library that makes adding commands to the bot super simple.
+
+[Github](https://github.com/PolyLogiX-Studio/neosjs-commands), [NPM](https://www.npmjs.com/package/neosjs-commands)
+
+## neosjs-headless-interface
+
+Programatic Headless Interface Session.
+
+[Github](https://github.com/PolyLogiX-Studio/neosjs-headless-interface), [NPM](https://www.npmjs.com/package/neosjs-headless-interface)

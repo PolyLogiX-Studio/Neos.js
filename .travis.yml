@@ -8,10 +8,7 @@ notifications:
 
 jobs:
   include:
-    - stage: compile
-      script: npm run lint
-    - stage: test
+    - stage: Compile and Test
       script: npm run test
 stages:
-  - compile
-  - test
+  - Compile and Test

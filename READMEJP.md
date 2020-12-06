@@ -101,3 +101,19 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 ## YZ をやると X が壊れる / NeosJs に X をやらせることができるか
 
 > フィードバックとバグ報告は Neosjs を維持する上で非常に重要です。バグを報告したり機能を要求したりする最良の方法は、[Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)で行います。
+
+# プラグイン
+
+人気のプラグインはこちらに掲載されています。
+
+## neosjs-commands
+
+ボットにコマンドを追加するのを超簡単にするライブラリ。
+
+[Github](https://github.com/PolyLogiX-Studio/neosjs-commands), [NPM](https://www.npmjs.com/package/neosjs-commands)
+
+## neosjs-headless-interface
+
+プログラム的なヘッドレスインターフェースセッション。
+
+[Github](https://github.com/PolyLogiX-Studio/neosjs-headless-interface), [NPM](https://www.npmjs.com/package/neosjs-headless-interface)
