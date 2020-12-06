@@ -1766,6 +1766,23 @@ class CloudXInterface {
 		);
 	}
 	/**
+	 * @private Internal Use Only
+	 * @param {String} baseId
+	 * @param {VerificationKeyUse} use
+	 * @memberof CloudXInterface
+	 */
+	async CreateKey(baseId, use) {
+		let str = `keyUse=${use}`;
+		if (!(baseId == null || baseId.trim() === "")) str += "&baseKeyId" + baseId;
+		return this.POST(
+			"api/users/" + this.CurrentUser.Id + "/onetimekeys?" + str,
+			null,
+			new TimeSpan()
+		).then((b) => {
+			b.Content = new OneTimeVerificationKey(b.Content);
+			return b;
+		});
+	}
 	/**Internal
 	 * check if user is friends with atleast 1 contact
 	 * @private Internal Use Only
