@@ -10,6 +10,7 @@ const AccountType = new Enumerable([
 	"Level144",
 	"Level250",
 	"Anorak",
+	"Level750",
 	"END",
 ]);
 module.exports = {
