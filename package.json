@@ -1,6 +1,6 @@
 {
 	"name": "@bombitmanbomb/neosjs",
-	"version": "1.8.0",
+	"version": "1.9.0",
 	"description": "Neos API",
 	"main": "Neos.js",
 	"scripts": {
@@ -27,8 +27,8 @@
 		"uuid": "^8.3.1"
 	},
 	"peerDependencies": {
-		"neosjs-headless-interface": "^1.0.0",
-		"neosjs-commands": "^1.0.0"
+		"neosjs-commands": "^1.0.0",
+		"neosjs-headless-interface": "^1.0.0"
 	},
 	"peerDependenciesMeta": {
 		"neosjs-headless-interface": {
