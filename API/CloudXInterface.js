@@ -513,9 +513,12 @@ class CloudXInterface {
 		) {
 			(async () => {
 				let cloudResult = await this.GetServerStatistics();
-				if (cloudResult.IsOK) {
-					this.ServerResponseTime = cloudResult.Entity.ResponseTimeMilliseconds;
-					this.LastServerUpdate = cloudResult.Entity.LastUpdate;
+				if (cloudResult != null) {
+					if (cloudResult.IsOK) {
+						this.ServerResponseTime =
+							cloudResult.Entity.ResponseTimeMilliseconds;
+						this.LastServerUpdate = cloudResult.Entity.LastUpdate;
+					}
 				}
 				this.LastServerStateFetch = new Date();
 			})();
