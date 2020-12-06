@@ -1766,6 +1766,24 @@ class CloudXInterface {
 		);
 	}
 	/**
+	/**Internal
+	 * check if user is friends with atleast 1 contact
+	 * @private Internal Use Only
+	 * @param {CheckContactData} data
+	 * @returns {Promise<CloudResult<Boolean>>}
+	 * @memberof CloudXInterface
+	 */
+	async CheckContact(data) {
+		var cloudResult = await this.POST(
+			"api/users/" + data.OwnerId + "/checkContact",
+			data,
+			new TimeSpan()
+		);
+		return cloudResult.State != 200
+			? new CloudResult(false, cloudResult.State, cloudResult.Content)
+			: new CloudResult(true, cloudResult.State, null);
+	}
+	/**
 	 * Return all unread messages
 	 * @returns {Promise<CloudResult<List<Message>>>}
 	 * @param {Date} [fromTime=null]
