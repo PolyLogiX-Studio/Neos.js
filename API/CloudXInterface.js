@@ -1,5 +1,10 @@
 const { Uri } = require("./Uri");
 const { StringBuilder } = require("./StringBuilder");
+// eslint-disable-next-line no-unused-vars
+const { CheckContactData } = require("./CheckContactData");
+const { OneTimeVerificationKey } = require("./OneTimeVerificationKey");
+// eslint-disable-next-line no-unused-vars
+const { VerificationKeyUse } = require("./VerificationKeyUse");
 const { RecordUtil } = require("./RecordUtil");
 const { List } = require("./List");
 const { SessionInfo } = require("./SessionInfo");
