@@ -1,10 +1,10 @@
 const { Uri } = require("./Uri");
 const { StringBuilder } = require("./StringBuilder");
 // eslint-disable-next-line no-unused-vars
-const { CheckContactData } = require("./CheckContactData");
+const { CheckContactData } = require("./CheckContactData"); //lgtm [js/unused-local-variable]
 const { OneTimeVerificationKey } = require("./OneTimeVerificationKey");
 // eslint-disable-next-line no-unused-vars
-const { VerificationKeyUse } = require("./VerificationKeyUse");
+const { VerificationKeyUse } = require("./VerificationKeyUse");//lgtm [js/unused-local-variable]
 const { RecordUtil } = require("./RecordUtil");
 const { List } = require("./List");
 const { SessionInfo } = require("./SessionInfo");
