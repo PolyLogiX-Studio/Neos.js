@@ -38,7 +38,7 @@ Consider pledging to our [Patreon](https://www.patreon.com/PolyLogiX_VR) or Dona
 
 Want to submit Code? Read our [Contributors Guide](CONTRIBUTING.md)!
 
-For Questions or Assistance open a [Support Issue](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose) or join our [Discord](https://discord.gg/6y2A4Pk) after checking our [FAQ](#faq)
+For Questions or Assistance open a [Discussion](https://github.com/PolyLogiX-Studio/Neos.js/discussions?discussions_q=category%3AQ%26A) or join our [Discord](https://discord.gg/6y2A4Pk) after checking our [FAQ](#faq)
 
 [View Development Time Allocation](https://wakatime.com/@bombitmanbomb/projects/ukduiihxzq)
 
