@@ -85,21 +85,25 @@ class Neos extends EventEmitter {
 		 * @memberof Neos
 		 */
 		this.Options = options;
-		this.Events = new Events();
-		this.CloudX = CloudX;
-
-		/**
-		 * @property {import('./API').Shared.CloudXInterface} CloudXInterface
-		 * @memberof Neos
-		 * @instance
-		 */
-		this.CloudXInterface = new CloudX.Shared.CloudXInterface(
-			this.Events,
-			config.main,
-			config.version
-		);
+		Object.defineProperties(this, {
+			Events: { value: new Events(), enumerable: false, writable: true },
+			CloudX: { value: CloudX, enumerable: false, writable: true },
+			CloudXInterface: {
+				value: new CloudX.Shared.CloudXInterface(
+					this.Events,
+					config.main,
+					config.version
+				),
+				enumerable: false,
+				writable: true,
+			},
+			_UserMessage: {
+				value: new CloudX.Shared.MessageManager.UserMessages(),
+				enumerable: false,
+				writable: true,
+			},
+		});
 		this.CloudXInterface.NeosJS = this;
-		this._UserMessage = new CloudX.Shared.MessageManager.UserMessages();
 		this.CloudXInterface.OnLogin = (obj) => {
 			this.Events.emit("login", obj);
 		};
@@ -237,7 +241,11 @@ class Neos extends EventEmitter {
 	 */
 	startInterval(interval) {
 		this.clearInterval(this.Interval);
-		this.Interval = setInterval(this.Update.bind(this), interval);
+		Object.defineProperty(this, "Interval", {
+			value: setInterval(this.Update.bind(this), interval),
+			enumerable: false,
+			writeable: true,
+		});
 	}
 
 	/**

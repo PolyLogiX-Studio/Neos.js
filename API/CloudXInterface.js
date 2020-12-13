@@ -4,7 +4,7 @@ const { StringBuilder } = require("./StringBuilder");
 const { CheckContactData } = require("./CheckContactData"); //lgtm [js/unused-local-variable]
 const { OneTimeVerificationKey } = require("./OneTimeVerificationKey");
 // eslint-disable-next-line no-unused-vars
-const { VerificationKeyUse } = require("./VerificationKeyUse");//lgtm [js/unused-local-variable]
+const { VerificationKeyUse } = require("./VerificationKeyUse"); //lgtm [js/unused-local-variable]
 const { RecordUtil } = require("./RecordUtil");
 const { List } = require("./List");
 const { SessionInfo } = require("./SessionInfo");
