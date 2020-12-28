@@ -3,6 +3,7 @@ const { StringBuilder } = require("./StringBuilder");
 // eslint-disable-next-line no-unused-vars
 const { CheckContactData } = require("./CheckContactData"); //lgtm [js/unused-local-variable]
 const { OneTimeVerificationKey } = require("./OneTimeVerificationKey");
+const { OnlineUserStats } = require("./OnlineUserStats");
 // eslint-disable-next-line no-unused-vars
 const { VerificationKeyUse } = require("./VerificationKeyUse"); //lgtm [js/unused-local-variable]
 const { RecordUtil } = require("./RecordUtil");
@@ -1611,6 +1612,16 @@ class CloudXInterface {
 			b.Content = new UserStatus(b.Entity);
 			return b;
 		});
+	}
+	/**
+	 * Get Online User Statistics
+	 * @returns {OnlineUserStats}
+	 * @memberof CloudXInterface
+	 */
+	async GetOnlineUserStats() {
+		return new OnlineUserStats(
+			(await this.GET("api/stats/onlineUserStats", new TimeSpan())).Entity
+		);
 	}
 	/**
 	 * Get a random Exit Message
