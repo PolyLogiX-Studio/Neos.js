@@ -7,7 +7,7 @@
 		"test": "node Tests/Test.js --unhandled-rejections=strict",
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
 		"document": "documentation build Neos.js -f html -o docs --config .documentation.yml --sort-order alpha --shallow",
-		"prepare": "npm run document && npm run lint"
+		"ready": "npm run document && npm run lint"
 	},
 	"repository": {
 		"type": "git",
