@@ -159,6 +159,9 @@ class SessionInfo {
 	get MAX_TAG_LENGTH() {
 		return 128;
 	}
+	get MAX_DLL_LENGTH() {
+		return 128;
+	}
 	get MAX_TAGS() {
 		return 256;
 	}
