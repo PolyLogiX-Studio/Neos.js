@@ -151,6 +151,9 @@ class List extends Array {
 	Sort(compareFn) {
 		return this.sort(compareFn);
 	}
+	TakeRandom() {
+		return this.RemoveAt(~~(Math.random() * this.Count));
+	}
 }
 module.exports = {
 	List,
