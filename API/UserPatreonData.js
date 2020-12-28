@@ -74,20 +74,35 @@ class UserPatreonData {
 	 *
 	 * @memberof UserPatreonData
 	 */
-	UpdatePatreonStatus(currentTotalCents, extendedPlus) {
+	UpdatePatreonStatus(
+		currentTotalUnits,
+		currencyRate,
+		findMatchingPledge,
+		extendedPlus
+	) {
 		extendedPlus.Out = false;
-		let num = currentTotalCents - this.LastTotalCents;
-		if (num <= 0) {
-			if (this.LastActivationTime.getFullYear() > 2016) return false;
-			num = this.LastPaidPledgeAmount;
+		let flag = false;
+		if (this.LastTotalUnits == 0 && this.LastTotalCents > 0) {
+			this.LastTotalUnits = this.LastTotalCents;
+			flag = true;
 		}
-		if (num > 0) {
-			this.LastActivationTime = new Date();
-			this.LastPaidPledgeAmount = num;
-			extendedPlus.Out = true;
+		let num1 = currentTotalUnits - this.LastTotalUnits;
+		//TODO Approximate Currency Rate
+		let num2 = num1 + (this.ExternalCents - this.LastExternalCents);
+		if (num2 <= 0) {
+			if (this.LastActivationTime > 2016) return flag;
+			num2 = this.LastPaidPledgeAmount;
 		}
-		this.LastTotalCents = currentTotalCents;
+		if (num2 <= 0) return flag;
+		this.LastActivationTime = new Date();
+		this.LastPaidPledgeAmount = num2;
+		extendedPlus.Out = true;
+		this.LastTotalCents += num2;
+		this.LastTotalUnits = currentTotalUnits;
+		this.LastExternalCents = this.ExternalCents;
+		this.UpdateMetadata();
 		return true;
+	}
 	UpdateMetadata() {
 		this.HasSupported = this.LastTotalCents > 0;
 		this.LastIsAnorak = this.LastTotalCents >= 50000;
