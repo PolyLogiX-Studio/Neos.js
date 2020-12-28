@@ -12,33 +12,6 @@ class UserPatreonData {
 		this.RewardMultiplier = $b.rewardMultiplier || null;
 		this.RewardType = $b.rewardType;
 		this.CustomTier = $b.customTier;
-		/** @deprecated */
-		this.LastPlusActivationTime = $b.lastPlusActivationTime || null;
-		this.LastActivationTime = $b.lastActivationTime;
-		/** @deprecated */
-		this.LastPlusPledgeAmount = $b.lastPlusPledgeAmount || null;
-		this.LastPaidPledgeAmount = $b.lastPaidPledgeAmount;
-	}
-	/**
-	 * @deprecated
-	 * @param {Date} value
-	 * @memberof UserPatreonData
-	 */
-	set LastPlusActivationTime(value) {
-		this.LastActivationTime = value || this.LastActivationTime;
-	}
-	get LastPlusActivationTime() {
-		return this.LastActivationTime;
-	}
-	/**
-	 * @deprecated
-	 * @memberof UserPatreonData
-	 */
-	set LastPlusPledgeAmount(value) {
-		this.LastPaidPledgeAmount = value;
-	}
-	get LastPlusPledgeAmount() {
-		return this.LastPaidPledgeAmount;
 	}
 	/**
 	 * @returns {AccountType}
