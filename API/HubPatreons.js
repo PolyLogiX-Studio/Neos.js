@@ -21,6 +21,12 @@ class HubPatreons {
 		this.PatreonNames = $b["patreon-names"] || new List();
 		this.PatreonPictures = $b["patreon-pictures"] || new List();
 	}
+	EnsureMaxLimitsRandomized() {
+		while (this.PatreonNames.Count > this.MAX_NAMES)
+			this.PatreonNames.TakeRandom();
+		while (this.PatreonPictures.Count > this.MAX_PICTURES)
+			this.PatreonPictures.TakeRandom();
+	}
 }
 module.exports = {
 	HubPatreons,
