@@ -88,6 +88,9 @@ class UserPatreonData {
 		}
 		this.LastTotalCents = currentTotalCents;
 		return true;
+	UpdateMetadata() {
+		this.HasSupported = this.LastTotalCents > 0;
+		this.LastIsAnorak = this.LastTotalCents >= 50000;
 	}
 	/**
 	 *
