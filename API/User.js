@@ -27,6 +27,9 @@ class User {
 		this.ReferrerUserId = $b.referrerUserId;
 		this.Profile = new UserProfile($b.profile);
 	}
+	get MAX_USERNAME_LENGTH() {
+		return 32;
+	}
 	get IsAccountBanned() {
 		return new Date() < this.AccountBanExpiration;
 	}
