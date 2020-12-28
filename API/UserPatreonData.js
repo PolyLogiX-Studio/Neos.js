@@ -7,9 +7,14 @@ class UserPatreonData {
 		this.ACTIVATION_LENGTH = 40;
 		this.Email = $b.email;
 		this.IsPatreonSupporter = $b.isPatreonSupporter;
+		this.PatreonID = $b.patreonId;
 		this.LastPatreonPledgeCents = $b.lastPatreonPledgeCents;
 		this.LastTotalCents = $b.lastTotalCents;
-		this.RewardMultiplier = $b.rewardMultiplier || null;
+		this.LastTotalUnits = $b.lastTotalUnits;
+		this.ExternalCents = $b.externalCents;
+		this.LastExternalCents = $b.lastExternalCents;
+		this.HasSupported = $b.hasSupported;
+		this.LastIsAnorak = $b.lastIsAnorak;
 		this.RewardType = $b.rewardType;
 		this.CustomTier = $b.customTier;
 	}
