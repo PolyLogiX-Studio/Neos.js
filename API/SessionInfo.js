@@ -221,6 +221,23 @@ class SessionInfo {
 			(!SessionInfo.IsCustomSessionId(sessionId) || sessionId.indexOf(":") >= 0)
 		);
 	}
+	static IsValidVersion(version) {
+		if (version == null) return false;
+		let length = version.indexOf("+");
+		let str1;
+		let str2;
+		if (length < 0) {
+			str1 = version;
+			str2 = "";
+		} else {
+			str1 = version.substr(0, length);
+			str2 = version.substring(length + 1);
+		}
+		let strArray = str1.split(".");
+		if (strArray.length != 4) return false;
+		return str2.Length <= 128;
+	}
+
 	IsSame(other) {
 		//TODO
 		return this.Name == other.Name;
