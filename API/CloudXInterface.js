@@ -1333,7 +1333,7 @@ class CloudXInterface {
 		res.Content = new Group(res.Entity);
 		return res;
 	}
-	async GetGroupCaches(groupId) {
+	async GetGroupCached(groupId) {
 		return await this.GetGroup(groupId);
 	}
 	async CreateGroup(group) {
