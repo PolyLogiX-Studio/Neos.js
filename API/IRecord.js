@@ -5,7 +5,7 @@ class IRecord {
 		if (!$b) $b = {};
 		this.RecordId = $b.recordId || new String();
 		this.OwnerId = $b.ownerId || new String();
-		this.URL = $b.url || new String();
+		this._URL = $b.url || new String();
 		this.GlobalVersion = $b.globalVersion || new Number();
 		this.Localversion = $b.localVersion || new Number();
 		this.LastModifyingUserId = $b.lastModifyingUserId || new String();
