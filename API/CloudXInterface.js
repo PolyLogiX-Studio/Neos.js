@@ -1040,7 +1040,9 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	GetRecordsList() {}
+	GetRecordsList(ids) {
+		return this.POST("api/records/list", ids, new TimeSpan());
+	}
 	GetRecordsFull(ownerId, tag = null, path = null) {
 		let ownerPath = CloudXInterface.GetOwnerPath(ownerId);
 		let str = "";
@@ -1048,6 +1050,12 @@ class CloudXInterface {
 		if (path != null) str = "?path=" + Uri.EscapeDataString(path);
 		return this.GET("api/" + ownerPath + "/" + ownerId + "/records" + str);
 	}
+	/**
+	 * 
+	 * @param {Array<String> | List<String>|String} a Record ID's|Owner Id 
+	 * @param {String} b Tag
+	 * @param {String} c Path
+	 */
 	GetRecords(a, b, c) {
 		let type = Type.Get(a);
 		if (type === "Array") return this.GetRecordsList(List.ToList(a));
