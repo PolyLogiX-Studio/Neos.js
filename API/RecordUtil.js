@@ -56,6 +56,7 @@ class RecordUtil {
 	 * @memberof RecordUtil
 	 */
 	static ExtractRecordID(recordUri, ownerId, recordId) {
+		if (!(recordId instanceof Uri)) recordId = new Uri(recordId)
 		ownerId.Out = null;
 		recordId.Out = null;
 		if (recordUri == null) return false;
