@@ -533,7 +533,7 @@ class Neos extends EventEmitter {
 	 * @memberof Neos
 	 */
 	GetAllUserMessages() {
-		let messages = new this.CloudX.Util.List();
+		let messages = new CloudX.Util.List();
 		this.CloudXInterface.Friends.GetAllUserMessages(messages);
 		return messages;
 	}
@@ -572,7 +572,7 @@ class Neos extends EventEmitter {
 	 * @memberof Neos
 	 */
 	MarkMessagesRead(messageIds) {
-		if (this.CloudX.Util.Type.Get(messageIds) === "string")
+		if (CloudX.Util.Type.Get(messageIds) === "string")
 			messageIds = [messageIds];
 		return this.MarkMessagesRead(messageIds);
 	}
