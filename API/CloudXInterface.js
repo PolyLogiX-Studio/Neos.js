@@ -1051,8 +1051,8 @@ class CloudXInterface {
 		return this.GET("api/" + ownerPath + "/" + ownerId + "/records" + str);
 	}
 	/**
-	 * 
-	 * @param {Array<String> | List<String>|String} a Record ID's|Owner Id 
+	 *
+	 * @param {Array<String> | List<String>|String} a Record ID's|Owner Id
 	 * @param {String} b Tag
 	 * @param {String} c Path
 	 */
