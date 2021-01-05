@@ -572,7 +572,7 @@ class Neos extends EventEmitter {
 	 * @memberof Neos
 	 */
 	MarkMessagesRead(messageIds) {
-		if (CloudX.Util.Type.Get(messageIds) === "string")
+		if (this.CloudX.Util.Type.Get(messageIds) === "string")
 			messageIds = [messageIds];
 		return this.MarkMessagesRead(messageIds);
 	}
