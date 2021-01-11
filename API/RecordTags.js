@@ -191,6 +191,16 @@ class RecordTags {
 	static LocationName(name) {
 		return "location_name:" + name;
 	}
+	/**
+	 * Generate LocationAccessLevel Tag
+	 * @static
+	 * @param {SessionAccessLevel} accessLevel Access Level
+	 * @returns {String} Tag
+	 * @memberof RecordTags
+	 */
+	static LocationAccessLevel(accessLevel) {
+		return "location_accesslevel:" + accessLevel;
+	}
 	 * @param {String} name Clip Length
 	 * @returns {String} Tag
 	 * @memberof RecordTags
