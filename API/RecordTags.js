@@ -201,6 +201,19 @@ class RecordTags {
 	static LocationAccessLevel(accessLevel) {
 		return "location_accesslevel:" + accessLevel;
 	}
+	/**
+	 * Generate Location Tag
+	 * @static
+	 * @param {Boolean} hidden hidden
+	 * @returns {String} Tag
+	 * @memberof RecordTags
+	 */
+	static LocationHiddenFromListing(hidden) {
+		return "location_hiddenfromlisting:" + hidden;
+	}
+	/**
+	 * Generate Location Tag
+	 * @static
 	 * @param {String} name Clip Length
 	 * @returns {String} Tag
 	 * @memberof RecordTags
