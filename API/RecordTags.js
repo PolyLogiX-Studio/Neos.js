@@ -214,12 +214,12 @@ class RecordTags {
 	/**
 	 * Generate Location Tag
 	 * @static
-	 * @param {String} name Clip Length
+	 * @param {String} userId User ID
 	 * @returns {String} Tag
 	 * @memberof RecordTags
 	 */
-	static LocationName(name) {
-		return "location_name:" + name;
+	static LocationHost(userId) {
+		return "location_host:" + userId;
 	}
 	/**
 	 * Generate User Tag
