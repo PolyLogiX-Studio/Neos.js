@@ -184,6 +184,13 @@ class RecordTags {
 	/**
 	 * Generate Location Tag
 	 * @static
+	 * @param {String} name Location
+	 * @returns {String} Tag
+	 * @memberof RecordTags
+	 */
+	static LocationName(name) {
+		return "location_name:" + name;
+	}
 	 * @param {String} name Clip Length
 	 * @returns {String} Tag
 	 * @memberof RecordTags
