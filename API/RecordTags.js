@@ -184,12 +184,42 @@ class RecordTags {
 	/**
 	 * Generate Location Tag
 	 * @static
-	 * @param {String} name Clip Length
+	 * @param {String} name Location
 	 * @returns {String} Tag
 	 * @memberof RecordTags
 	 */
 	static LocationName(name) {
 		return "location_name:" + name;
+	}
+	/**
+	 * Generate LocationAccessLevel Tag
+	 * @static
+	 * @param {SessionAccessLevel} accessLevel Access Level
+	 * @returns {String} Tag
+	 * @memberof RecordTags
+	 */
+	static LocationAccessLevel(accessLevel) {
+		return "location_accesslevel:" + accessLevel;
+	}
+	/**
+	 * Generate Location Tag
+	 * @static
+	 * @param {Boolean} hidden hidden
+	 * @returns {String} Tag
+	 * @memberof RecordTags
+	 */
+	static LocationHiddenFromListing(hidden) {
+		return "location_hiddenfromlisting:" + hidden;
+	}
+	/**
+	 * Generate Location Tag
+	 * @static
+	 * @param {String} userId User ID
+	 * @returns {String} Tag
+	 * @memberof RecordTags
+	 */
+	static LocationHost(userId) {
+		return "location_host:" + userId;
 	}
 	/**
 	 * Generate User Tag

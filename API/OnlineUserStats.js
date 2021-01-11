@@ -10,5 +10,8 @@ class OnlineUserStats {
 		this.ActivePublicSessionCount = $b.activePublicSessionCount;
 		this.PublicWorldUserCount = $b.publicWorldUserCount;
 	}
+	get NonHeadlessUserCount() {
+		return this.RegisteredUserCount - this.HeadlessUserCount;
+	}
 }
 module.exports = { OnlineUserStats };
