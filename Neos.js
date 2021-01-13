@@ -397,7 +397,7 @@ class Neos extends EventEmitter {
 	 * @memberof Neos
 	 */
 	async GetUser(userId) {
-		(await this.CloudXInterface.GetUser(userId)).Entity;
+		return (await this.CloudXInterface.GetUser(userId)).Entity;
 	}
 	/**
 	 * get a specific User by their username
@@ -409,7 +409,7 @@ class Neos extends EventEmitter {
 	 * @memberof Neos
 	 */
 	async GetUserByName(username) {
-		(await this.CloudXInterface.GetUserByName(username)).Entity;
+		return (await this.CloudXInterface.GetUserByName(username)).Entity;
 	}
 	/**
 	 * Get the friends list of a user
