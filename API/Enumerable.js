@@ -1,5 +1,3 @@
-const { Type } = require("./Type");
-
 /**
  * @template T
  * @class Enumerable
@@ -18,7 +16,7 @@ class Enumerable extends Object {
 		super();
 		let keys;
 		let i;
-		switch (Type.Get($b)) {
+		switch ($b.constructor.name) {
 		case "Array":
 		case "List":
 			keys = $b;

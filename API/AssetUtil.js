@@ -3,7 +3,6 @@ const { Path } = require("./Path");
 const { Uri } = require("./Uri");
 const SHA256 = require("crypto-js/sha256");
 const fs = require("fs");
-const { Type } = require("./Type");
 class AssetUtil {
 	/**
 	 * @readonly
@@ -21,7 +20,7 @@ class AssetUtil {
 	 * @memberof AssetUtil
 	 */
 	static GenerateHashSignature(file) {
-		if (Type.Get(file) === "String") {
+		if (file instanceof String) {
 			let fileStream = fs.readFileSync(file);
 			return AssetUtil.GenerateHashSignature(fileStream);
 		} else {

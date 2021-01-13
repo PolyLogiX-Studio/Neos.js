@@ -1,6 +1,5 @@
 const { OwnerType } = require("./OwnerType");
 const { List } = require("./List");
-const { Type } = require("./Type");
 class SearchParameters {
 	constructor($b) {
 		if (!$b) $b = {};
@@ -57,7 +56,7 @@ class SearchParameters {
 		this._isNormalized = true;
 	}
 	Equals(other, excludeOffsetAndCount = false) {
-		if (Type.Get(other) !== "SearchParameters")
+		if (!(other instanceof SearchParameters))
 			other = new SearchParameters(other);
 
 		if (

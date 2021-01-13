@@ -1,4 +1,3 @@
-const { Type } = require("./Type");
 const { Out } = require("./Out");
 const { Dictionary } = require("./Dictionary");
 const { SessionAccessLevel } = require("./SessionAccessLevel");
@@ -66,7 +65,7 @@ class FriendManager {
 	 */
 	GetFriends(friendId) {
 		var friend = new Out();
-		switch (Type.Get(friendId)) {
+		switch (friendId.constructor.name) {
 		case "List":
 			for (let friend of this.friends) {
 				friendId.Add(friend.Value);
@@ -161,7 +160,7 @@ class FriendManager {
 	 * @memberof FriendManager
 	 */
 	AddFriend(friend) {
-		switch (Type.Get(friend)) {
+		switch (friend.constructor.name) {
 		case "String":
 			this.AddFriend(
 				new Friend({
