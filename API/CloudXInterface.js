@@ -356,7 +356,13 @@ class CloudXInterface {
 	get CurrentUser() {
 		return this._currentUser;
 	}
-
+	/**
+	 * Overrideable function to handle Errors
+	 * @function
+	 * @override
+	 * @param {any} error
+	 * @memberof CloudXInterface
+	 */
 	OnError(error) {
 		//Overridable Error Output
 		throw new Error(error);
