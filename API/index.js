@@ -6,7 +6,6 @@ const { AuthenticationHeaderValue } = require("./AuthenticationHeaderValue");
 const { HTTP_CLIENT } = require("./HTTP_CLIENT");
 const { CloudResult } = require("./CloudResult");
 const { UserTags } = require("./UserTags");
-const { Type } = require("./Type");
 const { Uri } = require("./Uri");
 const { Enumerable } = require("./Enumerable");
 const { RecordId } = require("./RecordId");
@@ -92,7 +91,6 @@ const CloudX = {
 		Path,
 		StringBuilder,
 		TimeSpan,
-		Type,
 		Uri,
 	},
 };

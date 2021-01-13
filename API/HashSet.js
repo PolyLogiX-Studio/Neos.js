@@ -1,4 +1,3 @@
-const { Type } = require("./Type");
 const { List } = require("./List");
 /**
  *
@@ -16,7 +15,7 @@ class HashSet extends List {
 	 */
 	constructor($b) {
 		if (!$b) $b = [];
-		switch (Type.Get($b)) {
+		switch ($b.constructor.name) {
 		case "Array":
 			$b = List.ToList($b);
 			// eslint-disable-next-line no-fallthrough
