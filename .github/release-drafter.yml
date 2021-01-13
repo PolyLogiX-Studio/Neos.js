@@ -1,32 +1,32 @@
 categories:
-  - title: '🚀 Features'
+  - title: "🚀 Features"
     labels:
-      - 'feature'
-      - 'enhancement'
-      - 'new'
-      - 'NEW:'
-  - title: '🐛 Bug Fixes'
+      - "feature"
+      - "enhancement"
+      - "new"
+      - "NEW:"
+  - title: "🐛 Bug Fixes"
     labels:
-      - 'fix'
-      - 'bugfix'
-      - 'bug'
-      - 'FIX:'
-  - title: '👌 Improvements'
-    labels: 
-      - 'improve'
-      - 'IMPROVE:'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+      - "fix"
+      - "bugfix"
+      - "bug"
+      - "FIX:"
+  - title: "👌 Improvements"
+    labels:
+      - "improve"
+      - "IMPROVE:"
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
   major:
     labels:
-      - 'major'
+      - "major"
   minor:
     labels:
-      - 'minor'
+      - "minor"
   patch:
     labels:
-      - 'patch'
+      - "patch"
   default: patch
 template: |
   ## Changes

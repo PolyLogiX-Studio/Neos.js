@@ -380,7 +380,6 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {string} username
 	 * @since 1.0.0
-	 * @version 1.6.7
 	 * @returns {List<User>}
 	 * @memberof Neos
 	 */
@@ -393,7 +392,6 @@ class Neos extends EventEmitter {
 	 * @param {string} userId
 	 * @returns {User} User Object
 	 * @since 1.0.0
-	 * @version 1.6.7
 	 * @memberof Neos
 	 */
 	async GetUser(userId) {
@@ -405,7 +403,6 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @returns {User}
 	 * @since 1.0.0
-	 * @version 1.6.8
 	 * @memberof Neos
 	 */
 	async GetUserByName(username) {
