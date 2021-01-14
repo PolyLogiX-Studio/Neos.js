@@ -60,7 +60,7 @@ class UserPatreonData {
 	) {
 		extendedPlus.Out = false;
 		let flag = false;
-		if (this.LastTotalUnits == 0 && this.LastTotalCents > 0) {
+		if (this.LastTotalUnits === 0 && this.LastTotalCents > 0) {
 			this.LastTotalUnits = this.LastTotalCents;
 			flag = true;
 		}
