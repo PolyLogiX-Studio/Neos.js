@@ -1,4 +1,3 @@
-const { Type } = require("./Type");
 /**
  * Work in Miliseconds
  *
@@ -23,7 +22,7 @@ class TimeSpan {
 	 * @returns {Promise}
 	 */
 	static Delay(timespan) {
-		if (Type.Get(timespan) !== "TimeSpan") timespan = new TimeSpan(timespan);
+		if (!(timespan instanceof TimeSpan)) timespan = new TimeSpan(timespan);
 		return new Promise((resolve) => setTimeout(resolve, timespan.msecs));
 	}
 }

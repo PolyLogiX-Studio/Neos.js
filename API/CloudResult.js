@@ -26,8 +26,8 @@ class CloudResult {
 	CloudResult(state, content, headers) {
 		this.State = state;
 		this.Content = content;
-		if (headers != null) {
-			this.Headers = {};
+		this.Headers = {};
+		if (headers != null && Object.keys(headers).length) {
 			for (let item of headers) {
 				this.Headers[item[0]] = item[1];
 			}

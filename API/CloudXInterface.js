@@ -10,7 +10,6 @@ const { RecordUtil } = require("./RecordUtil");
 const { List } = require("./List");
 const { SessionInfo } = require("./SessionInfo");
 const { Dictionary } = require("./Dictionary");
-const { Type } = require("./Type");
 const { IdUtil } = require("./IdUtil");
 const { OwnerType } = require("./OwnerType");
 const { TimeSpan } = require("./TimeSpan");
@@ -356,7 +355,13 @@ class CloudXInterface {
 	get CurrentUser() {
 		return this._currentUser;
 	}
-
+	/**
+	 * Overrideable function to handle Errors
+	 * @function
+	 * @override
+	 * @param {any} error
+	 * @memberof CloudXInterface
+	 */
 	OnError(error) {
 		//Overridable Error Output
 		throw new Error(error);
@@ -1057,9 +1062,8 @@ class CloudXInterface {
 	 * @param {String} c Path
 	 */
 	GetRecords(a, b, c) {
-		let type = Type.Get(a);
-		if (type === "Array") return this.GetRecordsList(List.ToList(a));
-		if (type === "List") return this.GetRecordsList(a);
+		if (type instanceof Array) return this.GetRecordsList(List.ToList(a));
+		if (type instanceof List) return this.GetRecordsList(a);
 		return this.GetRecordsFull(a, b, c);
 	}
 	/**
