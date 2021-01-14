@@ -139,7 +139,7 @@ class FriendManager {
 	 * @memberof FriendManager
 	 */
 	CountPresentFriends(session) {
-		if (session.SessionUsers == null || session.SessionUsers.length == 0)
+		if (session.SessionUsers == null || session.SessionUsers.length === 0)
 			return 0;
 		var num = 0;
 		for (let sessionUser of session.SessionUsers) {

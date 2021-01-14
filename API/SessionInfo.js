@@ -237,7 +237,7 @@ class SessionInfo {
 			str2 = version.substring(length + 1);
 		}
 		let strArray = str1.split(".");
-		if (strArray.length != 4) return false;
+		if (strArray.length !== 4) return false;
 		return str2.Length <= 128;
 	}
 

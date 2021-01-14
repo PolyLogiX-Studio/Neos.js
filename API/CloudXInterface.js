@@ -1824,7 +1824,7 @@ class CloudXInterface {
 			data,
 			new TimeSpan()
 		);
-		return cloudResult.State != 200
+		return cloudResult.State !== 200
 			? new CloudResult(false, cloudResult.State, cloudResult.Content)
 			: new CloudResult(true, cloudResult.State, null);
 	}
