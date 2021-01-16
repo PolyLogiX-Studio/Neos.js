@@ -220,14 +220,11 @@ class CloudXInterface {
 	static get CLOUDX_STAGING_NEOS_API() {
 		return "https://cloudx-staging.azurewebsites.net/";
 	}
-	static get POLYLOGIX_OAUTH_API() {
-		return "https://www.polylogix.studio/api/_NeosOAuth/";
-	}
 	static get CLOUDX_NEOS_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/";
 	}
 	static get CLOUDX_NEOS_CDN() {
-		return "https://cloudx.azureedge.net/";
+		return "https://cloudx2.azureedge.net/";
 	}
 	static get LOCAL_NEOS_API() {
 		return "http://localhost:60612/";
@@ -236,7 +233,7 @@ class CloudXInterface {
 		return "http://127.0.0.1:10000/devstoreaccount1/";
 	}
 	static get CLOUDX_NEOS_VIDEO_CDN() {
-		return "https://cloudx-video.azureedge.net/";
+		return "https://cloudx2.azureedge.net/";
 	}
 	ProfilerBeginSample() {
 		let beginSampleCallback = CloudXInterface.ProfilerBeginSampleCallback;
@@ -264,8 +261,6 @@ class CloudXInterface {
 			return "https://cloudx-staging.azurewebsites.net/";
 		case CloudXInterface.CloudEndpoint.Local:
 			return "https://localhost:60612/";
-		case CloudXInterface.CloudEndpoint.PolyLogiXOAuth:
-			return "https://oauth.neosdb.net/"; // Custom Server
 		default:
 			return new Error(
 				"Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
@@ -309,7 +304,7 @@ class CloudXInterface {
 	 * @memberof CloudXInterface
 	 */
 	static get NEOS_ASSETS_CDN() {
-		return "https://cloudx.azureedge.net/assets/";
+		return "https://cloudx2.azureedge.net/assets/";
 	}
 	static get NEOS_ASSETS_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/assets/";
@@ -318,15 +313,15 @@ class CloudXInterface {
 		return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
 	}
 	static get NEOS_INSTALL() {
-		return "https://cloudx.azureedge.net/install/";
+		return "https://cloudx2.azureedge.net/install/";
 	}
 	static get NEOS_ASSETS_VIDEO_CDN() {
-		return "https://cloudx-video.azureedge.net/assets/";
+		return "https://cloudx2.azureedge.net/assets/";
 	}
 	static get NEOS_CLOUD_BLOB() {
 		return !CloudXInterface.USE_CDN
 			? "https://cloudxstorage.blob.core.windows.net/"
-			: "https://cloudx.azureedge.net/";
+			: "https://cloudx2.azureedge.net/";
 	}
 	/**
 	 * Recalculate Server Ping and Response Time
