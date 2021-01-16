@@ -43,6 +43,7 @@ const { CreditTransaction } = require("./CreditTransaction");
 const { SearchQueryParser } = require("./SearchQueryParser");
 const { SearchResults } = require("./SearchResults");
 const { SessionInfo } = require("./SessionInfo");
+const { OutputDevice } = require("./OutputDevice");
 const CloudX = {
 	Shared: {
 		AccountType,
@@ -78,6 +79,7 @@ const CloudX = {
 		User,
 		UserStatus,
 		UserTags,
+		OutputDevice,
 	},
 	Util: {
 		Char,
