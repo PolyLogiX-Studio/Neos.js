@@ -1,9 +1,11 @@
 .API
 .github
 .vscode
-Tests/
-Examples/
-docs/
+Tests
+Examples
+workflows
+ISSUE_TEMPLATE
+docs
 .env
 .eslintignore
 .gitconfig
