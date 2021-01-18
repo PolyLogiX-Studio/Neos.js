@@ -220,9 +220,10 @@ class CloudXInterface {
 	static get CLOUDX_STAGING_NEOS_API() {
 		return "https://cloudx-staging.azurewebsites.net/";
 	}
-	static get CLOUDX_NEOS_BLOB() {
+	static get CLOUDX_NEOS_DURABLE_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/";
 	}
+	static get CLOUDX_NEOS_OPERATIONAL_BLOB(){return "https://cloudxoperationalblob.blob.core.windows.net/";} 
 	static get CLOUDX_NEOS_CDN() {
 		return "https://cloudx2.azureedge.net/";
 	}
@@ -309,8 +310,11 @@ class CloudXInterface {
 	static get NEOS_ASSETS_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/assets/";
 	}
-	static get NEOS_THUMBNAILS() {
+	static get NEOS_THUMBNAILS_OLD() {
 		return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
+	}
+	static get NEOS_THUMBNAILS() {
+		return "https://cloudxoperationalblob.blob.core.windows.net/thumbnails/";
 	}
 	static get NEOS_INSTALL() {
 		return "https://cloudx2.azureedge.net/install/";
@@ -641,7 +645,7 @@ class CloudXInterface {
 		return neosdb.Query.substring(1);
 	}
 	static NeosThumbnailIdToHttp(id) {
-		return new Uri(CloudXInterface.NEOS_THUMBNAILS + id);
+		return new Uri((ThumbnailInfo.IsIdVersion2(id) ? CloudXInterface.NEOS_THUMBNAILS : CloudXInterface.NEOS_THUMBNAILS_OLD) + id);
 	}
 	static TryFromString(url) {
 		if (url == null) return null;
