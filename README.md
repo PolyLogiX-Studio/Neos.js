@@ -36,7 +36,7 @@ Neos.js uses JSDoc Intellisense.
 Do you want to help with Neos.js Development?
 Consider pledging to our [Patreon](https://www.patreon.com/PolyLogiX_VR) or Donating to us on [KoFi](https://ko-fi.com/polylogix_studio)
 
-Want to submit Code? Read our [Contributors Guide](CONTRIBUTING.md)!
+Want to submit Code? Read our [Contributors Guide](.github/CONTRIBUTING.md)!
 
 For Questions or Assistance open a [Discussion](https://github.com/PolyLogiX-Studio/Neos.js/discussions?discussions_q=category%3AQ%26A) or join our [Discord](https://discord.gg/6y2A4Pk) after checking our [FAQ](#faq)
 
@@ -48,7 +48,7 @@ For Questions or Assistance open a [Discussion](https://github.com/PolyLogiX-Stu
   </p>
   </div>
 
-[![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](CONTRIBUTING.md)
+[![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](.github/CONTRIBUTING.md)
 
 # NeosJS
 

@@ -1,5 +1,7 @@
 .API
-.github
+.github/workflows
+.github/**.yml
+.github/ISSUE_TEMPLATE
 .vscode
 Tests
 Examples
@@ -12,3 +14,6 @@ docs
 CloudX.Shared/
 .travis.yml
 .documentation.yml
+.eslintrc.json
+inch.json
+.inch.config.json
