@@ -1,6 +1,6 @@
 {
 	"name": "@bombitmanbomb/neosjs",
-	"version": "1.10.0",
+	"version": "1.11.0",
 	"description": "Neos API",
 	"main": "Neos.js",
 	"scripts": {
@@ -38,6 +38,7 @@
 		}
 	},
 	"devDependencies": {
+		"@babel/core": "^7.12.10",
 		"@babel/plugin-transform-flow-strip-types": "^7.12.1",
 		"@types/minimist": "^1.2.0",
 		"@types/normalize-package-data": "^2.4.0",

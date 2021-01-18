@@ -15,6 +15,7 @@ const { OwnerType } = require("./OwnerType");
 const { TimeSpan } = require("./TimeSpan");
 const { HttpMethod } = require("./HttpMethod");
 const { HttpRequestMessage } = require("./HttpRequestMessage");
+const { ThumbnailInfo } = require("./ThumbnailInfo");
 // eslint-disable-next-line no-unused-vars
 const { HttpResponseMessage } = require("./HttpResponseMessage"); //lgtm [js/unused-local-variable]
 const { CancellationTokenSource } = require("./CancellationTokenSource");
@@ -223,7 +224,9 @@ class CloudXInterface {
 	static get CLOUDX_NEOS_DURABLE_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/";
 	}
-	static get CLOUDX_NEOS_OPERATIONAL_BLOB(){return "https://cloudxoperationalblob.blob.core.windows.net/";} 
+	static get CLOUDX_NEOS_OPERATIONAL_BLOB() {
+		return "https://cloudxoperationalblob.blob.core.windows.net/";
+	}
 	static get CLOUDX_NEOS_CDN() {
 		return "https://cloudx2.azureedge.net/";
 	}
@@ -645,7 +648,11 @@ class CloudXInterface {
 		return neosdb.Query.substring(1);
 	}
 	static NeosThumbnailIdToHttp(id) {
-		return new Uri((ThumbnailInfo.IsIdVersion2(id) ? CloudXInterface.NEOS_THUMBNAILS : CloudXInterface.NEOS_THUMBNAILS_OLD) + id);
+		return new Uri(
+			(ThumbnailInfo.IsIdVersion2(id)
+				? CloudXInterface.NEOS_THUMBNAILS
+				: CloudXInterface.NEOS_THUMBNAILS_OLD) + id
+		);
 	}
 	static TryFromString(url) {
 		if (url == null) return null;
