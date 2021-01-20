@@ -244,7 +244,7 @@ class Neos extends EventEmitter {
 		Object.defineProperty(this, "Interval", {
 			value: setInterval(this.Update.bind(this), interval),
 			enumerable: false,
-			writeable: true,
+			writable: true,
 		});
 	}
 
