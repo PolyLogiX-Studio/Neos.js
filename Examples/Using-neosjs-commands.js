@@ -11,7 +11,6 @@ const Neos = new NEOS({
 // Create Command Module
 const Commands = CommandManager.CreateCommands(Neos, "Invalid Command, Try <br>/commands <page>")
 const Admins = ["U-bombitmanbomb"]; // Admin Whitelist
-const { v4: uuidv4 } = require("uuid");
 
 Neos.on("login", obj => {
   console.log(__dirname, "Logged in as " + Neos.CurrentUser.Username);
