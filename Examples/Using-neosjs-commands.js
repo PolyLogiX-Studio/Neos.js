@@ -146,7 +146,7 @@ Commands.Add(
       // You can also use a Function in the help index!
       // Self refers to the this scope of the current command object and can refrence or call other indexes
       if (args.length === 0)
-        return "Usage: " = self.usage
+        return "Usage: " + self.usage
       return args.join(" ")
     },
     usage: Commands.Options.Prefix + "subscribe <channel>"
