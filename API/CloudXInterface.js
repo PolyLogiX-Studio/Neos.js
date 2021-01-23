@@ -1409,7 +1409,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 		let MemberList = new List();
-		for (let Member of res) {
+		for (let Member of res.Entity) {
 			MemberList.Add(Member);
 		}
 		res.Content = MemberList;
