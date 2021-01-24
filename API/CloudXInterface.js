@@ -250,10 +250,6 @@ class CloudXInterface {
 		endSampleCallback();
 	}
 	static get CLOUD_ENDPOINT() {
-		if (this.OAuth) {
-			if (this.OAuth.IsOAuth)
-				return CloudXInterface.CloudEndpoint.PolyLogiXOAuth;
-		}
 		return CloudXInterface.CloudEndpoint.Production;
 	}
 
