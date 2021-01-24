@@ -3,6 +3,7 @@ const { UserPatreonData } = require("./UserPatreonData");
 const { HashSet } = require("./HashSet");
 const { AccountType } = require("./AccountType");
 const { UserProfile } = require("./UserProfile");
+const { Dictionary } = require("./Dictionary")
 class User {
 	constructor($b) {
 		if (!$b) $b = {};
@@ -21,7 +22,15 @@ class User {
 		this.RecoverCode = $b.recoverCode;
 		this.Tags = new HashSet($b.tags);
 		this.PatreonData = new UserPatreonData($b.patreonData);
-		this.Credits = $b.credits;
+		this.Credits = new Dictionary()
+		//Setup Credits
+		try {
+			for (let Token in $b.credits){
+			this.Credits.TryAdd(Token, $b.credits[Token])
+		}
+		} catch (error) {
+			
+		}
 		this.NCRDepositAddress = $b.NCRdepositAddress;
 		this.ReferralId = $b.referralId;
 		this.ReferrerUserId = $b.referrerUserId;
