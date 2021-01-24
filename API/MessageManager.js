@@ -10,15 +10,19 @@ class MessageManager {
 		this.lastRequest = new Date(0);
 		this.lastUnreadMessage = new Date(0);
 		this.UnreadMessageCountChanged = null;
-		this.Cloud = cloud;
 		this.InitialmessagesFetched = new Boolean();
 		this.UnreadCountByUser = new Dictionary();
-		this.UnreadCount = new Number();
+		this.UnreadCount = 0;
 		this.TotalUnreadCount = 0;
 		Object.defineProperties(this, {
 			_messagesLock: {
 				value: new Object(),
 				writable: false,
+			},
+			Cloud: {
+				value:cloud,
+				enumerable:false,
+				writable:true
 			},
 			_messages: {
 				value: new Dictionary(),
@@ -48,7 +52,11 @@ class MessageManager {
 		return 200;
 	}
 	MessageManager(cloud) {
-		this.Cloud = cloud;
+		Object.defineProperties(this, {Cloud: {
+			value:cloud,
+			enumerable:false,
+			writable:true
+		}})
 	}
 
 	Update() {
@@ -56,8 +64,8 @@ class MessageManager {
 		if (this._unreadCountDirty) {
 			this._unreadCountDirty = false;
 			this.TotalUnreadCount = this._messages.Reduce((p, m) => {
-				m.Value.UnreadCount;
-			});
+				return p + m.Value.UnreadCount;
+			}, 0);
 			for (let m of this._messages) {
 				if (m.Value.UnreadCount === 0)
 					this.UnreadCountByUser.TryRemove(m.Key, []);
@@ -91,12 +99,13 @@ class MessageManager {
 			var hashSet = new HashSet();
 			for (let message of cloudresult1.Entity){
 				this.lastUnreadMessage = this.lastUnreadMessage != null ? new Date(Math.max(this.lastUnreadMessage, message.LastUpdateTime)) : new Date(message.LastUpdateTime)
-				if (!(this.GetUserMessages(message.SenderId).AddMessage(message)))
+				if (!this.GetUserMessages(message.SenderId).AddMessage(message)){
 					hashSet.Add(message)
+				} 
+					
 			}
 			let flag1 = false;
-			//Recheck
-			console.log(hashSet)
+			
 			for (let message of cloudresult1.Entity){
 				if (!hashSet.Contains(message)){
 					if (this.InitialMessagesFetched && message.MessageType == MessageType.CreditTransfer){
@@ -172,7 +181,7 @@ class MessageManager {
 		return class {
 			constructor() {
 				this.UserId = new String();
-				this.UnreadCount = new Number();
+				this.UnreadCount = 0;
 				this.Messages = new List();
 				Object.defineProperties(this, {
 					_messageIds: {
@@ -198,7 +207,13 @@ class MessageManager {
 			}
 			UserMessages(userId, manager) {
 				this.UserId = userId;
-				this.Manager = manager;
+				Object.defineProperties(this, {
+					Manager: {
+						value: manager,
+						writable: true,
+						enumerable:false
+					},
+				});
 			}
 			MarkAllRead() {
 				let ids = null;
@@ -289,7 +304,7 @@ class MessageManager {
 				}
 			}
 			AddMessage(message) {
-				if (this._messageIds.includes(message.Id)){console.log(false); return false} 
+				if (this._messageIds.includes(message.Id)){return false} 
 				this.Messages.Add(message);
 				this._messageIds.Add(message.Id);
 				if (message.IsReceived && !(message.ReadTime != null))
@@ -302,7 +317,6 @@ class MessageManager {
 					this._messageIds.Remove(this.Messages[0].Id);
 					this.Messages.RemoveAt(0);
 				}
-				console.log(true)
 				return true;
 			}
 			GetMessages(messages) {

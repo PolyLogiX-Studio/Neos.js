@@ -130,7 +130,7 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.GroupMemberUpdated = (groupMember) => {
 			this.Events.emit("groupMemberUpdated", groupMember);
 		};
-		this.CloudXInterface.Messages.onMessageReceived = (message) => {
+		this.CloudXInterface.Messages.OnMessageReceived = (message) => {
 			this.Events.emit("messageReceived", message);
 		};
 		this.CloudXInterface.Messages.messageCountChanged = (count) => {
