@@ -157,6 +157,29 @@ class Dictionary extends Array {
 	}
 	/**
 	 *
+	 *
+	 * @param {*} key
+	 * @param {*} value
+	 * @param {*} func
+	 * @returns {Boolean} Added
+	 * @memberof Dictionary
+	 */
+	AddOrUpdate(key, value, func) {
+		if (!this.ContainsKey(key)) {
+			if (this.TryAdd(key, value)) return value;
+			return false;
+		}
+		if (func == null) {
+			if (this.Replace(key, value)) return value;
+			return false;
+		}
+		let oldValue = new Out();
+		this.Get(key, oldValue);
+		let newValue = func(key, oldValue.Out);
+		if (this.Replace(key, newValue)) return newValue;
+	}
+	/**
+	 *
 	 * @param {} value
 	 * @param {Out<T>} out
 	 */
