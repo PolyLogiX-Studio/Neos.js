@@ -35,14 +35,14 @@ class MessageManager {
 		return 1;
 	}
 	static get UPDATE_TIMEOUT_SECONDS() {
-		return 10;
+		return 30;
 	}
 
 	static get MAX_READ_HISTORY() {
 		return 100;
 	}
 	static get MAX_UNREAD_HISTORY() {
-		return 500;
+		return 200;
 	}
 	MessageManager(cloud) {
 		this.Cloud = cloud;
