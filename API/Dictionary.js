@@ -155,9 +155,9 @@ class Dictionary extends Array {
 		}
 		return false; // How tf you manage that??
 	}
-	Reduce(a,b){
-		if (this.length===0) return 0
-		return this.reduce(a,b)
+	Reduce(a, b) {
+		if (this.length === 0) return 0;
+		return this.reduce(a, b);
 	}
 	/**
 	 *

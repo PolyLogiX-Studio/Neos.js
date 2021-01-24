@@ -20,9 +20,9 @@ class MessageManager {
 				writable: false,
 			},
 			Cloud: {
-				value:cloud,
-				enumerable:false,
-				writable:true
+				value: cloud,
+				enumerable: false,
+				writable: true,
 			},
 			_messages: {
 				value: new Dictionary(),
@@ -52,11 +52,13 @@ class MessageManager {
 		return 200;
 	}
 	MessageManager(cloud) {
-		Object.defineProperties(this, {Cloud: {
-			value:cloud,
-			enumerable:false,
-			writable:true
-		}})
+		Object.defineProperties(this, {
+			Cloud: {
+				value: cloud,
+				enumerable: false,
+				writable: true,
+			},
+		});
 	}
 
 	Update() {
@@ -97,42 +99,54 @@ class MessageManager {
 			this._waitingForRequest = false; //Async Limiting Tomfoolery
 			if (cloudresult1.IsError) return; //Bad Request
 			var hashSet = new HashSet();
-			for (let message of cloudresult1.Entity){
-				this.lastUnreadMessage = this.lastUnreadMessage != null ? new Date(Math.max(this.lastUnreadMessage, message.LastUpdateTime)) : new Date(message.LastUpdateTime)
-				if (!this.GetUserMessages(message.SenderId).AddMessage(message)){
-					hashSet.Add(message)
-				} 
-					
-			}
-			let flag1 = false;
-			
-			for (let message of cloudresult1.Entity){
-				if (!hashSet.Contains(message)){
-					if (this.InitialMessagesFetched && message.MessageType == MessageType.CreditTransfer){
-						let content = message.ExtractContent()
-						let flag2 = content.RecepientId == this.Cloud.CurrentUser.Id
-						let currentUser = this.Cloud.CurrentUser
-						if (currentUser.Credits != null && currentUser.Credits.ContainsKey(content.Token))
-							currentUser.Credits.AddOrUpdate(content.Token, flag2 ? content.Amount : -content.Amount, (key, value)=>flag2 ? value + content.Amount : value - content.Amount);
-						flag1 = true
-					}
-					let onMessageReceived = this.OnMessageReceived
-					if (onMessageReceived!=null) {
-						onMessageReceived(message);
-					}
-						
-					let friend = this.Cloud.Friends.GetFriend(message.SenderId);
-					if (friend != null)
-					friend.LatestMessageTime = Math.max(new Date(), message.SendTime);
+			for (let message of cloudresult1.Entity) {
+				this.lastUnreadMessage =
+					this.lastUnreadMessage != null
+						? new Date(Math.max(this.lastUnreadMessage, message.LastUpdateTime))
+						: new Date(message.LastUpdateTime);
+				if (!this.GetUserMessages(message.SenderId).AddMessage(message)) {
+					hashSet.Add(message);
 				}
 			}
-			this.MarkUnreadCountDirty()
+			let flag1 = false;
+
+			for (let message of cloudresult1.Entity) {
+				if (!hashSet.Contains(message)) {
+					if (
+						this.InitialMessagesFetched &&
+						message.MessageType == MessageType.CreditTransfer
+					) {
+						let content = message.ExtractContent();
+						let flag2 = content.RecepientId == this.Cloud.CurrentUser.Id;
+						let currentUser = this.Cloud.CurrentUser;
+						if (
+							currentUser.Credits != null &&
+							currentUser.Credits.ContainsKey(content.Token)
+						)
+							currentUser.Credits.AddOrUpdate(
+								content.Token,
+								flag2 ? content.Amount : -content.Amount,
+								(key, value) =>
+									flag2 ? value + content.Amount : value - content.Amount
+							);
+						flag1 = true;
+					}
+					let onMessageReceived = this.OnMessageReceived;
+					if (onMessageReceived != null) {
+						onMessageReceived(message);
+					}
+
+					let friend = this.Cloud.Friends.GetFriend(message.SenderId);
+					if (friend != null)
+						friend.LatestMessageTime = Math.max(new Date(), message.SendTime);
+				}
+			}
+			this.MarkUnreadCountDirty();
 			this.InitialmessagesFetched = true;
-			if (!flag1)
-				return;
-			await setTimeout(async ()=>{
-				let cloudResult2 = await this.Cloud.UpdateCurrentUserInfo()
-			},10000)
+			if (!flag1) return;
+			await setTimeout(async () => {
+				await this.Cloud.UpdateCurrentUserInfo();
+			}, 10000);
 		})();
 	}
 	MarkUnreadCountDirty() {
@@ -211,7 +225,7 @@ class MessageManager {
 					Manager: {
 						value: manager,
 						writable: true,
-						enumerable:false
+						enumerable: false,
 					},
 				});
 			}
@@ -304,7 +318,9 @@ class MessageManager {
 				}
 			}
 			AddMessage(message) {
-				if (this._messageIds.includes(message.Id)){return false} 
+				if (this._messageIds.includes(message.Id)) {
+					return false;
+				}
 				this.Messages.Add(message);
 				this._messageIds.Add(message.Id);
 				if (message.IsReceived && !(message.ReadTime != null))
