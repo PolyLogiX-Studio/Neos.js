@@ -34,20 +34,32 @@ class RecordId {
 		return this.RecordId.GetHashCode() ^ this.OwnerId.GetHashCode();
 	}
 	/**
-	 *
-	 *
+	 * Compare Records
 	 * @param {RecordId} other
-	 * @returns {Boolean}
+	 * @returns {Boolean} IsSame
 	 * @memberof RecordId
 	 */
 	Equals(other) {
 		if (this.RecordId === other.RecordId) return this.OwnerId === other.OwnerId;
 		return false;
 	}
-	
-	get IsValid() {
+/**
+ *
+ * @returns {Boolean} isValid
+ * @readonly
+ * @memberof RecordId
+ */
+get IsValid() {
 		return RecordId.IsValidId(this.OwnerId, this.RecordId);
 	}
+	/**
+	 *
+	 * @static
+	 * @param {string} ownerId
+	 * @param {string} id
+	 * @returns {Boolean} IsValid
+	 * @memberof RecordId
+	 */
 	static IsValidId(ownerId, id) {
 		return (
 			RecordUtil.IsValidRecordID(id) &&
