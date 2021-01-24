@@ -31,7 +31,7 @@ class RecordId {
 		this.OwnerId = $b.ownerId;
 	}
 	GetHashCode() {
-		return this.Id.GetHashCode() ^ this.OwnerId.GetHashCode();
+		return this.RecordId.GetHashCode() ^ this.OwnerId.GetHashCode();
 	}
 	/**
 	 *
@@ -41,22 +41,12 @@ class RecordId {
 	 * @memberof RecordId
 	 */
 	Equals(other) {
-		if (this.Id === other.Id) return this.OwnerId === other.OwnerId;
+		if (this.RecordId === other.RecordId) return this.OwnerId === other.OwnerId;
 		return false;
 	}
-	/**
-	 *
-	 *
-	 * @param {string} ownerId
-	 * @param {string} recordId
-	 * @memberof RecordId
-	 */
-	RecordId(ownerId, recordId) {
-		this.OwnerId = ownerId;
-		this.Id = recordId;
-	}
+	
 	get IsValid() {
-		return RecordId.IsValidId(this.OwnerId, this.Id);
+		return RecordId.IsValidId(this.OwnerId, this.RecordId);
 	}
 	static IsValidId(ownerId, id) {
 		return (
