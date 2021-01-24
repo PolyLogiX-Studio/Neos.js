@@ -27,7 +27,7 @@ class RecordId {
 	 */
 	constructor($b) {
 		if (!$b) $b = {};
-		this.Id = $b.recordId;
+		this.RecordId = $b.recordId;
 		this.OwnerId = $b.ownerId;
 	}
 	GetHashCode() {
