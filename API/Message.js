@@ -8,9 +8,9 @@ class Message {
 		this.SenderId = $b.senderId;
 		this.MessageType = $b.messageType;
 		this.Content = $b.content;
-		this.SendTime = $b.sendTime;
-		this.LastUpdateTime = $b.lastUpdateTime;
-		this.ReadTime = $b.readTime;
+		this.SendTime = new Date($b.sendTime)
+		this.LastUpdateTime = $b.lastUpdateTime!=null ? new Date($b.lastUpdateTime) : $b.lastUpdateTime
+		this.ReadTime = $b.readTime!=null ? new Date($b.readTime): null
 	}
 	static GenerateId() {
 		return "MSG-" + uuidv4();

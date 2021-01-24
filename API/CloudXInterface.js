@@ -64,10 +64,6 @@ class CloudXInterface {
 	 */
 	constructor(BUS, product, version) {
 		this.CloudXInterface(product, version);
-		this.OAuth = {
-			IsOAUTH: false,
-			Permissions: 0,
-		};
 		/** @type List<Membership> */
 		this._groupMemberships;
 		/** @type Dictionary<String, Member> */
@@ -820,16 +816,15 @@ class CloudXInterface {
 		recoverCode
 	) {
 		this.Logout(false);
-		this.OAuth.IsOAUTH = false;
 		let credentials = new LoginCredentials();
-		credentials.password = password;
-		credentials.recoverCode = recoverCode;
-		credentials.sessionToken = sessionToken;
-		credentials.secretMachineId = secretMachineId;
-		credentials.rememberMe = rememberMe;
-		if (credential.startsWith("U-")) credentials.ownerId = credential;
-		else if (credential.includes("@")) credentials.email = credential;
-		else credentials.username = credential;
+		credentials.Password = password;
+		credentials.RecoverCode = recoverCode;
+		credentials.SessionToken = sessionToken;
+		credentials.SecretMachineId = secretMachineId;
+		credentials.RememberMe = rememberMe;
+		if (credential.startsWith("U-")) credentials.OwnerId = credential;
+		else if (credential.includes("@")) credentials.Email = credential;
+		else credentials.Username = credential;
 		var result = await this.POST(
 			"api/userSessions",
 			credentials,

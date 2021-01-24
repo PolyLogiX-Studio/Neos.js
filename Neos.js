@@ -61,7 +61,6 @@ class Neos extends EventEmitter {
 		//Setup Options
 
 		if (!options) options = {};
-		if (options.OAuth == null) options.OAuth = false;
 		if (options.AutoReadMessages == null) options.AutoReadMessages = true;
 		if (!options.OnlineState) options.OnlineState = "Online";
 		if (options.StatusInterval == null) options.StatusInterval = 60;

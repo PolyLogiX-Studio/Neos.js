@@ -43,13 +43,13 @@ class RecordId {
 		if (this.RecordId === other.RecordId) return this.OwnerId === other.OwnerId;
 		return false;
 	}
-/**
- *
- * @returns {Boolean} isValid
- * @readonly
- * @memberof RecordId
- */
-get IsValid() {
+	/**
+	 *
+	 * @returns {Boolean} isValid
+	 * @readonly
+	 * @memberof RecordId
+	 */
+	get IsValid() {
 		return RecordId.IsValidId(this.OwnerId, this.RecordId);
 	}
 	/**
