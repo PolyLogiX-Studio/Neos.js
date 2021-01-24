@@ -1,3 +1,5 @@
+API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation Server, Find that at [neos-js](https://github.com/fruchtfolge/neos-js)
+
 <!-- markdownlint-disable MD033 -->
 
 <div align="center">
