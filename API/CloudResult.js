@@ -68,7 +68,7 @@ class CloudResult {
 		return !this.IsOK;
 	}
 	get StatusCode() {
-		return this.State
+		return this.State;
 	}
 	get IsSuccessStatusCode() {
 		return this.IsOK;

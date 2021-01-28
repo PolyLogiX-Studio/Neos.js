@@ -762,11 +762,9 @@ class CloudXInterface {
 		let content;
 		/** @type {CloudResult} */
 		let result1;
-		let num1 = 0;
 		try {
 			let remainingRetries = CloudXInterface.DEFAULT_RETRIES; //lgtm [js/useless-assignment-to-local] False Positive
 			let delay = 250;
-			let num2;
 			do {
 				try {
 					request = await requestSource();
@@ -794,7 +792,7 @@ class CloudXInterface {
 						this.OnDebug(
 							`Neos.js Exception running ${request.Method} request to ${request.RequestUri}. Remaining retries: ${remainingRetries}`
 						);
-						await TimeSpan.Delay(new TimeSpan(delay)) // Wait and then retry
+						await TimeSpan.Delay(new TimeSpan(delay)); // Wait and then retry
 						delay *= 2; // Double Retry Time
 					}
 				}
@@ -809,35 +807,27 @@ class CloudXInterface {
 				}
 			} else {
 				if (result.IsSuccessStatusCode) {
-					
 					if (request.RequestUri.includes(CloudXInterface.NEOS_API))
 						this.LastLocalServerResponse = new Date();
 					if (typeof result.Content === "string") {
 						content = result.Content;
-						num2 = 2;
 					} else {
-						try {
-							if ((result.Headers.ContentLength > num3) & (result.Headers.ContentLength != null)) 
-								num1 = 4;
-						} catch (error) {
-							//Ignore
-						}
-						content = result.Content
+						content = result.Content;
 						if (CloudXInterface.DEBUG_REQUESTS)
 							this.OnDebug(
 								`ENTITY for ${request.Method} - ${request.RequestUri}`
 							);
 					}
-					result1 = new CloudResult(null, result.StatusCode, content)
-				} else { // Bad Status Code
-					num2 = 6
+					result1 = new CloudResult(null, result.StatusCode, content);
+				} else {
+					// Bad Status Code
 					result1 = new CloudResult(null, result.StatusCode, content);
 				}
 			}
 		} catch (ex) {
-			this.OnError(ex, true) // This is a Hard Error, Request has Failed Spectacularly for some reason and will return No value, Likely braking what called it, Suggest Throw
+			this.OnError(ex, true); // This is a Hard Error, Request has Failed Spectacularly for some reason and will return No value, Likely braking what called it, Suggest Throw
 		}
-		return result1
+		return result1;
 	}
 	/**
 	 *
