@@ -9,3 +9,25 @@ toc:
     description: |
       Supporting Documentation for Neos.js
       Docs are still being Created, And will likely be a mess for now
+  - name: Shared
+    description: |
+      Core NeosVR API
+  - CloudXInterface
+  - name: Util
+    description: |
+      Supporting Classes and Types
+  - Char
+  - Dictionary
+  - Enumerable
+  - HashSet
+  - List
+  - Out
+  - StringBuilder
+  - Uri
+  - name: Arguments
+    description: |
+      Special Argument Type Definitions
+  - name: Uncategorized
+    description: |
+      None of these have been categorized yet. WIP
+      Want to contribute? [Contributing Guide](https://github.com/PolyLogiX-Studio/Neos.js/blob/master/.github/CONTRIBUTING.md)

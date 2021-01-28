@@ -164,7 +164,7 @@ class Dictionary extends Array {
 	 *
 	 * @param {*} key
 	 * @param {*} value
-	 * @param {*} func
+	 * @param {(key, oldValue)=>*} func
 	 * @returns {Boolean} Added
 	 * @memberof Dictionary
 	 */
