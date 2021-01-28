@@ -4,6 +4,7 @@ const AssetVariantEntityType = new Enumerable([
 	"BitmapVariant",
 	"CubemapMetadata",
 	"CubemapVariant",
+  "MeshMetadata",
 	"ShaderMetadata",
   "ShaderVariant",
 ]);
