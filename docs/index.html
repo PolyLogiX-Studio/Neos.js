@@ -293,6 +293,12 @@
 										<li class="h5">Events</li>
 
 										<li>
+											<a href="#neoseventneosdebug" class="regular pre-open">
+												ⓔ Neos#debug
+											</a>
+										</li>
+
+										<li>
 											<a href="#neoseventneoserror" class="regular pre-open">
 												ⓔ Neos#error
 											</a>
@@ -2159,6 +2165,42 @@ Neos.Login(Credentials...)</pre>
 
 					<div class="py1 quiet mt1 prose-big">Events</div>
 					<div class="clearfix">
+						<div class="border-bottom" id="neoseventneosdebug">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Neos#debug</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Console Event</p>
+
+									<div class="pre p1 fill-light mt0">Neos#debug</div>
+
+									<p>Type: any</p>
+
+									<div>Since: 1.13.0</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">info</span>
+												<code class="quiet">(any)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Example</div>
+
+									<pre
+										class="p1 overflow-auto round fill-light"
+									>Neos.on(<span class="hljs-string">"debug"</span>, (info)=&gt;{<span class="hljs-built_in">console</span>.log(info))})</pre>
+								</section>
+							</div>
+						</div>
+
 						<div class="border-bottom" id="neoseventneoserror">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">

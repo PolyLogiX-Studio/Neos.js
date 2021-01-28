@@ -49,7 +49,7 @@ class User {
 		return new Date() < this.MuteBanExpiration;
 	}
 	get IsListingBanned() {
-		return new Date() < this.ListingBanExpiration
+		return new Date() < this.ListingBanExpiration;
 	}
 	get CurrentAccountType() {
 		if (this.PatreonData == null) return AccountType.Normal;

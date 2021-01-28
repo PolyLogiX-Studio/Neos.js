@@ -112,6 +112,9 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.OnError = (error) => {
 			this.Events.emit("error", error);
 		};
+		this.CloudXInterface.OnDebug = (info) => {
+			this.Events.emit("debug", info);
+		};
 		this.CloudXInterface.OnSessionUpdated = () => {
 			this.Events.emit("sessionUpdated");
 		};
@@ -184,6 +187,9 @@ class Neos extends EventEmitter {
 				this.Events.emit("friendsChanged");
 			};
 			this.emit("logout");
+		});
+		this.Events.on("debug", (info) => {
+			this.emit("debug", info);
 		});
 		this.Events.on("error", (error) => {
 			this.emit("error", error);
@@ -865,6 +871,15 @@ class Neos extends EventEmitter {
  * @param {Error} err
  * @type {Error}
  * @since 1.0.0
+ * @memberof Neos
+ */
+/**
+ * Console Event
+ * @example Neos.on("debug", (info)=>{console.log(info))})
+ * @event Neos#debug
+ * @param {any} info
+ * @type {any}
+ * @since 1.13.0
  * @memberof Neos
  */
 /**
