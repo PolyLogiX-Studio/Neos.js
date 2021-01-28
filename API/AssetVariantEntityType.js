@@ -4,7 +4,9 @@ const AssetVariantEntityType = new Enumerable([
 	"BitmapVariant",
 	"CubemapMetadata",
 	"CubemapVariant",
-	"MeshMetadata"
+  "MeshMetadata",
+	"ShaderMetadata",
+  "ShaderVariant",
 ]);
 module.exports = {
 	AssetVariantEntityType,
