@@ -1,6 +1,6 @@
-API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation Server, Find that at [neos-js](https://github.com/fruchtfolge/neos-js)
-
 <!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD041 -->
+API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation Server, Find that at [neos-js](https://github.com/fruchtfolge/neos-js)
 
 <div align="center">
   <br />
@@ -20,7 +20,7 @@ API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation
     <a href="https://lgtm.com/projects/g/PolyLogiX-Studio/Neos.js/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/PolyLogiX-Studio/Neos.js.svg?logo=lgtm&logoWidth=18"/></a>
     <a href="https://lgtm.com/projects/g/PolyLogiX-Studio/Neos.js/context:javascript"><img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/PolyLogiX-Studio/Neos.js.svg?logo=lgtm&logoWidth=18"/></a>
     <a href="https://github.com/ahmadawais/Emoji-Log/"><img alt="emoji-log" src="https://cdn.rawgit.com/ahmadawais/stuff/ca97874/emoji-log/non-flat-round.svg" /></a>
-    </p>
+    </p><a href="https://wakatime.com/badge/github/PolyLogiX-Studio/Neos.js"><img src="https://wakatime.com/badge/github/PolyLogiX-Studio/Neos.js.svg"></a>
     <p>
     <a href="https://nodei.co/npm/@bombitmanbomb/neosjs"><img src="https://nodei.co/npm/@bombitmanbomb/neosjs.png?downloads=true&stars=true" alt="npm installnfo" /></a>
   </p>
