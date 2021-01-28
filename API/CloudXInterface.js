@@ -785,8 +785,8 @@ class CloudXInterface {
 				// Handle Error Response, Will Retry after <delay>
 				if (
 					result == null ||
-					result.StatusCode == 429 ||
-					result.StatusCode == 500
+					result.StatusCode === 429 ||
+					result.StatusCode === 500
 				) {
 					if (result == null) {
 						this.OnDebug(
