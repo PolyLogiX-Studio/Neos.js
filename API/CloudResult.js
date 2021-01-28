@@ -67,8 +67,11 @@ class CloudResult {
 	get IsError() {
 		return !this.IsOK;
 	}
-	IsSuccessStatusCode() {
-		return this.IsOK();
+	get StatusCode() {
+		return this.State;
+	}
+	get IsSuccessStatusCode() {
+		return this.IsOK;
 	}
 }
 module.exports = {
