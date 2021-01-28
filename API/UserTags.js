@@ -10,6 +10,12 @@ class UserTags {
 	static get NeosModerator() {
 		return "neos moderator";
 	}
+	static get NeosModerationLead() {
+		return "neos moderation lead";
+	}
+	static get NeosMentor() {
+		return "neos mentor";
+	}
 	static get NeosEast() {
 		return "neos east";
 	}
