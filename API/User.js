@@ -18,6 +18,7 @@ class User {
 		this.PublicBanExpiration = $b.publicBanExpiration || new Date(0);
 		this.SpectatorBanExpiration = $b.spectatorBanExpiration || new Date(0);
 		this.MuteBanExpiration = $b.muteBanExpiration || new Date(0);
+		this.ListingBanExpiration = $b.listingBanExpiration || new Date(0);
 		this.Password = $b.password;
 		this.RecoverCode = $b.recoverCode;
 		this.Tags = new HashSet($b.tags);
@@ -46,6 +47,9 @@ class User {
 	}
 	get IsMuteBanned() {
 		return new Date() < this.MuteBanExpiration;
+	}
+	get IsListingBanned() {
+		return new Date() < this.ListingBanExpiration
 	}
 	get CurrentAccountType() {
 		if (this.PatreonData == null) return AccountType.Normal;
