@@ -185,6 +185,12 @@ class CloudXInterface {
 	static get DEBUG_UPLOAD() {
 		return false;
 	}
+	static get DEBUG_REQUESTS() {
+		return false;
+	}
+	static get DefaultTimeout() {
+		return TimeSpan.fromSeconds(30);
+	}
 	static get storageUpdateDelays() {
 		return [1, 5, 15, 30];
 	}
@@ -359,6 +365,10 @@ class CloudXInterface {
 	OnError(error) {
 		//Overridable Error Output
 		throw new Error(error);
+	}
+	OnDebug(...vars) {
+		//Overrideable
+		console.log(...vars);
 	}
 	set CurrentUser(value) {
 		if (value === this._currentUser) return;
@@ -741,61 +751,93 @@ class CloudXInterface {
 	 * @returns {Promise<CloudResult>}
 	 * @memberof CloudXInterface
 	 */
-	async RunRequest(requestSource, timeout) {
+	async RunRequest(requestSource, timeout, throwOnError = false) {
 		/** @type {HttpRequestMessage} request */
 		let request = null;
 		/** @type {HttpResponseMessage} */
 		let result = null;
-		////let exception = null;
-		let remainingRetries = CloudXInterface.DEFAULT_RETRIES; //lgtm [js/useless-assignment-to-local] False Positive
-		let delay = 0;
-		do {
-			request = requestSource();
-			let cancellationToken = new CancellationTokenSource(
-				timeout ? timeout : TimeSpan.fromSeconds(30.0)
-			);
-			result = await this.HttpClient.SendAsync(
-				request,
-				cancellationToken.Token
-			);
+		/** @type {Error} */
+		let exception = null;
+		/** @type {string} */
+		let content;
+		/** @type {CloudResult} */
+		let result1;
+		let num1 = 0;
+		try {
+			let remainingRetries = CloudXInterface.DEFAULT_RETRIES; //lgtm [js/useless-assignment-to-local] False Positive
+			let delay = 250;
+			let num2;
+			do {
+				try {
+					request = await requestSource();
+					let cancellationTokenSource = new CancellationTokenSource(
+						timeout || CloudXInterface.DefaultTimeout
+					);
+					if (CloudXInterface.DEBUG_REQUESTS)
+						this.OnDebug(request.Method, request.RequestUri);
+					result = await this.HttpClient.SendAsync(
+						request,
+						cancellationTokenSource.Token
+					);
+					if (CloudXInterface.DEBUG_REQUESTS)
+						this.OnDebug(request.Method, request.RequestUri, result.StatusCode);
+				} catch (error2) {
+					exception = error2;
+				}
+				// Handle Error Response, Will Retry after <delay>
+				if (
+					result == null ||
+					result.StatusCode == 429 ||
+					result.StatusCode == 500
+				) {
+					if (result == null) {
+						this.OnDebug(
+							`Neos.js Exception running ${request.Method} request to ${request.RequestUri}. Remaining retries: ${remainingRetries}`
+						);
+						await TimeSpan.Delay(new TimeSpan(delay)) // Wait and then retry
+						delay *= 2; // Double Retry Time
+					}
+				}
+			} while (result == null && remainingRetries-- > 0);
 			if (result == null) {
-				//TODO Error
-				request = null;
-				await TimeSpan.Delay(new TimeSpan(delay));
-				delay += 250;
+				if (!throwOnError) {
+					result1 = new CloudResult(null, 0, null, null);
+				} else {
+					if (exception == null)
+						this.OnError("Failed to get response. Exception is null");
+					this.OnError(exception);
+				}
+			} else {
+				if (result.IsSuccessStatusCode) {
+					
+					if (request.RequestUri.includes(CloudXInterface.NEOS_API))
+						this.LastLocalServerResponse = new Date();
+					if (typeof result.Content === "string") {
+						content = result.Content;
+						num2 = 2;
+					} else {
+						try {
+							if ((result.Headers.ContentLength > num3) & (result.Headers.ContentLength != null)) 
+								num1 = 4;
+						} catch (error) {
+							//Ignore
+						}
+						content = result.Content
+						if (CloudXInterface.DEBUG_REQUESTS)
+							this.OnDebug(
+								`ENTITY for ${request.Method} - ${request.RequestUri}`
+							);
+					}
+					result1 = new CloudResult(null, result.StatusCode, content)
+				} else { // Bad Status Code
+					num2 = 6
+					result1 = new CloudResult(null, result.StatusCode, content);
+				}
 			}
-			return result; //BYPASS
-		} while (result == null && remainingRetries-- > 0);
-		/*
-    if (result == null) {
-      if (exception == null)
-        return this.OnError("Failed to get response. Exception is null");
-      return this.OnError(exception);
-    }
-    let entity;
-    let content = null;
-    if (result.IsSuccessStatusCode) {
-      if (typeof result.Content === "string") {
-        content = await result.Content.toString();
-        entity = content;
-      } else {
-        try {
-          let contentLength = result.Headers["content-length"];
-          let num = 0;
-          if (contentLength > num && contentLength != null) {
-            let responseStream = await result.Content.toString();
-            entity = await JSON.parse(responseStream);
-          }
-        } catch (error) {
-          console.error("Exception deserializing ");
-        } finally {
-        }
-      }
-    } else {
-      content = await result.Content;
-      return new CloudResult(entity, result.StatusCode, content);
-    }
-    */
+		} catch (ex) {
+			this.OnError(ex, true) // This is a Hard Error, Request has Failed Spectacularly for some reason and will return No value, Likely braking what called it, Suggest Throw
+		}
+		return result1
 	}
 	/**
 	 *
