@@ -3,13 +3,13 @@
  * @class AssetUploadData
  * @template UploadState
  * @param {Object} $b
- * @param {string} $b.signature - Bloop
- * @param {string} $b.variant - Bloop
- * @param {string} $b.ownerId - Bloop
- * @param {Number} $b.totalBytes - Bloop
- * @param {Number} $b.chunkSize - Bloop
- * @param {Number} $b.totalChunks - Bloop
- * @param {UploadState} $b.uploadState - Bloop
+ * @param {string} $b.signature - Asset Signature
+ * @param {string} $b.variant - Asset Variant
+ * @param {string} $b.ownerId - Owner Id
+ * @param {Number} $b.totalBytes - Asset Size
+ * @param {Number} $b.chunkSize - Chunk Size
+ * @param {Number} $b.totalChunks - Number of Chunks
+ * @param {UploadState} $b.uploadState - Upload State, See {@link #uploadstate UploadState}
  */
 class AssetUploadData {
 	constructor($b) {

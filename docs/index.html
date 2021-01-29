@@ -1278,35 +1278,41 @@
 
 								<div class="toggle-target display-none">
 									<ul class="list-reset py1-ul pl1">
-										<li class="h5"><span>Static members</span></li>
+										<li class="h5"><span>Instance members</span></li>
 
 										<li>
 											<a href="#dictionaryadd" class="regular pre-open">
-												.Add
+												#Add
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionaryclear" class="regular pre-open">
-												.Clear
+												#Clear
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionarycontainskey" class="regular pre-open">
-												.ContainsKey
+												#ContainsKey
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionaryreplace" class="regular pre-open">
+												#Replace
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionarytryadd" class="regular pre-open">
-												.TryAdd
+												#TryAdd
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionaryaddorupdate" class="regular pre-open">
-												.AddOrUpdate
+												#AddOrUpdate
 											</a>
 										</li>
 
@@ -1315,7 +1321,13 @@
 												href="#dictionarycontainsvalue"
 												class="regular pre-open"
 											>
-												.ContainsValue
+												#ContainsValue
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionarycount" class="regular pre-open">
+												#Count
 											</a>
 										</li>
 
@@ -1324,29 +1336,43 @@
 												href="#dictionaryensurecapacity"
 												class="regular pre-open"
 											>
-												.EnsureCapacity
+												#EnsureCapacity
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionaryget" class="regular pre-open">
+												#Get
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionaryreduce" class="regular pre-open">
+												#Reduce
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionaryremove" class="regular pre-open">
-												.Remove
+												#Remove
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionaryremoveat" class="regular pre-open">
-												.RemoveAt
+												#RemoveAt
 											</a>
 										</li>
-									</ul>
-
-									<ul class="list-reset py1-ul pl1">
-										<li class="h5"><span>Instance members</span></li>
 
 										<li>
 											<a href="#dictionarytrygetvalue" class="regular pre-open">
 												#TryGetValue
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionarytryremove" class="regular pre-open">
+												#TryRemove
 											</a>
 										</li>
 									</ul>
@@ -1451,7 +1477,22 @@
 								</div>
 							</li>
 
-							<li><a href="#out" class=""> Out </a></li>
+							<li>
+								<a href="#out" class="toggle-sibling">
+									Out
+									<span class="icon">▸</span>
+								</a>
+
+								<div class="toggle-target display-none">
+									<ul class="list-reset py1-ul pl1">
+										<li class="h5"><span>Instance members</span></li>
+
+										<li>
+											<a href="#outout" class="regular pre-open"> #Out </a>
+										</li>
+									</ul>
+								</div>
+							</li>
 
 							<li><a href="#stringbuilder" class=""> StringBuilder </a></li>
 
@@ -1633,10 +1674,6 @@
 
 							<li><a href="#constructor" class=""> constructor </a></li>
 
-							<li><a href="#picturepatreon" class=""> PicturePatreon </a></li>
-
-							<li><a href="#constructor" class=""> constructor </a></li>
-
 							<li><a href="#constructor" class=""> constructor </a></li>
 
 							<li><a href="#constructor" class=""> constructor </a></li>
@@ -1646,6 +1683,10 @@
 							<li>
 								<a href="#rsaparametersdata" class=""> RSAParametersData </a>
 							</li>
+
+							<li><a href="#constructor" class=""> constructor </a></li>
+
+							<li><a href="#picturepatreon" class=""> PicturePatreon </a></li>
 
 							<li><a href="#constructor" class=""> constructor </a></li>
 
@@ -2145,6 +2186,18 @@
 							<li><a href="#content" class=""> content </a></li>
 
 							<li><a href="#dictionary" class=""> dictionary </a></li>
+
+							<li>
+								<a href="#dictionaryaddorupdatecallback" class="">
+									Dictionary.AddOrUpdate~callback
+								</a>
+							</li>
+
+							<li>
+								<a href="#dictionaryreducecallback" class="">
+									Dictionary.Reduce~callback
+								</a>
+							</li>
 
 							<li><a href="#exception" class=""> exception </a></li>
 
@@ -5574,7 +5627,7 @@ Neos.Login(Credentials...)</pre>
 												></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word"><span>Asset Signature </span></td>
 									</tr>
 
 									<tr>
@@ -5587,7 +5640,7 @@ Neos.Login(Credentials...)</pre>
 												></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word"><span>Asset Variant </span></td>
 									</tr>
 
 									<tr>
@@ -5600,7 +5653,7 @@ Neos.Login(Credentials...)</pre>
 												></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word"><span>Owner Id </span></td>
 									</tr>
 
 									<tr>
@@ -5613,7 +5666,7 @@ Neos.Login(Credentials...)</pre>
 												></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word"><span>Asset Size </span></td>
 									</tr>
 
 									<tr>
@@ -5626,7 +5679,7 @@ Neos.Login(Credentials...)</pre>
 												></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word"><span>Chunk Size </span></td>
 									</tr>
 
 									<tr>
@@ -5639,7 +5692,7 @@ Neos.Login(Credentials...)</pre>
 												></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word"><span>Number of Chunks </span></td>
 									</tr>
 
 									<tr>
@@ -5649,7 +5702,12 @@ Neos.Login(Credentials...)</pre>
 												><a href="#uploadstate">UploadState</a></code
 											>
 										</td>
-										<td class="break-word"><span>Bloop </span></td>
+										<td class="break-word">
+											<span
+												>Upload State, See
+												<a href="#uploadstate">UploadState</a>
+											</span>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -8643,18 +8701,12 @@ Neos.Login(Credentials...)</pre>
 						<h3 class="fl m0" id="dictionary">Dictionary</h3>
 					</div>
 
+					<p>Create a Dictionary Object</p>
+					<p><a href="#out">Out</a> type can be replaced with [] in a var</p>
+
 					<div class="pre p1 fill-light mt0">new Dictionary()</div>
 
-					<p>
-						Extends
-
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-							>Array</a
-						>
-					</p>
-
-					<div class="py1 quiet mt1 prose-big">Static Members</div>
+					<div class="py1 quiet mt1 prose-big">Instance Members</div>
 					<div class="clearfix">
 						<div class="border-bottom" id="dictionaryadd">
 							<div class="clearfix small pointer toggle-sibling">
@@ -8667,6 +8719,9 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Add an entry to the Dictionary.</p>
+									<p>Will Error if Key already exists.</p>
+
 									<div class="pre p1 fill-light mt0">Add(Key: T, Value: A)</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -8675,6 +8730,7 @@ Neos.Login(Credentials...)</pre>
 											<div>
 												<span class="code bold">Key</span>
 												<code class="quiet">(T)</code>
+												Value
 											</div>
 										</div>
 
@@ -8682,6 +8738,7 @@ Neos.Login(Credentials...)</pre>
 											<div>
 												<span class="code bold">Value</span>
 												<code class="quiet">(A)</code>
+												Value
 											</div>
 										</div>
 									</div>
@@ -8698,6 +8755,8 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Clear the Dictionary</p>
+
 									<div class="pre p1 fill-light mt0">Clear()</div>
 								</section>
 							</div>
@@ -8708,23 +8767,88 @@ Neos.Login(Credentials...)</pre>
 								<div class="py1 contain">
 									<a class="icon pin-right py1 dark-link caret-right">▸</a>
 									<span class="code strong strong truncate"
-										>ContainsKey(key)</span
+										>ContainsKey(Key)</span
 									>
 								</div>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
-									<div class="pre p1 fill-light mt0">ContainsKey(key: any)</div>
+									<p>Check if a Key exists</p>
+
+									<div class="pre p1 fill-light mt0">
+										ContainsKey(Key: T):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">Key</span>
+												<code class="quiet">(T)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Key Found
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryreplace">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Replace(key, Value)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Replace Key's value with new Value</p>
+
+									<div class="pre p1 fill-light mt0">
+										Replace(key: T, Value: A):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
 									<div class="prose">
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">key</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(T)</code>
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">Value</span>
+												<code class="quiet">(A)</code>
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Was replace successful
 								</section>
 							</div>
 						</div>
@@ -8740,8 +8864,14 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Attempt to add an entry to the Dictionary</p>
+
 									<div class="pre p1 fill-light mt0">
-										TryAdd(Key: T, Value: A)
+										TryAdd(Key: T, Value: A):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>Boolean</a
+										>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -8760,6 +8890,14 @@ Neos.Login(Credentials...)</pre>
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>Boolean</a
+										></code
+									>: Was the Add command successfull
 								</section>
 							</div>
 						</div>
@@ -8769,14 +8907,21 @@ Neos.Login(Credentials...)</pre>
 								<div class="py1 contain">
 									<a class="icon pin-right py1 dark-link caret-right">▸</a>
 									<span class="code strong strong truncate"
-										>AddOrUpdate(key, value, func)</span
+										>AddOrUpdate(key, value, func?)</span
 									>
 								</div>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Adds a new Value at Key</p>
+									<p>if Key exists, Updates Key</p>
+									<p>if func is set, Programatically updates Key</p>
+
 									<div class="pre p1 fill-light mt0">
-										AddOrUpdate(key: any, value: any, func: any):
+										AddOrUpdate(key: T, value: A, func:
+										<a href="#dictionaryaddorupdatecallback"
+											>Dictionary.AddOrUpdate~callback</a
+										>?):
 										<a
 											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
 											>Boolean</a
@@ -8788,21 +8933,25 @@ Neos.Login(Credentials...)</pre>
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">key</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(T)</code>
 											</div>
 										</div>
 
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">value</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(A)</code>
 											</div>
 										</div>
 
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">func</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet"
+													>(<a href="#dictionaryaddorupdatecallback"
+														>Dictionary.AddOrUpdate~callback</a
+													>?)</code
+												>
 											</div>
 										</div>
 									</div>
@@ -8823,25 +8972,55 @@ Neos.Login(Credentials...)</pre>
 								<div class="py1 contain">
 									<a class="icon pin-right py1 dark-link caret-right">▸</a>
 									<span class="code strong strong truncate"
-										>ContainsValue(value)</span
+										>ContainsValue(Value)</span
 									>
 								</div>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Check if a Value exists in the Dictionary</p>
+
 									<div class="pre p1 fill-light mt0">
-										ContainsValue(value: any)
+										ContainsValue(Value: A):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
 									<div class="prose">
 										<div class="space-bottom0">
 											<div>
-												<span class="code bold">value</span>
-												<code class="quiet">(any)</code>
+												<span class="code bold">Value</span>
+												<code class="quiet">(A)</code>
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Value Exists
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionarycount">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Count</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get the amount of items</p>
+
+									<div class="pre p1 fill-light mt0">Count</div>
 								</section>
 							</div>
 						</div>
@@ -8851,25 +9030,117 @@ Neos.Login(Credentials...)</pre>
 								<div class="py1 contain">
 									<a class="icon pin-right py1 dark-link caret-right">▸</a>
 									<span class="code strong strong truncate"
-										>EnsureCapacity(capacity)</span
+										>EnsureCapacity()</span
 									>
 								</div>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get the Capacity</p>
+
+									<div class="pre p1 fill-light mt0">EnsureCapacity()</div>
+
+									<div>Deprecated: This is deprecated.</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryget">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Get(key, out)</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get a key's value</p>
+
 									<div class="pre p1 fill-light mt0">
-										EnsureCapacity(capacity: any)
+										Get(key: T, out: <a href="#out">Out</a>&#x3C;A>):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
 									<div class="prose">
 										<div class="space-bottom0">
 											<div>
-												<span class="code bold">capacity</span>
-												<code class="quiet">(any)</code>
+												<span class="code bold">key</span>
+												<code class="quiet">(T)</code>
+												Key
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">out</span>
+												<code class="quiet"
+													>(<a href="#out">Out</a>&#x3C;A>)</code
+												>
+												Output Var
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Key Exists
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryreduce">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Reduce(callbackfn, InitialValue)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Reduce a Dictionary's values down</p>
+
+									<div class="pre p1 fill-light mt0">
+										Reduce(callbackfn:
+										<a href="#dictionaryreducecallback"
+											>Dictionary.Reduce~callback</a
+										>, InitialValue: any): any
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">callbackfn</span>
+												<code class="quiet"
+													>(<a href="#dictionaryreducecallback"
+														>Dictionary.Reduce~callback</a
+													>)</code
+												>
+												Computation function
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">InitialValue</span>
+												<code class="quiet">(any)</code>
+												Initial Value
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code>any</code>:
 								</section>
 							</div>
 						</div>
@@ -8883,17 +9154,33 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
-									<div class="pre p1 fill-light mt0">Remove(key: any)</div>
+									<p>Remove a Key. Will error if Key does not exist</p>
+
+									<div class="pre p1 fill-light mt0">
+										Remove(key: T):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
 									<div class="prose">
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">key</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(T)</code>
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Key Removed
 								</section>
 							</div>
 						</div>
@@ -8909,24 +9196,34 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
-									<div class="pre p1 fill-light mt0">RemoveAt(iIndex: any)</div>
+									<p>Remove an Item at a given Index</p>
+
+									<div class="pre p1 fill-light mt0">
+										RemoveAt(iIndex:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>)
+									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
 									<div class="prose">
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">iIndex</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>)</code
+												>
 											</div>
 										</div>
 									</div>
 								</section>
 							</div>
 						</div>
-					</div>
 
-					<div class="py1 quiet mt1 prose-big">Instance Members</div>
-					<div class="clearfix">
 						<div class="border-bottom" id="dictionarytrygetvalue">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -8938,8 +9235,17 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>
+										Attempt to get Value, Sets Value to Out. Returns Boolean
+										valueExists
+									</p>
+
 									<div class="pre p1 fill-light mt0">
-										TryGetValue(value: any, out: <a href="#out">Out</a>&#x3C;T>)
+										TryGetValue(value: A, out: <a href="#out">Out</a>&#x3C;A>):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -8947,7 +9253,7 @@ Neos.Login(Credentials...)</pre>
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">value</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(A)</code>
 											</div>
 										</div>
 
@@ -8955,11 +9261,61 @@ Neos.Login(Credentials...)</pre>
 											<div>
 												<span class="code bold">out</span>
 												<code class="quiet"
-													>(<a href="#out">Out</a>&#x3C;T>)</code
+													>(<a href="#out">Out</a>&#x3C;A>)</code
 												>
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Value Existed
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionarytryremove">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>TryRemove(key)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Attempt to remove a Key.</p>
+
+									<div class="pre p1 fill-light mt0">
+										TryRemove(key: T):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">key</span>
+												<code class="quiet">(T)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Key Removed
 								</section>
 							</div>
 						</div>
@@ -9407,15 +9763,26 @@ Neos.Login(Credentials...)</pre>
 						<h3 class="fl m0" id="out">Out</h3>
 					</div>
 
-					<p>Out Variable</p>
+					<p>Easy Out Var Generator</p>
 
 					<div class="pre p1 fill-light mt0">new Out()</div>
 
-					<div class="py1 quiet mt1 prose-big">Properties</div>
-					<div>
-						<div class="space-bottom0">
-							<span class="code bold">Out</span>
-							<code class="quiet">(any)</code>
+					<div class="py1 quiet mt1 prose-big">Instance Members</div>
+					<div class="clearfix">
+						<div class="border-bottom" id="outout">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Out</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<div class="pre p1 fill-light mt0">Out</div>
+
+									<p>Type: T</p>
+								</section>
+							</div>
 						</div>
 					</div>
 				</section>
@@ -10455,91 +10822,6 @@ Neos.Login(Credentials...)</pre>
 						<h3 class="fl m0" id="constructor">constructor</h3>
 					</div>
 
-					<p>Creates an instance of PicturePatreon.</p>
-
-					<div class="pre p1 fill-light mt0">
-						constructor($b: {name:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, pictureUrl:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>})
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Parameters</div>
-					<div class="prose">
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">$b</span>
-								<code class="quiet"
-									>({name:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>, pictureUrl:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>})</code
-								>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="picturepatreon">PicturePatreon</h3>
-					</div>
-
-					<div class="pre p1 fill-light mt0">
-						PicturePatreon(name:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, url:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>)
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Parameters</div>
-					<div class="prose">
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">name</span>
-								<code class="quiet"
-									>(<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>)</code
-								>
-							</div>
-						</div>
-
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">url</span>
-								<code class="quiet"
-									>(<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>)</code
-								>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="constructor">constructor</h3>
-					</div>
-
 					<p>Creates an instance of RecordInfo.</p>
 
 					<div class="pre p1 fill-light mt0">
@@ -10798,6 +11080,91 @@ Neos.Login(Credentials...)</pre>
 							<div>
 								<span class="code bold">rsa</span>
 								<code class="quiet">(RSAParametersData)</code>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="constructor">constructor</h3>
+					</div>
+
+					<p>Creates an instance of PicturePatreon.</p>
+
+					<div class="pre p1 fill-light mt0">
+						constructor($b: {name:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, pictureUrl:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>})
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">$b</span>
+								<code class="quiet"
+									>({name:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>, pictureUrl:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>})</code
+								>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="picturepatreon">PicturePatreon</h3>
+					</div>
+
+					<div class="pre p1 fill-light mt0">
+						PicturePatreon(name:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, url:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>)
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">name</span>
+								<code class="quiet"
+									>(<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>)</code
+								>
+							</div>
+						</div>
+
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">url</span>
+								<code class="quiet"
+									>(<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>)</code
+								>
 							</div>
 						</div>
 					</div>
@@ -13695,6 +14062,123 @@ Neos.Login(Credentials...)</pre>
 					</div>
 
 					<div class="pre p1 fill-light mt0">dictionary</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="dictionaryaddorupdatecallback">
+							Dictionary.AddOrUpdate~callback
+						</h3>
+					</div>
+
+					<div class="pre p1 fill-light mt0">
+						Dictionary.AddOrUpdate~callback(Key: T, Value: A): A
+					</div>
+
+					<p>
+						Type:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
+							>Function</a
+						>
+					</p>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">Key</span>
+								<code class="quiet">(T)</code>
+								Current Key
+							</div>
+						</div>
+
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">Value</span>
+								<code class="quiet">(A)</code>
+								Current Value
+							</div>
+						</div>
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Returns</div>
+					<code>A</code>: New Value
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="dictionaryreducecallback">
+							Dictionary.Reduce~callback
+						</h3>
+					</div>
+
+					<p>Reduce Callback</p>
+
+					<div class="pre p1 fill-light mt0">
+						Dictionary.Reduce~callback(previousValue: any?, currentValue: any?,
+						currentIndex:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+							>number</a
+						>?, array:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+							>Array</a
+						>&#x3C;any>?): any
+					</div>
+
+					<p>
+						Type:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
+							>Function</a
+						>
+					</p>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">previousValue</span>
+								<code class="quiet">(any?)</code>
+							</div>
+						</div>
+
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">currentValue</span>
+								<code class="quiet">(any?)</code>
+							</div>
+						</div>
+
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">currentIndex</span>
+								<code class="quiet"
+									>(<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+										>number</a
+									>?)</code
+								>
+							</div>
+						</div>
+
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">array</span>
+								<code class="quiet"
+									>(<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+										>Array</a
+									>&#x3C;any>?)</code
+								>
+							</div>
+						</div>
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Returns</div>
+					<code>any</code>: Returned Value will set to set previousValue
 				</section>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">

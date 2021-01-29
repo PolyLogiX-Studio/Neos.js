@@ -1,14 +1,17 @@
 /**
- * Out Variable
+ * Easy Out Var Generator
  * @class Out
- * @property {*} Out
+ * @template T
+ * @returns {[Out:T]}
+ * @param {[Out:T]} Out
  */
 class Out {
-	/**
-	 *Creates an instance of Out.
-	 * @memberof Out
-	 */
 	constructor() {
+		/**
+		 * @memberof Out
+		 * @instance
+		 * @alias Out
+		 * @type {T} */
 		let self = [];
 		self.Out = new Object();
 		return self;
