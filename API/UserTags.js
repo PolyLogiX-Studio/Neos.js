@@ -37,6 +37,9 @@ class UserTags {
 	static get ColorBlind() {
 		return "color blind";
 	}
+	static get Mute() {
+		return "mute";
+	}
 	static get Potato() {
 		return "potato";
 	}
