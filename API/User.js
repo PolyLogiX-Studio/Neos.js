@@ -4,6 +4,12 @@ const { HashSet } = require("./HashSet");
 const { AccountType } = require("./AccountType");
 const { UserProfile } = require("./UserProfile");
 const { Dictionary } = require("./Dictionary");
+/**
+ * User Object
+ * @class User
+ * @classdesc User
+ * @param {{}} $b
+ */
 class User {
 	constructor($b) {
 		if (!$b) $b = {};

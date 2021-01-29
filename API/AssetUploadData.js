@@ -1,26 +1,32 @@
+/**
+ * Asset Upload Data Object
+ * @class AssetUploadData
+ * @template UploadState
+ * @param {Object} $b
+ * @param {string} $b.signature - Bloop
+ * @param {string} $b.variant - Bloop
+ * @param {string} $b.ownerId - Bloop
+ * @param {Number} $b.totalBytes - Bloop
+ * @param {Number} $b.chunkSize - Bloop
+ * @param {Number} $b.totalChunks - Bloop
+ * @param {UploadState} $b.uploadState - Bloop
+ */
 class AssetUploadData {
-	/**
-	 *Creates an instance of AssetUploadData.
-	 * @param {{
-	 * signature: string,
-	 * variant: string,
-	 * ownerId: string
-	 * totalBytes: Number,
-	 * chunkSIze: Number,
-	 * totalChunks: Number,
-	 * uploadState: (UploadState)
-	 * }} $b
-	 * @memberof AssetUploadData
-	 */
 	constructor($b) {
 		if (!$b) $b = {};
+		/**@type {string} */
 		this.Signature = $b.signature;
+		/**@type {string} */
 		this.Variant = $b.variant;
+		/**@type {string} */
 		this.OwnerId = $b.ownerId;
+		/**@type {Number} */
 		this.TotalBytes = $b.totalBytes;
-		this.ChunkSIze = $b.chunkSIze;
+		/**@type {Number} */
+		this.ChunkSize = $b.chunkSize;
+		/**@type {Number} */
 		this.TotalChunks = $b.totalChunks;
-		/** @template UploadState*/
+		/**@type {UploadState} */
 		this.UploadState = $b.uploadState;
 	}
 }

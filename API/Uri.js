@@ -1,20 +1,20 @@
 String.prototype.noExtension = function () {
 	return this.replace(/\.[^/.]+$/, "");
 };
+
+/**
+ * Uri Support Class for working with Url's much easier by converting it to a usable object
+ * @class Uri
+ * @classdesc Uri
+ * @param {string} url Generate Uri from url
+ */
 class Uri {
-	/**
-	 *Creates an instance of Uri.
-	 * @param {String} url
-	 * @memberof Uri
-	 */
 	constructor(url) {
 		if (!url) return;
 		this.URL = url;
 	}
-	/**
-	 * @param {string} url
-	 */
 	set URL(url) {
+		// Internal Function. Redefining after instancing not reccomended
 		Object.defineProperty(this, "rawUrl", {
 			value: url,
 			enumerable: false,
@@ -24,6 +24,17 @@ class Uri {
 			enumerable: false,
 		});
 		let path = this._raw.path.split("/");
+
+		/**
+		 * Url Segments.
+		 * @example
+		 * const URL = new Uri("https://github.com/PolyLogiX-Studio/Neos.js")
+		 * console.log(URL.Segments)
+		 * //[ '/', 'PolyLogiX-Studio/', 'Neos.js' ]
+		 * @type {string[]} Segments
+		 * @memberof Uri
+		 * @instance
+		 */
 		this.Segments = new Array();
 		path.forEach((value, index) => {
 			this.Segments.push(index < path.length - 1 ? value + "/" : value);
@@ -31,25 +42,39 @@ class Uri {
 	}
 
 	/**
-	 * Return the URL
-	 *
+	 * The URL the object was built on
+	 * @instance
 	 * @readonly
+	 * @type {string}
 	 * @memberof Uri
 	 */
 	get URL() {
 		return this._rawUrl;
 	}
 	/**
-	 *
-	 *
+	 * Get the host of the Uri
+	 * In this library this is usually `www.neosvr-api.com`
 	 * @readonly
+	 * @instance
+	 * @type {string}
+	 * @memberof Uri
+	 */
+	get Host() {
+		return this._raw.host;
+	}
+	/**
+	 * Get the Scheme of the Uri
+	 * In this library this is usually `neosdb`
+	 * @readonly
+	 * @instance
+	 * @type {string}
 	 * @memberof Uri
 	 */
 	get Scheme() {
 		return this._raw.scheme;
 	}
 	/**
-	 *
+	 * Encode given text to be URL Friendly
 	 *
 	 * @static
 	 * @param {String} dat
@@ -62,9 +87,32 @@ class Uri {
 }
 
 //Built refrencing uri-js
+/**
+ * Regular Expression to chop up a URI
+ * @private
+ */
 const URI_PARSE = /^(?:([^:/?#]+):)?(?:\/\/((?:([^/?#@]*)@)?(\[[^/?#\]]+\]|[^/?#:]*)(?::(\d*))?))?([^?#]*)(?:\?([^#]*))?(?:#((?:.|\n|\r)*))?/i;
+/**
+ * Check Handle for certain javascript engines. Backup to prevent error in specific case (Such as Edge)
+ * @private
+ */
 const NO_MATCH_IS_UNDEFINED = "".match(/(){0}/)[1] === undefined;
-
+/**
+ * Parse a URI into an object
+ * Support Function
+ * @private
+ * @param {string} uriString
+ * @returns {{
+ * scheme:string;
+ * userinfo?:string;
+ * host:string;
+ * port?:number;
+ * path:string|"";
+ * query:string;
+ * fragment?:string
+ * error?:string
+ * }}
+ */
 function uri_parse(uriString) {
 	const components = {};
 

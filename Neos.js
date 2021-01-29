@@ -26,6 +26,19 @@
  * });
  * Neos.Login(Credentials...)
  */
+
+/**
+ * Passed to the Neos contructor to setup the client. See {@link #neos #Neos} for Default Values.
+ * @typedef {NeosGeneratorOptions} NeosGeneratorOptions
+ * @property {boolean} [AutoReadMessages] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
+ * @property {OnlineStatus} [OnlineState] - Online User Status, Displayed in User List.
+ * @property {number} [StatusInterval] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
+ * @property {string} [NeosVersion] - Defaults to the Library version. Use to display a custom "Neos Version"
+ * @property {string} [CompatabilityHash] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
+ * @property {number} [UpdateInterval] - Internal Update interval in `ms`. Reccomended: 1000
+ * @property {boolean} [Update] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
+ * @property {number} [MultiMessageDelay] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
+ */
 const { CloudX } = require("./API");
 const config = require("./package.json");
 const EventEmitter = require("events").EventEmitter;
@@ -36,21 +49,28 @@ class Events extends EventEmitter {
 }
 
 /**
- *Creates an instance of Neos.
- * @param {{AutoReadMessages:true, OnlineStateL:Online, StatusInterval:60,NeosVersion:"Neos.js <Version>", CompatabilityHash:"Neos.js <Version>",UpdateInterval:1000,Update:true,MultiMessageDelay:1100}} options
- * @memberof Neos
- */
-
-/**
+ * Creates an instance of the NeosJS Client.
  * @class Neos
  * @extends {EventEmitter}
+ * @param {NeosGeneratorOptions} [options]
+ * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
+ * @param {OnlineStatus} [options.OnlineState="Online"] - Online User Status, Displayed in User List.
+ * @param {number} [options.StatusInterval=60] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
+ * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version"
+ * @param {string} [options.CompatabilityHash="Neos.js ${PackageVersion}"] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
+ * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000
+ * @param {boolean} [options.Update=true] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
+ * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
  * @classdesc Neos
  */
 class Neos extends EventEmitter {
 	/**
-	 * CloudX
+	 * CloudX Library, Contains all Classes and Files
 	 * @readonly
 	 * @instance
+	 * @returns {CloudX}
+	 * @property {Shared} Shared
+	 * @property {Util} Util
 	 * @memberof Neos
 	 */
 	static get CloudX() {
@@ -72,17 +92,12 @@ class Neos extends EventEmitter {
 		if (options.Update == null) options.Update = true;
 		if (options.MultiMessageDelay == null) options.MultiMessageDelay = 1100;
 		/**
+		 * Instance of {@link CloudXInterface}, Handles most of the API logic and events.
 		 * @instance
-		 * @property {{AutoReadMessages:true,
-		 * OnlineStateL:Online,
-		 * StatusInterval:60,
-		 * NeosVersion:"Neos.js <Version>",
-		 * CompatabilityHash:"Neos.js <Version>",
-		 * UpdateInterval:1000,
-		 * Update:true,
-		 * MultiMessageDelay:1100}} Options
+		 * @type {CloudXInterface}
 		 * @memberof Neos
 		 */
+		this.CloudXInterface;
 		this.Options = options;
 		Object.defineProperties(this, {
 			Events: { value: new Events(), enumerable: false, writable: true },
@@ -576,7 +591,7 @@ class Neos extends EventEmitter {
 	MarkMessagesRead(messageIds) {
 		if (CloudX.Util.Type.Get(messageIds) === "string")
 			messageIds = [messageIds];
-		return this.MarkMessagesRead(messageIds);
+		return this.CloudXInterface.MarkMessagesRead(messageIds);
 	}
 	/**
 	 *Get History of messages with a user

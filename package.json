@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "node Tests/Test.js --unhandled-rejections=strict",
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
-		"document": "documentation build Neos.js ./API -f html -o docs --config .documentation.yml --sort-order alpha",
+		"document": "documentation build Neos.js API/*.js -f html -o docs --config .documentation.yml --sort-order alpha",
 		"ready": "npm run document && npm run lint"
 	},
 	"repository": {

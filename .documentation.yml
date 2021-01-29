@@ -9,13 +9,30 @@ toc:
     description: |
       Supporting Documentation for Neos.js
       Docs are still being Created, And will likely be a mess for now
+
+      Children: {[Shared](#shared),[Util](#util)}
   - name: Shared
     description: |
       Core NeosVR API
+
+      [CloudX.Shared](#shared)
+
+      Properties Listed Below
+  - AccountType
+  - AssetDiff
+  - AssetEntry
+  - AssetInfo
+  - AssetMetadataRequest
+  - AssetUploadData
   - CloudXInterface
+  - User
   - name: Util
     description: |
       Supporting Classes and Types
+
+      [CloudX.Util](#util)
+
+      Properties Listed Below
   - Char
   - Dictionary
   - Enumerable
@@ -26,7 +43,10 @@ toc:
   - Uri
   - name: Arguments
     description: |
-      Special Argument Type Definitions
+      Special Argument Type Definitions. These do not have Classes and are included solely for Typing and Descriptions.
+    children:
+      - AssetDiffEnum
+      - NeosGeneratorOptions
   - name: Uncategorized
     description: |
       None of these have been categorized yet. WIP
