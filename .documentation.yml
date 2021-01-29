@@ -46,6 +46,8 @@ toc:
       Special Argument Type Definitions. These do not have Classes and are included solely for Typing and Descriptions.
     children:
       - AssetDiffEnum
+      - Dictionary.AddOrUpdate~callback
+      - Dictionary.Reduce~callback
       - NeosGeneratorOptions
   - name: Uncategorized
     description: |

@@ -1268,7 +1268,30 @@
 
 							<li><a href="#util" class="h5 bold black caps"> Util </a></li>
 
-							<li><a href="#char" class=""> Char </a></li>
+							<li>
+								<a href="#char" class="toggle-sibling">
+									Char
+									<span class="icon">▸</span>
+								</a>
+
+								<div class="toggle-target display-none">
+									<ul class="list-reset py1-ul pl1">
+										<li class="h5"><span>Static members</span></li>
+
+										<li>
+											<a href="#charisletterordigit" class="regular pre-open">
+												.IsLetterOrDigit
+											</a>
+										</li>
+
+										<li>
+											<a href="#chariswhitespace" class="regular pre-open">
+												.IsWhiteSpace
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
 
 							<li>
 								<a href="#dictionary" class="toggle-sibling">
@@ -1299,24 +1322,6 @@
 										</li>
 
 										<li>
-											<a href="#dictionaryreplace" class="regular pre-open">
-												#Replace
-											</a>
-										</li>
-
-										<li>
-											<a href="#dictionarytryadd" class="regular pre-open">
-												#TryAdd
-											</a>
-										</li>
-
-										<li>
-											<a href="#dictionaryaddorupdate" class="regular pre-open">
-												#AddOrUpdate
-											</a>
-										</li>
-
-										<li>
 											<a
 												href="#dictionarycontainsvalue"
 												class="regular pre-open"
@@ -1341,18 +1346,6 @@
 										</li>
 
 										<li>
-											<a href="#dictionaryget" class="regular pre-open">
-												#Get
-											</a>
-										</li>
-
-										<li>
-											<a href="#dictionaryreduce" class="regular pre-open">
-												#Reduce
-											</a>
-										</li>
-
-										<li>
 											<a href="#dictionaryremove" class="regular pre-open">
 												#Remove
 											</a>
@@ -1365,14 +1358,44 @@
 										</li>
 
 										<li>
-											<a href="#dictionarytrygetvalue" class="regular pre-open">
-												#TryGetValue
+											<a href="#dictionaryreplace" class="regular pre-open">
+												#Replace
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionarytryadd" class="regular pre-open">
+												#TryAdd
 											</a>
 										</li>
 
 										<li>
 											<a href="#dictionarytryremove" class="regular pre-open">
 												#TryRemove
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionaryaddorupdate" class="regular pre-open">
+												#AddOrUpdate
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionaryget" class="regular pre-open">
+												#Get
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionaryreduce" class="regular pre-open">
+												#Reduce
+											</a>
+										</li>
+
+										<li>
+											<a href="#dictionarytrygetvalue" class="regular pre-open">
+												#TryGetValue
 											</a>
 										</li>
 									</ul>
@@ -1387,11 +1410,11 @@
 
 								<div class="toggle-target display-none">
 									<ul class="list-reset py1-ul pl1">
-										<li class="h5"><span>Static members</span></li>
+										<li class="h5"><span>Instance members</span></li>
 
 										<li>
 											<a href="#enumerablegetvalue" class="regular pre-open">
-												.GetValue
+												#GetValue
 											</a>
 										</li>
 									</ul>
@@ -1411,36 +1434,6 @@
 										<li class="h5"><span>Static members</span></li>
 
 										<li>
-											<a href="#listadd" class="regular pre-open"> .Add </a>
-										</li>
-
-										<li>
-											<a href="#listclear" class="regular pre-open"> .Clear </a>
-										</li>
-
-										<li>
-											<a href="#listfind" class="regular pre-open"> .Find </a>
-										</li>
-
-										<li>
-											<a href="#listforeach" class="regular pre-open">
-												.ForEach
-											</a>
-										</li>
-
-										<li>
-											<a href="#listremove" class="regular pre-open">
-												.Remove
-											</a>
-										</li>
-
-										<li>
-											<a href="#listremoveat" class="regular pre-open">
-												.RemoveAt
-											</a>
-										</li>
-
-										<li>
 											<a href="#listtolist" class="regular pre-open">
 												.ToList
 											</a>
@@ -1451,9 +1444,15 @@
 										<li class="h5"><span>Instance members</span></li>
 
 										<li>
-											<a href="#listaddrange" class="regular pre-open">
-												#AddRange
-											</a>
+											<a href="#listadd" class="regular pre-open"> #Add </a>
+										</li>
+
+										<li>
+											<a href="#listany" class="regular pre-open"> #Any </a>
+										</li>
+
+										<li>
+											<a href="#listclear" class="regular pre-open"> #Clear </a>
 										</li>
 
 										<li>
@@ -1463,8 +1462,50 @@
 										</li>
 
 										<li>
+											<a href="#listcount" class="regular pre-open"> #Count </a>
+										</li>
+
+										<li>
 											<a href="#listexists" class="regular pre-open">
 												#Exists
+											</a>
+										</li>
+
+										<li>
+											<a href="#listfind" class="regular pre-open"> #Find </a>
+										</li>
+
+										<li>
+											<a href="#listforeach" class="regular pre-open">
+												#ForEach
+											</a>
+										</li>
+
+										<li>
+											<a href="#listremove" class="regular pre-open">
+												#Remove
+											</a>
+										</li>
+
+										<li>
+											<a href="#listremoveat" class="regular pre-open">
+												#RemoveAt
+											</a>
+										</li>
+
+										<li>
+											<a href="#listsort" class="regular pre-open"> #Sort </a>
+										</li>
+
+										<li>
+											<a href="#listtakerandom" class="regular pre-open">
+												#TakeRandom
+											</a>
+										</li>
+
+										<li>
+											<a href="#listtoarray" class="regular pre-open">
+												#ToArray
 											</a>
 										</li>
 
@@ -1494,7 +1535,66 @@
 								</div>
 							</li>
 
-							<li><a href="#stringbuilder" class=""> StringBuilder </a></li>
+							<li>
+								<a href="#stringbuilder" class="toggle-sibling">
+									StringBuilder
+									<span class="icon">▸</span>
+								</a>
+
+								<div class="toggle-target display-none">
+									<ul class="list-reset py1-ul pl1">
+										<li class="h5"><span>Instance members</span></li>
+
+										<li>
+											<a href="#stringbuilderappend" class="regular pre-open">
+												#Append
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuilderclear" class="regular pre-open">
+												#Clear
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuilderinsert" class="regular pre-open">
+												#Insert
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuilderlength" class="regular pre-open">
+												#Length
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuilderremove" class="regular pre-open">
+												#Remove
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuilderset" class="regular pre-open">
+												#Set
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuilderstring" class="regular pre-open">
+												#String
+											</a>
+										</li>
+
+										<li>
+											<a href="#stringbuildertostring" class="regular pre-open">
+												#ToString
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
 
 							<li>
 								<a href="#uri" class="toggle-sibling">
@@ -1556,6 +1656,24 @@
 										</li>
 
 										<li>
+											<a
+												href="#dictionaryaddorupdatecallback"
+												class="regular pre-open"
+											>
+												.Dictionary.AddOrUpdate~callback
+											</a>
+										</li>
+
+										<li>
+											<a
+												href="#dictionaryreducecallback"
+												class="regular pre-open"
+											>
+												.Dictionary.Reduce~callback
+											</a>
+										</li>
+
+										<li>
 											<a href="#neosgeneratoroptions" class="regular pre-open">
 												.NeosGeneratorOptions
 											</a>
@@ -1571,34 +1689,6 @@
 							</li>
 
 							<li><a href="#_cryptoprovider" class=""> _cryptoProvider </a></li>
-
-							<li>
-								<a href="#currencyrates" class="toggle-sibling">
-									CurrencyRates
-									<span class="icon">▸</span>
-								</a>
-
-								<div class="toggle-target display-none">
-									<ul class="list-reset py1-ul pl1">
-										<li class="h5"><span>Instance members</span></li>
-
-										<li>
-											<a
-												href="#currencyratesbasecurrency"
-												class="regular pre-open"
-											>
-												#BaseCurrency
-											</a>
-										</li>
-
-										<li>
-											<a href="#currencyratesrates" class="regular pre-open">
-												#Rates
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
 
 							<li><a href="#cloudmessage" class=""> CloudMessage </a></li>
 
@@ -1674,6 +1764,8 @@
 
 							<li><a href="#constructor" class=""> constructor </a></li>
 
+							<li><a href="#picturepatreon" class=""> PicturePatreon </a></li>
+
 							<li><a href="#constructor" class=""> constructor </a></li>
 
 							<li><a href="#constructor" class=""> constructor </a></li>
@@ -1685,8 +1777,6 @@
 							</li>
 
 							<li><a href="#constructor" class=""> constructor </a></li>
-
-							<li><a href="#picturepatreon" class=""> PicturePatreon </a></li>
 
 							<li><a href="#constructor" class=""> constructor </a></li>
 
@@ -1836,6 +1926,8 @@
 							</li>
 
 							<li><a href="#removed" class=""> Removed </a></li>
+
+							<li><a href="#addrange" class=""> AddRange </a></li>
 
 							<li>
 								<a href="#recordtags" class="toggle-sibling">
@@ -2087,6 +2179,34 @@
 								</div>
 							</li>
 
+							<li>
+								<a href="#currencyrates" class="toggle-sibling">
+									CurrencyRates
+									<span class="icon">▸</span>
+								</a>
+
+								<div class="toggle-target display-none">
+									<ul class="list-reset py1-ul pl1">
+										<li class="h5"><span>Instance members</span></li>
+
+										<li>
+											<a
+												href="#currencyratesbasecurrency"
+												class="regular pre-open"
+											>
+												#BaseCurrency
+											</a>
+										</li>
+
+										<li>
+											<a href="#currencyratesrates" class="regular pre-open">
+												#Rates
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+
 							<li><a href="#byowner" class=""> ByOwner </a></li>
 
 							<li><a href="#count" class=""> Count </a></li>
@@ -2186,18 +2306,6 @@
 							<li><a href="#content" class=""> content </a></li>
 
 							<li><a href="#dictionary" class=""> dictionary </a></li>
-
-							<li>
-								<a href="#dictionaryaddorupdatecallback" class="">
-									Dictionary.AddOrUpdate~callback
-								</a>
-							</li>
-
-							<li>
-								<a href="#dictionaryreducecallback" class="">
-									Dictionary.Reduce~callback
-								</a>
-							</li>
 
 							<li><a href="#exception" class=""> exception </a></li>
 
@@ -8694,6 +8802,111 @@ Neos.Login(Credentials...)</pre>
 					<p>Simple class to work with Characters</p>
 
 					<div class="pre p1 fill-light mt0">new Char()</div>
+
+					<div class="py1 quiet mt1 prose-big">Static Members</div>
+					<div class="clearfix">
+						<div class="border-bottom" id="charisletterordigit">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>IsLetterOrDigit(char)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Is Char a Letter or Digit</p>
+
+									<div class="pre p1 fill-light mt0">
+										IsLetterOrDigit(char:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										>):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">char</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+														>string</a
+													>)</code
+												>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Is Letter or Digit
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="chariswhitespace">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>IsWhiteSpace(char)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Is Char Whitespace</p>
+
+									<div class="pre p1 fill-light mt0">
+										IsWhiteSpace(char:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										>):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">char</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+														>string</a
+													>)</code
+												>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Is Whitespace
+								</section>
+							</div>
+						</div>
+					</div>
 				</section>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">
@@ -8804,6 +9017,163 @@ Neos.Login(Credentials...)</pre>
 							</div>
 						</div>
 
+						<div class="border-bottom" id="dictionarycontainsvalue">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>ContainsValue(Value)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Check if a Value exists in the Dictionary</p>
+
+									<div class="pre p1 fill-light mt0">
+										ContainsValue(Value: A):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">Value</span>
+												<code class="quiet">(A)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Value Exists
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionarycount">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Count</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get the amount of items</p>
+
+									<div class="pre p1 fill-light mt0">Count</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryensurecapacity">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>EnsureCapacity()</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get the Capacity</p>
+
+									<div class="pre p1 fill-light mt0">EnsureCapacity()</div>
+
+									<div>Deprecated: This is deprecated.</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryremove">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Remove(key)</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Remove a Key. Will error if Key does not exist</p>
+
+									<div class="pre p1 fill-light mt0">
+										Remove(key: T):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">key</span>
+												<code class="quiet">(T)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Key Removed
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryremoveat">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>RemoveAt(iIndex)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Remove an Item at a given Index</p>
+
+									<div class="pre p1 fill-light mt0">
+										RemoveAt(iIndex:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>)
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">iIndex</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>)</code
+												>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
 						<div class="border-bottom" id="dictionaryreplace">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -8902,6 +9272,48 @@ Neos.Login(Credentials...)</pre>
 							</div>
 						</div>
 
+						<div class="border-bottom" id="dictionarytryremove">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>TryRemove(key)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Attempt to remove a Key.</p>
+
+									<div class="pre p1 fill-light mt0">
+										TryRemove(key: T):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">key</span>
+												<code class="quiet">(T)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>boolean</a
+										></code
+									>: Key Removed
+								</section>
+							</div>
+						</div>
+
 						<div class="border-bottom" id="dictionaryaddorupdate">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -8963,84 +9375,6 @@ Neos.Login(Credentials...)</pre>
 											>Boolean</a
 										></code
 									>: Added
-								</section>
-							</div>
-						</div>
-
-						<div class="border-bottom" id="dictionarycontainsvalue">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate"
-										>ContainsValue(Value)</span
-									>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Check if a Value exists in the Dictionary</p>
-
-									<div class="pre p1 fill-light mt0">
-										ContainsValue(Value: A):
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-											>boolean</a
-										>
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">Value</span>
-												<code class="quiet">(A)</code>
-											</div>
-										</div>
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Returns</div>
-									<code
-										><a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-											>boolean</a
-										></code
-									>: Value Exists
-								</section>
-							</div>
-						</div>
-
-						<div class="border-bottom" id="dictionarycount">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate">Count</span>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Get the amount of items</p>
-
-									<div class="pre p1 fill-light mt0">Count</div>
-								</section>
-							</div>
-						</div>
-
-						<div class="border-bottom" id="dictionaryensurecapacity">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate"
-										>EnsureCapacity()</span
-									>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Get the Capacity</p>
-
-									<div class="pre p1 fill-light mt0">EnsureCapacity()</div>
-
-									<div>Deprecated: This is deprecated.</div>
 								</section>
 							</div>
 						</div>
@@ -9145,85 +9479,6 @@ Neos.Login(Credentials...)</pre>
 							</div>
 						</div>
 
-						<div class="border-bottom" id="dictionaryremove">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate">Remove(key)</span>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Remove a Key. Will error if Key does not exist</p>
-
-									<div class="pre p1 fill-light mt0">
-										Remove(key: T):
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-											>boolean</a
-										>
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">key</span>
-												<code class="quiet">(T)</code>
-											</div>
-										</div>
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Returns</div>
-									<code
-										><a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-											>boolean</a
-										></code
-									>: Key Removed
-								</section>
-							</div>
-						</div>
-
-						<div class="border-bottom" id="dictionaryremoveat">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate"
-										>RemoveAt(iIndex)</span
-									>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Remove an Item at a given Index</p>
-
-									<div class="pre p1 fill-light mt0">
-										RemoveAt(iIndex:
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-											>number</a
-										>)
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">iIndex</span>
-												<code class="quiet"
-													>(<a
-														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-														>number</a
-													>)</code
-												>
-											</div>
-										</div>
-									</div>
-								</section>
-							</div>
-						</div>
-
 						<div class="border-bottom" id="dictionarytrygetvalue">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -9277,48 +9532,6 @@ Neos.Login(Credentials...)</pre>
 								</section>
 							</div>
 						</div>
-
-						<div class="border-bottom" id="dictionarytryremove">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate"
-										>TryRemove(key)</span
-									>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Attempt to remove a Key.</p>
-
-									<div class="pre p1 fill-light mt0">
-										TryRemove(key: T):
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-											>boolean</a
-										>
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">key</span>
-												<code class="quiet">(T)</code>
-											</div>
-										</div>
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Returns</div>
-									<code
-										><a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
-											>boolean</a
-										></code
-									>: Key Removed
-								</section>
-							</div>
-						</div>
 					</div>
 				</section>
 
@@ -9328,7 +9541,16 @@ Neos.Login(Credentials...)</pre>
 					</div>
 
 					<div class="pre p1 fill-light mt0">
-						new Enumerable(): <a href="#enumerable">Enumerable</a>&#x3C;T>
+						new Enumerable($b: (<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+							>Array</a
+						>&#x3C;<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>> | <a href="#list">List</a>&#x3C;<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>> | T)): <a href="#enumerable">Enumerable</a>&#x3C;T>
 					</div>
 
 					<p>
@@ -9340,10 +9562,31 @@ Neos.Login(Credentials...)</pre>
 						>
 					</p>
 
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">$b</span>
+								<code class="quiet"
+									>((<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+										>Array</a
+									>&#x3C;<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>> | <a href="#list">List</a>&#x3C;<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>> | T))</code
+								>
+							</div>
+						</div>
+					</div>
+
 					<div class="py1 quiet mt1 prose-big">Returns</div>
 					<code><a href="#enumerable">Enumerable</a>&#x3C;T></code>:
 
-					<div class="py1 quiet mt1 prose-big">Static Members</div>
+					<div class="py1 quiet mt1 prose-big">Instance Members</div>
 					<div class="clearfix">
 						<div class="border-bottom" id="enumerablegetvalue">
 							<div class="clearfix small pointer toggle-sibling">
@@ -9354,12 +9597,18 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get Value Set on Init</p>
+
 									<div class="pre p1 fill-light mt0">
 										GetValue(key:
 										<a
 											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
 											>String</a
-										>): T
+										>):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -9378,7 +9627,12 @@ Neos.Login(Credentials...)</pre>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Returns</div>
-									<code>T</code>:
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										></code
+									>:
 								</section>
 							</div>
 						</div>
@@ -9395,11 +9649,18 @@ Neos.Login(Credentials...)</pre>
 					<p>
 						Extends
 
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set"
-							>Set</a
-						>
+						<a href="#list">List</a>
 					</p>
+
+					<div class="py1 quiet mt1 prose-big">Throws</div>
+					<ul>
+						<li>
+							<a
+								href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error"
+								>Error</a
+							>&#x3C;ArgumentException>: Expected &#x3C;Array, List, Number>
+						</li>
+					</ul>
 				</section>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">
@@ -9409,18 +9670,67 @@ Neos.Login(Credentials...)</pre>
 
 					<p>Unordered List</p>
 
-					<div class="pre p1 fill-light mt0">new List()</div>
+					<div class="pre p1 fill-light mt0">
+						new List(props: T): <a href="#list">List</a>&#x3C;T>
+					</div>
 
-					<p>
-						Extends
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">props</span>
+								<code class="quiet">(T)</code>
+							</div>
+						</div>
+					</div>
 
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-							>Array</a
-						>
-					</p>
+					<div class="py1 quiet mt1 prose-big">Returns</div>
+					<code><a href="#list">List</a>&#x3C;T></code>:
 
 					<div class="py1 quiet mt1 prose-big">Static Members</div>
+					<div class="clearfix">
+						<div class="border-bottom" id="listtolist">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">ToList(array)</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Convert Array to List</p>
+
+									<div class="pre p1 fill-light mt0">
+										ToList(array:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+											>Array</a
+										>&#x3C;T>): <a href="#list">List</a>&#x3C;T>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">array</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+														>Array</a
+													>&#x3C;T>)</code
+												>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code><a href="#list">List</a>&#x3C;T></code>:
+								</section>
+							</div>
+						</div>
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Instance Members</div>
 					<div class="clearfix">
 						<div class="border-bottom" id="listadd">
 							<div class="clearfix small pointer toggle-sibling">
@@ -9448,6 +9758,43 @@ Neos.Login(Credentials...)</pre>
 							</div>
 						</div>
 
+						<div class="border-bottom" id="listany">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Any(action)</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Not Yet Implimented</p>
+
+									<div class="pre p1 fill-light mt0">
+										Any(action:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
+											>Function</a
+										>)
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">action</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
+														>Function</a
+													>)</code
+												>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
 						<div class="border-bottom" id="listclear">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -9464,6 +9811,88 @@ Neos.Login(Credentials...)</pre>
 							</div>
 						</div>
 
+						<div class="border-bottom" id="listcontains">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Contains(item)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Does the List contain a given item</p>
+
+									<div class="pre p1 fill-light mt0">
+										Contains(item: T):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>Boolean</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">item</span>
+												<code class="quiet">(T)</code>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>Boolean</a
+										></code
+									>: Contains
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="listcount">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Count</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get the Number of items in the list</p>
+
+									<div class="pre p1 fill-light mt0">Count</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>Number</a
+										></code
+									>: Count
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="listexists">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Exists()</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Not Yet Implimented</p>
+
+									<div class="pre p1 fill-light mt0">Exists()</div>
+								</section>
+							</div>
+						</div>
+
 						<div class="border-bottom" id="listfind">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -9473,6 +9902,8 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Not Properly Implimented</p>
+
 									<div class="pre p1 fill-light mt0">Find(match: any)</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -9499,6 +9930,8 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Not Properly Implimented</p>
+
 									<div class="pre p1 fill-light mt0">ForEach(action: any)</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -9525,8 +9958,10 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Remove an item from the List</p>
+
 									<div class="pre p1 fill-light mt0">
-										Remove(iValue: any):
+										Remove(iValue: T):
 										<a
 											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
 											>Number</a
@@ -9538,7 +9973,7 @@ Neos.Login(Credentials...)</pre>
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">iValue</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(T)</code>
 											</div>
 										</div>
 									</div>
@@ -9549,7 +9984,7 @@ Neos.Login(Credentials...)</pre>
 											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
 											>Number</a
 										></code
-									>: Index
+									>: Index Removed From
 								</section>
 							</div>
 						</div>
@@ -9565,12 +10000,14 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Remove Item at Index</p>
+
 									<div class="pre p1 fill-light mt0">
 										RemoveAt(iIndex:
 										<a
 											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
 											>Number</a
-										>): any
+										>): T
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -9589,132 +10026,70 @@ Neos.Login(Credentials...)</pre>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Returns</div>
-									<code>any</code>: Removed Item
+									<code>T</code>: Removed Item
 								</section>
 							</div>
 						</div>
 
-						<div class="border-bottom" id="listtolist">
+						<div class="border-bottom" id="listsort">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
 									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate">ToList(array)</span>
+									<span class="code strong strong truncate"
+										>Sort(compareFn)</span
+									>
 								</div>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Convert Array to List</p>
+									<p>Not Yet Implimented</p>
 
-									<div class="pre p1 fill-light mt0">
-										ToList(array:
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-											>Array</a
-										>): any
-									</div>
+									<div class="pre p1 fill-light mt0">Sort(compareFn: any)</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
 									<div class="prose">
 										<div class="space-bottom0">
 											<div>
-												<span class="code bold">array</span>
-												<code class="quiet"
-													>(<a
-														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-														>Array</a
-													>)</code
-												>
+												<span class="code bold">compareFn</span>
+												<code class="quiet">(any)</code>
 											</div>
 										</div>
 									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="listtakerandom">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">TakeRandom()</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Take a random item from the list</p>
+
+									<div class="pre p1 fill-light mt0">TakeRandom(): T</div>
 
 									<div class="py1 quiet mt1 prose-big">Returns</div>
-									<code>any</code>: List
-								</section>
-							</div>
-						</div>
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Instance Members</div>
-					<div class="clearfix">
-						<div class="border-bottom" id="listaddrange">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate"
-										>AddRange(list)</span
-									>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Concat 2 Lists</p>
-
-									<div class="pre p1 fill-light mt0">
-										AddRange(list: <a href="#list">List</a>)
-									</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">list</span>
-												<code class="quiet">(<a href="#list">List</a>)</code>
-											</div>
-										</div>
-									</div>
+									<code>T</code>: Item
 								</section>
 							</div>
 						</div>
 
-						<div class="border-bottom" id="listcontains">
+						<div class="border-bottom" id="listtoarray">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
 									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate"
-										>Contains(item)</span
-									>
+									<span class="code strong strong truncate">ToArray()</span>
 								</div>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
-									<p>Does the List contain a given item</p>
+									<p>Not Yet Implimented</p>
 
-									<div class="pre p1 fill-light mt0">Contains(item: any)</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">item</span>
-												<code class="quiet">(any)</code>
-											</div>
-										</div>
-									</div>
-								</section>
-							</div>
-						</div>
-
-						<div class="border-bottom" id="listexists">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate">Exists(match)</span>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<div class="pre p1 fill-light mt0">Exists(match: any)</div>
-
-									<div class="py1 quiet mt1 prose-big">Parameters</div>
-									<div class="prose">
-										<div class="space-bottom0">
-											<div>
-												<span class="code bold">match</span>
-												<code class="quiet">(any)</code>
-											</div>
-										</div>
-									</div>
+									<div class="pre p1 fill-light mt0">ToArray()</div>
 								</section>
 							</div>
 						</div>
@@ -9730,8 +10105,14 @@ Neos.Login(Credentials...)</pre>
 							</div>
 							<div class="clearfix display-none toggle-target">
 								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Attempt to get Value</p>
+
 									<div class="pre p1 fill-light mt0">
-										TryGetValue(value: any, out: <a href="#out">Out</a>&#x3C;T>)
+										TryGetValue(value: T, out: <a href="#out">Out</a>&#x3C;T>):
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>Boolean</a
+										>
 									</div>
 
 									<div class="py1 quiet mt1 prose-big">Parameters</div>
@@ -9739,7 +10120,7 @@ Neos.Login(Credentials...)</pre>
 										<div class="space-bottom0">
 											<div>
 												<span class="code bold">value</span>
-												<code class="quiet">(any)</code>
+												<code class="quiet">(T)</code>
 											</div>
 										</div>
 
@@ -9752,6 +10133,14 @@ Neos.Login(Credentials...)</pre>
 											</div>
 										</div>
 									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean"
+											>Boolean</a
+										></code
+									>: Value Found
 								</section>
 							</div>
 						</div>
@@ -9795,6 +10184,320 @@ Neos.Login(Credentials...)</pre>
 					<p>Rebuild of the C# StringBuilder</p>
 
 					<div class="pre p1 fill-light mt0">new StringBuilder()</div>
+
+					<div class="py1 quiet mt1 prose-big">Instance Members</div>
+					<div class="clearfix">
+						<div class="border-bottom" id="stringbuilderappend">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Append(str)</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Add a character</p>
+
+									<div class="pre p1 fill-light mt0">
+										Append(str:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										>)
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">str</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+														>string</a
+													>)</code
+												>
+												Char
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuilderclear">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Clear()</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Clear the string, Allows to be used elsewhere</p>
+
+									<div class="pre p1 fill-light mt0">Clear()</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuilderinsert">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Insert(pos, str)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Insert a character to the string</p>
+
+									<div class="pre p1 fill-light mt0">
+										Insert(pos:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>, str:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										>)
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">pos</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>)</code
+												>
+												Position in string
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">str</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+														>string</a
+													>)</code
+												>
+												Character to add
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuilderlength">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Length</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Get the String Length</p>
+
+									<div class="pre p1 fill-light mt0">Length</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										></code
+									>: String Length
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuilderremove">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Remove(startIndex, length)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Remove a chunk of the string</p>
+
+									<div class="pre p1 fill-light mt0">
+										Remove(startIndex:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>, length:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>)
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">startIndex</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>)</code
+												>
+												Starting Index
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">length</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>)</code
+												>
+												Length
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuilderset">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Set(pos, char)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Set Index pos to char</p>
+
+									<div class="pre p1 fill-light mt0">
+										Set(pos:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>, char:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										>)
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">pos</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>)</code
+												>
+												Position in string
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">char</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+														>string</a
+													>)</code
+												>
+												Character to add
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuilderstring">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">String</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Workspace of the class, Can be manually modified</p>
+
+									<div class="pre p1 fill-light mt0">String</div>
+
+									<div class="py1 quiet mt1 prose-big">Properties</div>
+									<div>
+										<div class="space-bottom0">
+											<span class="code bold">String</span>
+											<code class="quiet"
+												>(<a
+													href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+													>Array</a
+												>&#x3C;<a
+													href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+													>string</a
+												>>)</code
+											>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="stringbuildertostring">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">ToString()</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Convert to a String</p>
+
+									<div class="pre p1 fill-light mt0">
+										ToString():
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code
+										><a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>string</a
+										></code
+									>: Compiled String
+								</section>
+							</div>
+						</div>
+					</div>
 				</section>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">
@@ -10056,6 +10759,136 @@ Neos.Login(Credentials...)</pre>
 							</div>
 						</div>
 
+						<div class="border-bottom" id="dictionaryaddorupdatecallback">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Dictionary.AddOrUpdate~callback(Key, Value)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<div class="pre p1 fill-light mt0">
+										Dictionary.AddOrUpdate~callback(Key: T, Value: A): A
+									</div>
+
+									<p>
+										Type:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
+											>Function</a
+										>
+									</p>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">Key</span>
+												<code class="quiet">(T)</code>
+												Current Key
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">Value</span>
+												<code class="quiet">(A)</code>
+												Current Value
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code>A</code>: New Value
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="dictionaryreducecallback">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate"
+										>Dictionary.Reduce~callback(previousValue?, currentValue?,
+										currentIndex?, array?)</span
+									>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<p>Reduce Callback</p>
+
+									<div class="pre p1 fill-light mt0">
+										Dictionary.Reduce~callback(previousValue: any?,
+										currentValue: any?, currentIndex:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>number</a
+										>?, array:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+											>Array</a
+										>&#x3C;any>?): any
+									</div>
+
+									<p>
+										Type:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
+											>Function</a
+										>
+									</p>
+
+									<div class="py1 quiet mt1 prose-big">Parameters</div>
+									<div class="prose">
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">previousValue</span>
+												<code class="quiet">(any?)</code>
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">currentValue</span>
+												<code class="quiet">(any?)</code>
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">currentIndex</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+														>number</a
+													>?)</code
+												>
+											</div>
+										</div>
+
+										<div class="space-bottom0">
+											<div>
+												<span class="code bold">array</span>
+												<code class="quiet"
+													>(<a
+														href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
+														>Array</a
+													>&#x3C;any>?)</code
+												>
+											</div>
+										</div>
+									</div>
+
+									<div class="py1 quiet mt1 prose-big">Returns</div>
+									<code>any</code>: Returned Value will set to set previousValue
+								</section>
+							</div>
+						</div>
+
 						<div class="border-bottom" id="neosgeneratoroptions">
 							<div class="clearfix small pointer toggle-sibling">
 								<div class="py1 contain">
@@ -10211,67 +11044,6 @@ Neos.Login(Credentials...)</pre>
 					</div>
 
 					<div class="pre p1 fill-light mt0">_cryptoProvider</div>
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="currencyrates">CurrencyRates</h3>
-					</div>
-
-					<p>Currency Rates</p>
-
-					<div class="pre p1 fill-light mt0">new CurrencyRates()</div>
-
-					<div class="py1 quiet mt1 prose-big">Instance Members</div>
-					<div class="clearfix">
-						<div class="border-bottom" id="currencyratesbasecurrency">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate">BaseCurrency</span>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<div class="pre p1 fill-light mt0">BaseCurrency</div>
-
-									<p>
-										Type:
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-											>String</a
-										>
-									</p>
-								</section>
-							</div>
-						</div>
-
-						<div class="border-bottom" id="currencyratesrates">
-							<div class="clearfix small pointer toggle-sibling">
-								<div class="py1 contain">
-									<a class="icon pin-right py1 dark-link caret-right">▸</a>
-									<span class="code strong strong truncate">Rates</span>
-								</div>
-							</div>
-							<div class="clearfix display-none toggle-target">
-								<section class="p2 mb2 clearfix bg-white minishadow">
-									<div class="pre p1 fill-light mt0">Rates</div>
-
-									<p>
-										Type:
-										<a href="#dictionary">Dictionary</a>&#x3C;<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-											>String</a
-										>,
-										<a
-											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-											>Number</a
-										>>
-									</p>
-								</section>
-							</div>
-						</div>
-					</div>
 				</section>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">
@@ -10822,33 +11594,17 @@ Neos.Login(Credentials...)</pre>
 						<h3 class="fl m0" id="constructor">constructor</h3>
 					</div>
 
-					<p>Creates an instance of RecordInfo.</p>
+					<p>Creates an instance of PicturePatreon.</p>
 
 					<div class="pre p1 fill-light mt0">
-						constructor($b: {recordId:
+						constructor($b: {name:
 						<a
 							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
 							>string</a
-						>, ownerId:
+						>, pictureUrl:
 						<a
 							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
 							>string</a
-						>, name:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, assetUri:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, thumbnailUri:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, globalVersion:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-							>Number</a
 						>})
 					</div>
 
@@ -10858,31 +11614,60 @@ Neos.Login(Credentials...)</pre>
 							<div>
 								<span class="code bold">$b</span>
 								<code class="quiet"
-									>({recordId:
+									>({name:
 									<a
 										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
 										>string</a
-									>, ownerId:
+									>, pictureUrl:
 									<a
 										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
 										>string</a
-									>, name:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>, assetUri:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>, thumbnailUri:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>, globalVersion:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-										>Number</a
 									>})</code
+								>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="picturepatreon">PicturePatreon</h3>
+					</div>
+
+					<div class="pre p1 fill-light mt0">
+						PicturePatreon(name:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, url:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>)
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">name</span>
+								<code class="quiet"
+									>(<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>)</code
+								>
+							</div>
+						</div>
+
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">url</span>
+								<code class="quiet"
+									>(<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>)</code
 								>
 							</div>
 						</div>
@@ -11090,91 +11875,6 @@ Neos.Login(Credentials...)</pre>
 						<h3 class="fl m0" id="constructor">constructor</h3>
 					</div>
 
-					<p>Creates an instance of PicturePatreon.</p>
-
-					<div class="pre p1 fill-light mt0">
-						constructor($b: {name:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, pictureUrl:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>})
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Parameters</div>
-					<div class="prose">
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">$b</span>
-								<code class="quiet"
-									>({name:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>, pictureUrl:
-									<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>})</code
-								>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="picturepatreon">PicturePatreon</h3>
-					</div>
-
-					<div class="pre p1 fill-light mt0">
-						PicturePatreon(name:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>, url:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-							>string</a
-						>)
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Parameters</div>
-					<div class="prose">
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">name</span>
-								<code class="quiet"
-									>(<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>)</code
-								>
-							</div>
-						</div>
-
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">url</span>
-								<code class="quiet"
-									>(<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
-										>string</a
-									>)</code
-								>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="constructor">constructor</h3>
-					</div>
-
 					<p>Creates an instance of ServerStatistics.</p>
 
 					<div class="pre p1 fill-light mt0">
@@ -11200,6 +11900,78 @@ Neos.Login(Credentials...)</pre>
 										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date"
 										>Date</a
 									>, responseTimeMilliseconds:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+										>Number</a
+									>})</code
+								>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="constructor">constructor</h3>
+					</div>
+
+					<p>Creates an instance of RecordInfo.</p>
+
+					<div class="pre p1 fill-light mt0">
+						constructor($b: {recordId:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, ownerId:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, name:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, assetUri:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, thumbnailUri:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+							>string</a
+						>, globalVersion:
+						<a
+							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+							>Number</a
+						>})
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">$b</span>
+								<code class="quiet"
+									>({recordId:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>, ownerId:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>, name:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>, assetUri:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>, thumbnailUri:
+									<a
+										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+										>string</a
+									>, globalVersion:
 									<a
 										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
 										>Number</a
@@ -12172,6 +12944,28 @@ Neos.Login(Credentials...)</pre>
 							<div>
 								<span class="code bold">friend</span>
 								<code class="quiet">(Friend)</code>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
+						<h3 class="fl m0" id="addrange">AddRange</h3>
+					</div>
+
+					<p>Concat 2 Lists</p>
+
+					<div class="pre p1 fill-light mt0">
+						AddRange(list: <a href="#list">List</a>&#x3C;T>)
+					</div>
+
+					<div class="py1 quiet mt1 prose-big">Parameters</div>
+					<div class="prose">
+						<div class="space-bottom0">
+							<div>
+								<span class="code bold">list</span>
+								<code class="quiet">(<a href="#list">List</a>&#x3C;T>)</code>
 							</div>
 						</div>
 					</div>
@@ -13313,6 +14107,67 @@ Neos.Login(Credentials...)</pre>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">
 					<div class="clearfix">
+						<h3 class="fl m0" id="currencyrates">CurrencyRates</h3>
+					</div>
+
+					<p>Currency Rates</p>
+
+					<div class="pre p1 fill-light mt0">new CurrencyRates()</div>
+
+					<div class="py1 quiet mt1 prose-big">Instance Members</div>
+					<div class="clearfix">
+						<div class="border-bottom" id="currencyratesbasecurrency">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">BaseCurrency</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<div class="pre p1 fill-light mt0">BaseCurrency</div>
+
+									<p>
+										Type:
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>String</a
+										>
+									</p>
+								</section>
+							</div>
+						</div>
+
+						<div class="border-bottom" id="currencyratesrates">
+							<div class="clearfix small pointer toggle-sibling">
+								<div class="py1 contain">
+									<a class="icon pin-right py1 dark-link caret-right">▸</a>
+									<span class="code strong strong truncate">Rates</span>
+								</div>
+							</div>
+							<div class="clearfix display-none toggle-target">
+								<section class="p2 mb2 clearfix bg-white minishadow">
+									<div class="pre p1 fill-light mt0">Rates</div>
+
+									<p>
+										Type:
+										<a href="#dictionary">Dictionary</a>&#x3C;<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String"
+											>String</a
+										>,
+										<a
+											href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
+											>Number</a
+										>>
+									</p>
+								</section>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="p2 mb2 clearfix bg-white minishadow">
+					<div class="clearfix">
 						<h3 class="fl m0" id="byowner">ByOwner</h3>
 					</div>
 
@@ -14062,123 +14917,6 @@ Neos.Login(Credentials...)</pre>
 					</div>
 
 					<div class="pre p1 fill-light mt0">dictionary</div>
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="dictionaryaddorupdatecallback">
-							Dictionary.AddOrUpdate~callback
-						</h3>
-					</div>
-
-					<div class="pre p1 fill-light mt0">
-						Dictionary.AddOrUpdate~callback(Key: T, Value: A): A
-					</div>
-
-					<p>
-						Type:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
-							>Function</a
-						>
-					</p>
-
-					<div class="py1 quiet mt1 prose-big">Parameters</div>
-					<div class="prose">
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">Key</span>
-								<code class="quiet">(T)</code>
-								Current Key
-							</div>
-						</div>
-
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">Value</span>
-								<code class="quiet">(A)</code>
-								Current Value
-							</div>
-						</div>
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Returns</div>
-					<code>A</code>: New Value
-				</section>
-
-				<section class="p2 mb2 clearfix bg-white minishadow">
-					<div class="clearfix">
-						<h3 class="fl m0" id="dictionaryreducecallback">
-							Dictionary.Reduce~callback
-						</h3>
-					</div>
-
-					<p>Reduce Callback</p>
-
-					<div class="pre p1 fill-light mt0">
-						Dictionary.Reduce~callback(previousValue: any?, currentValue: any?,
-						currentIndex:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-							>number</a
-						>?, array:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-							>Array</a
-						>&#x3C;any>?): any
-					</div>
-
-					<p>
-						Type:
-						<a
-							href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function"
-							>Function</a
-						>
-					</p>
-
-					<div class="py1 quiet mt1 prose-big">Parameters</div>
-					<div class="prose">
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">previousValue</span>
-								<code class="quiet">(any?)</code>
-							</div>
-						</div>
-
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">currentValue</span>
-								<code class="quiet">(any?)</code>
-							</div>
-						</div>
-
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">currentIndex</span>
-								<code class="quiet"
-									>(<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number"
-										>number</a
-									>?)</code
-								>
-							</div>
-						</div>
-
-						<div class="space-bottom0">
-							<div>
-								<span class="code bold">array</span>
-								<code class="quiet"
-									>(<a
-										href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array"
-										>Array</a
-									>&#x3C;any>?)</code
-								>
-							</div>
-						</div>
-					</div>
-
-					<div class="py1 quiet mt1 prose-big">Returns</div>
-					<code>any</code>: Returned Value will set to set previousValue
 				</section>
 
 				<section class="p2 mb2 clearfix bg-white minishadow">

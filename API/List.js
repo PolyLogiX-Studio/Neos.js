@@ -1,19 +1,14 @@
+//eslint-disable-next-line no-unused-vars
+const { Out } = require("./Out"); //lgtm [js/unused-local-variable] JSDoc Type Def
 /**
  * Unordered List
  *
  * @class List
- * @extends {Array}
  * @template T
+ * @param {T} props
+ * @returns {List<T>}
  */
 class List extends Array {
-	/**
-	 *Creates an instance of List.
-	 * @param {List} props List
-	 * @template T
-	 * @param {T} props
-	 * @returns {List<T>}
-	 * @memberof List
-	 */
 	constructor(props) {
 		if (!props) {
 			super();
@@ -23,13 +18,17 @@ class List extends Array {
 	}
 	/**
 	 *Add a Value to the List
-	 * @template T
 	 * @param {T} value
+	 * @instance
 	 * @memberof List
 	 */
 	Add(value) {
 		this.push(value);
 	}
+	/**
+	 * Not Yet Implimented
+	 * @param {Function} action
+	 */
 	Any(action) {
 		return this.some(action);
 	}
@@ -37,8 +36,8 @@ class List extends Array {
 	 *Convert Array to List
 	 *
 	 * @static
-	 * @param {Array} array
-	 * @returns List
+	 * @param {Array<T>} array
+	 * @returns {List<T>}
 	 * @memberof List
 	 */
 	static ToList(array) {
@@ -51,7 +50,9 @@ class List extends Array {
 	}
 	/**
 	 * Concat 2 Lists
-	 * @param {List} list
+	 * @param {List<T>} list
+	 * @instance
+	 * @memberof List=
 	 */
 	AddRange(list) {
 		if (list == null) throw new Error("ArgumentNullException");
@@ -62,8 +63,8 @@ class List extends Array {
 		}
 	}
 	/**
-	 *Clear the List
-	 *
+	 * Clear the List
+	 * @instance
 	 * @memberof List
 	 */
 	Clear() {
@@ -71,26 +72,36 @@ class List extends Array {
 	}
 	/**
 	 * Does the List contain a given item
-	 * @param {*} item
+	 * @param {T} item
+	 * @instance
+	 * @returns {Boolean} Contains
+	 * @memberof List
 	 */
 	Contains(item) {
 		return this.includes(item);
 	}
+	/**
+	 * Get the Number of items in the list
+	 * @instance
+	 * @readonly
+	 * @returns {Number} Count
+	 * @memberof List
+	 */
 	get Count() {
 		return this.length;
 	}
 	/**
-	 *
-	 * @param {*} match
+	 * Not Yet Implimented
+	 * @instance
+	 * @memberof List
 	 */
 	Exists() {
 		//TODO
 	}
 	/**
-	 *
-	 *
+	 * Not Properly Implimented
 	 * @param {*} match
-	 *
+	 * @instance
 	 * @memberof List
 	 */
 	Find(match) {
@@ -98,18 +109,19 @@ class List extends Array {
 	}
 	/**
 	 *
-	 *
+	 * Not Properly Implimented
 	 * @param {*} action
+	 * @instance
 	 * @memberof List
 	 */
 	ForEach(action) {
 		this.forEach(action);
 	}
 	/**
-	 *
-	 *
-	 * @param {*} iValue
-	 * @returns {Number} Index
+	 * Remove an item from the List
+	 * @param {T} iValue
+	 * @returns {Number} Index Removed From
+	 * @instance
 	 * @memberof List
 	 */
 	Remove(iValue) {
@@ -120,10 +132,11 @@ class List extends Array {
 		return iIndex;
 	}
 	/**
-	 *
+	 * Remove Item at Index
 	 *
 	 * @param {Number} iIndex
-	 * @returns {*} Removed Item
+	 * @returns {T} Removed Item
+	 * @instance
 	 * @memberof List
 	 */
 	RemoveAt(iIndex) {
@@ -134,9 +147,12 @@ class List extends Array {
 		return vItem;
 	}
 	/**
-	 *
-	 * @param {} value
+	 * Attempt to get Value
+	 * @param {T} value
 	 * @param {Out<T>} out
+	 * @instance
+	 * @memberof List
+	 * @returns {Boolean} Value Found
 	 */
 	TryGetValue(value, out) {
 		if (value == null) return false;
@@ -144,12 +160,28 @@ class List extends Array {
 		if (out) out.Out = value;
 		return true;
 	}
+	/**
+	 * Not Yet Implimented
+	 * @instance
+	 * @memberof List
+	 */
 	ToArray() {
 		return; //TODO
 	}
+	/**
+	 * Not Yet Implimented
+	 * @instance
+	 * @memberof List
+	 */
 	Sort(compareFn) {
 		return this.sort(compareFn);
 	}
+	/**
+	 * Take a random item from the list
+	 * @instance
+	 * @returns {T} Item
+	 * @memberof List
+	 */
 	TakeRandom() {
 		return this.RemoveAt(~~(Math.random() * this.Count));
 	}

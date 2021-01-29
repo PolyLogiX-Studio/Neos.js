@@ -1,16 +1,14 @@
+//eslint-disable-next-line no-unused-vars
+const { List } = require("./List"); //lgtm [js/unused-local-variable] JSDoc Type Def
+//TODO This Likely needs a rework in the library
 /**
  * @template T
  * @class Enumerable
  * @extends {Object}
  * @returns {Enumerable<T>}
+ * @param {Array<string>|List<string>|T} $b
  */
 class Enumerable extends Object {
-	/**
-	 *Creates an instance of Enumerable.
-	 * @param {(string[]|List<String>)} $b
-	 * @returns {Enumerable<$b>}
-	 * @memberof Enumerable
-	 */
 	constructor($b) {
 		if ($b == null) throw new Error("No Data Given");
 		super();
@@ -36,16 +34,19 @@ class Enumerable extends Object {
 		Object.freeze(this);
 	}
 	/**
-	 *
-	 *
+	 * Get Value Set on Init
 	 * @param {String} key
-	 * @returns {T}
+	 * @returns {number}
+	 * @instance
 	 * @memberof Enumerable
 	 */
 	GetValue(key) {
 		return this[key];
 	}
-
+	/**
+	 * @private
+	 * @param {Enumerable} Enum
+	 */
 	FromEnum(Enum) {
 		let keys = Object.keys(Enum).shift();
 		if (Enum > keys.length) throw new Error("Bounds Exceeded");
