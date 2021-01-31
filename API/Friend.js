@@ -1,5 +1,9 @@
 const { UserStatus } = require("./UserStatus");
 const { UserProfile } = require("./UserProfile");
+/**
+ * Friend :)
+ * @class Friend
+ */
 class Friend {
 	/**
 	 *Creates an instance of Friend.

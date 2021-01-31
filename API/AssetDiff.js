@@ -37,7 +37,8 @@ class AssetDiff {
 		 * @memberof AssetDiff
 		 * @instance
 		 */
-		this.State = $b.state;
+		this.State =
+			typeof $b.state === "string" ? $b.state : this.Diff.FromNumber($b.state);
 		/** Is the asset on the cloud
 		 * @type {boolean}
 		 * @memberof AssetDiff

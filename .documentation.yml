@@ -24,8 +24,88 @@ toc:
   - AssetInfo
   - AssetMetadataRequest
   - AssetUploadData
+  - AssetUtil
+  - AssetVariantComputationTask
+  - AssetVariantEntityType
+  - AuthenticationHeaderValue
+  - BatchQuery
+  - CheckContactData
+  - ChildRecordDiff
+  - CloudMessage
+  - CloudResult
+  - CloudVariableDefinition
   - CloudXInterface
+  - ComputationLock
+  - CreditTransaction
+  - CryptoHelper
+  - CurrencyRates
+  - Endpoints
+  - ExitMessage
+  - ExternalQueueObject
+  - Friend
+  - FriendManager
+  - FriendStatus
+  - Group
+  - HubPatreons
+  - IdUtil
+  - IRecord
+  - License
+  - LoginCredentials
+  - Member
+  - Membership
+  - Message
+  - MessageManager
+  - MessageType
+  - MetadataBatchQuery
+  - MetamovieAccount
+  - NeosAccount
+  - NeosDB_Endpoint
+  - NeosDBAsset
+  - NeosSession
+  - OneTimeVerificationKey
+  - OnlineStatus
+  - OnlineStatusHelper
+  - OnlineUserStats
+  - OutputDevice
+  - OwnerType
+  - PicturePatreon
+  - Record
+  - RecordBatchQuery
+  - RecordHelper
+  - RecordId
+  - RecordPreprocessState
+  - RecordPreprocessStatus
+  - RecordSearch
+  - RecordTags
+  - RecordUtil
+  - RSAParametersData
+  - SearchParameters
+  - SearchQueryParser
+  - SearchResults
+  - SearchSortDirection
+  - SearchSortParameter
+  - ServerStatistics
+  - SessionAccessLevel
+  - SessionIndo
+  - SessionUpdate
+  - SessionUser
+  - Submission
+  - SugarCube
+  - TemporaryUtility
+  - ThimbnailInfo
+  - TransactionManager
+  - TransactionMessage
+  - TransactionType
+  - TransactionUtil
+  - UploadState
   - User
+  - UserPatreonData
+  - UserProfile
+  - UserSession
+  - UserStatus
+  - UserTags
+  - VerificationKeyUse
+  - Visit
   - name: Util
     description: |
       Supporting Classes and Types
@@ -33,13 +113,20 @@ toc:
       [CloudX.Util](#util)
 
       Properties Listed Below
+  - CancellationTokenSource
   - Char
   - Dictionary
   - Enumerable
   - HashSet
+  - HTTP_CLIENT
+  - HttpMethod
+  - HttpRequestMethod
+  - HttpResponseMethod
   - List
   - Out
   - StringBuilder
+  - Task
+  - TaskCompletionSource
   - Uri
   - name: Arguments
     description: |

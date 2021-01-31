@@ -1,3 +1,4 @@
+const { UploadState } = require("./UploadState");
 /**
  * Asset Upload Data Object
  * @class AssetUploadData
@@ -27,7 +28,10 @@ class AssetUploadData {
 		/**@type {Number} */
 		this.TotalChunks = $b.totalChunks;
 		/**@type {UploadState} */
-		this.UploadState = $b.uploadState;
+		this.UploadState =
+			typeof $b.uploadState === "string"
+				? $b.uploadState
+				: UploadState.FromNumber($b.uploadState);
 	}
 }
 module.exports = {

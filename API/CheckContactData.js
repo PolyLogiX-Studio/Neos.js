@@ -1,4 +1,12 @@
 const { List } = require("./List");
+/**
+ * Object Used in checking if a user is friends with a list of users
+ * @class CheckContactData
+ * @property {Object} $b
+ * @property {string} $b.ownerId
+ * @property {string} $b.verificationKey
+ * @property {List<string>} $b.contacts
+ */
 class CheckContactData {
 	constructor($b) {
 		/**@type {String}*/

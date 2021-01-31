@@ -3,21 +3,27 @@ const { Path } = require("./Path");
 const { Uri } = require("./Uri");
 const SHA256 = require("crypto-js/sha256");
 const fs = require("fs");
+/**
+ * Utility Class for working with Assets
+ * @class AssetUtil
+ */
 class AssetUtil {
 	/**
+	 * Compute Version
 	 * @readonly
 	 * @static
 	 * @memberof AssetUtil
+	 * @returns {4}
 	 */
 	static get COMPUTE_VERSION() {
 		return 4;
 	}
 	/**
-	 *
-	 * @template T
+	 * Generate a SHA256 hash signature for a file
 	 * @static
-	 * @param {T} file
+	 * @param {Buffer | string} file File Stream or Path to file
 	 * @memberof AssetUtil
+	 * @returns {string} Hash Signature
 	 */
 	static GenerateHashSignature(file) {
 		if (file instanceof String) {
@@ -27,14 +33,26 @@ class AssetUtil {
 			return SHA256(file.toString()).toString().replace("-", "").toLowerCase();
 		}
 	}
+	/**
+	 * Generate a NeosDB Asset Url
+	 *
+	 * @static
+	 * @param {string} signature File Signature
+	 * @param {string} extension Asset Type
+	 * @returns {Uri}
+	 * @memberof AssetUtil
+	 */
 	static GenerateURL(signature, extension) {
 		if (!extension.startsWith(".")) extension = "." + extension;
 		return new Uri("neosdb:///" + signature + extension);
 	}
 	/**
+	 * Extract the signature [And Extension] from a URI
+	 *
 	 * @static
 	 * @param {Uri} uri
-	 * @param {Out<String>} extension
+	 * @param {Out<String>} [extension]
+	 * @returns {string} Signature
 	 * @memberof AssetUtil
 	 */
 	static ExtractSignature(uri, extension = new Out()) {
@@ -44,10 +62,11 @@ class AssetUtil {
 		return Path.GetFileNameWithoutExtension(segment);
 	}
 	/**
-	 *
-	 *
+	 * Append a Variant Identifier to a signature
+	 * @static
 	 * @param {string} signature
 	 * @param {string} variant
+	 * @returns {string}
 	 * @memberof AssetUtil
 	 */
 	static ComposeIdentifier(signature, variant) {
@@ -55,12 +74,11 @@ class AssetUtil {
 		return signature + "&" + variant;
 	}
 	/**
-	 *
-	 *
+	 * Split the Varient and Signature from a Variant Identifier
 	 * @static
 	 * @param {string} identifier
-	 * @param {Out<String>} signature
-	 * @param {Out<String>} variant
+	 * @param {Out<String>} [signature]
+	 * @param {Out<String>} [variant]
 	 * @memberof AssetUtil
 	 */
 	static SplitIdentifier(identifier, signature, variant) {

@@ -1,4 +1,16 @@
 const Decimal = require("decimal.js");
+const { AssetDiff } = require("./AssetDiff");
+const { AssetEntry } = require("./AssetEntry");
+const { AssetInfo } = require("./AssetInfo");
+const { AssetMetadataRequest } = require("./AssetMetadataRequest");
+const { AssetUploadData } = require("./AssetUploadData");
+const {
+	AssetVariantComputationTask,
+} = require("./AssetVariantComputationTask");
+const { BatchQuery } = require("./BatchQuery");
+const { CancellationTokenSource } = require("./CancellationTokenSource");
+const { CheckContactData } = require("./CheckContactData");
+const { ChildRecordDiff } = require("./ChildRecordDiff");
 const { StringBuilder } = require("./StringBuilder");
 const { TimeSpan } = require("./TimeSpan");
 const { Out } = require("./Out.js");
@@ -47,9 +59,18 @@ const { OutputDevice } = require("./OutputDevice");
 const CloudX = {
 	Shared: {
 		AccountType,
+		AssetDiff,
+		AssetEntry,
+		AssetInfo,
+		AssetMetadataRequest,
+		AssetUploadData,
 		AssetUtil,
+		AssetVariantComputationTask,
 		AssetVariantEntityType,
 		AuthenticationHeaderValue,
+		BatchQuery,
+		CheckContactData,
+		ChildRecordDiff,
 		CloudResult,
 		CloudXInterface,
 		CreditTransaction,
@@ -57,7 +78,7 @@ const CloudX = {
 		FriendManager,
 		FriendStatus,
 		Group,
-		HttpMethod,
+
 		IdUtil,
 		Member,
 		Message,
@@ -82,12 +103,14 @@ const CloudX = {
 		OutputDevice,
 	},
 	Util: {
+		CancellationTokenSource,
 		Char,
 		Decimal,
 		Dictionary,
 		Enumerable,
 		HTTP_CLIENT,
 		HashSet,
+		HttpMethod,
 		List,
 		Out,
 		Path,

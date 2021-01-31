@@ -1,5 +1,5 @@
 /**
- * Simple class to work with Characters
+ * Simple Util class to work with Characters
  *
  * @class Char
  */
