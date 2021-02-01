@@ -135,7 +135,12 @@ toc:
       - AssetDiffEnum
       - Dictionary.AddOrUpdate~callback
       - Dictionary.Reduce~callback
+      - GroupMemberUpdated
+      - GroupUpdatedFunction
+      - MembershipsUpdatedFunction
       - NeosGeneratorOptions
+      - SessionChangedFunction
+      - UserUpdatedFunction
   - name: Uncategorized
     description: |
       None of these have been categorized yet. WIP

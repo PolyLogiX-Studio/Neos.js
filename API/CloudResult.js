@@ -2,30 +2,36 @@
  *
  * @template T
  * @class CloudResult
+ * @param {Class} entity
+ * @param {HttpStatusCode<number>} state
+ * @param {string} content
+ * @param {Object} resHeaders
  */
 class CloudResult {
-	/**
-	 *Creates an instance of CloudResult.
-	 * @param {*} entity
-	 * @param {*} state
-	 * @param {*} content
-	 * @memberof CloudResult
-	 */
 	constructor(entity, state, content, resHeaders) {
 		this.CloudResult(state, content, resHeaders, entity);
 	}
-	ToString() {
+	/**@private */
+	toJSON() {
+		return this.toString();
+	}
+	/**@private */
+	toString() {
 		return "CloudResult - State: " + this.State + " Content: " + this.Content;
 	}
 	/**
-	 * @param {HttpStatusCode} state
+	 * @instance
+	 * @param {HttpStatusCode<number>} state
 	 * @param {string} content
-	 * @returns undefined
+	 * @param {Object} headers - Internal Use
 	 * @memberof CloudResult
 	 */
 	CloudResult(state, content, headers) {
+		/**@type {HttpStatusCode<number>} */
 		this.State = state;
+		/**@type {string} */
 		this.Content = content;
+		/**@type {Object} */
 		this.Headers = {};
 		if (headers != null && Object.keys(headers).length) {
 			for (let item of headers) {
@@ -41,8 +47,10 @@ class CloudResult {
 		}
 	}
 	/**
-	 * Cet the Result Content Entity
+	 * get the Result Content Entity
 	 * @readonly
+	 * @instance
+	 * @returns {string}
 	 * @memberof CloudResult
 	 */
 	get Entity() {
@@ -50,8 +58,9 @@ class CloudResult {
 	}
 	/**
 	 * Is Valid?
-	 *
+	 * @instance
 	 * @readonly
+	 * @returns {boolean}
 	 * @memberof CloudResult
 	 */
 	get IsOK() {
@@ -61,15 +70,31 @@ class CloudResult {
 	/**
 	 * Is Invalid?
 	 *
+	 * @instance
+	 * @returns {boolean}
 	 * @readonly
 	 * @memberof CloudResult
 	 */
 	get IsError() {
 		return !this.IsOK;
 	}
+	/**
+	 * Get the Status Code
+	 * @instance
+	 * @returns {number}
+	 * @readonly
+	 * @memberof CloudResult
+	 */
 	get StatusCode() {
 		return this.State;
 	}
+	/**
+	 * Is the status code successfull
+	 * @instance
+	 * @memberof CloudResult
+	 * @readonly
+	 * @returns {boolean}
+	 */
 	get IsSuccessStatusCode() {
 		return this.IsOK;
 	}

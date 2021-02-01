@@ -53,34 +53,41 @@ const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
 const { ExitMessage } = require("./ExitMessage");
 const { CurrencyRates } = require("./CurrencyRates");
 const { Membership } = require("./Membership");
+
 /**
  *
- *
  * @class CloudXInterface
+ * @param {EventEmitter} BUS - Internal Communication Use, Event Bus Plug
+ * @param {string} product - Library/System Name - Metadata
+ * @param {string} version - Library/System Version - Metadata
  */
 class CloudXInterface {
-	/**
-	 *
-	 */
 	constructor(BUS, product, version) {
 		this.CloudXInterface(product, version);
-		/** @type List<Membership> */
+		/** @type List<Membership>
+		 * @private*/
 		this._groupMemberships;
-		/** @type Dictionary<String, Member> */
+		/** @type Dictionary<String, Member>
+		 * @private*/
 		this._groupMemberInfos;
-		/** @type Dictionary<String, Group> */
+		/** @type Dictionary<String, Group>
+		 * @private */
 		this._groups;
 		/** @type Dictionary<Type, Dictionary<Uri, CloudResult>> */
 		this.cachedRecords = new Dictionary();
-		/** @type UserSession */
+		/** @type UserSession
+		 * @private*/
 		this._currentSession;
-		/** @type User */
+		/** @type User
+		 * @private*/
 		this._currentUser;
-		/** @type RSACryptoServiceProvider */
+		/** @type RSACryptoServiceProvider
+		 * @private*/
 		this._cryptoProvider;
-		/** @type AuthenticationHeaderValue */
+		/** @type AuthenticationHeaderValue
+		 * @private*/
 		this._currentAuthenticationHeader;
-		/** @type Date */
+		/** @type Date @private */
 		this._lastSessionUpdate = new Date(0);
 		/** @type Date */
 		this.lastServerStatsUpdate = new Date(0);
@@ -106,163 +113,345 @@ class CloudXInterface {
 		this.Messages;
 		/** @type TransactionManager */
 		this.Transactions;
-		/** @type Function */
+		/** @type {SessionChangedFunction} */
 		this.SessionChanged;
-		/** @type Function */
+		/** @type {UserUpdatedFunction} */
 		this.UserUpdated;
-		/** @type Function */
+		/** @type {MembershipsUpdatedFunction} */
 		this.MembershipsUpdated;
-		/** @type Function */
+		/** @type {GroupUpdatedFunction} */
 		this.GroupUpdated;
-		/** @type Function */
+		/** @type {GroupMemberUpdatedFunction} */
 		this.GroupMemberUpdated;
 		//Setup Private Properties
 		//this.CloudXInterface()
+		/**
+		 * @private
+		 */
 		this.Events = BUS;
 		Object.defineProperties(this, {
 			_groupMemberships: {
 				value: new List(),
 				writable: true,
+				enumerable: false,
 			},
 			_groupMemberInfos: {
 				value: new Dictionary(),
 				writable: true,
+				enumerable: false,
 			},
 			_USE_CDN: {
 				value: false,
 				writable: true,
+				enumerable: false,
 			},
 			_groups: {
 				value: new Dictionary(),
 				writable: true,
+				enumerable: false,
 			},
 			_currentSession: {
 				value: new UserSession(),
 				configurable: true,
+				enumerable: false,
 			},
 			_currentUser: {
 				writable: true,
+				enumerable: false,
 			},
 			_cryptoProvider: {
 				writable: true,
+				enumerable: false,
 			},
 			_storageDirty: {
 				value: new Dictionary(),
 				writable: true,
+				enumerable: false,
 			},
 			_updatingStorage: {
 				value: new Dictionary(),
 				writable: true,
+				enumerable: false,
 			},
 			_currentAuthenticationHeader: {
 				value: null,
 				writable: true,
+				enumerable: false,
 			},
 			_lastSessionUpdate: {
 				value: new Date(0),
 				writable: true,
+				enumerable: false,
 			},
 			_lastServerStatsUpdate: {
 				value: new Date(0),
 				writable: true,
+				enumerable: false,
 			},
 			lockobj: {
 				value: "CloudXLockObj",
+				enumerable: false,
 			},
 		});
 	}
 
+	/**
+	 * Cloud Endpoint Types
+	 * @enum {Enumerable<string>} CloudEndpoint
+	 * @property {"Production"} Production
+	 * @property {"Staging"} Staging
+	 * @property {"Local"} Local
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CloudEndpoint() {
-		return new Enumerable(["Production", "Staging", "Local", "PolyLogiXOAUTH"]);
+		return new Enumerable(["Production", "Staging", "Local"]);
 	}
-
+	/**
+	 * Number of Retries for tasks
+	 * @returns {5}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get DEFAULT_RETRIES() {
 		return 5;
 	}
+	/**
+	 * Honestly Not Sure
+	 * @returns {16}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get UPLOAD_DEGREE_OF_PARALLELISM() {
 		return 16;
 	}
+	/**
+	 * @private
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get DEBUG_UPLOAD() {
 		return false;
 	}
+	/**
+	 * @private
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get DEBUG_REQUESTS() {
 		return false;
 	}
+	/**
+	 * Request Timeout
+	 * @returns {30000} ms
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get DefaultTimeout() {
 		return TimeSpan.fromSeconds(30);
 	}
+	/**
+	 * Delays in subsequent requests to the storage system
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get storageUpdateDelays() {
 		return [1, 5, 15, 30];
 	}
+	/**
+	 * JSON Header
+	 * @returns {{
+			"Content-Type": "application/json",
+		}}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get JSON_MEDIA_TYPE() {
 		return {
 			"Content-Type": "application/json",
 		};
 	}
+	/**
+	 * How frequent to extend the user session
+	 * @returns {3600}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get SESSION_EXTEND_INTERVAL() {
 		return 3600;
 	}
-	/** @type Action<string> */
+	/**
+	 * Not Implimented
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get ProfilerBeginSampleCallback() {
 		return null;
 	}
-	/** @type Action */
+	/**
+	 * Not Implimented
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get ProfilerEndSampleCallback() {
 		return null;
 	}
-	/** @type Func<MemoryStream> */
+	/**
+	 * Not Implimented
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get MemoryStreamAllocator() {
 		return null;
 	}
+	/**
+	 * If you need to ask your account can't use this.
+	 * @returns {false}
+	 * @protected
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get USE_CDN() {
 		return false;
 	}
+	/**
+	 *
+	 * @returns {"https://www.neosvr-api.com"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUDX_PRODUCTION_NEOS_API() {
-		return "https://www.neosvr-api.com/";
+		return "https://www.neosvr-api.com";
 	}
+	/**
+	 *
+	 * @returns {"https://cloudx-staging.azurewebsites.net"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUDX_STAGING_NEOS_API() {
-		return "https://cloudx-staging.azurewebsites.net/";
+		return "https://cloudx-staging.azurewebsites.net";
 	}
+	/**
+	 *
+	 * @returns {"https://cloudxstorage.blob.core.windows.net/"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUDX_NEOS_DURABLE_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/";
 	}
+	/**
+	 *
+	 * @returns {"https://cloudxoperationalblob.blob.core.windows.net/"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUDX_NEOS_OPERATIONAL_BLOB() {
 		return "https://cloudxoperationalblob.blob.core.windows.net/";
 	}
+	/**
+	 *
+	 * @returns {"https://cloudx2.azureedge.net/"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUDX_NEOS_CDN() {
 		return "https://cloudx2.azureedge.net/";
 	}
+	/**
+	 *
+	 * @returns {"http://localhost:60612"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get LOCAL_NEOS_API() {
-		return "http://localhost:60612/";
+		return "http://localhost:60612";
 	}
+	/**
+	 *
+	 * @returns {"http://127.0.0.1:10000/devstoreaccount1/"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get LOCAL_NEOS_BLOB() {
 		return "http://127.0.0.1:10000/devstoreaccount1/";
 	}
+	/**
+	 *
+	 * @returns {"https://cloudx2.azureedge.net/"}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUDX_NEOS_VIDEO_CDN() {
 		return "https://cloudx2.azureedge.net/";
 	}
+	/**
+	 * Not Implimented
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	ProfilerBeginSample() {
 		let beginSampleCallback = CloudXInterface.ProfilerBeginSampleCallback;
 		if (beginSampleCallback == null) return;
 		beginSampleCallback();
 	}
+	/**
+	 * Not Implimented
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	ProfilerEndSample() {
 		let endSampleCallback = CloudXInterface.ProfilerEndSampleCallback;
 		if (endSampleCallback == null) return;
 		endSampleCallback();
 	}
+	/**
+	 * Current Cloud Endpoint
+	 * @returns {number} Production Endpoint
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get CLOUD_ENDPOINT() {
 		return CloudXInterface.CloudEndpoint.Production;
 	}
-
+	/**
+	 * Get the Neos Endpoint
+	 * @returns {"https://www.neosvr-api.com/" | "https://cloudx-staging.azurewebsites.net/" | "https://localhost:60612/" | Error}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_API() {
 		switch (CloudXInterface.CLOUD_ENDPOINT) {
 		case CloudXInterface.CloudEndpoint.Production:
-			return "https://www.neosvr-api.com/";
+			return "https://www.neosvr-api.com";
 		case CloudXInterface.CloudEndpoint.Staging:
-			return "https://cloudx-staging.azurewebsites.net/";
+			return "https://cloudx-staging.azurewebsites.net";
 		case CloudXInterface.CloudEndpoint.Local:
-			return "https://localhost:60612/";
+			return "https://localhost:60612";
 		default:
 			return new Error(
 				"Invalid Endpoint: " + CloudXInterface.CLOUD_ENDPOINT.toString()
@@ -348,14 +537,6 @@ class CloudXInterface {
 			: ServerStatus.Good;
 	}
 	/**
-	 * The Current User Object
-	 *
-	 * @memberof CloudXInterface
-	 */
-	get CurrentUser() {
-		return this._currentUser;
-	}
-	/**
 	 * Overrideable function to handle Errors
 	 * @function
 	 * @override
@@ -366,10 +547,24 @@ class CloudXInterface {
 		//Overridable Error Output
 		throw new Error(error);
 	}
+	/**
+	 * Overrideable Function to handle Debug messages
+	 * @param {*} vars - Unpredictable number of arguments
+	 * @memberof CloudXInterface
+	 */
 	OnDebug(...vars) {
 		//Overrideable
 		console.log(...vars);
 	}
+	/**
+	 * The Current User Object
+	 *
+	 * @memberof CloudXInterface
+	 */
+	get CurrentUser() {
+		return this._currentUser;
+	}
+
 	set CurrentUser(value) {
 		if (value === this._currentUser) return;
 		let user;
@@ -380,20 +575,22 @@ class CloudXInterface {
 		if (userUpdated == null) return;
 		userUpdated(this._currentUser);
 	}
-	get CurrentSession() {
-		return this._currentSession;
-	}
+
 	/**
 	 * The Current Session Object
 	 *
 	 * @memberof CloudXInterface
 	 */
+	get CurrentSession() {
+		return this._currentSession;
+	}
 	set CurrentSession(value) {
 		if (value == null) {
 			Object.defineProperties(this, {
 				_currentSession: {
 					value: new UserSession(),
 					configurable: true,
+					enumerable: false,
 				},
 			});
 			return;
@@ -404,6 +601,7 @@ class CloudXInterface {
 				_currentSession: {
 					value: new UserSession(),
 					configurable: true,
+					enumerable: false,
 				},
 			});
 		if (this._currentSession.SessionToken !== value.SessionToken)
@@ -412,14 +610,20 @@ class CloudXInterface {
 			_currentSession: {
 				value,
 				configurable: true,
+				enumerable: false,
 			},
 		});
 		//Use the Neos Schema
-		this._currentAuthenticationHeader = new AuthenticationHeaderValue(
-			"neos", //lgtm [js/hardcoded-credentials]
-			value.UserId + ":" + value.SessionToken
-		).Authorization;
-
+		Object.defineProperties(this, {
+			_currentAuthenticationHeader: {
+				value: new AuthenticationHeaderValue(
+					"neos", //lgtm [js/hardcoded-credentials]
+					value.UserId + ":" + value.SessionToken
+				).Authorization,
+				configurable: true,
+				enumerable: false,
+			},
+		});
 		//Call Event
 		this.OnSessionUpdated();
 		try {
@@ -437,79 +641,124 @@ class CloudXInterface {
 	/**
 	 *The Curent Memberships, Will return Null if this.Update has not been run
 	 *
-	 *
+	 * @instance
+	 * @returns {List<Membership>}
 	 * @memberof CloudXInterface
 	 */
 	get CurrentUserMemberships() {
 		return this._groupMemberships;
 	}
+	/**
+	 *
+	 * @instance
+	 * @readonly
+	 * @returns {Array<Group>}
+	 * @memberof CloudXInterface
+	 */
 	get CurrentUserGroupInfos() {
 		return this._groups.map(function (p) {
 			return p.Value;
 		});
 	}
+	/**
+	 *
+	 * @instance
+	 * @readonly
+	 * @returns {Member[]}
+	 * @memberof CloudXInterface
+	 */
 	get CurrentUserMemberInfos() {
 		return this._groupMemberInfos.map(function (p) {
 			return p.Value;
 		});
 	}
+	/**
+	 * Get Group from Id
+	 * @param {string} groupId
+	 * @instance
+	 * @returns {Group}
+	 * @memberof CloudXInterface
+	 */
 	TryGetCurrentUserGroupInfo(groupId) {
 		return this._groups.filter(function (item) {
 			return item["groupId"] === groupId;
 		});
 	}
+	/**
+	 * Get Current User Group Membershop
+	 * @param {string} groupId
+	 * @returns {Member}
+	 * @instance
+	 * @memberof CloudXInterface
+	 */
 	TryGetCurrentUserGroupMemberInfo(groupId) {
 		return this._groupMemberInfos.filter(function (item) {
 			return item["groupId"] === groupId;
 		});
 	}
+	/**
+	 * Get User is member of groupId
+	 * @param {string} groupId
+	 * @instance
+	 * @memberof CloudXInterface
+	 */
 	IsCurrentUserMemberOfGroup(groupId) {
 		return this.TryGetCurrentUserGroupMemberInfo(groupId) != null;
 	}
+	/**
+	 * @param {string} groupId
+	 * @returns {Member}
+	 * @instance
+	 * @memberof CloudXInterface
+	 */
 	TryGetCurrentUserGroupMembership(groupId) {
-		let a = this._groupMemberInfos.indexOf(groupId);
-		if (a) {
-			return this._groupMemberInfos[a];
-		}
+		return this._groupMemberInfos.filter(function (item) {
+			return item["groupId"] === groupId;
+		});
 	}
 	/**
 	 * Redefineable Function for Hooks
-	 *
+	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	OnLogin() {}
 	/**
 	 * Redefineable Function for Hooks
-	 *
+	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	OnLogout() {}
 	/**
 	 * Redefineable Function for Hooks
-	 *
+	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	OnSessionUpdated() {}
 	/**
 	 * Initializing Function, Setup local managers
-	 * @param {String} UserAgentProduct Agent ie. NeosJS
-	 * @param {String} UserAgentVersion Version ie v1.5.6
+	 * @param {String} [UserAgentProduct="CloudX"] Agent ie. NeosJS
+	 * @param {String} [UserAgentVersion="0.0.0.0"] Version ie v1.5.6
 	 */
 	CloudXInterface(UserAgentProduct = "CloudX", UserAgentVersion = "0.0.0.0") {
+		/**@type HTTP_CLIENT */
 		this.HttpClient = new HTTP_CLIENT();
+		/**@type {FriendManager} */
 		this.Friends = new FriendManager(this);
 		this.UserAgentProduct = UserAgentProduct;
 		this.UserAgentVersion = UserAgentVersion;
+		/**@type {ProductInfoHeaderValue} */
 		this.UserAgent = new ProductInfoHeaderValue(
 			UserAgentProduct,
 			UserAgentVersion
 		);
+		/**@type {MessageManager} */
 		this.Messages = new MessageManager(this);
+		/**@type {TransactionManager} */
 		this.Transactions = new TransactionManager(this);
 	}
 	/**
-	 * Run all state updates
-	 *
+	 * Main Update Call
+	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	Update() {
@@ -527,6 +776,7 @@ class CloudXInterface {
 			10.0
 		) {
 			(async () => {
+				/**@private */
 				let cloudResult = await this.GetServerStatistics();
 				if (cloudResult != null) {
 					if (cloudResult.IsOK) {
@@ -550,10 +800,10 @@ class CloudXInterface {
 		}
 	}
 	/**
-	 *
-	 *
+	 * Does the current user potentially have API access
 	 * @param {String} ownerId
-	 * @returns
+	 * @instance
+	 * @returns {boolean}
 	 * @memberof CloudXInterface
 	 */
 	HasPotentialAccess(ownerId) {
@@ -568,11 +818,23 @@ class CloudXInterface {
 			return false;
 		}
 	}
+	/**
+	 * Set the user memberhsips - Local
+	 * @param {List<Membership>} memberships
+	 * @instance
+	 * @memberof CloudXInterface
+	 */
 	SetMemberships(memberships) {
 		this._groupMemberships.Clear();
 		this._groupMemberships.AddRange(memberships);
 		this.RunMembershipsUpdated();
 	}
+	/**
+	 * Add a user membership - Local
+	 * @param {Membership} membership
+	 * @instance
+	 * @memberof CloudXInterface
+	 */
 	AddMembership(membership) {
 		this._groupMemberships.Add(membership);
 		this.RunMembershipsUpdated();
@@ -586,6 +848,12 @@ class CloudXInterface {
 		this._groupMemberships = new List();
 		this.RunMembershipsUpdated();
 	}
+	/**
+	 * Update Membership Events
+	 * @async
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	async RunMembershipsUpdated() {
 		for (let groupMembership of this._groupMemberships) {
 			await this.UpdateGroupInfo(groupMembership.GroupId);
@@ -595,12 +863,11 @@ class CloudXInterface {
 		membershipsUpdated(this._groupMemberships);
 	}
 	/**
-	 *
-	 *
+	 * Convert a neosdb:// to a http cdn url
 	 * @static
 	 * @param {Uri} neosdb
-	 * @param {NeosDB_Endpoint} forceCDN
-	 * @returns
+	 * @param {NeosDB_Endpoint} endpoint
+	 * @returns {Uri}
 	 * @memberof CloudXInterface
 	 */
 	static NeosDBToHttp(neosdb, endpoint) {
@@ -628,6 +895,13 @@ class CloudXInterface {
 		}
 		return new Uri(str4 + str3);
 	}
+	/**
+	 *  Filter Url's - Internal
+	 * @static
+	 * @param {Uri} assetURL
+	 * @returns {Uri|void}
+	 * @memberof CloudXInterface
+	 */
 	static FilterNeosURL(assetURL) {
 		if (
 			assetURL.Scheme === "neosdb" &&
@@ -639,16 +913,44 @@ class CloudXInterface {
 			);
 		return assetURL;
 	}
+	/**
+	 *
+	 * @static
+	 * @param {Uri} neosdb
+	 * @returns {string}
+	 * @memberof CloudXInterface
+	 */
 	static NeosDBFilename(neosdb) {
 		return neosdb.Segments[1] + neosdb.Query;
 	}
+	/**
+	 *
+	 * @static
+	 * @param {Uri} neosdb
+	 * @returns {string}
+	 * @memberof CloudXInterface
+	 */
 	static NeosDBSignature(neosdb) {
 		return neosdb.Segments[1].noExtension();
 	}
+	/**
+	 *
+	 * @static
+	 * @param {Uri} neosdb
+	 * @returns {string}
+	 * @memberof CloudXInterface
+	 */
 	static NeosDBQuery(neosdb) {
 		if (neosdb.Query == null || neosdb.Query === "") return null;
 		return neosdb.Query.substring(1);
 	}
+	/**
+	 * Thumbnail ID to HTTP
+	 * @static
+	 * @param {string} id
+	 * @returns {string}
+	 * @memberof CloudXInterface
+	 */
 	static NeosThumbnailIdToHttp(id) {
 		return new Uri(
 			(ThumbnailInfo.IsIdVersion2(id)
@@ -656,66 +958,162 @@ class CloudXInterface {
 				: CloudXInterface.NEOS_THUMBNAILS_OLD) + id
 		);
 	}
+	/**
+	 * Check if a string is a proper {@link #uri Uri}, Returns Uri on true, null on false
+	 * @static
+	 * @param {string} url
+	 * @returns {Uri | null}
+	 * @memberof CloudXInterface
+	 */
 	static TryFromString(url) {
 		if (url == null) return null;
 		if (Uri.IsWellFormedUriString(url, 1)) return new Uri(url);
 		return null;
 	}
+	/**
+	 * @returns {boolean}
+	 * @static
+	 * @param {Uri} uri
+	 * @memberof CloudXInterface
+	 */
+	static IsValidNeosDBUri(uri) {
+		return !(uri.Scheme !== "neosdb") && uri.Segments.length >= 2;
+	}
+	/**
+	 * Check if a Uri is Legacy
+	 * @static
+	 * @param {Uri} uri
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	static IsLegacyNeosDB(uri) {
 		if (uri.Scheme !== "neosdb") return false;
 		return uri.Segments[1].noExtension().length < 30;
 	}
-	//473
-	GET(resource, timeout = null) {
-		return this.RunRequest(() => {
-			return this.CreateRequest(resource, HttpMethod.Get);
-		}, timeout);
+	/**
+	 * Make a Get Request
+	 *
+	 * @param {string} resource - Endpoint
+	 * @param {TimeSpan} [timeout=null]
+	 * @param {boolean} [throwOnError=true]
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
+	GET(resource, timeout = null, throwOnError = true) {
+		return this.RunRequest(
+			() => {
+				return this.CreateRequest(resource, HttpMethod.Get);
+			},
+			timeout,
+			throwOnError
+		);
 	}
-	POST(resource, entity, timeout = null) {
-		return this.RunRequest(() => {
-			let request = this.CreateRequest(resource, HttpMethod.Post);
-			if (entity != null) this.AddBody(request, entity);
-			return request;
-		}, timeout);
+	/**
+	 * Make a Post Request
+	 *
+	 * @param {string} resource - Endpoint
+	 * @param {*} entity - Content
+	 * @param {TimeSpan} [timeout=null]
+	 * @param {boolean} [throwOnError=true]
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
+	POST(resource, entity, timeout = null, throwOnError = true) {
+		return this.RunRequest(
+			() => {
+				let request = this.CreateRequest(resource, HttpMethod.Post);
+				if (entity != null) this.AddBody(request, entity);
+				return request;
+			},
+			timeout,
+			throwOnError
+		);
 	}
+	/* //TODO
 	POST_File(resource, filePath, FileMIME = null, progressIndicator = null) {
 		return this.RunRequest(() => {
 			let request = this.CreateRequest(resource, HttpMethod.Post);
-			this.AddFileToRequest(request, filePath, FileMIME, progressIndicator);
+			//TODO this.AddFileToRequest(request, filePath, FileMIME, progressIndicator);
 			return request;
 		}, TimeSpan.fromMinutes(60.0));
 	}
-	PUT(resource, entity, timeout = null) {
-		return this.RunRequest(() => {
-			let request = this.CreateRequest(resource, HttpMethod.Put);
-			this.AddBody(request, entity);
-			return request;
-		}, timeout);
+	*/
+	/**
+	 * Make a Put Request
+	 *
+	 * @param {string} resource - Endpoint
+	 * @param {*} entity - Content
+	 * @param {TimeSpan} [timeout=null]
+	 * @param {boolean} [throwOnError=true]
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
+	PUT(resource, entity, timeout = null, throwOnError = true) {
+		return this.RunRequest(
+			() => {
+				let request = this.CreateRequest(resource, HttpMethod.Put);
+				this.AddBody(request, entity);
+				return request;
+			},
+			timeout,
+			throwOnError
+		);
 	}
-	PATCH(resource, entity, timeout = null) {
-		return this.RunRequest(() => {
-			let request = this.CreateRequest(resource, HttpMethod.Patch);
-			this.AddBody(request, entity);
-			return request;
-		}, timeout);
+	/**
+	 * Make a Patch Request
+	 *
+	 * @param {string} resource - Endpoint
+	 * @param {*} entity - Content
+	 * @param {TimeSpan} [timeout=null]
+	 * @param {boolean} [throwOnError=true]
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
+	PATCH(resource, entity, timeout = null, throwOnError = true) {
+		return this.RunRequest(
+			() => {
+				let request = this.CreateRequest(resource, HttpMethod.Patch);
+				this.AddBody(request, entity);
+				return request;
+			},
+			timeout,
+			throwOnError
+		);
 	}
-	DELETE(resource, timeout = null) {
-		return this.RunRequest(() => {
-			return this.CreateRequest(resource, HttpMethod.Delete);
-		}, timeout);
+	/**
+	 * Make a Delete Request
+	 *
+	 * @param {string} resource - Endpoint
+	 * @param {TimeSpan} [timeout=null]
+	 * @param {boolean} [throwOnError=true]
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
+	DELETE(resource, timeout = null, throwOnError = true) {
+		return this.RunRequest(
+			() => {
+				return this.CreateRequest(resource, HttpMethod.Delete);
+			},
+			timeout,
+			throwOnError
+		);
 	}
 	/*
 	AddFileToRequest(request, filePath, mime = null, progressIndicator = null) {
 		////let fileStream = fs.readFile(filePath);
-		//TODO Multi Part Form Content
+		//TODO #130 AddFileToRequest
 		//if (mime != null)
 	}
 */
 	/**
+	 * Build a Http Request
 	 *
-	 * @param {string} resource
+	 * Fire request with {@link #cloudxinterfacecrunrequest RunRequest}
+	 *
+	 * @param {string} resource - Endpoint
 	 * @param {HttpMethod} method
 	 * @returns {HttpRequestMessage}
+	 * @memberof CloudXInterface
 	 */
 	CreateRequest(resource, method) {
 		var flag = false;
@@ -731,10 +1129,11 @@ class CloudXInterface {
 		return httpRequestMessage;
 	}
 	/**
+	 * Add a body to a request
 	 *
-	 *
-	 * @param {HttpResponseMessage} message
-	 * @param {*} entity
+	 * Internal
+	 * @param {HttpRequestMessage} message
+	 * @param {*} entity - Content
 	 * @memberof CloudXInterface
 	 */
 	AddBody(message, entity) {
@@ -743,24 +1142,11 @@ class CloudXInterface {
 		if (entity) message.Content = JSON.stringify(entity);
 	}
 
-	/**
-	 *
-	 *
-	 * @param {Func<HttpRequestMessage>} requestSource
-	 * @param {TimeSpan} timeout
-	 * @returns {Promise<CloudResult>}
-	 * @memberof CloudXInterface
-	 */
 	async RunRequest(requestSource, timeout, throwOnError = false) {
-		/** @type {HttpRequestMessage} request */
 		let request = null;
-		/** @type {HttpResponseMessage} */
 		let result = null;
-		/** @type {Error} */
 		let exception = null;
-		/** @type {string} */
 		let content;
-		/** @type {CloudResult} */
 		let result1;
 		try {
 			let remainingRetries = CloudXInterface.DEFAULT_RETRIES; //lgtm [js/useless-assignment-to-local] False Positive
@@ -1013,7 +1399,6 @@ class CloudXInterface {
 	 * @memberof CloudXInterface
 	 */
 	async FetchRecordCached(recordUri, type) {
-		/** @type Dictionary<Uri, CloudResult> */
 		let dictionary = new Out();
 		if (!this.cachedRecords.TryGetValue(type, dictionary)) {
 			dictionary = new Dictionary();
@@ -1024,7 +1409,6 @@ class CloudXInterface {
 		let cloudResult1 = await this.FetchRecord(recordUri);
 		let out = new Out();
 		this.cachedRecords.Get(type, out);
-		/** @type Dictionary<Uri, CloudResult> */
 		let cachedRecord = out.Out;
 		cachedRecord.Remove(recordUri);
 		cachedRecord.Add(recordUri, cloudResult1);
@@ -1350,16 +1734,11 @@ class CloudXInterface {
 		}
 		return cloudResult;
 	}
-	/**
-	 *
-	 *
-	 * @param {string} path
-	 * @returns {Promise<CloudResult<ThumbnailInfo>>}
-	 * @memberof CloudXInterface
-	 */
+	/* //TODO
 	UploadThumbnail(path) {
 		return this.POST_File("api/thumbnails", path, "image/webp", null);
 	}
+	*/
 	ExtendThumbnailLifetime(thumbnail) {
 		return this.PATCH("api/thumbnails", thumbnail, new TimeSpan());
 	}
@@ -1369,6 +1748,13 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
+	/**
+	 *
+	 *
+	 * @param {*} groupId
+	 * @returns {Promise<CloudResult<Group>>}
+	 * @memberof CloudXInterface
+	 */
 	async GetGroup(groupId) {
 		var res = await this.GET("api/groups/" + groupId, new TimeSpan());
 		res.Content = new Group(res.Entity);
@@ -1463,13 +1849,9 @@ class CloudXInterface {
 	 * @memberof CloudXInterface
 	 */
 	async UpdateGroupInfo(groupId) {
-		/** @type {Task<CloudResult<Group>>>} */
 		let group = this.GetGroup(groupId);
-		/** @type {Task<CloudResult<Member>>>} */
 		let memberTask = this.GetGroupMember(groupId, this.CurrentUser.Id);
-		/** @type {CloudResult<Group>>} */
 		let groupResult = await group;
-		/** @type {CloudResult<Member>>} */
 		let cloudResult = await memberTask;
 		if (groupResult.IsOK) {
 			this._groups.TryRemove(groupId);
