@@ -1,0 +1,6 @@
+# Ignore artifacts:
+docs/
+CloudX.Shared/
+
+# Ignore all HTML files:
+*.html

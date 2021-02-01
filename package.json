@@ -6,7 +6,8 @@
 	"scripts": {
 		"test": "node Tests/Test.js --unhandled-rejections=strict",
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
-		"document": "documentation build Neos.js API/*.js -f html -o docs --config .documentation.yml --sort-order alpha",
+		"document": "jsdoc -t node_modules/docdash ./Neos.js ./API/ -c jsdoc.json -d ./docs/",
+		"document-old": "documentation build Neos.js API/*.js -f html -o docs --config .documentation.yml --sort-order alpha",
 		"ready": "npm run document && npm run lint"
 	},
 	"repository": {
@@ -43,6 +44,7 @@
 		"@types/minimist": "^1.2.0",
 		"@types/normalize-package-data": "^2.4.0",
 		"@types/unist": "^2.0.3",
+		"docdash": "^1.2.0",
 		"documentation": "^13.1.0",
 		"dotenv": "^8.2.0",
 		"eslint": "^7.12.1",

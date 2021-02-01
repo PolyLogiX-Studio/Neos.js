@@ -588,7 +588,7 @@ class Neos extends EventEmitter {
 	 * Send a Read Reciept, Messages will not show in UnreadMessages query
 	 * @instance
 	 * @param {Array<String> | List<String> | String} messageIds
-	 * @returns
+	 * @returns *
 	 * @since 1.0.0
 	 * @memberof Neos
 	 */
@@ -754,7 +754,7 @@ class Neos extends EventEmitter {
 	 * @instance
 	 * @param {*} UserId
 	 * @param {*} Message
-	 * @returns
+	 * @returns {Promise<any>}
 	 * @memberof Neos
 	 */
 	async SendTransaction(UserId, Message) {

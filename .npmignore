@@ -17,3 +17,5 @@ CloudX.Shared/
 .eslintrc.json
 inch.json
 .inch.config.json
+.prettierignore
+.jsdoc.json

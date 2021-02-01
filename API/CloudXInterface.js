@@ -64,13 +64,16 @@ const { Membership } = require("./Membership");
 class CloudXInterface {
 	constructor(BUS, product, version) {
 		this.CloudXInterface(product, version);
-		/** @type List<Membership>
+		/**
+		 * @type List<Membership>
 		 * @private*/
 		this._groupMemberships;
-		/** @type Dictionary<String, Member>
+		/**
+		 * @type Dictionary<String, Member>
 		 * @private*/
 		this._groupMemberInfos;
-		/** @type Dictionary<String, Group>
+		/**
+		 * @type Dictionary<String, Group>
 		 * @private */
 		this._groups;
 		/** @type Dictionary<Type, Dictionary<Uri, CloudResult>> */
@@ -87,7 +90,9 @@ class CloudXInterface {
 		/** @type AuthenticationHeaderValue
 		 * @private*/
 		this._currentAuthenticationHeader;
-		/** @type Date @private */
+		/**
+		 * @type Date
+		 * @private */
 		this._lastSessionUpdate = new Date(0);
 		/** @type Date */
 		this.lastServerStatsUpdate = new Date(0);
@@ -282,9 +287,7 @@ class CloudXInterface {
 	}
 	/**
 	 * JSON Header
-	 * @returns {{
-			"Content-Type": "application/json",
-		}}
+	 * @returns {{"Content-Type": "application/json"}}
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -1251,7 +1254,7 @@ class CloudXInterface {
 	 * @param {string} [recoverCode] - If set, password field will become the new account password
 	 * @param {string} [seviceId]
 	 * @instance
-	 * @returns {Promise<CloudResult<UserSession>>>}
+	 * @returns {Promise<CloudResult<UserSession>>}
 	 */
 	async Login(
 		credential,
@@ -2159,7 +2162,7 @@ class CloudXInterface {
 	 * @param {string | Date} userId
 	 * @param {Date} [lastStatusUpdate = null]
 	 * @memberof CloudXInterface
-	 * @returns {Promise<CloudResult<List<Friend>>>>}
+	 * @returns {Promise<CloudResult<List<Friend>>>}
 	 */
 	async GetFriends(userId, lastStatusUpdate = null, count = 0) {
 		if (count > 10) return new List();
@@ -2245,7 +2248,7 @@ class CloudXInterface {
 		);
 	}
 	/**
-	 * @private Internal Use Only
+	 * @private
 	 * @param {String} baseId
 	 * @param {VerificationKeyUse} use
 	 * @memberof CloudXInterface
@@ -2262,11 +2265,13 @@ class CloudXInterface {
 			return b;
 		});
 	}
-	/**Internal
+	/**
+	 * Internal
 	 * check if user is friends with atleast 1 contact
-	 * @private Internal Use Only
+	 * @async
+	 * @private
 	 * @param {CheckContactData} data
-	 * @returns {Promise<CloudResult<Boolean>>}
+	 * @returns {Promise<CloudResult<boolean>>}
 	 * @memberof CloudXInterface
 	 */
 	async CheckContact(data) {
