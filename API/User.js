@@ -4,6 +4,7 @@ const { HashSet } = require("./HashSet");
 const { AccountType } = require("./AccountType");
 const { UserProfile } = require("./UserProfile");
 const { Dictionary } = require("./Dictionary");
+const { List } = require("./List");
 /**
  * User Object
  * @class User
@@ -38,6 +39,15 @@ class User {
 		this.ReferralId = $b.referralId;
 		this.ReferrerUserId = $b.referrerUserId;
 		this.Profile = new UserProfile($b.profile);
+		this.UniqueDeviceIDs;
+		if ($b.uniqueDeviceIDs != null) {
+			this.UniqueDeviceIDs =
+				$b.uniqueDeviceIDs instanceof List
+					? $b.uniqueDeviceIDs
+					: List.ToList($b.uniqueDeviceIDs);
+		} else {
+			this.UniqueDeviceIDs = new List();
+		}
 	}
 	get MAX_USERNAME_LENGTH() {
 		return 32;

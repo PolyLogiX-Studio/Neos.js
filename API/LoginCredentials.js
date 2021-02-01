@@ -24,6 +24,7 @@ class LoginCredentials {
 		this.SessionToken = $b.sessionCode;
 		this.SecretMachineId = $b.secretMachineId;
 		this.RememberMe = $b.rememberMe;
+		this.UniqueDeviceID = $b.uniqueDeviceID;
 	}
 	Preprocess() {
 		if (this.Username) this.Username = this.Username.trim();

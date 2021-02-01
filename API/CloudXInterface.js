@@ -134,63 +134,76 @@ class CloudXInterface {
 				value: new List(),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_groupMemberInfos: {
 				value: new Dictionary(),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_USE_CDN: {
 				value: false,
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_groups: {
 				value: new Dictionary(),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_currentSession: {
 				value: new UserSession(),
 				configurable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_currentUser: {
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_cryptoProvider: {
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_storageDirty: {
 				value: new Dictionary(),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_updatingStorage: {
 				value: new Dictionary(),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_currentAuthenticationHeader: {
 				value: null,
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_lastSessionUpdate: {
 				value: new Date(0),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			_lastServerStatsUpdate: {
 				value: new Date(0),
 				writable: true,
 				enumerable: false,
+				configurable: true,
 			},
 			lockobj: {
 				value: "CloudXLockObj",
 				enumerable: false,
+				configurable: true,
 			},
 		});
 	}
@@ -1112,6 +1125,7 @@ class CloudXInterface {
 	 *
 	 * @param {string} resource - Endpoint
 	 * @param {HttpMethod} method
+	 * @instance
 	 * @returns {HttpRequestMessage}
 	 * @memberof CloudXInterface
 	 */
@@ -1133,6 +1147,7 @@ class CloudXInterface {
 	 *
 	 * Internal
 	 * @param {HttpRequestMessage} message
+	 * @instance
 	 * @param {*} entity - Content
 	 * @memberof CloudXInterface
 	 */
@@ -1141,7 +1156,16 @@ class CloudXInterface {
 			CloudXInterface.JSON_MEDIA_TYPE["Content-Type"];
 		if (entity) message.Content = JSON.stringify(entity);
 	}
-
+	/**
+	 * Run a {@link #httprequestmessage HttpRequest}
+	 * @see CloudXInterface#CreateRequest
+	 * @param {HttpRequestMessage} requestSource
+	 * @param {TimeSpan} timeout
+	 * @param {boolean} [throwOnError=false]
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 * @instance
+	 */
 	async RunRequest(requestSource, timeout, throwOnError = false) {
 		let request = null;
 		let result = null;
@@ -1216,13 +1240,15 @@ class CloudXInterface {
 		return result1;
 	}
 	/**
-	 *
-	 * @param {string} credential
-	 * @param {string} password
-	 * @param {string} sessionToken
-	 * @param {string} secretMachineId
-	 * @param {Boolean} rememberMe
-	 * @param {string} reciverCode
+	 * Login to a Neos Account or Set a new Password via recoverCode (Sent to Email associated with account when reset requested)
+	 * @param {string} credential - UserId, Email, or Username
+	 * @param {string} [password] - Password
+	 * @param {string} [sessionToken] - Can be used instead of password using a valid SessionToken
+	 * @param {string} [secretMachineId] - ALWAYS SET THIS TO A UNIQUE KEY! If this is not set, All instances of the account will be logged out
+	 * @param {Boolean} [rememberMe] - If set, Session will be valid for 7 days instead of 1.
+	 * @param {string} [recoverCode] - If set, password field will become the new account password
+	 * @param {string} [seviceId]
+	 * @instance
 	 * @returns {Promise<CloudResult<UserSession>>>}
 	 */
 	async Login(
@@ -1231,7 +1257,8 @@ class CloudXInterface {
 		sessionToken,
 		secretMachineId,
 		rememberMe,
-		recoverCode
+		recoverCode,
+		deviceId
 	) {
 		this.Logout(false);
 		let credentials = new LoginCredentials();
@@ -1240,6 +1267,7 @@ class CloudXInterface {
 		credentials.SessionToken = sessionToken;
 		credentials.SecretMachineId = secretMachineId;
 		credentials.RememberMe = rememberMe;
+		credentials.UniqueDeviceID = deviceId;
 		if (credential.startsWith("U-")) credentials.OwnerId = credential;
 		else if (credential.includes("@")) credentials.Email = credential;
 		else credentials.Username = credential;
@@ -1250,10 +1278,11 @@ class CloudXInterface {
 		);
 		if (result.IsOK) {
 			this.CurrentSession = new UserSession(result.Content);
-			this.CurrentUser = new User();
-			this.CurrentUser.Id = this.CurrentSession.UserId;
-			this.CurrentUser.Username = credentials.Username;
-			this.CurrentUser.Email = credentials.email;
+			this.CurrentUser = new User({
+				id: this.CurrentSession.UserId,
+				username: credentials.Username,
+				email: credentials.email,
+			});
 			await this.UpdateCurrentUserInfo();
 			await this.UpdateCurrentUserMemberships();
 			this.Friends.Update();
@@ -1267,8 +1296,13 @@ class CloudXInterface {
 			);
 		return result;
 	}
+	/**
+	 * Extend the current session
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	async ExtendSession() {
-		return await this.PATCH("api/userSessions", {}, new TimeSpan());
+		return await this.PATCH("api/userSessions", null, new TimeSpan());
 	}
 
 	/**
@@ -1277,17 +1311,21 @@ class CloudXInterface {
 	 * @param {string} username
 	 * @param {string} email
 	 * @param {string} password
+	 * @param {string} deviceId
 	 * @returns {Promise<CloudResult<User>>}
 	 * @memberof CloudXInterface
 	 */
-	async Register(username, email, password) {
+	async Register(username, email, password, deviceId) {
 		this.Logout(false);
+		let UniqueDeviceIDs = new List();
+		UniqueDeviceIDs.Add(deviceId);
 		return await this.POST(
 			"/api/users",
 			new User({
 				username,
 				email,
 				password,
+				UniqueDeviceIDs,
 			}),
 			new TimeSpan()
 		);

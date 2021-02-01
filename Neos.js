@@ -41,6 +41,7 @@
  */
 const { CloudX } = require("./API");
 const config = require("./package.json");
+const { v4: uuidv4 } = require("uuid");
 const EventEmitter = require("events").EventEmitter;
 class Events extends EventEmitter {
 	constructor() {
@@ -91,6 +92,7 @@ class Neos extends EventEmitter {
 		if (!options.UpdateInterval) options.UpdateInterval = 1000;
 		if (options.Update == null) options.Update = true;
 		if (options.MultiMessageDelay == null) options.MultiMessageDelay = 1100;
+		if (options.DeviceId == null) options.DeviceId = uuidv4();
 		/**
 		 * Instance of {@link CloudXInterface}, Handles most of the API logic and events.
 		 * @instance
@@ -330,7 +332,8 @@ class Neos extends EventEmitter {
 		sessionToken,
 		machineId,
 		rememberMe,
-		recoverCode
+		recoverCode,
+		deviceId
 	) {
 		return await this.CloudXInterface.Login(
 			credential,
@@ -338,7 +341,8 @@ class Neos extends EventEmitter {
 			sessionToken,
 			machineId,
 			rememberMe,
-			recoverCode
+			recoverCode,
+			deviceId
 		);
 	}
 
