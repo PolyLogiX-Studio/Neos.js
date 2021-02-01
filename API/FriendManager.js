@@ -2,6 +2,9 @@ const { Out } = require("./Out");
 const { Dictionary } = require("./Dictionary");
 const { SessionAccessLevel } = require("./SessionAccessLevel");
 const { Friend } = require("./Friend");
+/**
+ * @class FriendManager
+ */
 class FriendManager {
 	static get UPDATE_PERIOD_SECONDS() {
 		return 5;
@@ -10,14 +13,18 @@ class FriendManager {
 		this.Cloud = cloud;
 		/** @type Dictionary<string, Friend> */
 		this.friends = new Dictionary();
-		/** @type Dictionary<string, SessionInfo> */
+		/**
+		 * @private
+		 * @type Dictionary<string, SessionInfo> */
 		this._friendSessions;
 		/** @type Date */
 		this.lastStatusUpdate = new Date(0);
 		this.initialFetch = false;
 		/** @type Date */
 		this.lastRequest = new Date(0);
-		/** @type boolean */
+		/**
+		 * @private
+		 * @type boolean */
 		this._friendsChanged;
 		/** @type CloudXInterface */
 		this.Cloud;
@@ -154,7 +161,6 @@ class FriendManager {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {(String | Friend)} friend
 	 * @memberof FriendManager

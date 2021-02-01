@@ -3,15 +3,16 @@
  * @class HttpResponseMessage
  */
 class HttpResponseMessage {
-	constructor() {
+	constructor($b) {
+		if (!$b) $b = {};
 		/**@type {Object} */
-		this.Headers = {};
+		this.Headers = $b.headers || {};
 		/**@type {Object} */
-		this.Content = {};
+		this.Content = $b.content || {};
+		/**@type {string} */
+		this.Method = $b.method || new String();
 		/**@type {Object} */
-		this.Method = new String();
-		/**@type {Object} */
-		this.RequestUri = new String();
+		this.RequestUri = $b.requestUri || new String();
 	}
 }
 module.exports = {

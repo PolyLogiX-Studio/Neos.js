@@ -5,6 +5,9 @@ const { Dictionary } = require("./Dictionary");
 const { List } = require("./List");
 const { HashSet } = require("./HashSet");
 const { Out } = require("./Out");
+/**
+ * @class MessageManager
+ */
 class MessageManager {
 	constructor(cloud) {
 		this.lastRequest = new Date(0);

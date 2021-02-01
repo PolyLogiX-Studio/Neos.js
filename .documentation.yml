@@ -33,6 +33,7 @@ toc:
   - ChildRecordDiff
   - CloudMessage
   - CloudResult
+  - CloudVariable
   - CloudVariableDefinition
   - CloudXInterface
   - ComputationLock
@@ -120,13 +121,15 @@ toc:
   - HashSet
   - HTTP_CLIENT
   - HttpMethod
-  - HttpRequestMethod
-  - HttpResponseMethod
+  - HttpRequestMessage
+  - HttpResponseMessage
   - List
   - Out
+  - Path
   - StringBuilder
   - Task
   - TaskCompletionSource
+  - TimeSpan
   - Uri
   - name: Arguments
     description: |

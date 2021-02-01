@@ -52,7 +52,7 @@ class List extends Array {
 	 * Concat 2 Lists
 	 * @param {List<T>} list
 	 * @instance
-	 * @memberof List=
+	 * @memberof List
 	 */
 	AddRange(list) {
 		if (list == null) throw new Error("ArgumentNullException");

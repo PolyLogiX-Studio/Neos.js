@@ -91,7 +91,10 @@ class CloudXInterface {
 		this._lastSessionUpdate = new Date(0);
 		/** @type Date */
 		this.lastServerStatsUpdate = new Date(0);
-		/** @type HttpClient */
+		/** Test
+		 * @type HttpClient
+		 *
+		 */
 		this.HttpClient;
 		/** @type RSAParameters */
 		this.PublicKey;
@@ -158,7 +161,6 @@ class CloudXInterface {
 				value: new UserSession(),
 				configurable: true,
 				enumerable: false,
-				configurable: true,
 			},
 			_currentUser: {
 				writable: true,
