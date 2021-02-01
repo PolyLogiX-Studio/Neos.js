@@ -47,7 +47,7 @@
 				"id": "forum_link"
 			},
 			"Discord": {
-				"href": "discord.gg/6y2A4Pk",
+				"href": "https://discord.gg/6y2A4Pk",
 				"target": "_blank",
 				"class": "menu-item",
 				"id": "discord_link"
