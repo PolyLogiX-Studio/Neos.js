@@ -56,6 +56,13 @@ const { SearchQueryParser } = require("./SearchQueryParser");
 const { SearchResults } = require("./SearchResults");
 const { SessionInfo } = require("./SessionInfo");
 const { OutputDevice } = require("./OutputDevice");
+
+/**
+ * @typedef {CloudX} CloudX
+ * @type {CloudX} CloudX
+ * @property {Object} Shared
+ * @property {Object} Util
+ */
 const CloudX = {
 	Shared: {
 		AccountType,
@@ -78,7 +85,6 @@ const CloudX = {
 		FriendManager,
 		FriendStatus,
 		Group,
-
 		IdUtil,
 		Member,
 		Message,

@@ -1,8 +1,9 @@
 /**
- * @fileoverview NeosVR CloudX.Shared Library in NodeJS
+ * @fileoverview NeosVR CloudX.Shared Library for Node
  * @name Neos.js
- * @author Bitman
+ * @author @bombitmanbomb
  * @returns {Neos}
+ * @see Neos
  * @example const NEOS = require("@bombitmanbomb/neosjs");
  * const Neos = new NEOS();
  * const { CommandManager } = require("neosjs-commands")
