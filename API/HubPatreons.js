@@ -1,4 +1,5 @@
-const List = require("./List");
+const { List } = require("./List");
+const { PicturePatreon } = require("./PicturePatreon");
 
 /**
  *
@@ -9,8 +10,8 @@ class HubPatreons {
 	/**
 	 *Creates an instance of HubPatreons.
 	 * @param {{
-	 * "patreon-names": List<string>,
-	 * "patreon-pictures": List<PicturePatreon>
+	 * "patron-names": List<string>,
+	 * "patron-pictures": List<PicturePatreon>
 	 * }} $b
 	 * @memberof HubPatreons
 	 */
@@ -18,9 +19,21 @@ class HubPatreons {
 		if (!$b) $b = {};
 		this.MAX_NAMES = 400;
 		this.MAX_PICTURES = 50;
-		this.PatreonNames = $b["patreon-names"] || new List();
-		this.PatreonPictures = $b["patreon-pictures"] || new List();
+		this.VARIABLE_NAME = "hub.patrons";
+		this.PatreonNames = List.ToList($b["patron-names"]);
+		let PatreonPictures = $b["patron-pictures"];
+		this.PatreonPictures = new List();
+		if (PatreonPictures != null) {
+			for (let item of PatreonPictures) {
+				this.PatreonPictures.Add(new PicturePatreon(item));
+			}
+		}
 	}
+	/**
+	 * @instance
+	 * @deprecated
+	 * @memberof HubPatreons
+	 */
 	EnsureMaxLimitsRandomized() {
 		while (this.PatreonNames.Count > this.MAX_NAMES)
 			this.PatreonNames.TakeRandom();

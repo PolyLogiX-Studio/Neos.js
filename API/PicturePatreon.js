@@ -16,12 +16,12 @@ class PicturePatreon {
 	 *
 	 *
 	 * @param {string} name
-	 * @param {string} url
+	 * @param {string} pictureUrl
 	 * @memberof PicturePatreon
 	 */
-	PicturePatreon(name, url) {
+	PicturePatreon(name, pictureUrl) {
 		this.Name = name;
-		this.PictureURL = url;
+		this.PictureURL = pictureUrl;
 	}
 }
 module.exports = {

@@ -53,6 +53,7 @@ const { NeosDB_Endpoint } = require("./NeosDB_Endpoint");
 const { ExitMessage } = require("./ExitMessage");
 const { CurrencyRates } = require("./CurrencyRates");
 const { Membership } = require("./Membership");
+const { HubPatreons } = require("./HubPatreons");
 
 /**
  *
@@ -2087,6 +2088,16 @@ class CloudXInterface {
 	async GetOnlineUserStats() {
 		return new OnlineUserStats(
 			(await this.GET("api/stats/onlineUserStats", new TimeSpan())).Entity
+		);
+	}
+	/**
+	 *
+	 * @returns {Promise<HubPatreons>}
+	 * @memberof CloudXInterface
+	 */
+	async GetHubPatreons() {
+		return new HubPatreons(
+			(await this.GET("api/stats/hubPatrons", new TimeSpan())).Entity
 		);
 	}
 	/**
