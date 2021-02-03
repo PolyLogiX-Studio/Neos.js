@@ -1,5 +1,5 @@
 /**
- * @fileoverview NeosVR CloudX.Shared Library for Node
+ * @fileoverview NeosVR CloudX.Shared Library for Node. Entry: {@link Neos Neos}
  * @name Neos.js
  * @author @bombitmanbomb
  * @returns {Neos}
@@ -29,7 +29,7 @@
  */
 
 /**
- * Passed to the Neos contructor to setup the client. See {@link #neos #Neos} for Default Values.
+ * Passed to the Neos contructor to setup the client. See {@link Neos Neos} for Default Values.
  * @typedef {NeosGeneratorOptions} NeosGeneratorOptions
  * @property {boolean} [AutoReadMessages] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
  * @property {OnlineStatus} [OnlineState] - Online User Status, Displayed in User List.
@@ -333,8 +333,7 @@ class Neos extends EventEmitter {
 		sessionToken,
 		machineId,
 		rememberMe,
-		recoverCode,
-		deviceId
+		recoverCode
 	) {
 		return await this.CloudXInterface.Login(
 			credential,
@@ -342,8 +341,7 @@ class Neos extends EventEmitter {
 			sessionToken,
 			machineId,
 			rememberMe,
-			recoverCode,
-			deviceId
+			recoverCode
 		);
 	}
 
