@@ -8,8 +8,8 @@ class SessionInfo {
 	 *	Creates an instance of SessionInfo.
 	 * @param {{
 	 * name: String,
-	 * description: String
-	 * correspondingWorldId: RecordId
+	 * description: String,
+	 * correspondingWorldId: RecordId,
 	 * tags: HashSet<String>,
 	 * sessionId: String,
 	 * hostUserId: String,
@@ -27,8 +27,8 @@ class SessionInfo {
 	 * maximumUsers: Number,
 	 * mobileFreindly: Boolean,
 	 * sessionBeginTime: Date,
-	 * awaySince? : Date,
-	 * accessLevel: String<SessionAccessLevel> // Enum
+	 * awaySince: Date,
+	 * accessLevel: SessionAccessLevel
 	 * }} $b
 	 * @memberof SessionInfo
 	 */

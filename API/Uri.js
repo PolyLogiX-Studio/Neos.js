@@ -5,7 +5,6 @@ String.prototype.noExtension = function () {
 /**
  * Uri Support Class for working with Url's much easier by converting it to a usable object
  * @class Uri
- * @classdesc Uri
  * @param {string} url Generate Uri from url
  */
 class Uri {
@@ -27,13 +26,14 @@ class Uri {
 
 		/**
 		 * Url Segments.
+		 * @name Segments
+		 * @type {string[]}
+		 * @memberof Uri
+		 * @instance
 		 * @example
 		 * const URL = new Uri("https://github.com/PolyLogiX-Studio/Neos.js")
 		 * console.log(URL.Segments)
 		 * //[ '/', 'PolyLogiX-Studio/', 'Neos.js' ]
-		 * @type {string[]} Segments
-		 * @memberof Uri
-		 * @instance
 		 */
 		this.Segments = new Array();
 		path.forEach((value, index) => {
@@ -103,14 +103,14 @@ const NO_MATCH_IS_UNDEFINED = "".match(/(){0}/)[1] === undefined;
  * @private
  * @param {string} uriString
  * @returns {{
- * scheme:string;
- * userinfo?:string;
- * host:string;
- * port?:number;
- * path:string|"";
- * query:string;
- * fragment?:string
- * error?:string
+ * scheme:string,
+ * userinfo:string,
+ * host:string,
+ * port:number,
+ * path:string,
+ * query:string,
+ * fragment:string,
+ * error:string
  * }}
  */
 function uri_parse(uriString) {

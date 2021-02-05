@@ -1,7 +1,9 @@
 /**
- * @fileoverview NeosVR CloudX.Shared Library for Node. Entry: {@link Neos Neos}
+ * @file NeosVR CloudX.Shared Library for Node. Entry: {@link Neos Neos}
  * @name Neos.js
- * @author @bombitmanbomb
+ * @author {@link https://github.com/bombitmanbomb @bombitmanbomb } - Library Main Developer
+ * @author {@link https://github.com/Frooxius @Frooxius } - C# Library Dev
+ * @license {@link https://opensource.org/licenses/MIT MIT License}
  * @returns {Neos}
  * @see Neos
  * @example const NEOS = require("@bombitmanbomb/neosjs");

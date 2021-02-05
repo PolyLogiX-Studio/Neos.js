@@ -51,7 +51,7 @@ class StringBuilder {
 	ToString() {
 		return this.toString();
 	}
-	/**@private Internal */
+	/**@private */
 	toString() {
 		return this.String.join("");
 	}

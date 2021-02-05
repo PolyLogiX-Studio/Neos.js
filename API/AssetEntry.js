@@ -7,8 +7,12 @@ const { ComputationLock } = require("./ComputationLock");
  * @param {Object} $b
  * @param {string} $b.id
  * @param {string} $b.ownerId
- * @param {T} $b.Entry
+ * @param {T} $b.entry
  * @param {ComputationLock} $b.computeLock
+ * @property {string} Id
+ * @property {string} OwnerId
+ * @property {T} Entry
+ * @property {ComputationLock} ComputeLock
  * @template T
  */
 class AssetEntry {

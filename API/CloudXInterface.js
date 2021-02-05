@@ -428,7 +428,6 @@ class CloudXInterface {
 	}
 	/**
 	 * Not Implimented
-	 * @returns
 	 * @memberof CloudXInterface
 	 */
 	ProfilerBeginSample() {
@@ -438,7 +437,6 @@ class CloudXInterface {
 	}
 	/**
 	 * Not Implimented
-	 * @returns
 	 * @memberof CloudXInterface
 	 */
 	ProfilerEndSample() {
@@ -870,7 +868,7 @@ class CloudXInterface {
 	/**
 	 * Update Membership Events
 	 * @async
-	 * @returns
+	 * @returns {Promise<void>}
 	 * @memberof CloudXInterface
 	 */
 	async RunMembershipsUpdated() {
@@ -1002,7 +1000,7 @@ class CloudXInterface {
 	 * Check if a Uri is Legacy
 	 * @static
 	 * @param {Uri} uri
-	 * @returns
+	 * @returns {Boolean}
 	 * @memberof CloudXInterface
 	 */
 	static IsLegacyNeosDB(uri) {
@@ -1304,7 +1302,7 @@ class CloudXInterface {
 	}
 	/**
 	 * Extend the current session
-	 * @returns
+	 * @returns {Promise<CloudResult<any>>}
 	 * @memberof CloudXInterface
 	 */
 	async ExtendSession() {
@@ -1527,12 +1525,19 @@ class CloudXInterface {
 	 *
 	 *
 	 * @param {SearchParameters} search
-	 * @returns
+	 * @returns {Promise<CloudResult<any>>}
 	 * @memberof CloudXInterface
 	 */
 	FindRecords(search) {
 		return this.POST("/api/records/pagedSearch", search, new TimeSpan());
 	}
+	/**
+	 *
+	 *
+	 * @param {*} record
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
 	UpsertRecord(record) {
 		let resource;
 		switch (IdUtil.GetOwnerType(record.OwnerId)) {
@@ -1609,6 +1614,14 @@ class CloudXInterface {
     
 	}
 	*/
+	/**
+	 *
+	 *
+	 * @param {*} ownerId
+	 * @param {*} recordId
+	 * @returns {Promise<CloudResult<any>>}
+	 * @memberof CloudXInterface
+	 */
 	async DeleteRecord(ownerId, recordId) {
 		if (!recordId) {
 			recordId = ownerId.RecordId;
@@ -1943,7 +1956,7 @@ class CloudXInterface {
 	 *
 	 *
 	 * @param {CloudVariableDefinition} definition
-	 * @returns
+	 * @returns {Promise<CloudResult<CloudVariableDefinition>>}
 	 * @memberof CloudXInterface
 	 */
 	async UpsertVariableDefinition(definition) {

@@ -1,6 +1,6 @@
 const { Enumerable } = require("./Enumerable");
 /**
- * @typedef {AssetDiffEnum} AssetDiffEnum
+ * @typedef {Enumerable} AssetDiffEnum
  * @enum {Enumerable<string>} AssetDiffEnum
  * @readonly
  * @property {"Added"} Added
@@ -15,7 +15,12 @@ const { Enumerable } = require("./Enumerable");
  * @param {string} $b.hash - Asset hash
  * @param {number} $b.bytes - Size
  * @param {AssetDiffEnum} $b.state - Asset State
- * @param {string} [$b.isUploaded=false] - Is asset on the Cloud?
+ * @param {boolean} [$b.isUploaded=false] - Is asset on the Cloud?
+ * @property {string} Hash - Asset hash
+ * @property {number} Bytes - Size
+ * @property {AssetDiffEnum} State - Asset State
+ * @property {boolean} [IsUploaded=false] - Is asset on the Cloud?
+ * @borrows AssetDiffEnum
  */
 class AssetDiff {
 	constructor($b) {

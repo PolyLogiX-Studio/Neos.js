@@ -1,3 +1,56 @@
+/**
+ * CloudX Library
+ * @typedef CloudX
+ * @author @bombitmanbomb
+ *
+ *
+ * @property {Object} Shared
+ * @property {AccountType} Shared.AccountType
+ * @property {AssetDiff} Shared.AssetDiff
+ * @property {AssetEntry} Shared.AssetEntry
+ * @property {AssetInfo} Shared.AssetInfo
+ * @property {AssetMetadataRequest} Shared.AssetMetadataRequest
+ * @property {AssetUploadData} Shared.AssetUploadData
+ * @property {AssetUtil} Shared.AssetUtil
+ * @property {AssetVariantComputationTask} Shared.AssetVariantComputationTask
+ * @property {AssetVariantEntityType} Shared.AssetVariantEntityType
+ * @property {AuthenticationHeaderValue} Shared.AuthenticationHeaderValue
+ * @property {BatchQuery} Shared.BatchQuery
+ * @property {CheckContactData} Shared.CheckContactData
+ * @property {ChildRecordDiff} Shared.ChildRecordDiff
+ * @property {CloudResult} Shared.CloudResult
+ * @property {CloudXInterface} Shared.CloudXInterface
+ * @property {CreditTransaction} Shared.CreditTransaction
+ * @property {Endpoints} Shared.Endpoints
+ * @property {FriendManager} Shared.FriendManager
+ * @property {FriendStatus} Shared.FriendStatus
+ * @property {Group} Shared.Group
+ * @property {IdUtil} Shared.IdUtil
+ * @property {Member} Shared.Member
+ * @property {Message} Shared.Message
+ * @property {MessageManager} Shared.MessageManager
+ * @property {MessageType} Shared.MessageType
+ * @property {NeosSession} Shared.NeosSession
+ * @property {OnlineStatus} Shared.OnlineStatus
+ * @property {OutputDevice} Shared.OutputDevice
+ * @property {OwnerType} Shared.OwnerType
+ * @property {Record} Shared.Record
+ * @property {Object} Util
+ * @property {CancellationTokenSource} Util.CancellationTokenSource
+ * @property {Char} Util.Char
+ * @property {Decimal} Util.Decimal
+ * @property {Dictionary} Util.Dictionary
+ * @property {Enumerable} Util.Enumerable
+ * @property {HTTP_CLIENT} Util.HTTP_CLIENT
+ * @property {HashSet} Util.HashSet
+ * @property {HttpMethod} Util.HttpMethod
+ * @property {List} Util.List
+ * @property {Out} Util.Out
+ * @property {Path} Util.Path
+ * @property {StringBuilder} Util.StringBuilder
+ * @property {TimeSpan} Util.TimeSpan
+ * @property {Uri} Util.Uri
+ */
 const Decimal = require("decimal.js");
 const { AssetDiff } = require("./AssetDiff");
 const { AssetEntry } = require("./AssetEntry");
@@ -57,12 +110,6 @@ const { SearchResults } = require("./SearchResults");
 const { SessionInfo } = require("./SessionInfo");
 const { OutputDevice } = require("./OutputDevice");
 
-/**
- * @typedef {CloudX} CloudX
- * @type {CloudX} CloudX
- * @property {Object} Shared
- * @property {Object} Util
- */
 const CloudX = {
 	Shared: {
 		AccountType,

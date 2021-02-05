@@ -8,9 +8,9 @@ class LoginCredentials {
 	 * email: string,
 	 * password: string,
 	 * recoverCode: string,
-	 * sessionCode: string
+	 * sessionCode: string,
 	 * secretMachineId: string,
-	 * rememberMe: Boolean
+	 * rememberMe: boolean
 	 * }} $b
 	 * @memberof LoginCredentials
 	 */

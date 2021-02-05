@@ -287,7 +287,7 @@ class RecordTags {
 	 * @static
 	 * @param {HashSet<String>} tags
 	 * @param {String} prefix
-	 * @returns
+	 * @returns {any}
 	 * @memberof RecordTags
 	 */
 	static ExtractValue(tags, prefix) {
@@ -301,7 +301,7 @@ class RecordTags {
 	 * @static
 	 * @param {String} name
 	 * @param {HashSet<String>} tags
-	 * @returns
+	 * @returns {void}
 	 * @memberof RecordTags
 	 */
 	static GenerateTagsFromName(name, tags) {

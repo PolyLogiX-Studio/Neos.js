@@ -24,7 +24,7 @@ class UserProfile {
 	 *
 	 *
 	 * @param {UserProfile} other
-	 * @returns
+	 * @returns {boolean}
 	 * @memberof UserProfile
 	 */
 	IsSame(other) {

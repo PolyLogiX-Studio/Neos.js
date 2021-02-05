@@ -7,7 +7,7 @@ class RecordPreprocessStatus {
 	 * recordId: string,
 	 * state: RecordPreprocessStatus,
 	 * progress: number,
-	 * failReason: string
+	 * failReason: string,
 	 * resultDiffs: List
 	 * }} $b
 	 * @memberof RecordPreprocessStatus
