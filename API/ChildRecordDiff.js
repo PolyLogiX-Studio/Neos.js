@@ -14,7 +14,7 @@ class ChildRecordDiff {
 		this.Operation =
 			typeof $b.operation === "string"
 				? $b.operation
-				: this.RecordInfoOperation.FromNumber($b.operation);
+				: ChildRecordDiff.RecordInfoOperation.FromNumber($b.operation);
 		/**@type {Date} */
 		this.Created = new Date($b.created);
 		/**@type {RecordId} */

@@ -36,7 +36,7 @@ class BatchQuery {
 	/**
 	 *
 	 * @param {Query} query
-	 * @returns
+	 * @returns Promise<any>
 	 * @memberof BatchQuery
 	 */
 	async Request(query) {
@@ -57,7 +57,7 @@ class BatchQuery {
 
 	async SendBatch() {
 		let batchQuery = this;
-		/**@type {List<BatchQuery<Query, Result>.QueryResult>} */
+		/**@type {List<BatchQuery.QueryResult>} */
 		let toSend = new List();
 		let awaiter1 = await Promise.any([
 			batchQuery.immidiateDispatch.Task,
