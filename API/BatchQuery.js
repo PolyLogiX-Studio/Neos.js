@@ -1,7 +1,7 @@
 const { Dictionary } = require("./Dictionary");
 const { Out } = require("./Out");
 const { TaskCompletionSource } = require("./TaskCompletionSource");
-const { TimeSpan } = require(TimeSpan);
+const { TimeSpan } = require("./TimeSpan");
 const { List } = require("./List");
 /**
  * Work in Progress
