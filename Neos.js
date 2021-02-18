@@ -933,10 +933,11 @@ class Neos extends EventEmitter {
  */
 function chunkSubstr(str, len) {
 	let input = str.trim().split(" ");
-	let [index, output] = [0, []];
-	output[index] = "";
+	let index = 0;
+	let output = [];
 	input.forEach((word) => {
-		let temp = output[index] + " " + word.trim();
+		let temp =
+			output[index] == null ? word.trim() : output[index] + " " + word.trim();
 		if (temp.length <= len) {
 			output[index] = temp;
 		} else {
