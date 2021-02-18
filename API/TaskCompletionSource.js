@@ -12,10 +12,10 @@ class TaskCompletionSource {
 			Resolve = res;
 			Reject = rej;
 		});
-		/**@protected */
-		this.Resolve = Resolve;
-		/**@protected */
-		this.Reject = Reject;
+		Object.defineProperties(this, {
+			Resolve: { value: Resolve, enumerable: false },
+			Reject: { value: Reject, enumerable: false },
+		});
 	}
 	get isResolved() {
 		return this.State === 1;
@@ -26,10 +26,15 @@ class TaskCompletionSource {
 	get isCompleated() {
 		return this.State !== 0;
 	}
+	SetResult(value) {
+		this.Resolve(value);
+		this.State = 1;
+		return true;
+	}
 	TrySetResult(value) {
+		if (this.isCompleated) return false;
 		try {
-			this.Resolve(value);
-			this.State = 1;
+			this.SetResult(value);
 			return true;
 		} catch (error) {
 			return false;
