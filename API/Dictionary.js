@@ -249,6 +249,9 @@ class Dictionary extends Array {
 		if (out) this.Get(value, out);
 		return true;
 	}
+	GetEnumerator() {
+		return new (require("./Enumerator").Enumerator)(this);
+	}
 }
 module.exports = {
 	Dictionary,

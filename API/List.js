@@ -185,6 +185,9 @@ class List extends Array {
 	TakeRandom() {
 		return this.RemoveAt(~~(Math.random() * this.Count));
 	}
+	GetEnumerator() {
+		return new (require("./Enumerator").Enumerator)(this);
+	}
 }
 module.exports = {
 	List,
