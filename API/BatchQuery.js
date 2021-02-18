@@ -36,7 +36,7 @@ class BatchQuery {
 	/**
 	 *
 	 * @param {Query} query
-	 * @returns Promise<any>
+	 * @returns {Promise<any>}
 	 * @memberof BatchQuery
 	 */
 	async Request(query) {
