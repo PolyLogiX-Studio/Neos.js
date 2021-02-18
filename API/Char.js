@@ -22,7 +22,7 @@ class Char {
 	 * @static
 	 * @memberof Char
 	 * @param {string} char
-	 * @returns {boolean} - Is Whitespace
+	 * @returns {boolean} Is Whitespace
 	 */
 	static IsWhiteSpace(char) {
 		if (!char) return false;

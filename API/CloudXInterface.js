@@ -135,6 +135,7 @@ class CloudXInterface {
 		//Setup Private Properties
 		//this.CloudXInterface()
 		/**
+		 * Internal Events
 		 * @private
 		 */
 		this.Events = BUS;
@@ -250,6 +251,7 @@ class CloudXInterface {
 		return 16;
 	}
 	/**
+	 * Debug Setting
 	 * @private
 	 * @readonly
 	 * @static
@@ -259,6 +261,7 @@ class CloudXInterface {
 		return false;
 	}
 	/**
+	 * Debug Setting
 	 * @private
 	 * @readonly
 	 * @static
@@ -281,6 +284,7 @@ class CloudXInterface {
 	 * Delays in subsequent requests to the storage system
 	 * @readonly
 	 * @static
+	 * @returns [1,5,15,30] Update Delays
 	 * @memberof CloudXInterface
 	 */
 	static get storageUpdateDelays() {
@@ -514,21 +518,58 @@ class CloudXInterface {
 	static get NEOS_ASSETS_CDN() {
 		return "https://cloudx2.azureedge.net/assets/";
 	}
+	/**
+	 * Get the Neos Blob Server
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_ASSETS_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/assets/";
 	}
+	/**
+	 * Get the Neos Thumbnail Endpoint
+	 * @deprecated Temporary Legacy Support, See {@link CloudXInterface.NEOS_THUMBNAILS}
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_THUMBNAILS_OLD() {
 		return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
 	}
+	/**
+	 * Get the Neos Thumbnail Endpoint
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_THUMBNAILS() {
 		return "https://cloudxoperationalblob.blob.core.windows.net/thumbnails/";
 	}
+	/**
+	 * Neos Server Info Endpoint
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_INSTALL() {
 		return "https://cloudx2.azureedge.net/install/";
 	}
+	/**
+	 * Video CDN Server
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_ASSETS_VIDEO_CDN() {
 		return "https://cloudx2.azureedge.net/assets/";
 	}
+	/**
+	 * Get the Blob
+	 * @readonly
+	 * @static
+	 * @memberof CloudXInterface
+	 */
 	static get NEOS_CLOUD_BLOB() {
 		return !CloudXInterface.USE_CDN
 			? "https://cloudxstorage.blob.core.windows.net/"
@@ -581,7 +622,6 @@ class CloudXInterface {
 	get CurrentUser() {
 		return this._currentUser;
 	}
-
 	set CurrentUser(value) {
 		if (value === this._currentUser) return;
 		let user;
@@ -595,10 +635,12 @@ class CloudXInterface {
 
 	/**
 	 * The Current Session Object
-	 *
+	 * @instance
+	 * @returns {UserSession}
 	 * @memberof CloudXInterface
 	 */
 	get CurrentSession() {
+		/**@type {UserSession} */
 		return this._currentSession;
 	}
 	set CurrentSession(value) {

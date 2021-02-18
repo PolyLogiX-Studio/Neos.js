@@ -4,7 +4,11 @@ const { RecordInfo } = require("./RecordInfo");
 /**
  * @class ChildRecordDiff
  * @param {Object} $b
- * @param {RecordInfoOperation}
+ * @param {ChildRecordDiff.RecordInfoOperation} $b.operation
+ * @param {Date} $b.created
+ * @param {RecordId} $b.parentRecord
+ * @param {RecordInfo} $b.recordInfo
+ *
  */
 class ChildRecordDiff {
 	constructor($b) {

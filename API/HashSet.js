@@ -26,7 +26,7 @@ class HashSet extends List {
 			super($b);
 			break;
 		default:
-			throw new Error("ArgumentException: Expected <Array, List, Number>");
+			throw new Error("ArgumentException: Expected Array, List, Number");
 		}
 	}
 	IsSame() {}
