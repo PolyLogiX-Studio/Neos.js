@@ -17,6 +17,10 @@ class UserPatreonData {
 		this.LastIsAnorak = $b.lastIsAnorak;
 		this.RewardType = $b.rewardType;
 		this.CustomTier = $b.customTier;
+		this.PriorityIssue = $b.priorityIssue
+		/**@type {Date} */
+		this.LastActivationTime = $b.lastActivationTime instanceof Date?$b.lastActivationTime:new Date($b.lastActivationTime) 
+		this.LastPaidPledgeAmount = $b.lastPaidPledgeAmount
 	}
 	/**
 	 * @returns {AccountType}
@@ -25,7 +29,7 @@ class UserPatreonData {
 	 */
 	get AccountName() {
 		if (this.CustomTier != null) return this.CustomTier;
-		return NeosAccount.AccountName(this.CurrentAccountType);
+		return this.LastPaidPledgeAmount == 6900 || this.LastPatreonPledgeCents == 6900 ? "Nice." : NeosAccount.AccountName(this.CurrentAccountType);
 	}
 	/**
 	 * @returns {AccountType}
@@ -40,6 +44,9 @@ class UserPatreonData {
 		)
 			return UserPatreonData.GetAccountType(this.LastPaidPledgeAmount);
 		return AccountType.Normal;
+	}
+	get CurrentAccountCents(){
+		return (Math.floor(( new Date() - this.LastActivationTime ) / 86400000)<=40?this.LastPaidPledgeAmount:0)
 	}
 	get PledgedAccountType() {
 		return UserPatreonData.GetAccountType(this.LastPatreonPledgeCents);
@@ -68,7 +75,7 @@ class UserPatreonData {
 		//TODO Approximate Currency Rate
 		let num2 = num1 + (this.ExternalCents - this.LastExternalCents);
 		if (num2 <= 0) {
-			if (this.LastActivationTime > 2016) return flag;
+			if (this.LastActivationTime.getFullYear > 2016) return flag;
 			num2 = this.LastPaidPledgeAmount;
 		}
 		if (num2 <= 0) return flag;
