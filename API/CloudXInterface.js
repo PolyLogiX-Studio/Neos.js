@@ -2586,6 +2586,15 @@ class CloudXInterface {
 			? -1
 			: Number.parseInt(cloudResult.Content);
 	}
+
+	async GetGithubIssue(issue_number){
+		try {
+			return await this.GitHub.issues.get({owner:"Frooxius",repo:"NeosPublic", issue_number})
+		} catch (ex) {
+			console.log(ex)
+			return null
+		}
+	}
 }
 module.exports = {
 	CloudXInterface,
