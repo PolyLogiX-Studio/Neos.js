@@ -16,6 +16,9 @@ class UserTags {
 	static get NeosMentor() {
 		return "neos mentor";
 	}
+	static get NeosPro() {
+		return "neos pro";
+	}
 	static get NeosEast() {
 		return "neos east";
 	}
