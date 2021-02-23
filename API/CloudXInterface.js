@@ -103,7 +103,7 @@ class CloudXInterface {
 		 */
 		this.HttpClient;
 		/**@type GitHubClient */
-		this.GitHub
+		this.GitHub;
 		/** @type RSAParameters */
 		this.PublicKey;
 		/** @type Number */
@@ -816,16 +816,20 @@ class CloudXInterface {
 		this.Messages = new MessageManager(this);
 		/**@type {TransactionManager} */
 		this.Transactions = new TransactionManager(this);
-			/**@type GithubClient */
-			this.GitHub = null
+		/**@type GithubClient */
+		this.GitHub = null;
 
-			try {
-				this.GitHub = new ((require("@octokit/rest")).Octokit)
-			} catch (error) {
-				this.GitHub = {issues:{get:()=>{
-					return new Error(`Requires Peer Dependency "@octokit/rest"`)
-				}}}
-			}
+		try {
+			this.GitHub = new (require("@octokit/rest").Octokit)();
+		} catch (error) {
+			this.GitHub = {
+				issues: {
+					get: () => {
+						return new Error("Requires Peer Dependency \"@octokit/rest\"");
+					},
+				},
+			};
+		}
 	}
 	/**
 	 * Main Update Call
@@ -2587,12 +2591,16 @@ class CloudXInterface {
 			: Number.parseInt(cloudResult.Content);
 	}
 
-	async GetGithubIssue(issue_number){
+	async GetGithubIssue(issue_number) {
 		try {
-			return await this.GitHub.issues.get({owner:"Frooxius",repo:"NeosPublic", issue_number})
+			return await this.GitHub.issues.get({
+				owner: "Frooxius",
+				repo: "NeosPublic",
+				issue_number,
+			});
 		} catch (ex) {
-			console.log(ex)
-			return null
+			console.log(ex);
+			return null;
 		}
 	}
 }
