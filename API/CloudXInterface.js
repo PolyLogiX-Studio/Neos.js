@@ -102,6 +102,8 @@ class CloudXInterface {
 		 *
 		 */
 		this.HttpClient;
+		/**@type GitHubClient */
+		this.GitHub
 		/** @type RSAParameters */
 		this.PublicKey;
 		/** @type Number */
@@ -814,6 +816,16 @@ class CloudXInterface {
 		this.Messages = new MessageManager(this);
 		/**@type {TransactionManager} */
 		this.Transactions = new TransactionManager(this);
+			/**@type GithubClient */
+			this.GitHub = null
+
+			try {
+				this.GitHub = new ((require("@octokit/rest")).Octokit)
+			} catch (error) {
+				this.GitHub = {issues:{get:()=>{
+					return new Error(`Requires Peer Dependency "@octokit/rest"`)
+				}}}
+			}
 	}
 	/**
 	 * Main Update Call

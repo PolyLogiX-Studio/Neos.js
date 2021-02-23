@@ -27,6 +27,7 @@
 		"uuid": "^8.3.1"
 	},
 	"peerDependencies": {
+		"@octokit/rest": "^18.2.0",
 		"neosjs-commands": "^1.0.2",
 		"neosjs-headless-interface": "^2.3.2"
 	},
@@ -35,6 +36,9 @@
 			"optional": true
 		},
 		"neosjs-commands": {
+			"optional": true
+		},
+		"@octokit/rest": {
 			"optional": true
 		}
 	},
