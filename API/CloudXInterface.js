@@ -54,7 +54,7 @@ const { ExitMessage } = require("./ExitMessage");
 const { CurrencyRates } = require("./CurrencyRates");
 const { Membership } = require("./Membership");
 const { HubPatreons } = require("./HubPatreons");
-
+const { GitHubClient } = require("./GitHubClient");
 /**
  *
  * @class CloudXInterface
@@ -816,20 +816,7 @@ class CloudXInterface {
 		this.Messages = new MessageManager(this);
 		/**@type {TransactionManager} */
 		this.Transactions = new TransactionManager(this);
-		/**@type GithubClient */
-		this.GitHub = null;
-
-		try {
-			this.GitHub = new (require("@octokit/rest").Octokit)();
-		} catch (error) {
-			this.GitHub = {
-				issues: {
-					get: () => {
-						return new Error("Requires Peer Dependency \"@octokit/rest\"");
-					},
-				},
-			};
-		}
+		this.GitHub = GitHubClient;
 	}
 	/**
 	 * Main Update Call
@@ -2599,7 +2586,6 @@ class CloudXInterface {
 				issue_number,
 			});
 		} catch (ex) {
-			console.log(ex);
 			return null;
 		}
 	}
