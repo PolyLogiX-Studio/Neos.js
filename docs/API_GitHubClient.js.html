@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>API/NeosDBAsset.js - Documentation</title>
+    <title>API/GitHubClient.js - Documentation</title>
     
     
     
@@ -43,7 +43,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">API/NeosDBAsset.js</h1>
+    <h1 class="page-title">API/GitHubClient.js</h1>
     
 
     
@@ -53,24 +53,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>class NeosDBAsset {
-	/**
-	 *Creates an instance of NeosDBAsset.
-	 * @param {{
-	 * hash: string,
-	 * bytes: number
-	 * }} $b
-	 * @memberof NeosDBAsset
-	 */
-	constructor($b) {
-		if (!$b) $b = {};
-		this.Hash = $b.hash;
-		this.Bytes = $b.bytes;
-	}
+            <pre class="prettyprint source linenums"><code>/**
+ * @class GitHubClient
+ * @see {@link https://octokit.github.io/rest.js/v18/ Octokit}
+ */
+var GitHubClient = null;
+try {
+	GitHubClient = new (require("@octokit/rest").Octokit)();
+} catch (error) {
+	GitHubClient = {
+		error: () =>
+			new Error("This function requires Peer Dependency \"@octokit/rest\""),
+		issues: {
+			get: () => {
+				return GitHubClient.error();
+			},
+		},
+	};
 }
-module.exports = {
-	NeosDBAsset,
-};
+module.exports = { GitHubClient };
 </code></pre>
         </article>
     </section>
