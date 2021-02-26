@@ -15,7 +15,6 @@ class MessageManager {
 		this.UnreadMessageCountChanged = null;
 		this.InitialmessagesFetched = new Boolean();
 		this.UnreadCountByUser = new Dictionary();
-		this.UnreadCount = 0;
 		this.TotalUnreadCount = 0;
 		Object.defineProperties(this, {
 			_messagesLock: {
@@ -195,153 +194,154 @@ class MessageManager {
 	//event OnMessageReceived
 	//event UnreadMessageCounrChange
 	static get UserMessages() {
-		return class {
-			constructor() {
-				this.UserId = new String();
-				this.UnreadCount = 0;
-				this.Messages = new List();
-				Object.defineProperties(this, {
-					_messageIds: {
-						value: new List(),
-						writable: false,
-					},
-					_lock: {
-						value: "MessageManager.UserMessages._lock",
-						writable: false,
-					},
-					_historyLoadTask: {
-						value: () => {},
-						writable: true,
-					},
-					_historyLoaded: {
-						value: false,
-						writable: true,
-					},
-				});
+		return UserMessages;
+	}
+}
+class UserMessages {
+	constructor() {
+		this.UserId = new String();
+		this.UnreadCount = 0;
+		this.Messages = new List();
+		Object.defineProperties(this, {
+			_messageIds: {
+				value: new List(),
+				writable: false,
+			},
+			_lock: {
+				value: "MessageManager.UserMessages._lock",
+				writable: false,
+			},
+			_historyLoadTask: {
+				value: null,
+				writable: true,
+			},
+			_historyLoaded: {
+				value: false,
+				writable: true,
+			},
+		});
+	}
+	get CloudXInterface() {
+		return this.Manager.Cloud;
+	}
+	UserMessages(userId, manager) {
+		this.UserId = userId;
+		Object.defineProperties(this, {
+			Manager: {
+				value: manager,
+				writable: true,
+				enumerable: false,
+			},
+		});
+	}
+	MarkAllRead() {
+		let ids = null;
+		if (this.UnreadCount === 0) return;
+		ids = new Array();
+		for (let message of this.Messages) {
+			if (!message.IsSent && !(message.ReadTime != null)) {
+				message.ReadTime = new Date();
+				ids.push(message.Id);
 			}
-			get CloudXInterface() {
-				return this.Manager.Cloud;
-			}
-			UserMessages(userId, manager) {
-				this.UserId = userId;
-				Object.defineProperties(this, {
-					Manager: {
-						value: manager,
-						writable: true,
-						enumerable: false,
-					},
-				});
-			}
-			MarkAllRead() {
-				let ids = null;
-				if (this.UnreadCount === 0) return;
-				ids = new Array();
-				for (let message of this.Messages) {
-					if (!message.IsSent && !(message.ReadTime != null)) {
-						message.ReadTime = new Date();
-						ids.push(message.Id);
-					}
-				}
-				this.UnreadCount = 0;
-				(async () => {
-					await this.Manager.Cloud.MarkMessagesRead(ids);
-				})();
-				this.Manager.MarkUnreadCountDirty();
-			}
-			CreateTextMessage(text) {
-				let message = new Message();
-				message.MessageType = "Text";
-				message.Content = text;
-				return message;
-			}
-			CreateInviteMessage(sessionInfo) {
-				let message = new Message();
-				message.Id = Message.GenerateId();
-				message.SendTime = new Date();
-				message.MessageType = "SessionInvite";
-				message.SetContent(sessionInfo);
-				return message;
-			}
-			async SendInviteMessage(sessionInfo) {
-				return await this.SendMessage(this.CreateInviteMessage(sessionInfo));
-			}
-			AddSentTransactionMessage(token, amount, comment) {
-				let message = new Message();
-				message.Id = Message.GenerateId();
-				message.OwnerId = this.Manager.Cloud.CurrentUser.Id;
-				message.RecipientId = this.UserId;
-				message.SenderId = message.OwnerId;
-				message.SendTime = new Date();
-				message.MessageType = MessageType.CreditTransfer;
-				let _transaction = new TransactionMessage();
-				_transaction.Token = token;
-				_transaction.Amount = amount;
-				_transaction.Comment = comment;
-				_transaction.RecipientId = this.UserId;
-				message.SetContent(_transaction);
-				this.Messages.push(message);
-				return message;
-			}
-			async SendMessage(message) {
-				if (message.Id == null) message.Id = Message.GenerateId();
-				message.RecipientId = this.UserId;
-				message.SenderId = this.CloudXInterface.CurrentUser.Id;
-				message.OwnerId = message.SenderId;
-				message.SendTime = new Date();
-				this.Messages.push(message);
-				let friend = this.Manager.Cloud.Friends.GetFriend(message.RecipientId);
-				if (friend != null) friend.LatestMessageTime = new Date();
-				return await this.Manager.Cloud.SendMessage(message);
-			}
-			async SendTextMessage(text) {
-				return await this.SendMessage(this.CreateTextMessage(text));
-			}
-			async EnsureHistory() {
-				if (this._historyLoaded) return;
-				let isFirstRequest = false;
-				if (this._historyLoaded) return;
-				if (this._historyLoadTask == null) {
-					isFirstRequest = true;
-					this._historyLoadTask = this.Manager.Cloud.GetMessageHistory(
-						this.UserId,
-						MessageManager.MAX_READ_HISTORY
-					);
-				}
-				let cloudResult = await this._historyLoadTask;
-				if (!isFirstRequest) return;
-				if (cloudResult.IsError) {
-					this._historyLoadTask = null;
-				} else {
-					this.Messages = cloudResult.Entity;
-					this.Messages.reverse();
-					this.UnreadCount = this.Messages.filter(
-						(m) => !(m.ReadTime != null)
-					).length;
-					this._historyLoaded = true;
-				}
-			}
-			AddMessage(message) {
-				if (this._messageIds.includes(message.Id)) {
-					return false;
-				}
-				this.Messages.Add(message);
-				this._messageIds.Add(message.Id);
-				if (message.IsReceived && !(message.ReadTime != null))
-					++this.UnreadCount;
-				while (
-					this.Messages.length > MessageManager.MAX_UNREAD_HISTORY ||
-					(this.Messages.length > MessageManager.MAX_UNREAD_HISTORY &&
-						(this.Messages[0].IsSent || this.Messages[0].ReadTime != null))
-				) {
-					this._messageIds.Remove(this.Messages[0].Id);
-					this.Messages.RemoveAt(0);
-				}
-				return true;
-			}
-			GetMessages(messages) {
-				messages.AddRange(this.Messages);
-			}
-		};
+		}
+		this.UnreadCount = 0;
+		(async () => {
+			await this.Manager.Cloud.MarkMessagesRead(ids);
+		})();
+		this.Manager.MarkUnreadCountDirty();
+	}
+	CreateTextMessage(text) {
+		let message = new Message();
+		message.MessageType = "Text";
+		message.Content = text;
+		return message;
+	}
+	CreateInviteMessage(sessionInfo) {
+		let message = new Message();
+		message.Id = Message.GenerateId();
+		message.SendTime = new Date();
+		message.MessageType = "SessionInvite";
+		message.SetContent(sessionInfo);
+		return message;
+	}
+	async SendInviteMessage(sessionInfo) {
+		return await this.SendMessage(this.CreateInviteMessage(sessionInfo));
+	}
+	AddSentTransactionMessage(token, amount, comment) {
+		let message = new Message();
+		message.Id = Message.GenerateId();
+		message.OwnerId = this.Manager.Cloud.CurrentUser.Id;
+		message.RecipientId = this.UserId;
+		message.SenderId = message.OwnerId;
+		message.SendTime = new Date();
+		message.MessageType = "CreditTransfer";
+		let _transaction = new TransactionMessage();
+		_transaction.Token = token;
+		_transaction.Amount = amount;
+		_transaction.Comment = comment;
+		_transaction.RecipientId = this.UserId;
+		_transaction.TransactionType = "User2User";
+		message.SetContent(_transaction);
+		this.Messages.push(message);
+		return message;
+	}
+	async SendMessage(message) {
+		if (message.Id == null) message.Id = Message.GenerateId();
+		message.RecipientId = this.UserId;
+		message.SenderId = this.CloudXInterface.CurrentUser.Id;
+		message.OwnerId = message.SenderId;
+		message.SendTime = new Date();
+		this.Messages.push(message);
+		let friend = this.Manager.Cloud.Friends.GetFriend(message.RecipientId);
+		if (friend != null) friend.LatestMessageTime = new Date();
+		return await this.Manager.Cloud.SendMessage(message);
+	}
+	async SendTextMessage(text) {
+		return await this.SendMessage(this.CreateTextMessage(text));
+	}
+	async EnsureHistory() {
+		if (this._historyLoaded) return;
+		let isFirstRequest = false;
+		if (this._historyLoaded) return;
+		if (this._historyLoadTask == null) {
+			isFirstRequest = true;
+			this._historyLoadTask = this.Manager.Cloud.GetMessageHistory(
+				this.UserId,
+				MessageManager.MAX_READ_HISTORY
+			);
+		}
+		let cloudResult = await this._historyLoadTask;
+		if (!isFirstRequest) return;
+		if (cloudResult.IsError) {
+			this._historyLoadTask = null;
+		} else {
+			this.Messages = cloudResult.Entity;
+			this.Messages.reverse();
+			this.UnreadCount = this.Messages.filter(
+				(m) => !(m.ReadTime != null)
+			).length;
+			this._historyLoaded = true;
+		}
+	}
+	AddMessage(message) {
+		if (this._messageIds.includes(message.Id)) {
+			return false;
+		}
+		this.Messages.Add(message);
+		this._messageIds.Add(message.Id);
+		if (message.IsReceived && !(message.ReadTime != null)) ++this.UnreadCount;
+		while (
+			this.Messages.length > MessageManager.MAX_UNREAD_HISTORY ||
+			(this.Messages.length > MessageManager.MAX_UNREAD_HISTORY &&
+				(this.Messages[0].IsSent || this.Messages[0].ReadTime != null))
+		) {
+			this._messageIds.Remove(this.Messages[0].Id);
+			this.Messages.RemoveAt(0);
+		}
+		return true;
+	}
+	GetMessages(messages) {
+		messages.AddRange(this.Messages);
 	}
 }
 module.exports = {

@@ -80,6 +80,9 @@ class Neos extends EventEmitter {
 	static get CloudX() {
 		return CloudX;
 	}
+	get Messages() {
+		return this.CloudXInterface.Messages;
+	}
 	constructor(options) {
 		super();
 		//Setup Options
@@ -113,11 +116,6 @@ class Neos extends EventEmitter {
 					config.main,
 					config.version
 				),
-				enumerable: false,
-				writable: true,
-			},
-			_UserMessage: {
-				value: new CloudX.Shared.MessageManager.UserMessages(),
 				enumerable: false,
 				writable: true,
 			},
@@ -230,10 +228,13 @@ class Neos extends EventEmitter {
 			this.emit("groupMemberUpdated", member);
 		});
 		this.Events.on("messageReceived", (message) => {
-			let read = this.emit("messageReceived", message);
-			if (this.Options.AutoReadMessages && read)
-				// Auto Mark Read & Was Event Caught and read
-				this.CloudXInterface.MarkMessagesRead([message]);
+			if (message.SenderId !== this.CurrentUser.Id) {
+				let read = this.emit("messageReceived", message);
+				if (this.Options.AutoReadMessages && read) {
+					// Auto Mark Read & Was Event Caught and read
+					this.CloudXInterface.MarkMessagesRead([message]);
+				}
+			}
 		});
 		this.Events.on("messageCountChanged", (count) => {
 			this.emit("messageCountChanged", count);
@@ -697,7 +698,6 @@ class Neos extends EventEmitter {
 					"Invalid Message Type, Expected String or Array"
 				);
 		}
-
 		let index = 0;
 		if (Messages.length > 1) {
 			return new Promise((resolve) => {
@@ -706,11 +706,9 @@ class Neos extends EventEmitter {
 					index++;
 					setTimeout(
 						(index) => {
-							context._UserMessage.UserMessages(
-								UserId,
-								context.CloudXInterface.Messages
-							);
-							let LastMessage = context._UserMessage.SendTextMessage(
+							let LastMessage = context.CloudXInterface.Messages.GetUserMessages(
+								UserId
+							).SendTextMessage(
 								message +
 									(Messages.length > 1 && typeof Message === "string"
 										? `<br>${index}/${Messages.length}`
@@ -724,8 +722,9 @@ class Neos extends EventEmitter {
 				}
 			});
 		} else {
-			this._UserMessage.UserMessages(UserId, this.CloudXInterface.Messages);
-			return this._UserMessage.SendTextMessage(Messages[0]);
+			return this.CloudXInterface.Messages.GetUserMessages(
+				UserId
+			).SendTextMessage(Messages[0]);
 		}
 	}
 
