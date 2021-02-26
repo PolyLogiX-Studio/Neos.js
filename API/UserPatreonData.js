@@ -22,7 +22,7 @@ class UserPatreonData {
 		this.LastActivationTime =
 			$b.lastActivationTime instanceof Date
 				? $b.lastActivationTime
-				: new Date($b.lastActivationTime);
+				: new Date($b.lastActivationTime || 0);
 		this.LastPaidPledgeAmount = $b.lastPaidPledgeAmount;
 	}
 	/**
