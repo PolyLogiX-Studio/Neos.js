@@ -230,7 +230,12 @@ class CloudXInterface {
 	 * @memberof CloudXInterface
 	 */
 	static get CloudEndpoint() {
-		return new Enumerable(["Production", "Staging", "Local"]);
+		if (this._cloudEndpoint == null)
+			Object.defineProperty(this, "_cloudEndpoint", {
+				value: new Enumerable(["Production", "Staging", "Local"]),
+				enumerable: false,
+			});
+		return this._cloudEndpoint;
 	}
 	/**
 	 * Number of Retries for tasks
