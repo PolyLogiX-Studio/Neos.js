@@ -46,7 +46,7 @@ class Enumerable extends Object {
 	/**@private */
 	FromNumber(val) {
 		let keys = Object.keys(this);
-		if (keys.length - 1 > val) throw Error("Index larger than enum");
+		if (keys.length - 1 < val) throw Error("Index larger than enum");
 		if (this[keys[val]] != null) {
 			return keys[val];
 		}
