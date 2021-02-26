@@ -39,7 +39,6 @@ class User {
 		this.ReferralId = $b.referralId;
 		this.ReferrerUserId = $b.referrerUserId;
 		this.Profile = new UserProfile($b.profile);
-		this.UniqueDeviceIDs;
 		if ($b.uniqueDeviceIDs != null) {
 			this.UniqueDeviceIDs =
 				$b.uniqueDeviceIDs instanceof List
