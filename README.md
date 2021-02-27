@@ -32,7 +32,7 @@ API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation
 # Documentation
 
 View Full Documentation [HERE](https://polylogix-studio.github.io/Neos.js/)
-Neos.js uses JSDoc Intellisense.
+Neos.js uses [JSDoc](https://github.com/jsdoc/jsdoc) and the [docdash](https://github.com/clenemt/docdash). IntelliSense is set up for VSCode.
 
 # Support
 
