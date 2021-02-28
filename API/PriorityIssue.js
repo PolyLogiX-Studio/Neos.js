@@ -7,7 +7,8 @@ class PriorityIssue {
 		this.IssueNumber = $b.issueNumber;
 		this.IssueURL = $b.issueURL;
 		this.VoteCount = $b.voteCount;
-		this.VotePoints = $b.votePoints;
+		this.ActivePledgeScore = $b.activePledgeScore;
+		this.LifetimePledgeScore = $b.lifetimePledgeScore
 	}
 }
 module.exports = {
