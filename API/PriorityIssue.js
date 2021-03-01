@@ -8,7 +8,7 @@ class PriorityIssue {
 		this.IssueURL = $b.issueURL;
 		this.VoteCount = $b.voteCount;
 		this.ActivePledgeScore = $b.activePledgeScore;
-		this.LifetimePledgeScore = $b.lifetimePledgeScore
+		this.LifetimePledgeScore = $b.lifetimePledgeScore;
 	}
 }
 module.exports = {

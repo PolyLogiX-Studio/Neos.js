@@ -28,9 +28,11 @@ API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation
 </div>
 
 <!-- omit in toc -->
+
 # Table of Contents
 
 <!-- TOC -->
+
 - [Documentation](#documentation)
 - [Support](#support)
 - [NeosJS](#neosjs)
@@ -42,6 +44,7 @@ API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation
 - [Changelog](#changelog)
 
 <!-- /TOC -->
+
 # Documentation
 
 View Full Documentation [HERE](https://polylogix-studio.github.io/Neos.js/)
@@ -106,6 +109,7 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 
 > No, NeosVR CORS Policy denies browser requests.
 > You must make requests from a Node server. Personally I use [Glitch](https://www.glitch.com).
+
 </details>
 <details>
 <summary>Will you add Browser Support</summary>
@@ -113,6 +117,7 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 
 > This is a limitation imposed by the Neos server and workarounds are Very limited,
 > as well as **extremely** _Unsafe_.
+
 </details>
 <details>
 <summary>How do I use a Pre-Release Version</summary>
@@ -127,6 +132,7 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 <br>
 
 > Feedback and Bug reports are Very important to maintaining Neosjs, The best way to report a bug or ask for a feature is via [Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)
+
 </details>
 
 # Plugins
