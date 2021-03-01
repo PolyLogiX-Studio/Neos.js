@@ -27,8 +27,21 @@ API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation
   </p>
 </div>
 
-# [日本語](READMEJP.md)
+<!-- omit in toc -->
+# Table of Contents
 
+<!-- TOC -->
+- [Documentation](#documentation)
+- [Support](#support)
+- [NeosJS](#neosjs)
+  - [Usage](#usage)
+- [FAQ](#faq)
+- [Plugins](#plugins)
+  - [neosjs-commands](#neosjs-commands)
+  - [neosjs-headless-interface](#neosjs-headless-interface)
+- [Changelog](#changelog)
+
+<!-- /TOC -->
 # Documentation
 
 View Full Documentation [HERE](https://polylogix-studio.github.io/Neos.js/)
@@ -87,24 +100,34 @@ neos.Login(Username<String>, Password<String>, SessionToken(optional)<String>, M
 
 # FAQ
 
-## Can I run Neos.js in my Browser
+<details>
+<summary>Can I run Neos.js in my Browser</summary>
+<br>
 
 > No, NeosVR CORS Policy denies browser requests.
-> You must make requests from a Node server. If you are new we reccomend Glitch.me
-
-## Will you add Browser Support
+> You must make requests from a Node server. Personally I use [Glitch](https://www.glitch.com).
+</details>
+<details>
+<summary>Will you add Browser Support</summary>
+<br>
 
 > This is a limitation imposed by the Neos server and workarounds are Very limited,
 > as well as **extremely** _Unsafe_.
-
-## How do I use a Pre-Release Version
+</details>
+<details>
+<summary>How do I use a Pre-Release Version</summary>
+<br>
 
 > Most notable Pre-Release versions are available on [NPM](https://www.npmjs.com/package/@bombitmanbomb/neosjs).
 > -alpha is Unstable, -beta is Usable but might have bugs, -rc is the Release Candidate for the next build and **Should** be stable. To use a specific version use <br>`npm install @bombitmanbomb/neosjs@version`
 
-## X breaks when I do YZ / Can you make NeosJs do X
+</details>
+<details>
+<summary>X breaks when I do YZ / Can you make NeosJs do X</summary>
+<br>
 
 > Feedback and Bug reports are Very important to maintaining Neosjs, The best way to report a bug or ask for a feature is via [Issues](https://github.com/PolyLogiX-Studio/Neos.js/issues/new/choose)
+</details>
 
 # Plugins
 
@@ -121,3 +144,7 @@ Library that makes adding commands to the bot super simple.
 Programatic Headless Interface Session.
 
 [Github](https://github.com/PolyLogiX-Studio/neosjs-headless-interface), [NPM](https://www.npmjs.com/package/neosjs-headless-interface)
+
+# Changelog
+
+View [Changelog](/CHANGELOG.md)
