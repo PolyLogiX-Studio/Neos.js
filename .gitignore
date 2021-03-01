@@ -1,4 +1,4 @@
-.API/
+.vscode/
 .env
 node_modules/
 CloudX.Shared/
