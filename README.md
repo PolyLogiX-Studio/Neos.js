@@ -27,12 +27,11 @@ API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation
   </p>
 </div>
 
-<!-- omit in toc -->
-
 # Table of Contents
 
 <!-- TOC -->
 
+- [Table of Contents](#table-of-contents)
 - [Documentation](#documentation)
 - [Support](#support)
 - [NeosJS](#neosjs)
