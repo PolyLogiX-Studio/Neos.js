@@ -1350,7 +1350,7 @@ class CloudXInterface {
 				CurrentSession: this.CurrentSession,
 			});
 		} else
-			return this.OnError(
+			this.OnError(
 				"Error loging in: " + result.State + "\n" + result.Content
 			);
 		return result;
