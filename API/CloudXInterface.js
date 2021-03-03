@@ -63,7 +63,7 @@ const { GitHubClient } = require("./GitHubClient");
  * @param {string} version - Library/System Version - Metadata
  */
 class CloudXInterface {
-	constructor(BUS, product, version) {
+	constructor(product, version, BUS) {
 		this.CloudXInterface(product, version);
 		/**
 		 * @type List<Membership>
@@ -603,18 +603,18 @@ class CloudXInterface {
 	}
 	/**
 	 * Overrideable function to handle Errors
-	 * @function
-	 * @override
-	 * @param {any} error
+	 * @abstract
+	 * @param {...*} error
 	 * @memberof CloudXInterface
 	 */
-	OnError(error) {
+	OnError(...error) {
 		//Overridable Error Output
-		throw new Error(error);
+		throw new Error(...error);
 	}
 	/**
 	 * Overrideable Function to handle Debug messages
-	 * @param {*} vars - Unpredictable number of arguments
+	 * @param {...*} vars - Unpredictable number of arguments
+	 * @abstract
 	 * @memberof CloudXInterface
 	 */
 	OnDebug(...vars) {
@@ -625,6 +625,7 @@ class CloudXInterface {
 	 * The Current User Object
 	 *
 	 * @memberof CloudXInterface
+	 * @returns {User} Logged-In User
 	 */
 	get CurrentUser() {
 		return this._currentUser;
@@ -643,7 +644,7 @@ class CloudXInterface {
 	/**
 	 * The Current Session Object
 	 * @instance
-	 * @returns {UserSession}
+	 * @returns {UserSession} Logged In Session - Contains Sensative Info
 	 * @memberof CloudXInterface
 	 */
 	get CurrentSession() {
@@ -718,25 +719,29 @@ class CloudXInterface {
 	 *
 	 * @instance
 	 * @readonly
-	 * @returns {Array<Group>}
+	 * @returns {Enumerator<Group>}
 	 * @memberof CloudXInterface
 	 */
 	get CurrentUserGroupInfos() {
-		return this._groups.map(function (p) {
-			return p.Value;
-		});
+		return List.ToList(
+			this._groups.map(function (p) {
+				return p.Value;
+			})
+		).GetEnumerator();
 	}
 	/**
 	 *
 	 * @instance
 	 * @readonly
-	 * @returns {Member[]}
+	 * @returns {Enumerator<Member>}
 	 * @memberof CloudXInterface
 	 */
 	get CurrentUserMemberInfos() {
-		return this._groupMemberInfos.map(function (p) {
-			return p.Value;
-		});
+		return List.ToList(
+			this._groupMemberInfos.map(function (p) {
+				return p.Value;
+			})
+		).GetEnumerator();
 	}
 	/**
 	 * Get Group from Id

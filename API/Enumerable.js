@@ -1,11 +1,11 @@
 //eslint-disable-next-line no-unused-vars
 const { List } = require("./List"); //lgtm [js/unused-local-variable] JSDoc Type Def
-//TODO This Likely needs a rework in the library
+//TODO #145 This Likely needs a rework in the library
 /**
  * @template T
  * @class Enumerable
  * @extends {Object}
- * @returns {Enumerable<T>}
+ * @returns {Enumerable}
  * @param {Array<string>|List<string>|T} $b
  */
 class Enumerable extends Object {
@@ -43,7 +43,13 @@ class Enumerable extends Object {
 	GetValue(key) {
 		return this[key];
 	}
-	/**@private */
+	/**
+	 * JS Int to Enum Value
+	 *
+	 * @param {*} val
+	 * @returns {Enumerable}
+	 * @memberof Enumerable
+	 */
 	FromNumber(val) {
 		let keys = Object.keys(this);
 		if (keys.length - 1 < val) throw Error("Index larger than enum");
@@ -52,6 +58,7 @@ class Enumerable extends Object {
 		}
 	}
 	/**
+	 * @deprecated
 	 * @private
 	 * @param {Enumerable} Enum
 	 */

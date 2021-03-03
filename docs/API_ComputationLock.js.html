@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>IdUtil - Documentation</title>
+    <title>API/ComputationLock.js - Documentation</title>
     
     
     
@@ -43,517 +43,88 @@
 
 <div id="main">
     
-    <h1 class="page-title">IdUtil</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        IdUtil
-        </h2>
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-    
-
-    <h4 class="name" id="IdUtil"><span class="type-signature"></span>new IdUtil<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_IdUtil.js.html">API/IdUtil.js</a>, <a href="API_IdUtil.js.html#line5">line 5</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        </div>
-    
-
-    
-
-    
-
-    
-    
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".GenerateId"><span class="type-signature">(static) </span>GenerateId<span class="signature">(ownerType, name<span class="signature-attributes">opt</span>, randomAppend<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_IdUtil.js.html">API/IdUtil.js</a>, <a href="API_IdUtil.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>ownerType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">OwnerType</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>null</code>
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>randomAppend</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>0</code>
-                
-                </td>
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".GetOwnerType"><span class="type-signature">(static) </span>GetOwnerType<span class="signature">(id)</span><span class="type-signature"> &rarr; {OwnerType}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_IdUtil.js.html">API/IdUtil.js</a>, <a href="API_IdUtil.js.html#line21">line 21</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">OwnerType</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">API/ComputationLock.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { v4: uuidv4 } = require("uuid");
+/**
+ * Unused
+ * @class ComputationLock
+ * @param {object} $b
+ * @param {string} $b.token
+ * @param {Date} $b.ExpireTimestamp
+ */
+class ComputationLock {
+	constructor($b) {
+		if (!$b) $b = {};
+		/**@type {string}*/
+		this.Token = $b.token;
+		/**@type {Date}*/
+		this.ExpireTimestamp = $b.timestamp || new Date();
+	}
+	/**
+	 * Is the lock currently in use
+	 * @readonly
+	 * @memberof ComputationLock
+	 */
+	get IsLocked() {
+		return (
+			!(this.Token === "" || this.Token == null) &amp;&amp;
+			new Date() > this.ExpireTimestamp
+		);
+	}
+	/**
+	 * Try to Lock
+	 * @param {Date} duration
+	 * @returns {Boolean}
+	 * @memberof ComputationLock
+	 */
+	TryLock(duration) {
+		if (this.IsLocked) return false;
+		this.Token = new uuidv4();
+		this.ExpireTimestamp = new Date() + duration;
+		return true;
+	}
+	/**
+	 *
+	 *
+	 * @param {*} token
+	 * @param {*} duration
+	 * @returns {Boolean}
+	 * @memberof ComputationLock
+	 */
+	TryExtend(token, duration) {
+		if (token !== this.Token) return false;
+		this.ExpireTimestamp = new Date() + duration;
+		return true;
+	}
+	/**
+	 *
+	 *
+	 * @param {*} token
+	 * @returns {Boolean}
+	 * @memberof ComputationLock
+	 */
+	TryRelease(token) {
+		if (this.Token !== token) return false;
+		this.Token = null;
+		this.ExpireTimestamp = new Date();
+		return true;
+	}
+}
+module.exports = {
+	ComputationLock,
+};
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -565,7 +136,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Mar 03 2021 10:53:11 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Mar 03 2021 10:53:10 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

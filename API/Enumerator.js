@@ -1,5 +1,10 @@
 const { List } = require("./List");
 const { Dictionary } = require("./Dictionary");
+/**
+ * @template T
+ * @class Enumerator
+ * @param {List|Dictionary} Struct
+ */
 class Enumerator {
 	constructor(dict) {
 		Object.defineProperties(this, {
@@ -11,8 +16,14 @@ class Enumerator {
 				writable: true,
 			},
 		});
+
 		this.Current = null;
 	}
+	/**
+	 * Move Current to next position
+	 * @memberof Enumerator
+	 * @returns {boolean}
+	 */
 	MoveNext() {
 		this.Position++;
 		if (this.Position >= this.Struct.Count) {

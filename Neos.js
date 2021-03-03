@@ -112,9 +112,9 @@ class Neos extends EventEmitter {
 			CloudX: { value: CloudX, enumerable: false, writable: true },
 			CloudXInterface: {
 				value: new CloudX.Shared.CloudXInterface(
-					this.Events,
 					config.main,
-					config.version
+					config.version,
+					this.Events
 				),
 				enumerable: false,
 				writable: true,
@@ -743,7 +743,6 @@ class Neos extends EventEmitter {
 	 * @since 1.7.1
 	 * @example Neos.GetUser("U-bombitmanbomb").then((User)=>{
 	 * 	console.log(Neos.NeosDBToHttp(User.Profile.IconUrl))
-	 * 	//Logs https://cloudxstorage.blob.core.windows.net/assets/7c6e1611490cc94005dc76077d2fa8c591f709b61dabc6be726ab65da137c369
 	 * })
 	 */
 	NeosDBToHttp(neosdb, endpoint) {
