@@ -33,6 +33,8 @@ Started Logging
 
 ### Added
 
+- Cancellation Token Source
+
 ### Changed
 
 ### Fixed
