@@ -184,6 +184,17 @@ class Dictionary extends Array {
 		return false; // How tf you manage that??
 	}
 	/**
+	 * Generate a Dictionary from an Object using Key:Value Pairs
+	 * @param {Object} obj
+	 */
+	static ToDictionary(obj) {
+		let Dict = new Dictionary();
+		for (let key in obj) {
+			Dict.Add(key, obj[key]);
+		}
+		return Dict;
+	}
+	/**
 	 * Reduce Callback
 	 * @callback Dictionary.Reduce~callback
 	 * @param {*} [previousValue]
