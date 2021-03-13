@@ -252,7 +252,7 @@ class Neos extends EventEmitter {
 			this.emit("friendRequestCountChanged", count);
 		});
 		this.Events.on("friendsChanged", () => {
-			this.emit("FriendsChanged");
+			this.emit("friendsChanged");
 		});
 		this.Events.on("userUpdated", (user) => {
 			this.emit("userUpdated", user);
