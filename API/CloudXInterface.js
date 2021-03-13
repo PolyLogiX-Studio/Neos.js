@@ -2591,7 +2591,7 @@ class CloudXInterface {
 	async GetGithubIssue(issue_number) {
 		try {
 			return await this.GitHub.issues.get({
-				owner: "Frooxius",
+				owner: "Neos-Metaverse",
 				repo: "NeosPublic",
 				issue_number,
 			});
