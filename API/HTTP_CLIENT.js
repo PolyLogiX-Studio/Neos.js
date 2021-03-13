@@ -57,7 +57,6 @@ class HTTP_CLIENT {
 			resHeaders = {};
 		}
 		let cloudResult = new CloudResult("", state, response, resHeaders);
-		cloudResult.CloudResult(state, response, resHeaders);
 		return cloudResult;
 	}
 }
