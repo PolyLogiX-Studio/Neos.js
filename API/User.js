@@ -23,6 +23,7 @@ class User {
 		this.IsVerified = $b.isVerified;
 		this.AccountBanExpiration = $b.accountBanExpiration || new Date(0);
 		this.PublicBanExpiration = $b.publicBanExpiration || new Date(0);
+		this.PublicBanType = $b.publicBanType
 		this.SpectatorBanExpiration = $b.spectatorBanExpiration || new Date(0);
 		this.MuteBanExpiration = $b.muteBanExpiration || new Date(0);
 		this.ListingBanExpiration = $b.listingBanExpiration || new Date(0);
