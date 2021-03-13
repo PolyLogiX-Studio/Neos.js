@@ -7,11 +7,7 @@ const { Enumerable } = require("./Enumerable");
  * @property {"Soft"} Soft
  * @property {"Hard"} Hard
  */
-const PublicBanType = new Enumerable([
-	"Standard",
-	"Soft",
-	"Hard"
-]);
+const PublicBanType = new Enumerable(["Standard", "Soft", "Hard"]);
 module.exports = {
 	PublicBanType,
 };
