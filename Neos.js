@@ -84,18 +84,18 @@ class Neos extends EventEmitter {
 		return this.CloudXInterface.Messages;
 	}
 	/**
- * Creates an instance of the NeosJS Client.
- * @param {NeosGeneratorOptions} [options]
- * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
- * @param {OnlineStatus} [options.OnlineState="Online"] - Online User Status, Displayed in User List.
- * @param {number} [options.StatusInterval=60] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
- * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version"
- * @param {string} [options.CompatabilityHash="Neos.js ${PackageVersion}"] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
- * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000
- * @param {boolean} [options.Update=true] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
- * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
- * @private
- */
+	 * Creates an instance of the NeosJS Client.
+	 * @param {NeosGeneratorOptions} [options]
+	 * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
+	 * @param {OnlineStatus} [options.OnlineState="Online"] - Online User Status, Displayed in User List.
+	 * @param {number} [options.StatusInterval=60] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
+	 * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version"
+	 * @param {string} [options.CompatabilityHash="Neos.js ${PackageVersion}"] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
+	 * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000
+	 * @param {boolean} [options.Update=true] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
+	 * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
+	 * @private
+	 */
 	constructor(options) {
 		super();
 		//Setup Options

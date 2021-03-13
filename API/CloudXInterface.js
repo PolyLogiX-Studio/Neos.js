@@ -1350,9 +1350,7 @@ class CloudXInterface {
 				CurrentSession: this.CurrentSession,
 			});
 		} else
-			this.OnError(
-				"Error loging in: " + result.State + "\n" + result.Content
-			);
+			this.OnError("Error loging in: " + result.State + "\n" + result.Content);
 		return result;
 	}
 	/**

@@ -1,6 +1,7 @@
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD041 -->
 <!-- markdownlint-disable MD024 -->
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
