@@ -1261,9 +1261,14 @@ class CloudXInterface {
 						this.OnDebug(
 							`Neos.js Exception running ${request.Method} request to ${request.RequestUri}. Remaining retries: ${remainingRetries}`
 						);
-						await TimeSpan.Delay(new TimeSpan(delay)); // Wait and then retry
-						delay *= 2; // Double Retry Time
+					} else if (result.StatusCode >= 500) {
+						result = null;
+						this.OnDebug(
+							`Neos.js Exception running ${request.Method} request to ${request.RequestUri}. Remaining retries: ${remainingRetries}`
+						);
 					}
+					await TimeSpan.Delay(new TimeSpan(delay)); // Wait and then retry
+					delay *= 2; // Double Retry Time
 				}
 			} while (result == null && remainingRetries-- > 0);
 			if (result == null) {
