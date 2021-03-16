@@ -10,9 +10,14 @@ class UserStatus {
 		this.OnlineStatus = $b.onlineStatus;
 		this.LastStatusChange = $b.lastStatusChange;
 		this.CurrentSessionId = $b.currentSessionId;
+		this.CurrentSessionAccessLevel = $b.currentSessionAccessLevel;
+		this.CurrentSessionHidden = $b.currentSessionHidden;
+		this.CurrentHosting = $b.currentHosting;
 		this.CompatibilityHash = $b.compatibilityHash;
 		this.NeosVersion = $b.neosVersion;
 		this.PublicRSAKey = $b.publicRSAKey;
+		this.OutputDevice = $b.outputDevice;
+		this.IsMobile = $b.isMobile;
 		this.ActiveSessions = $b.activeSessions;
 	}
 	/**
