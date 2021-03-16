@@ -11,6 +11,7 @@ class UserPatreonData {
 		this.LastPatreonPledgeCents = $b.lastPatreonPledgeCents;
 		this.LastTotalCents = $b.lastTotalCents;
 		this.LastTotalUnits = $b.lastTotalUnits;
+		this.MinimumTotalUnits = $b.minimumTotalUnits;
 		this.ExternalCents = $b.externalCents;
 		this.LastExternalCents = $b.lastExternalCents;
 		this.HasSupported = $b.hasSupported;
@@ -73,6 +74,13 @@ class UserPatreonData {
 		findMatchingPledge,
 		extendedPlus
 	) {
+		if (
+			currentTotalUnits < this.MinimumTotalUnits &&
+			this.MinimumTotalUnits > 0
+		) {
+			currentTotalUnits = this.MinimumTotalUnits;
+			currencyRate = 1.0;
+		}
 		extendedPlus.Out = false;
 		let flag = false;
 		if (this.LastTotalUnits === 0 && this.LastTotalCents > 0) {
