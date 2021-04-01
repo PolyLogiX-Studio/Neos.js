@@ -2316,6 +2316,13 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
+	/**
+	 *
+	 *
+	 * @param {Transaction} transaction
+	 * @returns
+	 * @memberof CloudXInterface
+	 */
 	async SendTransaction(transaction) {
 		return this.POST(
 			"api/transactions/" + transaction.Token,
