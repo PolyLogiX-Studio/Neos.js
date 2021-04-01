@@ -25,6 +25,15 @@ class RecordTags {
 		return "common_avatar";
 	}
 	/**
+	 * Common Avatar Tag
+	 * @readonly
+	 * @static
+	 * @memberof RecordTags
+	 */
+	static get CommonTooltip() {
+		return "common_tooltip";
+	}
+	/**
 	 * Profile Icon Tag
 	 * @readonly
 	 * @static
