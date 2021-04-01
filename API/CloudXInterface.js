@@ -2320,7 +2320,7 @@ class CloudXInterface {
 	 *
 	 *
 	 * @param {Transaction} transaction
-	 * @returns
+	 * @returns {Promise<CloudResult<*>>}
 	 * @memberof CloudXInterface
 	 */
 	async SendTransaction(transaction) {
