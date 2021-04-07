@@ -1,5 +1,9 @@
 const { HashSet } = require("./HashSet");
 const { List } = require("./List");
+/**
+ *
+ * @class IRecord
+ */
 class IRecord {
 	constructor($b) {
 		if (!$b) $b = {};

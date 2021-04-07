@@ -5,7 +5,10 @@ const { List } = require("./List");
 const { RecordHelper } = require("./RecordHelper");
 const { OwnerType } = require("./OwnerType");
 const { RecordUtil } = require("./RecordUtil");
-
+/**
+ * @class Record
+ * @extends {IRecord}
+ */
 class Record extends IRecord {
 	constructor($b) {
 		if (!$b) $b = {};
