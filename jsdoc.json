@@ -56,5 +56,6 @@
 		"scopeInOutputPath": true,
 		"nameInOutputPath": true,
 		"versionInOutputPath": true
-	}
+	},
+	"plugins": ["node_modules/jsdoc-tsimport-plugin/index.js"]
 }
