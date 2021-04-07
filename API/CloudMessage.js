@@ -1,5 +1,6 @@
-/**
+/**.
  * Cloud Message Object
+ *
  * @class CloudMessage
  * @param {Object} $b
  * @param {string} $b.message
@@ -10,8 +11,9 @@ class CloudMessage {
 		/**@type {string} */
 		this.Message = $b.Message;
 	}
-	/**
+	/**.
 	 * Extract Message Contents from string
+	 *
 	 * @static
 	 * @param {string} content
 	 * @returns {string} Message

@@ -64,7 +64,10 @@ class UserPatreonData {
 	 *
 	 * @public
 	 * @param {number} currentTotalCents
-	 * @param {Out<Boolean>} extendedPlus
+	 * @param currentTotalUnits
+	 * @param currencyRate
+	 * @param findMatchingPledge
+	 * @param {Out<boolean>} extendedPlus
 	 *
 	 * @memberof UserPatreonData
 	 */

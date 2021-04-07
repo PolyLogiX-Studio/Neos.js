@@ -2,9 +2,9 @@
 const { List } = require("./List"); //lgtm [js/unused-local-variable] JSDoc Type Def
 //TODO #145 This Likely needs a rework in the library
 /**
- * @template T
+ * @template T.
  * @class Enumerable
- * @extends {Object}
+ * @augments {Object}
  * @returns {Enumerable}
  * @param {Array<string>|List<string>|T} $b
  */
@@ -33,8 +33,9 @@ class Enumerable extends Object {
 		}
 		Object.freeze(this);
 	}
-	/**
+	/**.
 	 * Get Value Set on Init
+	 *
 	 * @param {String} key
 	 * @returns {number}
 	 * @instance
@@ -43,7 +44,7 @@ class Enumerable extends Object {
 	GetValue(key) {
 		return this[key];
 	}
-	/**
+	/**.
 	 * JS Int to Enum Value
 	 *
 	 * @param {*} val

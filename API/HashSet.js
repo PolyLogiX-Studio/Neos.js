@@ -2,12 +2,13 @@ const { List } = require("./List");
 /**
  *
  * @class HashSet
- * @extends {List}
- * @throws {Error<ArgumentException>} - Expected <Array, List, Number>
+ * @augments {List}
+ * @throws {Error<ArgumentException>} - Expected <Array, List, Number>.
  */
 class HashSet extends List {
 	/**
 	 *Creates an instance of HashSet.
+	 *
 	 * @param {*} $b
 	 * @memberof HashSet
 	 *

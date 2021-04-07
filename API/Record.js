@@ -7,7 +7,7 @@ const { OwnerType } = require("./OwnerType");
 const { RecordUtil } = require("./RecordUtil");
 /**
  * @class Record
- * @extends {IRecord}
+ * @augments {IRecord}
  */
 class Record extends IRecord {
 	constructor($b) {

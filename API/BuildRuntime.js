@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for BuildRuntime
+ *
  * @readonly
  * @enum {Enumerable<string>} BuildRuntime
  * @property {"Unity_Mono"} Unity_Mono

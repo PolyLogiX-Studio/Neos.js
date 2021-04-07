@@ -2,8 +2,9 @@ String.prototype.noExtension = function () {
 	return this.replace(/\.[^/.]+$/, "");
 };
 
-/**
+/**.
  * Uri Support Class for working with Url's much easier by converting it to a usable object
+ *
  * @class Uri
  * @param {string} url Generate Uri from url
  */
@@ -26,6 +27,7 @@ class Uri {
 
 		/**
 		 * Url Segments.
+		 *
 		 * @name Segments
 		 * @type {string[]}
 		 * @memberof Uri
@@ -41,8 +43,9 @@ class Uri {
 		});
 	}
 
-	/**
+	/**.
 	 * The URL the object was built on
+	 *
 	 * @instance
 	 * @readonly
 	 * @type {string}
@@ -53,7 +56,8 @@ class Uri {
 	}
 	/**
 	 * Get the host of the Uri
-	 * In this library this is usually `www.neosvr-api.com`
+	 * In this library this is usually `www.neosvr-api.com`.
+	 *
 	 * @readonly
 	 * @instance
 	 * @type {string}
@@ -64,7 +68,8 @@ class Uri {
 	}
 	/**
 	 * Get the Scheme of the Uri
-	 * In this library this is usually `neosdb`
+	 * In this library this is usually `neosdb`.
+	 *
 	 * @readonly
 	 * @instance
 	 * @type {string}
@@ -73,7 +78,7 @@ class Uri {
 	get Scheme() {
 		return this._raw.scheme;
 	}
-	/**
+	/**.
 	 * Encode given text to be URL Friendly
 	 *
 	 * @static
@@ -87,19 +92,22 @@ class Uri {
 }
 
 //Built refrencing uri-js
-/**
+/**.
  * Regular Expression to chop up a URI
+ *
  * @private
  */
 const URI_PARSE = /^(?:([^:/?#]+):)?(?:\/\/((?:([^/?#@]*)@)?(\[[^/?#\]]+\]|[^/?#:]*)(?::(\d*))?))?([^?#]*)(?:\?([^#]*))?(?:#((?:.|\n|\r)*))?/i;
-/**
+/**.
  * Check Handle for certain javascript engines. Backup to prevent error in specific case (Such as Edge)
+ *
  * @private
  */
 const NO_MATCH_IS_UNDEFINED = "".match(/(){0}/)[1] === undefined;
 /**
  * Parse a URI into an object
- * Support Function
+ * Support Function.
+ *
  * @private
  * @param {string} uriString
  * @returns {{

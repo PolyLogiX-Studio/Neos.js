@@ -1,6 +1,7 @@
 class PicturePatreon {
 	/**
 	 *Creates an instance of PicturePatreon.
+	 *
 	 * @param {{
 	 * name: string,
 	 * pictureUrl: string
@@ -12,7 +13,7 @@ class PicturePatreon {
 		this.Name = $b.name;
 		this.PictureURL = $b.pictureUrl;
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {string} name

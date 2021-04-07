@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>CreditTransaction - Documentation</title>
+    <title>Neos. - Documentation</title>
     
     
     
@@ -43,7 +43,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">CreditTransaction</h1>
+    <h1 class="page-title">Neos.</h1>
     
 
     
@@ -56,8 +56,10 @@
 <header>
     
         <h2>
-        CreditTransaction
+        Neos.
         </h2>
+        
+            <div class="class-description usertext">Neos.</div>
         
     
 </header>
@@ -69,8 +71,10 @@
             
 
     
+    <h2>Constructor</h2>
+    
 
-    <h4 class="name" id="CreditTransaction"><span class="type-signature"></span>new CreditTransaction<span class="signature">($b)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Neos."><span class="type-signature"></span>new Neos.<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -82,7 +86,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line2">line 2</a>
+        <a href="Neos.js.html">Neos.js</a>, <a href="Neos.js.html#line56">line 56</a>
     </li></ul></dd>
     
 
@@ -122,7 +126,7 @@
 
 
 <div class="description usertext">
-    .Credit Transaction Object
+    Creates an instance of the NeosJS Client.
 </div>
 
 
@@ -148,6 +152,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -160,168 +166,63 @@
 
         <tr>
             
-                <td class="name"><code>$b</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type"><a href="global.html#NeosGeneratorOptions">NeosGeneratorOptions</a></span>
 
 
             
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$b.token</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$b.fromUserId</code></td>
-            
-
-            <td class="type">
-            
+                    &lt;optional><br>
                 
-<span class="param-type">string</span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$b.toUserId</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">string</span>
 
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$b.amount</code></td>
-            
-
-            <td class="type">
-            
                 
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
+                </td>
             
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$b.comment</code></td>
-            
-
-            <td class="type">
-            
+            <td class="description last">
+                <h6>Properties</h6>
                 
-<span class="param-type">string</span>
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-            
-            </td>
+        <th>Type</th>
 
-            
+        
+        <th>Attributes</th>
+        
 
-            
+        
+        <th>Default</th>
+        
 
-            <td class="description last"></td>
-        </tr>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>$b.transactionType</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">TransactionType</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$b.anonymous</code></td>
+                <td class="name"><code>AutoReadMessages</code></td>
             
 
             <td class="type">
@@ -334,10 +235,306 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"></td>
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">Auto Mark messages as Read in the API when handled by the Neos#messageReceived event.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>OnlineState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#OnlineStatus">OnlineStatus</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>"Online"</code>
+                
+                </td>
+            
+
+            <td class="description last">Online User Status, Displayed in User List.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>StatusInterval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>60</code>
+                
+                </td>
+            
+
+            <td class="description last">How Frequent to update the user status. Will trigger Neos#statusUpdated.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>NeosVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>"Neos.js ${PackageVersion}"</code>
+                
+                </td>
+            
+
+            <td class="description last">Defaults to the Library version. Use to display a custom "Neos Version".</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CompatabilityHash</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>"Neos.js ${PackageVersion}"</code>
+                
+                </td>
+            
+
+            <td class="description last">Determines Version Compatability Hash, Used by clients to determing if a session is the same version.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>UpdateInterval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>1000</code>
+                
+                </td>
+            
+
+            <td class="description last">Internal Update interval in `ms`. Reccomended: 1000.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Update</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MultiMessageDelay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>1100</code>
+                
+                </td>
+            
+
+            <td class="description last">MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -367,6 +564,17 @@
     
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>EventEmitter</li>
+    </ul>
+
+
+    
 
     
 
@@ -378,493 +586,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="Amount"><span class="type-signature"></span>Amount<span class="type-signature"> :number</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line25">line 25</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="Anonymous"><span class="type-signature"></span>Anonymous<span class="type-signature"> :string</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line34">line 34</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="Comment"><span class="type-signature"></span>Comment<span class="type-signature"> :string</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="FromUserId"><span class="type-signature"></span>FromUserId<span class="type-signature"> :string</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line21">line 21</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="Token"><span class="type-signature"></span>Token<span class="type-signature"> :string</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="ToUserId"><span class="type-signature"></span>ToUserId<span class="type-signature"> :string</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="TransactionType"><span class="type-signature"></span>TransactionType<span class="type-signature"> :TransactionType.&lt;string></span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="API_CreditTransaction.js.html">API/CreditTransaction.js</a>, <a href="API_CreditTransaction.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">TransactionType.&lt;string></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
     
 
     
@@ -886,7 +607,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Apr 07 2021 19:12:39 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Wed Apr 07 2021 19:12:40 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

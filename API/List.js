@@ -1,6 +1,6 @@
 //eslint-disable-next-line no-unused-vars
 const { Out } = require("./Out"); //lgtm [js/unused-local-variable] JSDoc Type Def
-/**
+/**.
  * Unordered List
  *
  * @class List
@@ -16,8 +16,9 @@ class List extends Array {
 		}
 		super(props);
 	}
-	/**
+	/**.
 	 *Add a Value to the List
+	 *
 	 * @param {T} value
 	 * @instance
 	 * @memberof List
@@ -25,14 +26,15 @@ class List extends Array {
 	Add(value) {
 		this.push(value);
 	}
-	/**
+	/**.
 	 * Not Yet Implimented
+	 *
 	 * @param {Function} action
 	 */
 	Any(action) {
 		return this.some(action);
 	}
-	/**
+	/**.
 	 *Convert Array to List
 	 *
 	 * @static
@@ -48,8 +50,9 @@ class List extends Array {
 		}
 		return t;
 	}
-	/**
+	/**.
 	 * Concat 2 Lists
+	 *
 	 * @param {List<T>} list
 	 * @instance
 	 * @memberof List
@@ -62,16 +65,18 @@ class List extends Array {
 			this.Add(item);
 		}
 	}
-	/**
+	/**.
 	 * Clear the List
+	 *
 	 * @instance
 	 * @memberof List
 	 */
 	Clear() {
 		this.splice(0, this.length);
 	}
-	/**
+	/**.
 	 * Does the List contain a given item
+	 *
 	 * @param {T} item
 	 * @instance
 	 * @returns {Boolean} Contains
@@ -80,8 +85,9 @@ class List extends Array {
 	Contains(item) {
 		return this.includes(item);
 	}
-	/**
+	/**.
 	 * Get the Number of items in the list
+	 *
 	 * @instance
 	 * @readonly
 	 * @returns {Number} Count
@@ -90,16 +96,18 @@ class List extends Array {
 	get Count() {
 		return this.length;
 	}
-	/**
+	/**.
 	 * Not Yet Implimented
+	 *
 	 * @instance
 	 * @memberof List
 	 */
 	Exists() {
 		//TODO
 	}
-	/**
+	/**.
 	 * Not Properly Implimented
+	 *
 	 * @param {*} match
 	 * @instance
 	 * @memberof List
@@ -109,7 +117,8 @@ class List extends Array {
 	}
 	/**
 	 *
-	 * Not Properly Implimented
+	 * Not Properly Implimented.
+	 *
 	 * @param {*} action
 	 * @instance
 	 * @memberof List
@@ -117,8 +126,9 @@ class List extends Array {
 	ForEach(action) {
 		this.forEach(action);
 	}
-	/**
+	/**.
 	 * Remove an item from the List
+	 *
 	 * @param {T} iValue
 	 * @returns {Number} Index Removed From
 	 * @instance
@@ -131,7 +141,7 @@ class List extends Array {
 		}
 		return iIndex;
 	}
-	/**
+	/**.
 	 * Remove Item at Index
 	 *
 	 * @param {Number} iIndex
@@ -146,8 +156,9 @@ class List extends Array {
 		}
 		return vItem;
 	}
-	/**
+	/**.
 	 * Attempt to get Value
+	 *
 	 * @param {T} value
 	 * @param {Out<T>} out
 	 * @instance
@@ -160,24 +171,28 @@ class List extends Array {
 		if (out) out.Out = value;
 		return true;
 	}
-	/**
+	/**.
 	 * Not Yet Implimented
+	 *
 	 * @instance
 	 * @memberof List
 	 */
 	ToArray() {
 		return; //TODO
 	}
-	/**
+	/**.
 	 * Not Yet Implimented
+	 *
+	 * @param compareFn
 	 * @instance
 	 * @memberof List
 	 */
 	Sort(compareFn) {
 		return this.sort(compareFn);
 	}
-	/**
+	/**.
 	 * Take a random item from the list
+	 *
 	 * @instance
 	 * @returns {T} Item
 	 * @memberof List

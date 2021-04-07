@@ -1,14 +1,15 @@
 class ExternalQueueObject {
 	/**
-     *Creates an instance of ExternalQueueObject.
-     @template T
-     * @param {{
-     * id: string,
-     * popReceipt: string,
-     * object: T
-     * }} $b
-     * @memberof ExternalQueueObject
-     */
+	 *Creates an instance of ExternalQueueObject.
+	 *
+     @template T.
+	 * @param {{
+	 * id: string,
+	 * popReceipt: string,
+	 * object: T
+	 * }} $b
+	 * @memberof ExternalQueueObject
+	 */
 	constructor($b) {
 		if (!$b) $b = {};
 		this.Id = $b.id;

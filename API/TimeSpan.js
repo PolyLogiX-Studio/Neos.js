@@ -1,4 +1,4 @@
-/**
+/**.
  * Work in Miliseconds
  *
  * @class TimeSpan
@@ -17,7 +17,8 @@ class TimeSpan {
 
 	/**
 	 *
-	 *  Delay by ms
+	 *  Delay by ms.
+	 *
 	 * @param {TimeSpan} timespan
 	 * @returns {Promise}
 	 */

@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for BuildChangeType
+ *
  * @readonly
  * @enum {Enumerable<string>} BuildChangeType
  * @property {"NewFeature"} NewFeature

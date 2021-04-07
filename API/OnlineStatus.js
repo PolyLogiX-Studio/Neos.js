@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for onlineStatus
+ *
  * @readonly
  * @enum {Enumerable<string>} OnlineStatus
  * @property {"Offline"} Offline

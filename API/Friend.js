@@ -1,12 +1,14 @@
 const { UserStatus } = require("./UserStatus");
 const { UserProfile } = require("./UserProfile");
-/**
+/**.
  * Friend :)
+ *
  * @class Friend
  */
 class Friend {
 	/**
 	 *Creates an instance of Friend.
+	 *
 	 * @param {*} $b
 	 * @memberof Friend
 	 */
@@ -21,7 +23,7 @@ class Friend {
 		this.LatestMessageTime = $b.latestMessageTime;
 		this.Profile = new UserProfile($b.profile);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {Friend} other

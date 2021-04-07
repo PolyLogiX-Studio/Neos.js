@@ -60,7 +60,7 @@ Neos.on("statusUpdate", () => {
 });
 
 /**
- * Setup Command Handles
+ * Setup Command Handles.
  */
 
 //Ping Pong!

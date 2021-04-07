@@ -3,8 +3,9 @@ const { Out } = require("./Out");
 const { TaskCompletionSource } = require("./TaskCompletionSource");
 const { TimeSpan } = require("./TimeSpan");
 const { List } = require("./List");
-/**
+/**.
  * Work in Progress
+ *
  * @template Query, Result
  * @class BatchQuery
  * @param {number} [maxBatchSize=32]
@@ -23,8 +24,9 @@ class BatchQuery {
 		/** @private */
 		this.dispatchScheduled = false;
 	}
-	/**
+	/**.
 	 * Define Self
+	 *
 	 * @param {number} [maxBatchSize=32]
 	 * @param {number} [delaySeconds=0.25]
 	 * @memberof BatchQuery

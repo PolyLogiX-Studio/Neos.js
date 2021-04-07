@@ -1,6 +1,7 @@
 class ServerStatistics {
 	/**
 	 *Creates an instance of ServerStatistics.
+	 *
 	 * @param {{
 	 * lastUpdate: Date,
 	 * responseTimeMilliseconds:Number

@@ -2,6 +2,7 @@ const { CryptoHelper } = require("./CryptoHelper");
 class LoginCredentials {
 	/**
 	 *Creates an instance of LoginCredentials.
+	 *
 	 * @param {{
 	 * ownerId: string,
 	 * username: string,
@@ -34,7 +35,7 @@ class LoginCredentials {
 	 *
 	 * @readonly
 	 * @memberof LoginCredentials
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	get IsPasswordValid() {
 		return CryptoHelper.IsValidPassword(this.Password);

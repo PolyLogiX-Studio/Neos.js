@@ -1,7 +1,7 @@
 const { List } = require("./List");
 const { Dictionary } = require("./Dictionary");
 /**
- * @template T
+ * @template T.
  * @class Enumerator
  * @param {List|Dictionary} Struct
  */
@@ -19,8 +19,9 @@ class Enumerator {
 
 		this.Current = null;
 	}
-	/**
+	/**.
 	 * Move Current to next position
+	 *
 	 * @memberof Enumerator
 	 * @returns {boolean}
 	 */

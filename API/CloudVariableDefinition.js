@@ -1,5 +1,6 @@
-/**
+/**.
  * Cloud Variable
+ *
  * @class CloudVariableDefinition
  * @param {Object} $b
  * @param {string} $b.definitionOwnerId
@@ -31,8 +32,9 @@ class CloudVariableDefinition {
 		/**@type {boolean} */
 		this.AnyoneCanWrite = $b.anyoneCanWrite;
 	}
-	/**
+	/**.
 	 * Check if the given user can access variables for a given user
+	 *
 	 * @instance
 	 * @memberof CloudVariableDefinition
 	 * @param {string} variableOwnerId - Owner user Id
@@ -46,10 +48,12 @@ class CloudVariableDefinition {
 			readerId === this.DefinitionOwnerId
 		);
 	}
-	/**
+	/**.
 	 * Check if the given user can Write to variables for a given user
+	 *
 	 * @instance
 	 * @memberof CloudVariableDefinition
+	 * @param writerId
 	 * @param {string} variableOwnerId - Owner user Id
 	 * @param {string} readerId - Who is attempting to access
 	 * @returns {boolean}

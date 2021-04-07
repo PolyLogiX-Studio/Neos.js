@@ -20,7 +20,7 @@ class UserProfile {
 					? List.ToList($b.tokenOptOut)
 					: null;
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {UserProfile} other
@@ -50,7 +50,7 @@ class UserProfile {
 			UserProfile.MAX_SHOWCASE_ITEMS
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {String} token

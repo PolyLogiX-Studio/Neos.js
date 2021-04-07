@@ -1,5 +1,6 @@
-/**
+/**.
  * Create an Authentication Header Object
+ *
  * @class AuthenticationHeaderValue
  * @param {string} bearer
  * @param {string} token

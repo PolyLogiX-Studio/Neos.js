@@ -1,6 +1,7 @@
 class RecordPreprocessStatus {
 	/**
 	 *Creates an instance of RecordPreprocessStatus.
+	 *
 	 * @param {{
 	 * id: string,
 	 * ownerId: string,

@@ -19,6 +19,7 @@ const { IdUtil } = require("./IdUtil");
 class RecordId {
 	/**
 	 *Creates an instance of RecordId.
+	 *
 	 * @param {{
 	 * recordId: string,
 	 * ownerId: string
@@ -33,8 +34,9 @@ class RecordId {
 	GetHashCode() {
 		return this.RecordId.GetHashCode() ^ this.OwnerId.GetHashCode();
 	}
-	/**
+	/**.
 	 * Compare Records
+	 *
 	 * @param {RecordId} other
 	 * @returns {Boolean} IsSame
 	 * @memberof RecordId
@@ -45,7 +47,7 @@ class RecordId {
 	}
 	/**
 	 *
-	 * @returns {Boolean} isValid
+	 * @returns {boolean} IsValid.
 	 * @readonly
 	 * @memberof RecordId
 	 */
@@ -57,7 +59,7 @@ class RecordId {
 	 * @static
 	 * @param {string} ownerId
 	 * @param {string} id
-	 * @returns {Boolean} IsValid
+	 * @returns {boolean} IsValid.
 	 * @memberof RecordId
 	 */
 	static IsValidId(ownerId, id) {

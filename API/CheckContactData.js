@@ -1,6 +1,7 @@
 const { List } = require("./List");
-/**
+/**.
  * Object Used in checking if a user is friends with a list of users
+ *
  * @class CheckContactData
  * @property {Object} $b
  * @property {string} $b.ownerId
@@ -11,7 +12,7 @@ class CheckContactData {
 	constructor($b) {
 		/**@type {String}*/
 		this.OwnerId = $b.ownerId;
-		/** @type {String} */
+		/** @type {string} */
 		this.VerificationKey = $b.verificationKey;
 		if (!($b.contacts instanceof List)) $b.contacts = List.ToList($b.contacts);
 		/**@type {List<String>}*/

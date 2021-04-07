@@ -1,4 +1,4 @@
-/**
+/**.
  *
  *
  * @class SessionUpdate
@@ -6,6 +6,7 @@
 class SessionUpdate {
 	/**
 	 *Creates an instance of SessionUpdate.
+	 *
 	 * @param {{
 	 * hostedSessions:List<SessionInfo>,
 	 * removedSessions:List<String>}} $b

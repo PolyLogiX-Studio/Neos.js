@@ -6,6 +6,7 @@ const { RecordId } = require("./RecordId");
 class SessionInfo {
 	/**
 	 *	Creates an instance of SessionInfo.
+	 *
 	 * @param {{
 	 * name: String,
 	 * description: String,
@@ -80,8 +81,9 @@ class SessionInfo {
 		this.AwaySince = $b.awaySince; //Can be Null
 		this.AccessLevel = $b.accessLevel; //Enum
 	}
-	/**
+	/**.
 	 * Is the session LAN
+	 *
 	 * @readonly
 	 * @memberof SessionInfo
 	 */
@@ -90,22 +92,25 @@ class SessionInfo {
 	}
 	/**
 	 * Is the session still up?
+	 *
 	 * @readonly
 	 * @memberof SessionInfo
 	 */
 	get HasEnded() {
 		return this.SessionURLs == null || this.SessionURLs.Count === 0;
 	}
-	/**
+	/**.
 	 * Mark the session as ended
+	 *
 	 * @function
 	 * @memberof SessionInfo
 	 */
 	SetEnded() {
 		this.SessionURLs = null;
 	}
-	/**
+	/**.
 	 * Copy the lan info of a session to the current session object
+	 *
 	 * @param {SessionInfo} source
 	 * @memberof SessionInfo
 	 */
@@ -116,8 +121,9 @@ class SessionInfo {
 		if (this.SessionURLs == null) this.SessionURLs = new List();
 		this.SessionURLs.Add(this.LAN_URL);
 	}
-	/**
+	/**.
 	 * Session Urls
+	 *
 	 * @returns {List<Uri>}
 	 * @memberof SessionInfo
 	 */
@@ -128,8 +134,9 @@ class SessionInfo {
 		}
 		return urls;
 	}
-	/**
+	/**.
 	 * Is name Safe (!18+)
+	 *
 	 * @static
 	 * @param {String} name
 	 * @returns {Boolean}
@@ -140,8 +147,9 @@ class SessionInfo {
 		name = name.toLowerCase();
 		return !~name.indexOf("18+") && !~name.indexOf("nsfw");
 	}
-	/**
+	/**.
 	 * Normalized Session Id
+	 *
 	 * @returns {String}
 	 * @readonly
 	 * @memberof SessionInfo
@@ -171,8 +179,9 @@ class SessionInfo {
 	get MAX_URL_LENGTH() {
 		return 256;
 	}
-	/**
+	/**.
 	 * Update Session Id
+	 *
 	 * @param {String} sessionId
 	 * @memberof SessionInfo
 	 */
@@ -180,8 +189,9 @@ class SessionInfo {
 		this.SessionId = sessionId;
 		this.LastUpdate = new Date();
 	}
-	/**
+	/**.
 	 * Is the sessionId Custom (DEV)
+	 *
 	 * @static
 	 * @param {String} sessionId
 	 * @returns {Boolean}
@@ -190,8 +200,9 @@ class SessionInfo {
 	static IsCustomSessionId(sessionId) {
 		return sessionId.startsWith("S-U-");
 	}
-	/**
+	/**.
 	 * Get OwnerId from a Custom ID
+	 *
 	 * @static
 	 * @param {String} sessionId
 	 * @returns {String}
@@ -203,8 +214,9 @@ class SessionInfo {
 			throw new Error("Invalid custom sessionId! Make sure it's valid first.");
 		return sessionId.substr(2, num - 2);
 	}
-	/**
+	/**.
 	 * Check if the given session id is Valid
+	 *
 	 * @static
 	 * @param {String} sessionId
 	 * @returns {Boolean}
@@ -252,8 +264,9 @@ class SessionInfo {
 		//TODO
 		return true;
 	}
-	/**
+	/**.
 	 * Trim the current SessionInfo to maximum lengths
+	 *
 	 * @memberof SessionInfo
 	 */
 	Trim() {
@@ -280,8 +293,9 @@ class SessionInfo {
 			);
 		//TODO Trim Tags
 	}
-	/**
+	/**.
 	 * To String
+	 *
 	 * @returns {String}
 	 * @memberof SessionInfo
 	 */

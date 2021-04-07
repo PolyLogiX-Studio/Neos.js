@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 class ThumbnailInfo {
 	/**
 	 *Creates an instance of ThumbnailInfo.
+	 *
 	 * @param {{
 	 * id: string,
 	 * key: string

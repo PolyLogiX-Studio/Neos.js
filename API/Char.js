@@ -1,11 +1,12 @@
-/**
+/**.
  * Simple Util class to work with Characters
  *
  * @class Char
  */
 class Char {
-	/**
+	/**.
 	 * Is Char a Letter or Digit
+	 *
 	 * @static
 	 * @memberof Char
 	 * @param {string} char
@@ -17,8 +18,9 @@ class Char {
 		if (char.toUpperCase() !== char.toLowerCase()) return true;
 		return false;
 	}
-	/**
+	/**.
 	 * Is Char Whitespace
+	 *
 	 * @static
 	 * @memberof Char
 	 * @param {string} char

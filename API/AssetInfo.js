@@ -1,5 +1,6 @@
-/**
+/**.
  * Create an instance of AssetInfo
+ *
  * @class AssetInfo
  *
  * @param {Object} $b

@@ -1,6 +1,7 @@
 class RSAParametersData {
 	/**
 	 *Creates an instance of RSAParametersData.
+	 *
 	 * @param {{
 	 * Exponent:Number[],
 	 * Modulus:Number[],

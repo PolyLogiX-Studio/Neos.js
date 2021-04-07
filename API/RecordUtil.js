@@ -19,7 +19,7 @@ String.IsNullOrEmpty = function (str) {
  * @class RecordUtil
  */
 class RecordUtil {
-	/**
+	/**.
 	 *
 	 *
 	 * @static
@@ -31,7 +31,7 @@ class RecordUtil {
 	static GenerateUri(ownerId, recordId) {
 		return new Uri("neosrec:///" + ownerId + "/" + recordId);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @static
@@ -46,7 +46,7 @@ class RecordUtil {
 			recordId.length > "R-".length
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @static
@@ -71,7 +71,7 @@ class RecordUtil {
 			RecordUtil.IsValidRecordID(recordId.Out)
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @static

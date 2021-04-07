@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for AccountType
+ *
  * @readonly
  * @enum {Enumerable<string>} PublicBanType
  * @property {"Standard"} Standard

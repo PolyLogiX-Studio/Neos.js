@@ -180,7 +180,7 @@ class MessageManager {
 		return usermessages2;
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @param {List} list

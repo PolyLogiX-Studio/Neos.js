@@ -58,9 +58,9 @@ const { GitHubClient } = require("./GitHubClient");
 /**
  *
  * @class CloudXInterface
- * @param {EventEmitter} BUS - Internal Communication Use, Event Bus Plug
- * @param {string} product - Library/System Name - Metadata
- * @param {string} version - Library/System Version - Metadata
+ * @param {EventEmitter} BUS - Internal Communication Use, Event Bus Plug.
+ * @param {string} product - Library/System Name - Metadata.
+ * @param {string} version - Library/System Version - Metadata.
  */
 class CloudXInterface {
 	constructor(product, version, BUS) {
@@ -97,7 +97,8 @@ class CloudXInterface {
 		this._lastSessionUpdate = new Date(0);
 		/** @type Date */
 		this.lastServerStatsUpdate = new Date(0);
-		/** Test
+		/** Test.
+		 *
 		 * @type HttpClient
 		 *
 		 */
@@ -136,8 +137,9 @@ class CloudXInterface {
 		this.GroupMemberUpdated;
 		//Setup Private Properties
 		//this.CloudXInterface()
-		/**
+		/**.
 		 * Internal Events
+		 *
 		 * @private
 		 */
 		this.Events = BUS;
@@ -219,8 +221,9 @@ class CloudXInterface {
 		});
 	}
 
-	/**
+	/**.
 	 * Cloud Endpoint Types
+	 *
 	 * @enum {Enumerable<string>} CloudEndpoint
 	 * @property {"Production"} Production
 	 * @property {"Staging"} Staging
@@ -237,8 +240,9 @@ class CloudXInterface {
 			});
 		return this._cloudEndpoint;
 	}
-	/**
+	/**.
 	 * Number of Retries for tasks
+	 *
 	 * @returns {5}
 	 * @readonly
 	 * @static
@@ -247,8 +251,9 @@ class CloudXInterface {
 	static get DEFAULT_RETRIES() {
 		return 5;
 	}
-	/**
+	/**.
 	 * Honestly Not Sure
+	 *
 	 * @returns {16}
 	 * @readonly
 	 * @static
@@ -257,8 +262,9 @@ class CloudXInterface {
 	static get UPLOAD_DEGREE_OF_PARALLELISM() {
 		return 16;
 	}
-	/**
+	/**.
 	 * Debug Setting
+	 *
 	 * @private
 	 * @readonly
 	 * @static
@@ -267,8 +273,9 @@ class CloudXInterface {
 	static get DEBUG_UPLOAD() {
 		return false;
 	}
-	/**
+	/**.
 	 * Debug Setting
+	 *
 	 * @private
 	 * @readonly
 	 * @static
@@ -277,8 +284,9 @@ class CloudXInterface {
 	static get DEBUG_REQUESTS() {
 		return false;
 	}
-	/**
+	/**.
 	 * Request Timeout
+	 *
 	 * @returns {30000} ms
 	 * @readonly
 	 * @static
@@ -287,8 +295,9 @@ class CloudXInterface {
 	static get DefaultTimeout() {
 		return TimeSpan.fromSeconds(30);
 	}
-	/**
+	/**.
 	 * Delays in subsequent requests to the storage system
+	 *
 	 * @readonly
 	 * @static
 	 * @returns [1,5,15,30] Update Delays
@@ -297,8 +306,9 @@ class CloudXInterface {
 	static get storageUpdateDelays() {
 		return [1, 5, 15, 30];
 	}
-	/**
+	/**.
 	 * JSON Header
+	 *
 	 * @returns {{"Content-Type": "application/json"}}
 	 * @readonly
 	 * @static
@@ -309,8 +319,9 @@ class CloudXInterface {
 			"Content-Type": "application/json",
 		};
 	}
-	/**
+	/**.
 	 * How frequent to extend the user session
+	 *
 	 * @returns {3600}
 	 * @readonly
 	 * @static
@@ -319,8 +330,9 @@ class CloudXInterface {
 	static get SESSION_EXTEND_INTERVAL() {
 		return 3600;
 	}
-	/**
+	/**.
 	 * Not Implimented
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -328,8 +340,9 @@ class CloudXInterface {
 	static get ProfilerBeginSampleCallback() {
 		return null;
 	}
-	/**
+	/**.
 	 * Not Implimented
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -337,8 +350,9 @@ class CloudXInterface {
 	static get ProfilerEndSampleCallback() {
 		return null;
 	}
-	/**
+	/**.
 	 * Not Implimented
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -348,6 +362,7 @@ class CloudXInterface {
 	}
 	/**
 	 * If you need to ask your account can't use this.
+	 *
 	 * @returns {false}
 	 * @protected
 	 * @readonly
@@ -437,8 +452,9 @@ class CloudXInterface {
 	static get CLOUDX_NEOS_VIDEO_CDN() {
 		return "https://cloudx2.azureedge.net/";
 	}
-	/**
+	/**.
 	 * Not Implimented
+	 *
 	 * @memberof CloudXInterface
 	 */
 	ProfilerBeginSample() {
@@ -446,8 +462,9 @@ class CloudXInterface {
 		if (beginSampleCallback == null) return;
 		beginSampleCallback();
 	}
-	/**
+	/**.
 	 * Not Implimented
+	 *
 	 * @memberof CloudXInterface
 	 */
 	ProfilerEndSample() {
@@ -455,8 +472,9 @@ class CloudXInterface {
 		if (endSampleCallback == null) return;
 		endSampleCallback();
 	}
-	/**
+	/**.
 	 * Current Cloud Endpoint
+	 *
 	 * @returns {number} Production Endpoint
 	 * @readonly
 	 * @static
@@ -465,8 +483,9 @@ class CloudXInterface {
 	static get CLOUD_ENDPOINT() {
 		return CloudXInterface.CloudEndpoint.Production;
 	}
-	/**
+	/**.
 	 * Get the Neos Endpoint
+	 *
 	 * @returns {"https://www.neosvr-api.com/" | "https://cloudx-staging.azurewebsites.net/" | "https://localhost:60612/" | Error}
 	 * @readonly
 	 * @static
@@ -486,7 +505,7 @@ class CloudXInterface {
 			);
 		}
 	}
-	/**
+	/**.
 	 * Return the Blob Endpoint
 	 *
 	 * @readonly
@@ -505,7 +524,7 @@ class CloudXInterface {
 			);
 		}
 	}
-	/**
+	/**.
 	 * Return the Assets URI
 	 *
 	 * @readonly
@@ -515,7 +534,7 @@ class CloudXInterface {
 	static get NEOS_ASSETS() {
 		return CloudXInterface.NEOS_BLOB + "assets/";
 	}
-	/**
+	/**.
 	 * Get the Neos CDN server
 	 *
 	 * @readonly
@@ -525,8 +544,9 @@ class CloudXInterface {
 	static get NEOS_ASSETS_CDN() {
 		return "https://cloudx2.azureedge.net/assets/";
 	}
-	/**
+	/**.
 	 * Get the Neos Blob Server
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -534,8 +554,9 @@ class CloudXInterface {
 	static get NEOS_ASSETS_BLOB() {
 		return "https://cloudxstorage.blob.core.windows.net/assets/";
 	}
-	/**
+	/**.
 	 * Get the Neos Thumbnail Endpoint
+	 *
 	 * @deprecated Temporary Legacy Support, See {@link CloudXInterface.NEOS_THUMBNAILS}
 	 * @readonly
 	 * @static
@@ -544,8 +565,9 @@ class CloudXInterface {
 	static get NEOS_THUMBNAILS_OLD() {
 		return "https://cloudxstorage.blob.core.windows.net/thumbnails/";
 	}
-	/**
+	/**.
 	 * Get the Neos Thumbnail Endpoint
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -553,8 +575,9 @@ class CloudXInterface {
 	static get NEOS_THUMBNAILS() {
 		return "https://cloudxoperationalblob.blob.core.windows.net/thumbnails/";
 	}
-	/**
+	/**.
 	 * Neos Server Info Endpoint
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -562,8 +585,9 @@ class CloudXInterface {
 	static get NEOS_INSTALL() {
 		return "https://cloudx2.azureedge.net/install/";
 	}
-	/**
+	/**.
 	 * Video CDN Server
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -571,8 +595,9 @@ class CloudXInterface {
 	static get NEOS_ASSETS_VIDEO_CDN() {
 		return "https://cloudx2.azureedge.net/assets/";
 	}
-	/**
+	/**.
 	 * Get the Blob
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -582,7 +607,7 @@ class CloudXInterface {
 			? "https://cloudxstorage.blob.core.windows.net/"
 			: "https://cloudx2.azureedge.net/";
 	}
-	/**
+	/**.
 	 * Recalculate Server Ping and Response Time
 	 *
 	 * @readonly
@@ -601,8 +626,9 @@ class CloudXInterface {
 			? ServerStatus.Slow
 			: ServerStatus.Good;
 	}
-	/**
+	/**.
 	 * Overrideable function to handle Errors
+	 *
 	 * @abstract
 	 * @param {...*} error
 	 * @memberof CloudXInterface
@@ -611,8 +637,9 @@ class CloudXInterface {
 		//Overridable Error Output
 		throw new Error(...error);
 	}
-	/**
+	/**.
 	 * Overrideable Function to handle Debug messages
+	 *
 	 * @param {...*} vars - Unpredictable number of arguments
 	 * @abstract
 	 * @memberof CloudXInterface
@@ -621,7 +648,7 @@ class CloudXInterface {
 		//Overrideable
 		console.log(...vars);
 	}
-	/**
+	/**.
 	 * The Current User Object
 	 *
 	 * @memberof CloudXInterface
@@ -641,8 +668,9 @@ class CloudXInterface {
 		userUpdated(this._currentUser);
 	}
 
-	/**
+	/**.
 	 * The Current Session Object
+	 *
 	 * @instance
 	 * @returns {UserSession} Logged In Session - Contains Sensative Info
 	 * @memberof CloudXInterface
@@ -705,7 +733,7 @@ class CloudXInterface {
 			);
 		}
 	}
-	/**
+	/**.
 	 *The Curent Memberships, Will return Null if this.Update has not been run
 	 *
 	 * @instance
@@ -743,8 +771,9 @@ class CloudXInterface {
 			})
 		).GetEnumerator();
 	}
-	/**
+	/**.
 	 * Get Group from Id
+	 *
 	 * @param {string} groupId
 	 * @instance
 	 * @returns {Group}
@@ -755,8 +784,9 @@ class CloudXInterface {
 			return item["groupId"] === groupId;
 		});
 	}
-	/**
+	/**.
 	 * Get Current User Group Membershop
+	 *
 	 * @param {string} groupId
 	 * @returns {Member}
 	 * @instance
@@ -767,8 +797,9 @@ class CloudXInterface {
 			return item["groupId"] === groupId;
 		});
 	}
-	/**
+	/**.
 	 * Get User is member of groupId
+	 *
 	 * @param {string} groupId
 	 * @instance
 	 * @memberof CloudXInterface
@@ -787,26 +818,30 @@ class CloudXInterface {
 			return item["groupId"] === groupId;
 		});
 	}
-	/**
+	/**.
 	 * Redefineable Function for Hooks
+	 *
 	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	OnLogin() {}
-	/**
+	/**.
 	 * Redefineable Function for Hooks
+	 *
 	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	OnLogout() {}
-	/**
+	/**.
 	 * Redefineable Function for Hooks
+	 *
 	 * @instance
 	 * @memberof CloudXInterface
 	 */
 	OnSessionUpdated() {}
-	/**
+	/**.
 	 * Initializing Function, Setup local managers
+	 *
 	 * @param {String} [UserAgentProduct="CloudX"] Agent ie. NeosJS
 	 * @param {String} [UserAgentVersion="0.0.0.0"] Version ie v1.5.6
 	 */
@@ -828,8 +863,9 @@ class CloudXInterface {
 		this.Transactions = new TransactionManager(this);
 		this.GitHub = GitHubClient;
 	}
-	/**
+	/**.
 	 * Main Update Call
+	 *
 	 * @instance
 	 * @memberof CloudXInterface
 	 */
@@ -871,8 +907,9 @@ class CloudXInterface {
 			}
 		}
 	}
-	/**
+	/**.
 	 * Does the current user potentially have API access
+	 *
 	 * @param {String} ownerId
 	 * @instance
 	 * @returns {boolean}
@@ -890,8 +927,9 @@ class CloudXInterface {
 			return false;
 		}
 	}
-	/**
+	/**.
 	 * Set the user memberhsips - Local
+	 *
 	 * @param {List<Membership>} memberships
 	 * @instance
 	 * @memberof CloudXInterface
@@ -901,8 +939,9 @@ class CloudXInterface {
 		this._groupMemberships.AddRange(memberships);
 		this.RunMembershipsUpdated();
 	}
-	/**
+	/**.
 	 * Add a user membership - Local
+	 *
 	 * @param {Membership} membership
 	 * @instance
 	 * @memberof CloudXInterface
@@ -911,8 +950,9 @@ class CloudXInterface {
 		this._groupMemberships.Add(membership);
 		this.RunMembershipsUpdated();
 	}
-	/**
+	/**.
 	 * Reset the membership cache
+	 *
 	 * @memberof CloudXInterface
 	 */
 	ClearMemberships() {
@@ -920,8 +960,9 @@ class CloudXInterface {
 		this._groupMemberships = new List();
 		this.RunMembershipsUpdated();
 	}
-	/**
+	/**.
 	 * Update Membership Events
+	 *
 	 * @async
 	 * @returns {Promise<void>}
 	 * @memberof CloudXInterface
@@ -934,8 +975,9 @@ class CloudXInterface {
 		if (membershipsUpdated == null) return;
 		membershipsUpdated(this._groupMemberships);
 	}
-	/**
+	/**.
 	 * Convert a neosdb:// to a http cdn url
+	 *
 	 * @static
 	 * @param {Uri} neosdb
 	 * @param {NeosDB_Endpoint} endpoint
@@ -967,8 +1009,9 @@ class CloudXInterface {
 		}
 		return new Uri(str4 + str3);
 	}
-	/**
+	/**.
 	 *  Filter Url's - Internal
+	 *
 	 * @static
 	 * @param {Uri} assetURL
 	 * @returns {Uri|void}
@@ -1016,8 +1059,9 @@ class CloudXInterface {
 		if (neosdb.Query == null || neosdb.Query === "") return null;
 		return neosdb.Query.substring(1);
 	}
-	/**
+	/**.
 	 * Thumbnail ID to HTTP
+	 *
 	 * @static
 	 * @param {string} id
 	 * @returns {string}
@@ -1030,8 +1074,9 @@ class CloudXInterface {
 				: CloudXInterface.NEOS_THUMBNAILS_OLD) + id
 		);
 	}
-	/**
+	/**.
 	 * Check if a string is a proper {@link #uri Uri}, Returns Uri on true, null on false
+	 *
 	 * @static
 	 * @param {string} url
 	 * @returns {Uri | null}
@@ -1051,8 +1096,9 @@ class CloudXInterface {
 	static IsValidNeosDBUri(uri) {
 		return !(uri.Scheme !== "neosdb") && uri.Segments.length >= 2;
 	}
-	/**
+	/**.
 	 * Check if a Uri is Legacy
+	 *
 	 * @static
 	 * @param {Uri} uri
 	 * @returns {Boolean}
@@ -1062,7 +1108,7 @@ class CloudXInterface {
 		if (uri.Scheme !== "neosdb") return false;
 		return uri.Segments[1].noExtension().length < 30;
 	}
-	/**
+	/**.
 	 * Make a Get Request
 	 *
 	 * @param {string} resource - Endpoint
@@ -1080,7 +1126,7 @@ class CloudXInterface {
 			throwOnError
 		);
 	}
-	/**
+	/**.
 	 * Make a Post Request
 	 *
 	 * @param {string} resource - Endpoint
@@ -1110,7 +1156,7 @@ class CloudXInterface {
 		}, TimeSpan.fromMinutes(60.0));
 	}
 	*/
-	/**
+	/**.
 	 * Make a Put Request
 	 *
 	 * @param {string} resource - Endpoint
@@ -1131,7 +1177,7 @@ class CloudXInterface {
 			throwOnError
 		);
 	}
-	/**
+	/**.
 	 * Make a Patch Request
 	 *
 	 * @param {string} resource - Endpoint
@@ -1152,7 +1198,7 @@ class CloudXInterface {
 			throwOnError
 		);
 	}
-	/**
+	/**.
 	 * Make a Delete Request
 	 *
 	 * @param {string} resource - Endpoint
@@ -1177,8 +1223,8 @@ class CloudXInterface {
 		//if (mime != null)
 	}
 */
-	/**
-	 * Build a Http Request
+	/**.
+	 * Build a Http Request.
 	 *
 	 * Fire request with {@link #cloudxinterfacecrunrequest RunRequest}
 	 *
@@ -1201,10 +1247,11 @@ class CloudXInterface {
 		httpRequestMessage.Headers.UserAgent = this.UserAgent.Value();
 		return httpRequestMessage;
 	}
-	/**
-	 * Add a body to a request
+	/**.
+	 * Add a body to a request.
 	 *
 	 * Internal
+	 *
 	 * @param {HttpRequestMessage} message
 	 * @instance
 	 * @param {*} entity - Content
@@ -1215,8 +1262,9 @@ class CloudXInterface {
 			CloudXInterface.JSON_MEDIA_TYPE["Content-Type"];
 		if (entity) message.Content = JSON.stringify(entity);
 	}
-	/**
+	/**.
 	 * Run a {@link #httprequestmessage HttpRequest}
+	 *
 	 * @see CloudXInterface#CreateRequest
 	 * @param {HttpRequestMessage} requestSource
 	 * @param {TimeSpan} timeout
@@ -1303,8 +1351,9 @@ class CloudXInterface {
 		}
 		return result1;
 	}
-	/**
+	/**.
 	 * Login to a Neos Account or Set a new Password via recoverCode (Sent to Email associated with account when reset requested)
+	 *
 	 * @param {string} credential - UserId, Email, or Username
 	 * @param {string} [password] - Password
 	 * @param {string} [sessionToken] - Can be used instead of password using a valid SessionToken
@@ -1312,6 +1361,7 @@ class CloudXInterface {
 	 * @param {Boolean} [rememberMe] - If set, Session will be valid for 7 days instead of 1.
 	 * @param {string} [recoverCode] - If set, password field will become the new account password
 	 * @param {string} [seviceId]
+	 * @param deviceId
 	 * @instance
 	 * @returns {Promise<CloudResult<UserSession>>}
 	 */
@@ -1358,8 +1408,9 @@ class CloudXInterface {
 			this.OnError("Error loging in: " + result.State + "\n" + result.Content);
 		return result;
 	}
-	/**
+	/**.
 	 * Extend the current session
+	 *
 	 * @returns {Promise<CloudResult<any>>}
 	 * @memberof CloudXInterface
 	 */
@@ -1367,7 +1418,7 @@ class CloudXInterface {
 		return await this.PATCH("api/userSessions", null, new TimeSpan());
 	}
 
-	/**
+	/**.
 	 * Register a new Neos Account
 	 *
 	 * @param {string} username
@@ -1392,7 +1443,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} email
@@ -1492,7 +1543,7 @@ class CloudXInterface {
 	}
 	*/
 	/**
-	 * @template R
+	 * @template R.
 	 *
 	 * @param {Uri} recordUri
 	 * @param {R} type
@@ -1570,16 +1621,16 @@ class CloudXInterface {
 	}
 	/**
 	 *
-	 * @param {Array<String> | List<String>|String} a Record ID's|Owner Id
-	 * @param {String} b Tag
-	 * @param {String} c Path
+	 * @param {Array<string> | List<string> | string} a - Record ID's|Owner Id.
+	 * @param {string} b - Tag.
+	 * @param {string} c - Path.
 	 */
 	GetRecords(a, b, c) {
 		if (a instanceof Array) return this.GetRecordsList(List.ToList(a));
 		if (a instanceof List) return this.GetRecordsList(a);
 		return this.GetRecordsFull(a, b, c);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {SearchParameters} search
@@ -1589,7 +1640,7 @@ class CloudXInterface {
 	FindRecords(search) {
 		return this.POST("/api/records/pagedSearch", search, new TimeSpan());
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} record
@@ -1672,7 +1723,7 @@ class CloudXInterface {
     
 	}
 	*/
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} ownerId
@@ -1863,7 +1914,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} groupId
@@ -1889,7 +1940,7 @@ class CloudXInterface {
 		);
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} member
@@ -1903,7 +1954,7 @@ class CloudXInterface {
 		);
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} groupId
@@ -1920,7 +1971,7 @@ class CloudXInterface {
 		return res;
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} groupId
@@ -2010,7 +2061,7 @@ class CloudXInterface {
 			return new Error("Invalid Owner Type: " + ownerId);
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {CloudVariableDefinition} definition
@@ -2066,10 +2117,11 @@ class CloudXInterface {
 	SerializatiOnErrorHandeler() {}
 	/**
 	 * Write a Variable
-	 * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used
-	 * @template T
-	 * @param {string | string} ownerId OwnerID | Path
-	 * @param {string | T} path Path or T
+	 * - If ownerId is Omitted and arguments are shifter, CurrentUser will be used.
+	 *
+	 * @template T.
+	 * @param {string | string} ownerId - OwnerID | Path.
+	 * @param {string | T} path - Path or T.
 	 * @param {T} [value]
 	 * @memberof CloudXInterface
 	 */
@@ -2135,7 +2187,7 @@ class CloudXInterface {
 			}
 		);
 	}
-	/**
+	/**.
 	 * Get User Status
 	 *
 	 * @param {string} userId
@@ -2151,8 +2203,9 @@ class CloudXInterface {
 			return b;
 		});
 	}
-	/**
+	/**.
 	 * Get Online User Statistics
+	 *
 	 * @returns {OnlineUserStats}
 	 * @memberof CloudXInterface
 	 */
@@ -2171,8 +2224,9 @@ class CloudXInterface {
 			(await this.GET("api/stats/hubPatrons", new TimeSpan())).Entity
 		);
 	}
-	/**
+	/**.
 	 * Get a random Exit Message
+	 *
 	 * @returns {ExitMessage}
 	 * @memberof CloudXInterface
 	 */
@@ -2181,8 +2235,9 @@ class CloudXInterface {
 			(await this.GET("api/exitMessage", new TimeSpan())).Entity
 		);
 	}
-	/**
+	/**.
 	 * Get a list of Transaction Rates
+	 *
 	 * @param {string} [baseCurrency="USD"]
 	 * @returns {CurrencyRates}
 	 * @memberof CloudXInterface
@@ -2197,7 +2252,7 @@ class CloudXInterface {
 			).Entity
 		);
 	}
-	/**
+	/**.
 	 * Update the User Status
 	 * -If not userId is supplied, uses Current User, Refer to Examples
 	 *
@@ -2217,7 +2272,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	/**
+	/**.
 	 * Update the User Profile
 	 *
 	 * @param {string | UserProfile} userId
@@ -2238,11 +2293,12 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {string | Date} userId
 	 * @param {Date} [lastStatusUpdate = null]
+	 * @param count
 	 * @memberof CloudXInterface
 	 * @returns {Promise<CloudResult<List<Friend>>>}
 	 */
@@ -2264,7 +2320,7 @@ class CloudXInterface {
 			return b;
 		});
 	}
-	/**
+	/**.
 	 * Add a Friend Record
 	 *
 	 * @param {Friend} friend
@@ -2282,7 +2338,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	/**
+	/**.
 	 * Remove a Friend
 	 *
 	 * @param {Friend|string} friend
@@ -2304,7 +2360,8 @@ class CloudXInterface {
 	}
 	/**
 	 * Send a Message Object
-	 * - Requires Sender be friends with Recipient
+	 * - Requires Sender be friends with Recipient.
+	 *
 	 * @param {Message} message
 	 * @returns {Promise<CloudResult<Message>>}
 	 * @memberof CloudXInterface
@@ -2316,7 +2373,7 @@ class CloudXInterface {
 			new TimeSpan()
 		);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {Transaction} transaction
@@ -2338,7 +2395,7 @@ class CloudXInterface {
 	}
 	/**
 	 * @private
-	 * @param {String} baseId
+	 * @param {string} baseId
 	 * @param {VerificationKeyUse} use
 	 * @memberof CloudXInterface
 	 */
@@ -2356,7 +2413,8 @@ class CloudXInterface {
 	}
 	/**
 	 * Internal
-	 * check if user is friends with atleast 1 contact
+	 * check if user is friends with atleast 1 contact.
+	 *
 	 * @async
 	 * @private
 	 * @param {CheckContactData} data
@@ -2373,8 +2431,9 @@ class CloudXInterface {
 			? new CloudResult(false, cloudResult.State, cloudResult.Content)
 			: new CloudResult(true, cloudResult.State, null);
 	}
-	/**
+	/**.
 	 * Return all unread messages
+	 *
 	 * @returns {Promise<CloudResult<List<Message>>>}
 	 * @param {Date} [fromTime=null]
 	 * @memberof CloudXInterface
@@ -2382,7 +2441,7 @@ class CloudXInterface {
 	async GetUnreadMessages(fromTime = null) {
 		return await this.GetMessages(fromTime, -1, null, true);
 	}
-	/**
+	/**.
 	 * Get message history with `user`
 	 *
 	 * @param {string} user
@@ -2393,7 +2452,7 @@ class CloudXInterface {
 	async GetMessageHistory(user, maxItems = 100) {
 		return await this.GetMessages(new Date(0), maxItems, user, false);
 	}
-	/**
+	/**.
 	 * Get messages
 	 *
 	 * @param {Date} [fromTime]
@@ -2424,7 +2483,7 @@ class CloudXInterface {
 			return b;
 		});
 	}
-	/**
+	/**.
 	 * Mark Messages as Read
 	 *
 	 * @param {List<String>} messageIds
@@ -2443,7 +2502,7 @@ class CloudXInterface {
 			return await this.MarkMessagesRead(messageIds.map((m) => m.Id));
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {SessionUpdate} update
@@ -2453,7 +2512,7 @@ class CloudXInterface {
 	async UpdateSessions(update) {
 		return await this.PUT("api/sessions/", update, new TimeSpan());
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {string} sessionId Session Id
@@ -2470,8 +2529,9 @@ class CloudXInterface {
 		);
 	}
 
-	/**
+	/**.
 	 * Get a list of sessions
+	 *
 	 * @param {Date} updateSince
 	 * @param {Boolean} includeEnded
 	 * @param {String} compatibilityHash
@@ -2528,7 +2588,7 @@ class CloudXInterface {
 		});
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @returns {Promise<CloudResult>}
@@ -2554,7 +2614,7 @@ class CloudXInterface {
 			? -1
 			: result.Out;
 	}
-	/**
+	/**.
 	 * Fetch Neos Server Statistics
 	 *
 	 * @returns {Promise<CloudResult<ServerStatistics>>}
@@ -2588,7 +2648,7 @@ class CloudXInterface {
 
 	/**
 	 *
-	 * @returns {Promise<Number>}
+	 * @returns {Promise<number>}
 	 * @memberof CloudXInterface
 	 */
 	async GetOnlineUserCount() {

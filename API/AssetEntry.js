@@ -1,7 +1,8 @@
 const { ComputationLock } = require("./ComputationLock");
 /**
  * Asset Entry Object
- * Generic
+ * Generic.
+ *
  * @public
  * @class AssetEntry
  * @param {Object} $b
@@ -13,21 +14,25 @@ const { ComputationLock } = require("./ComputationLock");
  * @property {string} OwnerId
  * @property {T} Entry
  * @property {ComputationLock} ComputeLock
- * @template T
+ * @template T.
  */
 class AssetEntry {
 	constructor($b) {
 		if (!$b) $b = {};
-		/** Asset ID
+		/** Asset ID.
+		 *
 		 * @type {string} */
 		this.Id = $b.id || new String();
-		/** Owner ID - Hash
+		/** Owner ID - Hash.
+		 *
 		 * @type {string} */
 		this.OwnerId = $b.ownerId || new String();
-		/** Entry
+		/** Entry.
+		 *
 		 * @type {T} */
 		this.Entry = $b.entry || null;
-		/** Computation Lock
+		/** Computation Lock.
+		 *
 		 * @type {ComputationLock} */
 		this.ComputeLock;
 		if ($b.computeLock instanceof ComputationLock)
@@ -36,7 +41,8 @@ class AssetEntry {
 	}
 	/**
 	 * Asset hash.
-	 * Setting a new value will override OwnerId
+	 * Setting a new value will override OwnerId.
+	 *
 	 * @public
 	 * @memberof AssetEntry
 	 * @type {string}

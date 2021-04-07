@@ -1,7 +1,7 @@
 const { List } = require("./List");
 const { PicturePatreon } = require("./PicturePatreon");
 
-/**
+/**.
  *
  *
  * @class HubPatreons
@@ -9,6 +9,7 @@ const { PicturePatreon } = require("./PicturePatreon");
 class HubPatreons {
 	/**
 	 *Creates an instance of HubPatreons.
+	 *
 	 * @param {{
 	 * "patron-names": List<string>,
 	 * "patron-pictures": List<PicturePatreon>

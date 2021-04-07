@@ -3,13 +3,15 @@ const { Path } = require("./Path");
 const { Uri } = require("./Uri");
 const SHA256 = require("crypto-js/sha256");
 const fs = require("fs");
-/**
+/**.
  * Utility Class for working with Assets
+ *
  * @class AssetUtil
  */
 class AssetUtil {
-	/**
+	/**.
 	 * Compute Version
+	 *
 	 * @readonly
 	 * @static
 	 * @memberof AssetUtil
@@ -18,8 +20,9 @@ class AssetUtil {
 	static get COMPUTE_VERSION() {
 		return 4;
 	}
-	/**
+	/**.
 	 * Generate a SHA256 hash signature for a file
+	 *
 	 * @static
 	 * @param {Buffer | string} file File Stream or Path to file
 	 * @memberof AssetUtil
@@ -33,7 +36,7 @@ class AssetUtil {
 			return SHA256(file.toString()).toString().replace("-", "").toLowerCase();
 		}
 	}
-	/**
+	/**.
 	 * Generate a NeosDB Asset Url
 	 *
 	 * @static
@@ -46,7 +49,7 @@ class AssetUtil {
 		if (!extension.startsWith(".")) extension = "." + extension;
 		return new Uri("neosdb:///" + signature + extension);
 	}
-	/**
+	/**.
 	 * Extract the signature [And Extension] from a URI
 	 *
 	 * @static
@@ -61,8 +64,9 @@ class AssetUtil {
 		extension.Out = Path.GetExtension(segment);
 		return Path.GetFileNameWithoutExtension(segment);
 	}
-	/**
+	/**.
 	 * Append a Variant Identifier to a signature
+	 *
 	 * @static
 	 * @param {string} signature
 	 * @param {string} variant
@@ -73,8 +77,9 @@ class AssetUtil {
 		if (String.IsNullOrWhiteSpace(variant)) return signature;
 		return signature + "&" + variant;
 	}
-	/**
+	/**.
 	 * Split the Varient and Signature from a Variant Identifier
+	 *
 	 * @static
 	 * @param {string} identifier
 	 * @param {Out<String>} [signature]

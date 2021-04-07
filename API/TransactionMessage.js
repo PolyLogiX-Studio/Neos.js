@@ -1,6 +1,7 @@
 class TransactionMessage {
 	/**
 	 *Creates an instance of TransactionMessage.
+	 *
 	 * @param {{
 	 * token: string,
 	 * recipientId: string,

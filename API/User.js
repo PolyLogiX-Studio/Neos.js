@@ -5,8 +5,9 @@ const { AccountType } = require("./AccountType");
 const { UserProfile } = require("./UserProfile");
 const { Dictionary } = require("./Dictionary");
 const { List } = require("./List");
-/**
+/**.
  * User Object
+ *
  * @class User
  * @classdesc User
  * @param {{}} $b

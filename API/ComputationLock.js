@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
-/**
+/**.
  * Unused
+ *
  * @class ComputationLock
  * @param {object} $b
  * @param {string} $b.token
@@ -14,8 +15,9 @@ class ComputationLock {
 		/**@type {Date}*/
 		this.ExpireTimestamp = $b.timestamp || new Date();
 	}
-	/**
+	/**.
 	 * Is the lock currently in use
+	 *
 	 * @readonly
 	 * @memberof ComputationLock
 	 */
@@ -25,8 +27,9 @@ class ComputationLock {
 			new Date() > this.ExpireTimestamp
 		);
 	}
-	/**
+	/**.
 	 * Try to Lock
+	 *
 	 * @param {Date} duration
 	 * @returns {Boolean}
 	 * @memberof ComputationLock
@@ -37,7 +40,7 @@ class ComputationLock {
 		this.ExpireTimestamp = new Date() + duration;
 		return true;
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} token
@@ -50,7 +53,7 @@ class ComputationLock {
 		this.ExpireTimestamp = new Date() + duration;
 		return true;
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {*} token

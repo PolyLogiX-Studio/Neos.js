@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for UploadState
+ *
  * @readonly
  * @enum {Enumerable<string>} UploadState
  * @property {"UploadingChunks"} UploadingChunks

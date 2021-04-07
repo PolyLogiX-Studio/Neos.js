@@ -1,6 +1,7 @@
 const { UploadState } = require("./UploadState");
-/**
+/**.
  * Asset Upload Data Object
+ *
  * @class AssetUploadData
  * @template UploadState
  * @param {Object} $b

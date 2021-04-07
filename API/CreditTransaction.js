@@ -1,6 +1,7 @@
 const { TransactionType } = require("./TransactionType");
-/**
+/**.
  * Credit Transaction Object
+ *
  * @class CreditTransaction
  * @param {object} $b
  * @param {string} $b.token

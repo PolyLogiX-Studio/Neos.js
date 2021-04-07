@@ -1,5 +1,5 @@
 /**
- * @file NeosVR CloudX.Shared Library for Node. Entry: {@link Neos Neos}
+ * @file NeosVR CloudX.Shared Library for Node. Entry: {@link Neos Neos}.
  * @name Neos.js
  * @author {@link https://github.com/bombitmanbomb @bombitmanbomb } - Library Main Developer
  * @author {@link https://github.com/Frooxius @Frooxius } - C# Library Dev
@@ -32,15 +32,16 @@
 
 /**
  * Passed to the Neos contructor to setup the client. See {@link Neos Neos} for Default Values.
+ *
  * @typedef {NeosGeneratorOptions} NeosGeneratorOptions
- * @property {boolean} [AutoReadMessages] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
+ * @property {boolean} [AutoReadMessages] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event.
  * @property {OnlineStatus} [OnlineState] - Online User Status, Displayed in User List.
  * @property {number} [StatusInterval] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
- * @property {string} [NeosVersion] - Defaults to the Library version. Use to display a custom "Neos Version"
+ * @property {string} [NeosVersion] - Defaults to the Library version. Use to display a custom "Neos Version".
  * @property {string} [CompatabilityHash] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
- * @property {number} [UpdateInterval] - Internal Update interval in `ms`. Reccomended: 1000
+ * @property {number} [UpdateInterval] - Internal Update interval in `ms`. Reccomended: 1000.
  * @property {boolean} [Update] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
- * @property {number} [MultiMessageDelay] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
+ * @property {number} [MultiMessageDelay] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`.
  */
 const { CloudX } = require("./API");
 const config = require("./package.json");
@@ -54,22 +55,24 @@ class Events extends EventEmitter {
 
 /**
  * Creates an instance of the NeosJS Client.
- * @class Neos
- * @extends {EventEmitter}
+ *
+ * @class Neos.
+ * @augments {EventEmitter}
  * @param {NeosGeneratorOptions} [options]
- * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
+ * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event.
  * @param {OnlineStatus} [options.OnlineState="Online"] - Online User Status, Displayed in User List.
  * @param {number} [options.StatusInterval=60] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
- * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version"
+ * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version".
  * @param {string} [options.CompatabilityHash="Neos.js ${PackageVersion}"] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
- * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000
+ * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000.
  * @param {boolean} [options.Update=true] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
- * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
- * @classdesc Neos
+ * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`.
+ * @classdesc Neos.
  */
 class Neos extends EventEmitter {
-	/**
+	/**.
 	 * CloudX Library, Contains all Classes and Files
+	 *
 	 * @readonly
 	 * @instance
 	 * @returns {CloudX}
@@ -85,15 +88,16 @@ class Neos extends EventEmitter {
 	}
 	/**
 	 * Creates an instance of the NeosJS Client.
+	 *
 	 * @param {NeosGeneratorOptions} [options]
-	 * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event
+	 * @param {boolean} [options.AutoReadMessages=true] - Auto Mark messages as Read in the API when handled by the {@link #neoseventneosmessagereceived Neos#messageReceived} event.
 	 * @param {OnlineStatus} [options.OnlineState="Online"] - Online User Status, Displayed in User List.
 	 * @param {number} [options.StatusInterval=60] - How Frequent to update the user status. Will trigger {@link #neoseventneosstatusUpdated Neos#statusUpdated}.
-	 * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version"
+	 * @param {string} [options.NeosVersion="Neos.js ${PackageVersion}"] - Defaults to the Library version. Use to display a custom "Neos Version".
 	 * @param {string} [options.CompatabilityHash="Neos.js ${PackageVersion}"] - Determines Version Compatability Hash, Used by clients to determing if a session is the same version.
-	 * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000
+	 * @param {number} [options.UpdateInterval=1000] - Internal Update interval in `ms`. Reccomended: 1000.
 	 * @param {boolean} [options.Update=true] - Enable State of the Internal Update loop. Only reccomend setting this to `false` if you know what you are doing.
-	 * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`
+	 * @param {number} [options.MultiMessageDelay=1100] - MultiMessage Delay for sending messages in `ms`. Reccomend over `1000ms`.
 	 * @private
 	 */
 	constructor(options) {
@@ -114,6 +118,7 @@ class Neos extends EventEmitter {
 		if (options.DeviceId == null) options.DeviceId = uuidv4();
 		/**
 		 * Instance of {@link CloudXInterface}, Handles most of the API logic and events.
+		 *
 		 * @instance
 		 * @type {CloudXInterface}
 		 * @memberof Neos
@@ -297,7 +302,7 @@ class Neos extends EventEmitter {
 	/**
 	 *
 	 * @private
-	 * @returns void
+	 * @returns Void.
 	 * @memberof Neos
 	 */
 	Update() {
@@ -315,8 +320,9 @@ class Neos extends EventEmitter {
 				return this.UpdateStatus();
 		}
 	}
-	/**
+	/**.
 	 * Update the Neos Account status
+	 *
 	 * @instance
 	 * @since 1.0.0
 	 * @memberof Neos
@@ -327,7 +333,7 @@ class Neos extends EventEmitter {
 		this.Status.LastStatusChange = new Date();
 		this.CloudXInterface.UpdateStatus(this.Status);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {string} credential Email, UserId, or Account Username
@@ -361,8 +367,9 @@ class Neos extends EventEmitter {
 		);
 	}
 
-	/**
+	/**.
 	 * Logout
+	 *
 	 * @instance
 	 * @param {boolean} [manual=true]
 	 * @since 1.0.0
@@ -371,8 +378,9 @@ class Neos extends EventEmitter {
 	Logout(manual = true) {
 		this.CloudXInterface.Logout(manual);
 	}
-	/**
+	/**.
 	 * Get the Current User
+	 *
 	 * @instance
 	 * @readonly
 	 * @memberof Neos
@@ -381,8 +389,9 @@ class Neos extends EventEmitter {
 	get CurrentUser() {
 		return this.CloudXInterface.CurrentUser;
 	}
-	/**
+	/**.
 	 * Get the Current Session
+	 *
 	 * @instance
 	 * @readonly
 	 * @since 1.0.0
@@ -392,8 +401,9 @@ class Neos extends EventEmitter {
 	get CurrentSession() {
 		return this.CloudXInterface.CurrentSession;
 	}
-	/**
+	/**.
 	 *Get User Memberships
+	 *
 	 * @instance
 	 * @readonly
 	 * @since 1.0.0
@@ -414,8 +424,9 @@ class Neos extends EventEmitter {
 	get CurrentUserGroupInfos() {
 		return this.CloudXInterface.CurrentUserGroupInfos;
 	}
-	/**
+	/**.
 	 * Search neos for username
+	 *
 	 * @instance
 	 * @param {string} username
 	 * @since 1.0.0
@@ -425,8 +436,9 @@ class Neos extends EventEmitter {
 	async GetUsers(username) {
 		return (await this.CloudXInterface.GetUsers(username)).Entity;
 	}
-	/**
+	/**.
 	 *Get a specific User by their UserId
+	 *
 	 * @instance
 	 * @param {string} userId
 	 * @returns {User} User Object
@@ -436,8 +448,9 @@ class Neos extends EventEmitter {
 	async GetUser(userId) {
 		return (await this.CloudXInterface.GetUser(userId)).Entity;
 	}
-	/**
-	 * get a specific User by their username
+	/**.
+	 * Get a specific User by their username
+	 *
 	 * @param {string} username
 	 * @instance
 	 * @returns {User}
@@ -447,8 +460,9 @@ class Neos extends EventEmitter {
 	async GetUserByName(username) {
 		return (await this.CloudXInterface.GetUserByName(username)).Entity;
 	}
-	/**
+	/**.
 	 * Get the friends list of a user
+	 *
 	 * @instance
 	 * @param {string} userId
 	 * @returns {List<Friend>}
@@ -458,8 +472,9 @@ class Neos extends EventEmitter {
 	async GetFriends(userId) {
 		return (await this.CloudXInterface.GetFriends(userId)).Entity;
 	}
-	/**
-	 * get a user from your friend list
+	/**.
+	 * Get a user from your friend list
+	 *
 	 * @instance
 	 * @param {string} friendId
 	 * @returns {User}
@@ -469,8 +484,9 @@ class Neos extends EventEmitter {
 	GetFriend(friendId) {
 		return this.CloudXInterface.Friends.GetFriend(friendId);
 	}
-	/**
+	/**.
 	 * Check if a user is friends
+	 *
 	 * @instance
 	 * @param {string} friendId
 	 * @returns {Boolean}
@@ -482,10 +498,11 @@ class Neos extends EventEmitter {
 	}
 	/**
 	 * Send or Accept a friend request
-	 * - pass the Friend Object
+	 * - pass the Friend Object.
+	 *
 	 * @instance
-	 * @param {String | Friend} friend
-	 * @returns void
+	 * @param {string | Friend} friend
+	 * @returns Void.
 	 * @since 1.0.0
 	 * @memberof Neos
 	 */
@@ -494,10 +511,11 @@ class Neos extends EventEmitter {
 	}
 	/**
 	 * Remove a user from your friends list
-	 * - pass the Friend Object
+	 * - pass the Friend Object.
+	 *
 	 * @instance
 	 * @param {*} friend
-	 * @returns void
+	 * @returns Void.
 	 * @since 1.0.0
 	 * @memberof Neos
 	 */
@@ -506,18 +524,20 @@ class Neos extends EventEmitter {
 	}
 	/**
 	 * Ignore a Friend Request
-	 *  - pass the Friend Object
+	 *  - pass the Friend Object.
+	 *
 	 * @instance
 	 * @param {*} friend
-	 * @returns void
+	 * @returns Void.
 	 * @since 1.0.0
 	 * @memberof Neos
 	 */
 	IgnoreRequest(friend) {
 		return this.CloudXInterface.Friends.IgnoreRequest(friend);
 	}
-	/**
+	/**.
 	 *Get a Neos Group
+	 *
 	 * @instance
 	 * @param {*} groupId
 	 * @returns {Group}
@@ -527,8 +547,9 @@ class Neos extends EventEmitter {
 	async GetGroup(groupId) {
 		(await this.CloudXInterface.GetGroup(groupId)).Entity;
 	}
-	/**
+	/**.
 	 *Get a Member from a Group
+	 *
 	 * @instance
 	 * @param {String} groupId
 	 * @param {String} userId
@@ -539,8 +560,9 @@ class Neos extends EventEmitter {
 	async GetGroupMember(groupId, userId) {
 		(await this.CloudXInterface.GetGroupMember(groupId, userId)).Entity;
 	}
-	/**
+	/**.
 	 *Get the Members of a group and their Byte Usage
+	 *
 	 * @instance
 	 * @param {String} groupId
 	 * @returns {List<Member>}
@@ -550,8 +572,9 @@ class Neos extends EventEmitter {
 	async GetGroupMembers(groupId) {
 		return (await this.CloudXInterface.GetGroupMembers(groupId)).Entity;
 	}
-	/**
+	/**.
 	 * Get cached messages with a user
+	 *
 	 * @instance
 	 * @param {String} UserId
 	 * @returns {UserMessages}
@@ -561,8 +584,9 @@ class Neos extends EventEmitter {
 	async GetUserMessages(UserId) {
 		return await this.CloudXInterface.Messages.GetUserMessages(UserId);
 	}
-	/**
+	/**.
 	 *Get all Cached messages
+	 *
 	 * @instance
 	 * @returns {List<Message>}
 	 * @since 1.0.0
@@ -573,8 +597,9 @@ class Neos extends EventEmitter {
 		this.CloudXInterface.Friends.GetAllUserMessages(messages);
 		return messages;
 	}
-	/**
+	/**.
 	 *Get messages and add them to the cache
+	 *
 	 * @instance
 	 * @param {Date} [fromTime=new Date]
 	 * @param {Number} [maxItems=100]
@@ -599,8 +624,9 @@ class Neos extends EventEmitter {
 			)
 		).Entity;
 	}
-	/**
+	/**.
 	 * Send a Read Reciept, Messages will not show in UnreadMessages query
+	 *
 	 * @instance
 	 * @param {Array<String> | List<String> | String} messageIds
 	 * @returns *
@@ -612,8 +638,9 @@ class Neos extends EventEmitter {
 			messageIds = [messageIds];
 		return this.CloudXInterface.MarkMessagesRead(messageIds);
 	}
-	/**
+	/**.
 	 *Get History of messages with a user
+	 *
 	 * @instance
 	 * @param {String} userId
 	 * @param {number} [maxItems=100]
@@ -625,8 +652,9 @@ class Neos extends EventEmitter {
 		return (await this.CloudXInterface.GetMessageHistory(userId, maxItems))
 			.Entity;
 	}
-	/**
+	/**.
 	 *Get the status of a user
+	 *
 	 * @instance
 	 * @param {String} userId
 	 * @returns {UserStatus} UserStatus
@@ -636,8 +664,9 @@ class Neos extends EventEmitter {
 	async GetStatus(userId) {
 		return (await this.CloudXInterface.GetStatus(userId)).Entity;
 	}
-	/**
+	/**.
 	 * Not Yet Implimented
+	 *
 	 * @param {SearchParameters} record
 	 * @instance
 	 * @since 1.0.0
@@ -646,8 +675,9 @@ class Neos extends EventEmitter {
 	// eslint-disable-next-line no-unused-vars
 	FindRecords(record) {}
 
-	/**
+	/**.
 	 * Get the number of friends in a Session
+	 *
 	 * @instance
 	 * @param {SessionInfo} session
 	 * @returns {Number} Friends in Session
@@ -658,8 +688,9 @@ class Neos extends EventEmitter {
 		return this.CloudXInterface.Friends.CountPresentFriends(session);
 	}
 
-	/**
+	/**.
 	 * Get a random Exit Message
+	 *
 	 * @instance
 	 * @returns {ExitMessage}
 	 * @since 1.0.0
@@ -668,8 +699,9 @@ class Neos extends EventEmitter {
 	async GetRandomExitMessage() {
 		return this.CloudXInterface.GetRandomExitMessage();
 	}
-	/**
+	/**.
 	 * Get currency transaction rates
+	 *
 	 * @instance
 	 * @param {string} [baseCurrency="USD"]
 	 * @returns {CurrencyRates}
@@ -679,8 +711,9 @@ class Neos extends EventEmitter {
 	async GetCurrencyRates(baseCurrency = "USD") {
 		return this.CloudXInterface.GetCurrencyRates(baseCurrency);
 	}
-	/**
+	/**.
 	 *Not yet Implimented
+	 *
 	 * @instance
 	 * @param {*} ownerId
 	 * @param {*} recordId
@@ -692,11 +725,12 @@ class Neos extends EventEmitter {
 	/**
 	 * Send a Text Message.
 	 * If Message is longer than 128 characters it will be chunked as there is a character limit
-	 * if a Message element in an Array is longer than 128 characters it will be cut off with "..." by the server
+	 * if a Message element in an Array is longer than 128 characters it will be cut off with "..." by the server.
+	 *
 	 * @instance
 	 * @since 1.0.0
-	 * @param {String} UserId Neos User Id to send
-	 * @param {String | Array<String>} Message Message or Array of Messages to Send
+	 * @param {string} UserId - Neos User Id to send.
+	 * @param {string | Array<string>} Message - Message or Array of Messages to Send.
 	 * @memberof Neos
 	 */
 	async SendTextMessage(UserId, Message) {
@@ -744,14 +778,14 @@ class Neos extends EventEmitter {
 	/**
 	 *
 	 * @instance
-	 * @param {String} neosdb neosdb:///URL
-	 * @param {Number} endpoint Options:
+	 * @param {string} neosdb - Neosdb:///URL.
+	 * @param {number} endpoint - Options:
 	 * - 0 - Default
 	 * - 1 - Blob
 	 * - 2 - CDN
 	 * - 3 - VideoCDN
-	 * - null - Default
-	 * @returns {String} http address to neosdb asset
+	 * - null - Default.
+	 * @returns {string} Http address to neosdb asset.
 	 * @memberof Neos
 	 * @since 1.7.1
 	 * @example Neos.GetUser("U-bombitmanbomb").then((User)=>{
@@ -786,8 +820,9 @@ class Neos extends EventEmitter {
 	LeaveSession() {}
 }
 
-/**
+/**.
  * Message Received
+ *
  * @example Neos.on("messageReceived", (message)=>{
  * 	switch(message.MessageType){
  * 		case "Text":
@@ -802,77 +837,77 @@ class Neos extends EventEmitter {
  * @type {Message}
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#groupMemberUpdated
  * @since 1.0.0
  * @type {Member}
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#messageCountChanged
  * @type {Number}
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#friendAdded
  * @type {Friend}
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#friendUpdated
  * @type {Friend}
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#friendRemoved
  * @type {Friend}
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#friendRequestCountChanged
  * @type {Number}
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#friendsChanged
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#groupUpdated
  * @since 1.0.0
  * @memberof Neos
  */
-/**
- * membershipsUpdated
+/**.
+ * MembershipsUpdated
  *
  * @event Neos#membershipsUpdated
  * @since 1.0.0
  * @memberof Neos
  */
 
-/**
+/**.
  * User Updated
  *
  * @event Neos#userUpdated
@@ -880,7 +915,7 @@ class Neos extends EventEmitter {
  * @type {User}
  * @memberof Neos
  */
-/**
+/**.
  * Session Changed
  *
  * @event Neos#sessionChanged
@@ -888,15 +923,16 @@ class Neos extends EventEmitter {
  * @type {UserSession}
  * @memberof Neos
  */
-/**
+/**.
  * Session Updated
  *
  * @event Neos#sessionUpdated
  * @since 1.0.0
  * @memberof Neos
  */
-/**
+/**.
  * Error Event
+ *
  * @example Neos.on("error", (err)=>{console.error(err)})
  * @event Neos#error
  * @param {Error} err
@@ -904,8 +940,9 @@ class Neos extends EventEmitter {
  * @since 1.0.0
  * @memberof Neos
  */
-/**
+/**.
  * Console Event
+ *
  * @example Neos.on("debug", (info)=>{console.log(info))})
  * @event Neos#debug
  * @param {any} info
@@ -913,14 +950,14 @@ class Neos extends EventEmitter {
  * @since 1.13.0
  * @memberof Neos
  */
-/**
+/**.
  * Logout Event
  *
  * @event Neos#logout
  * @since 1.0.0
  * @memberof Neos
  */
-/**
+/**.
  * Login Event
  *
  * @example Neos.on("login", ()=>{
@@ -938,9 +975,9 @@ class Neos extends EventEmitter {
 /**
  * @private
  *
- * @param {String} str
- * @param {Number} len
- * @returns {Array<String>}
+ * @param {string} str
+ * @param {number} len
+ * @returns {Array<string>}
  */
 function chunkSubstr(str, len) {
 	let input = str.trim().split(" ");

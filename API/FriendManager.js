@@ -46,7 +46,7 @@ class FriendManager {
 		});
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @param {CloudXInterface} cloud
@@ -57,17 +57,18 @@ class FriendManager {
 	}
 	/**
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 * @readonly
 	 * @memberof FriendManager
 	 */
 	get FriendCount() {
 		return this.friends.Count;
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {List<Friend>} list
+	 * @param friendId
 	 * @memberof FriendManager
 	 */
 	GetFriends(friendId) {
@@ -84,7 +85,7 @@ class FriendManager {
 		}
 	}
 
-	/**
+	/**.
 	 *
 	 *
 	 * @param {Action<Friend>} action
@@ -95,7 +96,7 @@ class FriendManager {
 			action(friend.Value);
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {List<SessionInfo>} sessions
@@ -113,7 +114,7 @@ class FriendManager {
 			action(friendSession.Value);
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {string} friendId
@@ -138,7 +139,7 @@ class FriendManager {
 		return false;
 	}
 
-	/**
+	/**.
 	 *	Get the number of friends in a session
 	 *
 	 * @param {SessionInfo} session
@@ -162,7 +163,7 @@ class FriendManager {
 
 	/**
 	 *
-	 * @param {(String | Friend)} friend
+	 * @param {(string | Friend)} friend
 	 * @memberof FriendManager
 	 */
 	AddFriend(friend) {
@@ -196,7 +197,7 @@ class FriendManager {
 		this.Cloud.UpsertFriend(friend);
 		this.AddedOrUpdated(friend);
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {Friend} friend
@@ -220,7 +221,7 @@ class FriendManager {
 			}
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @param {Friend} friend

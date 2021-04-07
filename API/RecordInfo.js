@@ -1,6 +1,7 @@
 class RecordInfo {
 	/**
 	 *Creates an instance of RecordInfo.
+	 *
 	 * @param {{
 	 * recordId: string,
 	 * ownerId: string,

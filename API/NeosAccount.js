@@ -4,7 +4,7 @@ class NeosAccount {
 	 *
 	 * @static
 	 * @param {AccountType} type
-	 * @returns {Number}
+	 * @returns {number}
 	 * @memberof NeosAccount
 	 */
 	static MinCents(type) {
@@ -34,7 +34,7 @@ class NeosAccount {
 			throw new Error("Invalid AccountType: " + type);
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @static
@@ -68,7 +68,7 @@ class NeosAccount {
 			return "Unknown Account Type";
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @static
@@ -113,7 +113,7 @@ class NeosAccount {
 			throw new Error("Invalid AccountType: " + type);
 		}
 	}
-	/**
+	/**.
 	 *
 	 *
 	 * @static

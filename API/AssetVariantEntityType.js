@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for AccountType
+ *
  * @readonly
  * @enum {Enumerable<string>} AssetVariantEntityType
  * @property {"BitmapMetadata"} BitmapMetadata

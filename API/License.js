@@ -1,6 +1,7 @@
 class License {
 	/**
 	 *Creates an instance of License.
+	 *
 	 * @param {{
 	 * licenseGroup: string,
 	 * licenseKey: string,

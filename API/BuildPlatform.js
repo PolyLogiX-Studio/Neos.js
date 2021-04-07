@@ -1,6 +1,7 @@
 const { Enumerable } = require("./Enumerable");
-/**
+/**.
  * Enumberable for BuildPlatform
+ *
  * @readonly
  * @enum {Enumerable<string>} BuildPlatform
  * @property {"Windows_x64"} Windows_x64

@@ -1,5 +1,6 @@
-/**
+/**.
  * Test
+ *
  * @class HttpResponseMessage
  */
 class HttpResponseMessage {

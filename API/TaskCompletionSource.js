@@ -1,5 +1,5 @@
 /**
- * @template T
+ * @template T.
  * @class TaskCompletionSource
  */
 class TaskCompletionSource {

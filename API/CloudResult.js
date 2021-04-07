@@ -1,6 +1,6 @@
 /**
  *
- * @template T
+ * @template T.
  * @class CloudResult
  * @param {Class} entity
  * @param {HttpStatusCode<number>} state
@@ -23,7 +23,7 @@ class CloudResult {
 	 * @instance
 	 * @param {HttpStatusCode<number>} state
 	 * @param {string} content
-	 * @param {Object} headers - Internal Use
+	 * @param {Object} headers - Internal Use.
 	 * @memberof CloudResult
 	 */
 	CloudResult(state, content, headers) {
@@ -46,8 +46,9 @@ class CloudResult {
 			this.Content = content;
 		}
 	}
-	/**
-	 * get the Result Content Entity
+	/**.
+	 * Get the Result Content Entity
+	 *
 	 * @readonly
 	 * @instance
 	 * @returns {string}
@@ -58,6 +59,7 @@ class CloudResult {
 	}
 	/**
 	 * Is Valid?
+	 *
 	 * @instance
 	 * @readonly
 	 * @returns {boolean}
@@ -78,8 +80,9 @@ class CloudResult {
 	get IsError() {
 		return !this.IsOK;
 	}
-	/**
+	/**.
 	 * Get the Status Code
+	 *
 	 * @instance
 	 * @returns {number}
 	 * @readonly
@@ -88,8 +91,9 @@ class CloudResult {
 	get StatusCode() {
 		return this.State;
 	}
-	/**
+	/**.
 	 * Is the status code successfull
+	 *
 	 * @instance
 	 * @memberof CloudResult
 	 * @readonly

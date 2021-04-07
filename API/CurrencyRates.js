@@ -1,19 +1,20 @@
 const { Dictionary } = require("./Dictionary");
-/**
+/**.
  * Currency Rates
+ *
  * @class CurrencyRates
  */
 class CurrencyRates {
 	constructor($b) {
 		/**
 		 * @instance
-		 * @type {String}
+		 * @type {string}
 		 * @memberof CurrencyRates
 		 */
 		this.BaseCurrency = $b.base;
 		/**
 		 * @instance
-		 * @type {Dictionary<String, Number>}
+		 * @type {Dictionary<string, number>}
 		 * @memberof CurrencyRates
 		 */
 		this.Rates =

@@ -1,6 +1,7 @@
 class NeosDBAsset {
 	/**
 	 *Creates an instance of NeosDBAsset.
+	 *
 	 * @param {{
 	 * hash: string,
 	 * bytes: number

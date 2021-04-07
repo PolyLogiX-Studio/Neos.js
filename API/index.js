@@ -1,5 +1,6 @@
-/**
+/**.
  * CloudX Library
+ *
  * @typedef CloudX
  * @author @bombitmanbomb
  *

@@ -33,7 +33,7 @@ class UserStatus {
 	}
 	/**
 	 *
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 * @param {UserStatus} other
 	 * @memberof UserStatus
 	 */
@@ -46,19 +46,19 @@ class UserStatus {
 			return false;
 		return true; //TODO remove when implimented
 		/**
-		let activeSessions1 = this.ActiveSessions;
-		let num1 = activeSessions1 != null ? activeSessions1.Count : 0;
+		Let activeSessions1 = this.ActiveSessions;
+		let num1 = activeSessions1 != null ? ActiveSessions1.Count : 0;
 		let activeSessions2 = this.ActiveSessions;
-		let num2 = activeSessions2 != null ? activeSessions2.Count : 0;
+		let num2 = activeSessions2 != null ? ActiveSessions2.Count : 0;
 		let activeSessions3 = other.ActiveSessions;
-		let num3 = activeSessions3 != null ? activeSessions3.Count : 0;
+		let num3 = activeSessions3 != null ? ActiveSessions3.Count : 0;
 		if (num2 != num3) return false;
 		for (let index = 0; index < num1; index++) {
 			if (!this.ActiveSessions[index].IsSame(other.ActiveSessions[index]))
 				return false;
 		}
-		return true;
-		*/
+		return true;.
+		 */
 	}
 	SortSessions() {
 		if (this.ActiveSessions == null) return;
