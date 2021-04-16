@@ -1,16 +1,18 @@
 const { AccountType } = require("./AccountType");
+const { List } = require("./List");
 const { NeosAccount } = require("./NeosAccount");
+const { PatreonSnapshot } = require("./PatreonSnapshot");
 class UserPatreonData {
 	constructor($b) {
 		if (!$b) $b = {};
 		this.MIN_WORLD_ACCESS_CENTS = 600;
 		this.ACTIVATION_LENGTH = 40;
 		this.Email = $b.email;
+		this.LastPatreonEmail = $b.lastPatreonEmail;
 		this.IsPatreonSupporter = $b.isPatreonSupporter;
 		this.PatreonID = $b.patreonId;
 		this.LastPatreonPledgeCents = $b.lastPatreonPledgeCents;
 		this.LastTotalCents = $b.lastTotalCents;
-		this.LastTotalUnits = $b.lastTotalUnits;
 		this.MinimumTotalUnits = $b.minimumTotalUnits;
 		this.ExternalCents = $b.externalCents;
 		this.LastExternalCents = $b.lastExternalCents;
@@ -25,6 +27,21 @@ class UserPatreonData {
 				? $b.lastActivationTime
 				: new Date($b.lastActivationTime || 0);
 		this.LastPaidPledgeAmount = $b.lastPaidPledgeAmount;
+		if ($b.snapshots instanceof List) {
+			this.Snapshots = $b.snapshots;
+		} else {
+			let Snapshots = new List();
+			if (Array.isArray($b.snapshots)) {
+				for (let snapshot of $b.snapshots) {
+					Snapshots.Add(
+						snapshot instanceof PatreonSnapshot
+							? snapshot
+							: new PatreonSnapshot(snapshot)
+					);
+				}
+			}
+			this.Snapshots = Snapshots;
+		}
 	}
 	/**
 	 * @returns {AccountType}
@@ -60,11 +77,12 @@ class UserPatreonData {
 	get PledgedAccountType() {
 		return UserPatreonData.GetAccountType(this.LastPatreonPledgeCents);
 	}
-	/**
+	/**.
+	 * //TODO REDO
 	 *
 	 * @public
 	 * @param {number} currentTotalCents
-	 * @param currentTotalUnits
+	 * @param currentTotalCents
 	 * @param currencyRate
 	 * @param findMatchingPledge
 	 * @param {Out<boolean>} extendedPlus
@@ -72,16 +90,16 @@ class UserPatreonData {
 	 * @memberof UserPatreonData
 	 */
 	UpdatePatreonStatus(
-		currentTotalUnits,
+		currentTotalCents,
 		currencyRate,
 		findMatchingPledge,
 		extendedPlus
 	) {
 		if (
-			currentTotalUnits < this.MinimumTotalUnits &&
+			currentTotalCents < this.MinimumTotalUnits &&
 			this.MinimumTotalUnits > 0
 		) {
-			currentTotalUnits = this.MinimumTotalUnits;
+			currentTotalCents = this.MinimumTotalUnits;
 			currencyRate = 1.0;
 		}
 		extendedPlus.Out = false;
@@ -90,7 +108,7 @@ class UserPatreonData {
 			this.LastTotalUnits = this.LastTotalCents;
 			flag = true;
 		}
-		let num1 = currentTotalUnits - this.LastTotalUnits;
+		let num1 = currentTotalCents - this.LastTotalUnits;
 		//TODO Approximate Currency Rate
 		let num2 = num1 + (this.ExternalCents - this.LastExternalCents);
 		if (num2 <= 0) {
@@ -102,7 +120,7 @@ class UserPatreonData {
 		this.LastPaidPledgeAmount = num2;
 		extendedPlus.Out = true;
 		this.LastTotalCents += num2;
-		this.LastTotalUnits = currentTotalUnits;
+		this.LastTotalUnits = currentTotalCents;
 		this.LastExternalCents = this.ExternalCents;
 		this.UpdateMetadata();
 		return true;

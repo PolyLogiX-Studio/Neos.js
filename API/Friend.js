@@ -42,6 +42,18 @@ class Friend {
 			return true;
 		return false;
 	}
+	toJSON() {
+		return {
+			id: this.FriendUserId,
+			ownerId: this.OwnerId,
+			friendUsername: this.FriendUsername,
+			friendStatus: this.FriendStatus,
+			isAccepted: this.IsAccepted,
+			userStatus: this.UserStatus,
+			latestMessageTime: this.LatestMessageTime,
+			profile: this.Profile,
+		};
+	}
 }
 module.exports = {
 	Friend,

@@ -48,6 +48,7 @@ class RecordHelper {
 		record.IsListed = source.IsListed;
 		record.FirstPublishTime = source.FirstPublishTime;
 		record.CreationTime = source.CreationTime;
+		record.OwnerName = source.OwnerName;
 		record.Visits = source.Visits;
 		record.Rating = source.Rating;
 		return record;

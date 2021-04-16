@@ -35,6 +35,8 @@ class Build {
 					}
 					return ch;
 				  })();
+
+		this.BranchSpecific = $b.branchSpecific;
 	}
 }
 module.exports = {

@@ -2238,15 +2238,19 @@ class CloudXInterface {
 	/**.
 	 * Get a list of Transaction Rates
 	 *
+	 * @param appID
 	 * @param {string} [baseCurrency="USD"]
 	 * @returns {CurrencyRates}
 	 * @memberof CloudXInterface
 	 */
-	async GetCurrencyRates(baseCurrency = "USD") {
+	async GetCurrencyRates(appID, baseCurrency = "USD") {
 		return new CurrencyRates(
 			(
 				await this.GET(
-					"https://api.exchangeratesapi.io/latest?base=" + baseCurrency,
+					"https://openexchangerates.org/api/latest.json?app_id=" +
+						appID +
+						"&base=" +
+						baseCurrency,
 					new TimeSpan()
 				)
 			).Entity

@@ -36,6 +36,8 @@ class Build {
 				: List.ToList($b.knownIssues);
 		/**@type {List<string>} */
 		this.Notes = $b.notes instanceof List ? $b.notes : List.ToList($b.notes);
+		this.Branch = $b.branch;
+		this.MergedBranch = $b.mergedBranch;
 	}
 }
 module.exports = {
