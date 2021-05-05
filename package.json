@@ -8,7 +8,8 @@
 		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
 		"document": "jsdoc -t node_modules/docdash ./Neos.js ./API/ -c jsdoc.json -d ./docs/",
 		"document-old": "documentation build Neos.js API/*.js -f html -o docs --config .documentation.yml --sort-order alpha",
-		"ready": "npm run document && npm run lint"
+		"ready": "npm run document && npm run lint",
+		"build": ""
 	},
 	"repository": {
 		"type": "git",
@@ -20,12 +21,6 @@
 		"url": "https://github.com/PolyLogiX-Studio/Neos.js/issues"
 	},
 	"homepage": "https://github.com/PolyLogiX-Studio/Neos.js#readme",
-	"dependencies": {
-		"crypto-js": "^4.0.0",
-		"decimal.js": "^10.2.1",
-		"node-fetch": "^2.6.1",
-		"uuid": "^8.3.1"
-	},
 	"peerDependencies": {
 		"@octokit/rest": "^18.2.0",
 		"neosjs-commands": "^1.0.2",
@@ -54,7 +49,8 @@
 		"eslint": "^7.12.1",
 		"eslint-plugin-jsdoc": "^33.0.0",
 		"jsdoc-tsimport-plugin": "^1.0.5",
-		"prettier": "^2.1.2"
+		"prettier": "^2.1.2",
+		"typescript": "^4.2.4"
 	},
 	"engines": {
 		"node": ">=12.0.0"
