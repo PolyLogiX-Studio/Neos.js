@@ -1,2 +1,4 @@
 .API/
 /docs
+/dist
+/node_modules
