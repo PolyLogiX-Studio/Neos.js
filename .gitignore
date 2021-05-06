@@ -4,3 +4,5 @@ node_modules/
 CloudX.Shared/
 omnisharp.json
 UpdateCheck.WinMerge
+tsconfig.tsbuildinfo
+dist/

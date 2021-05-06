@@ -1,15 +1,14 @@
 {
 	"name": "@bombitmanbomb/neosjs",
-	"version": "1.15.2",
+	"version": "2.0.0",
 	"description": "Neos API",
 	"main": "Neos.js",
 	"scripts": {
 		"test": "node Tests/Test.js --unhandled-rejections=strict",
-		"lint": "prettier --use-tabs --write . && eslint -c .eslintrc.json --fix .",
-		"document": "jsdoc -t node_modules/docdash ./Neos.js ./API/ -c jsdoc.json -d ./docs/",
-		"document-old": "documentation build Neos.js API/*.js -f html -o docs --config .documentation.yml --sort-order alpha",
+		"lint": "prettier --use-tabs --write ./src && eslint -c .eslintrc.json --fix .",
+		"document": "jsdoc -t node_modules/docdash ./src -c jsdoc.json -d ./docs/",
 		"ready": "npm run document && npm run lint",
-		"build": ""
+		"build": "Del dist /S /Q && tsc"
 	},
 	"repository": {
 		"type": "git",
@@ -22,17 +21,9 @@
 	},
 	"homepage": "https://github.com/PolyLogiX-Studio/Neos.js#readme",
 	"peerDependencies": {
-		"@octokit/rest": "^18.2.0",
-		"neosjs-commands": "^1.0.2",
-		"neosjs-headless-interface": "^2.3.2"
+		"@octokit/rest": "^18.2.0"
 	},
 	"peerDependenciesMeta": {
-		"neosjs-headless-interface": {
-			"optional": true
-		},
-		"neosjs-commands": {
-			"optional": true
-		},
 		"@octokit/rest": {
 			"optional": true
 		}
@@ -53,6 +44,6 @@
 		"typescript": "^4.2.4"
 	},
 	"engines": {
-		"node": ">=12.0.0"
+		"node": ">=14.0.0"
 	}
 }
