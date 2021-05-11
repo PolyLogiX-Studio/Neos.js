@@ -41,7 +41,7 @@
 		"@typescript-eslint/parser": "^4.22.1",
 		"docdash": "^1.2.0",
 		"documentation": "^13.1.0",
-		"dotenv": "^8.2.0",
+		"dotenv": "^9.0.2",
 		"eslint": "^7.12.1",
 		"eslint-plugin-jsdoc": "^33.1.0",
 		"jsdoc-tsimport-plugin": "^1.0.5",
