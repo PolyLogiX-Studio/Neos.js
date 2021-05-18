@@ -1,5 +1,6 @@
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD041 -->
+<b>NOTE</b> Use the Legacy Branch for Javascript. Master is the typescript rework. All future releases will be Typescript.
 
 API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation Server, Find that at [neos-js](https://github.com/fruchtfolge/neos-js)
 
