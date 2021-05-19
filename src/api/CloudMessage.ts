@@ -3,9 +3,12 @@ export class CloudMessage {
 	constructor($b: CloudMessageJSON) {
 		this.Message = $b.Message;
 	}
-	public static ExtractMessage(content: CloudMessage | string): string {
-		if (content instanceof CloudMessage) return content.Message;
-		return content;
+	public static ExtractMessage(content: string): string {
+		try {
+			return JSON.parse(content)?.Message ?? content;
+		} catch (error) {
+			return content;
+		}
 	}
 	toJSON(): CloudMessageJSON {
 		return { Message: this.Message };
