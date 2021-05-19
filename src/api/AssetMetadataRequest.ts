@@ -2,5 +2,5 @@
  * @class AssetMetadataRequest
  */
 export class AssetMetadataRequest {
-  public MAX_BATCH_SIZE = 32
+	public MAX_BATCH_SIZE = 32;
 }
