@@ -1,3 +1,4 @@
+import type { ComputationLock } from "./ComputationLock";
 /** AssetEntry Type
  * @class AssetEntry
  * @template E
@@ -5,7 +6,7 @@
 export class AssetEntry<E> {
 	public Id: string;
 	public OwnerId: string;
-	public ComputeLock: any;
+	public ComputeLock: ComputationLock;
 	public Entry: any;
 	constructor($b: AssetEntryJSON<E>) {
 		this.Id = $b.id;
@@ -38,5 +39,5 @@ interface AssetEntryJSON<E> {
 	id: string;
 	ownerId: string;
 	entry: E;
-	computeLock: any;
+	computeLock: ComputationLock;
 }
