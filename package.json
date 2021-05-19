@@ -43,7 +43,7 @@
 		"documentation": "^13.1.0",
 		"dotenv": "^8.2.0",
 		"eslint": "^7.12.1",
-		"eslint-plugin-jsdoc": "^33.1.0",
+		"eslint-plugin-jsdoc": "^34.8.1",
 		"jsdoc-tsimport-plugin": "^1.0.5",
 		"prettier": "^2.1.2",
 		"typescript": "^4.2.4",
