@@ -5,4 +5,5 @@ CloudX.Shared/
 omnisharp.json
 UpdateCheck.WinMerge
 tsconfig.tsbuildinfo
+lib/
 dist/

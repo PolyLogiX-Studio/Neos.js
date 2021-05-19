@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@babel/core': ^7.12.10
   '@babel/plugin-transform-flow-strip-types': ^7.12.1
+  '@bombitmanbomb/utils': ^2.1.4
   '@types/minimist': ^1.2.0
   '@types/node': ^15.0.2
   '@types/normalize-package-data': ^2.4.0
@@ -18,6 +19,9 @@ specifiers:
   prettier: ^2.1.2
   typescript: ^4.2.4
   typescript-eslint: ^0.0.1-alpha.0
+
+dependencies:
+  '@bombitmanbomb/utils': 2.1.4
 
 devDependencies:
   '@babel/core': 7.14.0
@@ -291,6 +295,11 @@ packages:
       '@babel/helper-validator-identifier': 7.14.0
       to-fast-properties: 2.0.0
     dev: true
+
+  /@bombitmanbomb/utils/2.1.4:
+    resolution: {integrity: sha512-2esTvXvfXcpLd5YZENdyIbPIuI3fR6GitIy+DWzM3u+JEETxC5Tq9yCkuJ6nd5jx4X0pON3q/ifVYYgL5Qq4vQ==}
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   /@es-joy/jsdoccomment/0.4.3:
     resolution: {integrity: sha512-t0JWZfQiG+Qkr6+tl05dlGcgE/MMPqs7QfNlFkTsbpcCu2Zfukcan/fIiHKTc0iOs4Yh3cnfklMayJnlmKaOwQ==}
