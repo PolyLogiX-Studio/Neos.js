@@ -1,4 +1,6 @@
 .API/
 /docs
 /dist
+/lib
+/CloudX.Shared
 /node_modules

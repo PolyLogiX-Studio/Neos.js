@@ -3,11 +3,12 @@ lockfileVersion: 5.3
 specifiers:
   '@babel/core': ^7.12.10
   '@babel/plugin-transform-flow-strip-types': ^7.12.1
-  '@bombitmanbomb/utils': ^2.1.4
+  '@bombitmanbomb/utils': 2.3.0
   '@types/minimist': ^1.2.0
   '@types/node': ^15.0.2
   '@types/normalize-package-data': ^2.4.0
   '@types/unist': ^2.0.3
+  '@types/uuid': ^8.3.0
   '@typescript-eslint/eslint-plugin': ^4.22.1
   '@typescript-eslint/parser': ^4.22.1
   docdash: ^1.2.0
@@ -19,9 +20,11 @@ specifiers:
   prettier: ^2.1.2
   typescript: ^4.2.4
   typescript-eslint: ^0.0.1-alpha.0
+  uuid: ^8.3.2
 
 dependencies:
-  '@bombitmanbomb/utils': 2.1.4
+  '@bombitmanbomb/utils': 2.3.0
+  uuid: 8.3.2
 
 devDependencies:
   '@babel/core': 7.14.0
@@ -30,6 +33,7 @@ devDependencies:
   '@types/node': 15.0.2
   '@types/normalize-package-data': 2.4.0
   '@types/unist': 2.0.3
+  '@types/uuid': 8.3.0
   '@typescript-eslint/eslint-plugin': 4.22.1_f2cf9a191be19a59b06aad4f4e4a9af1
   '@typescript-eslint/parser': 4.22.1_eslint@7.25.0+typescript@4.2.4
   docdash: 1.2.0
@@ -296,8 +300,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@bombitmanbomb/utils/2.1.4:
-    resolution: {integrity: sha512-2esTvXvfXcpLd5YZENdyIbPIuI3fR6GitIy+DWzM3u+JEETxC5Tq9yCkuJ6nd5jx4X0pON3q/ifVYYgL5Qq4vQ==}
+  /@bombitmanbomb/utils/2.3.0:
+    resolution: {integrity: sha512-Infbl1ytOnQmXUmDSQR8AMg/SbH0k2HEtZFejXK0efafBiSQMtakBfZCK13WYOnENU+8Md67OcZR6tIfNQhziw==}
     engines: {node: '>=14.0.0'}
     dev: false
 
@@ -372,6 +376,10 @@ packages:
 
   /@types/unist/2.0.3:
     resolution: {integrity: sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==}
+    dev: true
+
+  /@types/uuid/8.3.0:
+    resolution: {integrity: sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/4.22.1_f2cf9a191be19a59b06aad4f4e4a9af1:
@@ -4750,6 +4758,11 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
     dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
