@@ -155,7 +155,7 @@ export class CloudVariableHelper {
 		)
 			return false;
 		ownerId.Out = path.substr(0, separatorIndex.Out);
-		switch (IdUtil.GetOwnerType(ownerId)) {
+		switch (IdUtil.GetOwnerType(ownerId.Out)) {
 		case OwnerType.User:
 		case OwnerType.Group:
 			subpath.Out = path.substr((separatorIndex.Out as number) + 1);
