@@ -165,47 +165,70 @@ export class CloudVariableHelper {
 			return false;
 		}
 	}
-  public static RequiresDefinitionOwner(permission:string):boolean{return permission.startsWith("definition_owner")}
-  public static RequiresVariableOwner(permission:string):boolean{return permission.startsWith("variable_owner")}
+	public static RequiresDefinitionOwner(permission: string): boolean {
+		return permission.startsWith("definition_owner");
+	}
+	public static RequiresVariableOwner(permission: string): boolean {
+		return permission.startsWith("variable_owner");
+	}
 	public static TargetContactsOnly(permission: string): boolean {
 		return permission.includes("only_contacts");
 	}
-  public static TargetDefinitionOwnerOnly(permission:string):boolean{
-    return permission.includes("definition_owner_only") && !CloudVariableHelper.TargetContactsOnly(permission)
-  }
-  public static AllowsPublicAccess(permission:string):boolean{
-    return permission == "anyone" || permission.endsWith("unsafe")
-  }
-  public static ParseValue<T>(encodedValue:string, type:string, value:Out<T>):boolean{
-    let cloudVariableParser
-    if (type == null || type.trim() == ""){
-      cloudVariableParser = CloudVariableHelper.GetUnsafeValueParser<T>()
-      if (cloudVariableParser == null)
-      throw new Error("Unsupported type:") //TODO
-    } else {
-      cloudVariableParser = CloudVariableHelper.GetValueParser(type)
-      if (cloudVariableParser == null) throw new Error("Unsupported Type: "+type)
-    }
-    let [flag, obj1] = cloudVariableParser(encodedValue)
-    if (flag && obj1){
-      value.Out = obj1 as T
-      return true 
-    }
-    return false
-  }
-  public static EncodeValue<T>(value:T):string{
-  return "false" //TODO
-  }
-  public static GetUnsafeValueParser<T>():(encodedValue:string)=>[boolean,T]{
-    return (a)=>{return [false, "" as unknown as T]} //TODO
-  }
-  public static IsValidValue(type:string, value:string):boolean{
-    return false //TODO
-  }
-  public static GetValueParser(type:string):(encodedValue:string)=>[boolean,unknown]{
-    return (a)=>{return [false, ""]} //TODO
-  }
-  public static GetComplexValueParser(type:string):(encodedValue:string)=>[boolean,unknown]{
-    return (a)=>{return [false, ""]} //TODO
-  }
+	public static TargetDefinitionOwnerOnly(permission: string): boolean {
+		return (
+			permission.includes("definition_owner_only") &&
+			!CloudVariableHelper.TargetContactsOnly(permission)
+		);
+	}
+	public static AllowsPublicAccess(permission: string): boolean {
+		return permission == "anyone" || permission.endsWith("unsafe");
+	}
+	public static ParseValue<T>(
+		encodedValue: string,
+		type: string,
+		value: Out<T>
+	): boolean {
+		let cloudVariableParser;
+		if (type == null || type.trim() == "") {
+			cloudVariableParser = CloudVariableHelper.GetUnsafeValueParser<T>();
+			if (cloudVariableParser == null) throw new Error("Unsupported type:"); //TODO
+		} else {
+			cloudVariableParser = CloudVariableHelper.GetValueParser(type);
+			if (cloudVariableParser == null)
+				throw new Error("Unsupported Type: " + type);
+		}
+		const [flag, obj1] = cloudVariableParser(encodedValue);
+		if (flag && obj1) {
+			value.Out = obj1 as T;
+			return true;
+		}
+		return false;
+	}
+	public static EncodeValue<T>(value: T): string {
+		return "false"; //TODO
+	}
+	public static GetUnsafeValueParser<T>(): (
+		encodedValue: string
+	) => [boolean, T] {
+		return (a) => {
+			return [false, ("" as unknown) as T];
+		}; //TODO
+	}
+	public static IsValidValue(type: string, value: string): boolean {
+		return false; //TODO
+	}
+	public static GetValueParser(
+		type: string
+	): (encodedValue: string) => [boolean, unknown] {
+		return (a) => {
+			return [false, ""];
+		}; //TODO
+	}
+	public static GetComplexValueParser(
+		type: string
+	): (encodedValue: string) => [boolean, unknown] {
+		return (a) => {
+			return [false, ""];
+		}; //TODO
+	}
 }
