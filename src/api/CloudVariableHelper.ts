@@ -2,6 +2,7 @@ import { VariablePermissionType } from "./VariablePermissionType";
 import { OwnerType } from "./OwnerType";
 import { List, Out } from "@bombitmanbomb/utils";
 import { IdUtil } from "./IdUtil";
+//TODO BaseX Interface
 export class CloudVariableHelper {
 	public static MAX_SUBPATH_LENGTH = 256;
 	public static MAX_STRING_LENGTH = 8192;
@@ -154,10 +155,57 @@ export class CloudVariableHelper {
 		)
 			return false;
 		ownerId.Out = path.substr(0, separatorIndex.Out);
-		switch (IdUtil.GetOwnerType(ownerId.Out)) {
+		switch (IdUtil.GetOwnerType(ownerId)) {
+		case OwnerType.User:
+		case OwnerType.Group:
+			subpath.Out = path.substr((separatorIndex.Out as number) + 1);
+			return true;
+		default:
+			ownerId.Out = void 0;
+			return false;
 		}
 	}
+  public static RequiresDefinitionOwner(permission:string):boolean{return permission.startsWith("definition_owner")}
+  public static RequiresVariableOwner(permission:string):boolean{return permission.startsWith("variable_owner")}
 	public static TargetContactsOnly(permission: string): boolean {
 		return permission.includes("only_contacts");
 	}
+  public static TargetDefinitionOwnerOnly(permission:string):boolean{
+    return permission.includes("definition_owner_only") && !CloudVariableHelper.TargetContactsOnly(permission)
+  }
+  public static AllowsPublicAccess(permission:string):boolean{
+    return permission == "anyone" || permission.endsWith("unsafe")
+  }
+  public static ParseValue<T>(encodedValue:string, type:string, value:Out<T>):boolean{
+    let cloudVariableParser
+    if (type == null || type.trim() == ""){
+      cloudVariableParser = CloudVariableHelper.GetUnsafeValueParser<T>()
+      if (cloudVariableParser == null)
+      throw new Error("Unsupported type:") //TODO
+    } else {
+      cloudVariableParser = CloudVariableHelper.GetValueParser(type)
+      if (cloudVariableParser == null) throw new Error("Unsupported Type: "+type)
+    }
+    let [flag, obj1] = cloudVariableParser(encodedValue)
+    if (flag && obj1){
+      value.Out = obj1 as T
+      return true 
+    }
+    return false
+  }
+  public static EncodeValue<T>(value:T):string{
+  return "false" //TODO
+  }
+  public static GetUnsafeValueParser<T>():(encodedValue:string)=>[boolean,T]{
+    return (a)=>{return [false, "" as unknown as T]} //TODO
+  }
+  public static IsValidValue(type:string, value:string):boolean{
+    return false //TODO
+  }
+  public static GetValueParser(type:string):(encodedValue:string)=>[boolean,unknown]{
+    return (a)=>{return [false, ""]} //TODO
+  }
+  public static GetComplexValueParser(type:string):(encodedValue:string)=>[boolean,unknown]{
+    return (a)=>{return [false, ""]} //TODO
+  }
 }
