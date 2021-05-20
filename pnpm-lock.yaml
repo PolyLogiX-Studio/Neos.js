@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@babel/core': ^7.12.10
   '@babel/plugin-transform-flow-strip-types': ^7.12.1
-  '@bombitmanbomb/utils': 2.3.0
+  '@bombitmanbomb/utils': 2.4.0
   '@types/minimist': ^1.2.0
   '@types/node': ^15.0.2
   '@types/normalize-package-data': ^2.4.0
@@ -23,7 +23,7 @@ specifiers:
   uuid: ^8.3.2
 
 dependencies:
-  '@bombitmanbomb/utils': 2.3.0
+  '@bombitmanbomb/utils': 2.4.0
   uuid: 8.3.2
 
 devDependencies:
@@ -300,8 +300,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@bombitmanbomb/utils/2.3.0:
-    resolution: {integrity: sha512-Infbl1ytOnQmXUmDSQR8AMg/SbH0k2HEtZFejXK0efafBiSQMtakBfZCK13WYOnENU+8Md67OcZR6tIfNQhziw==}
+  /@bombitmanbomb/utils/2.4.0:
+    resolution: {integrity: sha512-sDnsk0zSczCg1/ZCaUWOX6aK7hoUHF5s2YlGpXFq7QciT9ZwmiKWktzvR4ZYyfzpTdNmZaYg3cdTSvX3Ia5kmg==}
     engines: {node: '>=14.0.0'}
     dev: false
 
