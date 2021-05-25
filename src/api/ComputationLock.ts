@@ -34,7 +34,7 @@ export class ComputationLock {
 		return { token: this.Token, timestamp: this.ExpireTimestamp };
 	}
 }
-interface ComputationLockJSON {
+export interface ComputationLockJSON {
 	token: string;
 	timestamp: Date;
 }
