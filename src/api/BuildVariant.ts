@@ -1,5 +1,5 @@
-import type { List } from "@bombitmanbomb/utils";
-import type { BuildFile } from "./BuildFile";
+import { List } from "@bombitmanbomb/utils";
+import { BuildFile } from "./BuildFile";
 import type { BuildPlatform } from "./BuildPlatform";
 import type { BuildRuntime } from "./BuildRuntime";
 
@@ -14,7 +14,8 @@ export class BuildVariant {
 		this.Platform = $b.platform;
 		this.Runtime = $b.runtime;
 		this.PackageSignature = $b.packageSignature;
-		this.Files = $b.files;
+		this.Files =
+			$b.files instanceof List ? $b.files : List.ToListAs($b.files, BuildFile);
 	}
 	toJSON(): BuildVariantJSON {
 		return {
@@ -26,10 +27,10 @@ export class BuildVariant {
 		};
 	}
 }
-interface BuildVariantJSON {
+export interface BuildVariantJSON {
 	versionNumber: string;
 	platform: BuildPlatform;
 	runtime: BuildRuntime;
 	packageSignature: string;
-	files: List<BuildFile>;
+	files: BuildFile[];
 }
