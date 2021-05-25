@@ -21,7 +21,8 @@
 		"quotes": ["error", "double"],
 		"semi": ["error", "always"],
 		"no-mixed-spaces-and-tabs": "off",
-		"@typescript-eslint/no-explicit-any":"off"
+		"@typescript-eslint/no-explicit-any":"off",
+		"@typescript-eslint/no-this-alias":"off"
 	},
 	"plugins": ["jsdoc", "@typescript-eslint"],
 	"settings": {
