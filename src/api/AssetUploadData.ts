@@ -28,7 +28,7 @@ export class AssetUploadData {
 		};
 	}
 }
-interface AssetUploadDataJSON {
+export interface AssetUploadDataJSON {
 	signature: string;
 	variant: string;
 	ownerId: string;
