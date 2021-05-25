@@ -21,7 +21,7 @@ export class AssetDiff {
 		};
 	}
 }
-interface AssetDiffJSON {
+export interface AssetDiffJSON {
 	hash: string;
 	bytes: number;
 	state: Diff;
