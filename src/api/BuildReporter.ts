@@ -18,7 +18,7 @@ export class BuildReporter {
 		};
 	}
 }
-interface BuildReporterJSON {
+export interface BuildReporterJSON {
 	username: string;
 	neosUserID: string;
 	discordHandle: string;
