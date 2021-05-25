@@ -41,7 +41,7 @@ export class CloudVariable {
 		};
 	}
 }
-interface CloudVariableJSON {
+export interface CloudVariableJSON {
 	ownerId: string;
 	path: string;
 	value: string;
