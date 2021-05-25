@@ -282,7 +282,9 @@ export class CloudVariableProxy {
 	}
 	private RunChangedEvent(): void {
 		try {
-			const valueChanged = this._valueChanged as (a: CloudVariableProxy) => unknown;
+			const valueChanged = this._valueChanged as (
+				a: CloudVariableProxy
+			) => unknown;
 			if (valueChanged == null) return;
 			valueChanged(this);
 		} catch (ex) {
