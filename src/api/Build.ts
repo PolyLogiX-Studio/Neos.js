@@ -1,5 +1,5 @@
-import type { List } from "@bombitmanbomb/utils";
-import type { BuildChange } from "./BuildChange";
+import { List } from "@bombitmanbomb/utils";
+import { BuildChange } from "./BuildChange";
 export class Build {
 	public VersionNumber: string;
 	public AlternateVersionNumber: string;
@@ -9,9 +9,15 @@ export class Build {
 	constructor($b: BuildJSON) {
 		this.VersionNumber = $b.versionNumber;
 		this.AlternateVersionNumber = $b.alternateVersionNumber;
-		this.Changes = $b.changes;
-		this.KnownIssues = $b.knownIssues;
-		this.Notes = $b.notes;
+		this.Changes =
+			$b.changes instanceof List
+				? $b.changes
+				: List.ToListAs($b.changes, BuildChange);
+		this.KnownIssues =
+			$b.knownIssues instanceof List
+				? $b.knownIssues
+				: List.ToList($b.knownIssues);
+		this.Notes = $b.notes instanceof List ? $b.notes : List.ToList($b.notes);
 	}
 	toJSON(): BuildJSON {
 		return {
@@ -23,10 +29,10 @@ export class Build {
 		};
 	}
 }
-interface BuildJSON {
+export interface BuildJSON {
 	versionNumber: string;
 	alternateVersionNumber: string;
-	changes: List<BuildChange>;
-	knownIssues: List<string>;
-	notes: List<string>;
+	changes: BuildChange[];
+	knownIssues: string[];
+	notes: string[];
 }
