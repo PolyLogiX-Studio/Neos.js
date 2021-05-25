@@ -1,4 +1,4 @@
-import type { List } from "@bombitmanbomb/utils";
+import { List } from "@bombitmanbomb/utils";
 export class CheckContactData {
 	OwnerId: string;
 	Verificationkey: string;
@@ -6,7 +6,8 @@ export class CheckContactData {
 	constructor($b: CheckContactDataJSON) {
 		this.OwnerId = $b.ownerId;
 		this.Verificationkey = $b.verificationKey;
-		this.Contacts = $b.contacts;
+		this.Contacts =
+			$b.contacts instanceof List ? $b.contacts : List.ToList($b.contacts);
 	}
 	toJSON(): CheckContactDataJSON {
 		return {
@@ -16,8 +17,8 @@ export class CheckContactData {
 		};
 	}
 }
-interface CheckContactDataJSON {
+export interface CheckContactDataJSON {
 	ownerId: string;
 	verificationKey: string;
-	contacts: List<string>;
+	contacts: string[];
 }
