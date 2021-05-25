@@ -1,4 +1,4 @@
-import type { List } from "@bombitmanbomb/utils";
+import { List } from "@bombitmanbomb/utils";
 export class CloudVariableDefinition {
 	DefinitionOwnerId: string;
 	Subpath: string;
@@ -12,9 +12,18 @@ export class CloudVariableDefinition {
 		this.Subpath = $b.subpath;
 		this.VariableType = $b.variableType;
 		this.DefaultValue = $b.defaultValue;
-		this.ReadPermissions = $b.readPermissions;
-		this.WritePermissions = $b.writePermissions;
-		this.ListPermissions = $b.listPermissions;
+		this.ReadPermissions =
+			$b.readPermissions instanceof List
+				? $b.readPermissions
+				: List.ToList($b.readPermissions);
+		this.WritePermissions =
+			$b.writePermissions instanceof List
+				? $b.writePermissions
+				: List.ToList($b.writePermissions);
+		this.ListPermissions =
+			$b.listPermissions instanceof List
+				? $b.listPermissions
+				: List.ToList($b.listPermissions);
 	}
 	toJSON(): CloudVariableDefinitionJSON {
 		return {
@@ -28,12 +37,12 @@ export class CloudVariableDefinition {
 		};
 	}
 }
-interface CloudVariableDefinitionJSON {
+export interface CloudVariableDefinitionJSON {
 	definitionOwnerId: string;
 	subpath: string;
 	variableType: string;
 	defaultValue: string;
-	readPermissions: List<string>;
-	writePermissions: List<string>;
-	listPermissions: List<string>;
+	readPermissions: string[];
+	writePermissions: string[];
+	listPermissions: string[];
 }
