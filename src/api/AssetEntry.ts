@@ -1,4 +1,5 @@
-import type { ComputationLock } from "./ComputationLock";
+import { ComputationLock } from "./ComputationLock";
+import type { ComputationLockJSON } from "./ComputationLock";
 /** AssetEntry Type
  * @class AssetEntry
  * @template E
@@ -11,7 +12,10 @@ export class AssetEntry<E> {
 	constructor($b: AssetEntryJSON<E>) {
 		this.Id = $b.id;
 		this.OwnerId = $b.ownerId;
-		this.ComputeLock = $b.computeLock;
+		this.ComputeLock =
+			$b.computeLock instanceof ComputationLock
+				? $b.computeLock
+				: new ComputationLock($b.computeLock);
 		this.Entry = $b.entry;
 	}
 	/** Asset Hash.
@@ -30,14 +34,14 @@ export class AssetEntry<E> {
 		return {
 			id: this.Id,
 			ownerId: this.OwnerId,
-			computeLock: this.ComputeLock,
+			computeLock: this.ComputeLock.toJSON(),
 			entry: this.Entry,
 		};
 	}
 }
-interface AssetEntryJSON<E> {
+export interface AssetEntryJSON<E> {
 	id: string;
 	ownerId: string;
 	entry: E;
-	computeLock: ComputationLock;
+	computeLock: ComputationLockJSON;
 }
