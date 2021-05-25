@@ -16,7 +16,7 @@ export class AssetVariantComputationTask {
 		};
 	}
 }
-interface AssetVariantComputationTaskJSON {
+export interface AssetVariantComputationTaskJSON {
 	assetSignature: string;
 	variantId: string;
 	entityType: AssetVariantEntityType;
