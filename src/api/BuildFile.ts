@@ -9,7 +9,7 @@ export class BuildFile {
 		return { signature: this.Signature, path: this.Path };
 	}
 }
-interface BuildFileJSON {
+export interface BuildFileJSON {
 	signature: string;
 	path: string;
 }
