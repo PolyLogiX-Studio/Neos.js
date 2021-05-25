@@ -1,6 +1,6 @@
-import type { List } from "@bombitmanbomb/utils";
+import { List } from "@bombitmanbomb/utils";
 import type { BuildChangeType } from "./BuildChangeType";
-import type { BuildReporter } from "./BuildReporter";
+import { BuildReporter } from "./BuildReporter";
 export class BuildChange {
 	public Description: string;
 	public Type: BuildChangeType;
@@ -11,8 +11,14 @@ export class BuildChange {
 		this.Description = $b.description;
 		this.Type = $b.type;
 		this.WorkInProgress = $b.workInProgress;
-		this.GithubIssueNumbers = $b.githubIssueNumbers;
-		this.Reporters = $b.reporters;
+		this.GithubIssueNumbers =
+			$b.githubIssueNumbers instanceof List
+				? $b.githubIssueNumbers
+				: List.ToList($b.githubIssueNumbers);
+		this.Reporters =
+			$b.reporters instanceof List
+				? $b.reporters
+				: List.ToListAs($b.reporters, BuildReporter);
 	}
 	toJSON(): BuildChangeJSON {
 		return {
@@ -24,10 +30,10 @@ export class BuildChange {
 		};
 	}
 }
-interface BuildChangeJSON {
+export interface BuildChangeJSON {
 	description: string;
 	type: BuildChangeType;
 	workInProgress: boolean;
-	githubIssueNumbers: List<number>;
-	reporters: List<BuildReporter>;
+	githubIssueNumbers: number[];
+	reporters: BuildReporter[];
 }
