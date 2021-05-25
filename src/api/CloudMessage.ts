@@ -14,6 +14,6 @@ export class CloudMessage {
 		return { Message: this.Message };
 	}
 }
-interface CloudMessageJSON {
+export interface CloudMessageJSON {
 	Message: string;
 }
