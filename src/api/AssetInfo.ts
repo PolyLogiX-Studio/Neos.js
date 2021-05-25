@@ -30,7 +30,7 @@ export class AssetInfo {
 		};
 	}
 }
-interface AssetInfoJSON {
+export interface AssetInfoJSON {
 	ownerId: string;
 	assetHash: string;
 	bytes: number;
