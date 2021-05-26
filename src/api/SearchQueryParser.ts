@@ -6,7 +6,7 @@ export class SearchQueryParser {
 		optionalTags: List<string>,
 		requiredTags: List<string>,
 		excludedTags: List<string>
-	):void {
+	): void {
 		search = search.trim();
 		if (search === "") return;
 		let flag = false;
