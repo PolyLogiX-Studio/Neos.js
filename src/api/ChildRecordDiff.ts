@@ -1,4 +1,5 @@
-import { RecordId } from "./RecordId";
+import { RecordId, RecordIdJSON } from "./RecordId";
+import type { RecordInfoJSON } from "./RecordInfo";
 import { RecordInfo } from "./RecordInfo";
 export class ChildRecordDiff {
 	public Operation: RecordInfoOperation;
@@ -21,16 +22,16 @@ export class ChildRecordDiff {
 		return {
 			operation: this.Operation,
 			created: this.Created,
-			parentRecord: this.ParentRecord.toJSON(),
-			recordInfo: this.RecordInfo.toJSON(),
+			parentRecord: this.ParentRecord.toJSON() as RecordIdJSON,
+			recordInfo: this.RecordInfo.toJSON() as RecordInfoJSON,
 		};
 	}
 }
 export interface ChildRecordDiffJSON {
 	operation: RecordInfoOperation;
 	created: Date;
-	parentRecord: RecordId;
-	recordInfo: RecordInfo;
+	parentRecord: RecordIdJSON;
+	recordInfo: RecordInfoJSON;
 }
 enum RecordInfoOperation {
 	Upsert = "Upsert",
