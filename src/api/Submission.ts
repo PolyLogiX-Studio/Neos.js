@@ -28,7 +28,7 @@ export class Submission {
 		return {
 			id: this.Id,
 			ownerId: this.GroupId,
-			targetRecordId: this.TargetRecordId,
+			targetRecordId: this.TargetRecordId.toJSON(),
 			submissionTime: this.SubmissionTime,
 			submittedById: this.SubmittedById,
 			submittedByName: this.SubmittedByName,
