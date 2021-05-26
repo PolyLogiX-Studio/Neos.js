@@ -1,7 +1,6 @@
 import { IRecord } from "./IRecord";
 import { RecordUtil } from "./RecordUtil";
 import { Uri, Out } from "@bombitmanbomb/utils";
-import { Record } from "./Record";
 export class RecordHelper {
 	public static IsSameVersion(record: IRecord, other: IRecord): boolean {
 		if (other == null) return false;
