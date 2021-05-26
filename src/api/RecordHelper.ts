@@ -28,7 +28,7 @@ export class RecordHelper {
 			record.LastModifyingUserId != null &&
 			record.LastModifyingMachineId == oldRecord.LastModifyingMachineId &&
 			record.LastModifyingUserId == oldRecord.LastModifyingUserId
-			? record.LocalVersion > oldRecord.LocalVersion
+			? (record.LocalVersion as number) > (oldRecord.LocalVersion as number)
 			: record.GlobalVersion == oldRecord.GlobalVersion;
 	}
 
@@ -63,14 +63,75 @@ export class RecordHelper {
 		ownerId: string,
 		rootPath: string,
 		name: string
-	) {
-		const r = {
+	): IRecord {
+		return {
 			OwnerId: ownerId,
 			RecordId: RecordUtil.GenerateRecordID(),
 			RecordType: "directory",
 			Name: name,
 			Path: rootPath,
 		};
-		return r;
+	}
+	public static CreateForObject(
+		name: string,
+		ownerId: string,
+		assetUrl: string,
+		thumbnailUrl: string | undefined = void 0,
+		recordId: string | null = null
+	): IRecord {
+		return {
+			Name: name,
+			AssetURI: assetUrl,
+			ThumbnailURI: thumbnailUrl,
+			OwnerId: ownerId,
+			RecordId: recordId ?? RecordUtil.GenerateRecordID(),
+			RecordType: "object",
+		};
+	}
+	public static CreateForTexture(
+		name: string,
+		ownerId: string,
+		assetUrl: string,
+		thumbnailUrl: string | undefined = void 0,
+		recordId: string | null = null
+	): IRecord {
+		return {
+			Name: name,
+			AssetURI: assetUrl,
+			ThumbnailURI: thumbnailUrl,
+			OwnerId: ownerId,
+			RecordId: recordId ?? RecordUtil.GenerateRecordID(),
+			RecordType: "texture",
+		};
+	}
+	public static CreateForAudioClip(
+		name: string,
+		ownerId: string,
+		assetUrl: string,
+		thumbnailUrl: string | undefined = void 0,
+		recordId: string | null = null
+	): IRecord {
+		return {
+			Name: name,
+			AssetURI: assetUrl,
+			ThumbnailURI: thumbnailUrl,
+			OwnerId: ownerId,
+			RecordId: recordId ?? RecordUtil.GenerateRecordID(),
+			RecordType: "audio",
+		};
+	}
+	public static CreateForLink(
+		name: string,
+		ownerId: string,
+		targetUrl: string,
+		recordId: string | null = null
+	): IRecord {
+		return {
+			Name: name,
+			AssetURI: targetUrl,
+			OwnerId: ownerId,
+			RecordId: recordId ?? RecordUtil.GenerateRecordID(),
+			RecordType: "link",
+		};
 	}
 }
