@@ -2,6 +2,7 @@ import { OwnerType } from "./OwnerType";
 import type { SearchSortParameter } from "./SearchSortParameter";
 import type { SearchSortDirection } from "./SearchSortDirection";
 import { List } from "@bombitmanbomb/utils";
+import { hashCode } from "./HashCode";
 export class SearchParameters {
 	private _isNormalized = false;
 	public Count: number;
@@ -130,6 +131,49 @@ export class SearchParameters {
 	public static Equals(a: SearchParameters, b: SearchParameters): boolean {
 		if (a == null && b == null) return true;
 		return a != null && b != null && a.Equals(b);
+	}
+	public GetHashCode(): number {
+		this.Normalize();
+		let num =
+			(((((((((((-1854586267 * -1521134295 + this.Count) * -1521134295 +
+				this.Offset) *
+				-1521134295 +
+				+this.Private) *
+				-1521134295 +
+				hashCode(this.ByOwner)) *
+				-1521134295 +
+				hashCode(this.OwnerType)) *
+				-1521134295 +
+				hashCode(this.SubmittedTo)) *
+				-1521134295 +
+				+this.OnlyFeatured) *
+				-1521134295 +
+				hashCode(this.RecordType)) *
+				-1521134295 +
+				+(this.MinDate as Date)) *
+				-1521134295 +
+				+(this.MaxDate as Date)) *
+				-1521134295 +
+				hashCode(this.SortBy)) *
+				-1521134295 +
+			hashCode(this.SortDirection);
+		if (this.OptionalTags != null) {
+			for (const optionalTag in this.OptionalTags)
+				num = num * -1521134295 + hashCode(optionalTag);
+		}
+		if (this.RequiredTags != null) {
+			for (const requiredTag in this.RequiredTags)
+				num = num * -1521134295 + hashCode(requiredTag);
+		}
+		if (this.ExcludedTags != null) {
+			for (const excludedTag in this.ExcludedTags)
+				num = num * -1521134295 + hashCode(excludedTag);
+		}
+		if (this.ExtraSignatures != null) {
+			for (const extraSignature in this.ExtraSignatures)
+				num = num * -1521134295 + hashCode(extraSignature);
+		}
+		return num;
 	}
 }
 export interface SearchParametersJSON {
