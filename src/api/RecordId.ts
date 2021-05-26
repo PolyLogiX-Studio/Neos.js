@@ -5,7 +5,7 @@ import { Out } from "@bombitmanbomb/utils";
 export class RecordId {
 	public Id!: string;
 	public OwnerId!: string;
-	public RecordId(ownerId: string, recordId: string) {
+	public RecordId(ownerId: string, recordId: string): void {
 		this.OwnerId = ownerId;
 		this.Id = recordId;
 	}
