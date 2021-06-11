@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD041 -->
-<b>NOTE</b> Use the Legacy Branch for Javascript. Master is the typescript rework, and is not in a working state. All future releases will be Typescript. Core API Moved to [CloudX.js](https://github.com/PolyLogiX-Studio/CloudX.js)
+<b>NOTE</b> Current Public Build moved to Legacy branch. Master is the typescript rework, and is not in a working state. All future releases will be Typescript. Core API Moved to [CloudX.js](https://github.com/PolyLogiX-Studio/CloudX.js)
 
 API Library for NeosVR. This is NOT a client for the Neos Numerical Optimisation Server, Find that at [neos-js](https://github.com/fruchtfolge/neos-js)
 
