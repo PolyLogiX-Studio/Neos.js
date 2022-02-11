@@ -374,13 +374,13 @@ class CloudXInterface {
 	}
 	/**
 	 *
-	 * @returns {"https://www.neosvr-api.com"}
+	 * @returns {"https://api.neos.com"}
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
 	 */
 	static get CLOUDX_PRODUCTION_NEOS_API() {
-		return "https://www.neosvr-api.com";
+		return "https://api.neos.com";
 	}
 	/**
 	 *
@@ -486,7 +486,7 @@ class CloudXInterface {
 	/**.
 	 * Get the Neos Endpoint
 	 *
-	 * @returns {"https://www.neosvr-api.com/" | "https://cloudx-staging.azurewebsites.net/" | "https://localhost:60612/" | Error}
+	 * @returns {"https://api.neos.com/" | "https://cloudx-staging.azurewebsites.net/" | "https://localhost:60612/" | Error}
 	 * @readonly
 	 * @static
 	 * @memberof CloudXInterface
@@ -494,7 +494,7 @@ class CloudXInterface {
 	static get NEOS_API() {
 		switch (CloudXInterface.CLOUD_ENDPOINT) {
 		case CloudXInterface.CloudEndpoint.Production:
-			return "https://www.neosvr-api.com";
+			return "https://api.neos.com";
 		case CloudXInterface.CloudEndpoint.Staging:
 			return "https://cloudx-staging.azurewebsites.net";
 		case CloudXInterface.CloudEndpoint.Local:
