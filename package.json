@@ -55,7 +55,7 @@
 	},
 	"dependencies": {
 		"@bombitmanbomb/cloudx": "1.0.0-beta.4",
-		"@bombitmanbomb/utils": "2.12.3",
+		"@bombitmanbomb/utils": "2.13.0",
 		"uuid": "^8.3.2"
 	}
 }
