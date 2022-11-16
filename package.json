@@ -40,7 +40,7 @@
 		"@types/uuid": "^8.3.0",
 		"@typescript-eslint/eslint-plugin": "^5.25.0",
 		"@typescript-eslint/parser": "^5.36.0",
-		"docdash": "^1.2.0",
+		"docdash": "^2.0.0",
 		"documentation": "^14.0.0",
 		"dotenv": "^10.0.0",
 		"eslint": "^8.8.0",
