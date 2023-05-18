@@ -34,7 +34,7 @@
 		"@babel/core": "^7.12.10",
 		"@babel/plugin-transform-flow-strip-types": "^7.12.1",
 		"@types/minimist": "^1.2.0",
-		"@types/node": "^18.7.11",
+		"@types/node": "^20.2.0",
 		"@types/normalize-package-data": "^2.4.0",
 		"@types/unist": "^2.0.3",
 		"@types/uuid": "^9.0.1",
