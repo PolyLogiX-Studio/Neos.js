@@ -47,7 +47,7 @@
 		"eslint-plugin-jsdoc": "^40.1.1",
 		"jsdoc-tsimport-plugin": "^1.0.5",
 		"prettier": "^2.1.2",
-		"typescript": "^4.2.4",
+		"typescript": "^5.1.5",
 		"typescript-eslint": "^0.0.1-alpha.0"
 	},
 	"engines": {
