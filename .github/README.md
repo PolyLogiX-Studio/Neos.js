@@ -1,3 +1,4 @@
+# NeosVR is Dead. see [Resonite.js](https://github.com/Resonite-js/Resonite.js)
 <!-- markdownlint-disable MD033 -->
 <!-- markdownlint-disable MD041 -->
 <b>NOTE</b> Current Public Build moved to Legacy branch. Master is the typescript rework, and is not in a working state. All future releases will be Typescript. Core API Moved to [CloudX.js](https://github.com/PolyLogiX-Studio/CloudX.js). All future updates to legacy will be published to `@bombitmanbomb/neosjs-legacy`
